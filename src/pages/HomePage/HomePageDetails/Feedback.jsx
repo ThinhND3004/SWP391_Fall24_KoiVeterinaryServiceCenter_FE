@@ -63,8 +63,10 @@ function Feedback() {
                   endAdornment: (
                     <InputAdornment position="end" sx={{ pr: 0 }}>
                       <CustomButton
+
                         variant="contained"
                         endIcon={<ArrowForwardIcon />}
+                        sx={{left: 13}}
                       >
                         Subscribe
                       </CustomButton>
