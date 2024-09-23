@@ -5,6 +5,7 @@ import AboutComponent from '~/pages/About/About.component'
 import HomePageComponent from '~/pages/HomePage/HomePage.component'
 import ContactUs from '~/pages/ContactUs/ContactUs.component'
 import ServicePage from '~/pages/ServicePage/Service.component'
+import KoiHealthComponent from '~/pages/KoiHealthPage/KoiHealth.component'
 
 const RouteComponent = () => {
   return (
@@ -14,6 +15,7 @@ const RouteComponent = () => {
         <Route path='/about' element={<AboutComponent />} />
         <Route path='/contact' element={<ContactUs />} />
         <Route path='/service' element={<ServicePage />} />
+        <Route path='/koihealth' element={<KoiHealthComponent />} />
       </Route>
 
       <Route path='/' element={

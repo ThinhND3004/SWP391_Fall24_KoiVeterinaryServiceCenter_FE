@@ -59,6 +59,9 @@ function Header() {
       case 2:
         navigate('/service')
         break
+      case 3:
+        navigate('/koihealth')
+        break
       case 4:
         navigate('/contact')
         break
