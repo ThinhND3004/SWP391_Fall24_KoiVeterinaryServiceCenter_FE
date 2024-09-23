@@ -41,9 +41,9 @@ function Feedback() {
             sx={{
               fontFamily: 'SVN-Konga Pro',
               fontSize: '48px',
-              color: BLUE_COLOR, // Ensure this is defined
-              display: 'block', // Default value for block elements
-              textAlign: 'left' // Align text to the left
+              color: BLUE_COLOR,
+              display: 'block',
+              textAlign: 'left'
             }}
           >
             We would <span style={{ color: ORANGE_COLOR, marginLeft: '8px' }}>love</span> to hear from you

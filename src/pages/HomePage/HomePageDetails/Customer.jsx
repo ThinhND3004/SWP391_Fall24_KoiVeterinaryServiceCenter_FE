@@ -1,10 +1,9 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
 import { BLUE_COLOR, ORANGE_COLOR } from '~/theme'
-import StarIcon from '@mui/icons-material/Star'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import GradeIcon from '@mui/icons-material/Grade';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import GradeIcon from '@mui/icons-material/Grade'
 
 function Customer() {
   return (
@@ -67,8 +66,8 @@ function Customer() {
               src="https://images.pexels.com/photos/697509/pexels-photo-697509.jpeg?cs=srgb&dl=pexels-andrewpersonaltraining-697509.jpg&fm=jpg"
               style={{
                 objectFit: 'cover',
-                width: '350px',
-                height: '350px',
+                width: '300px',
+                height: '300px',
                 borderRadius: '26px'
               }}
             />

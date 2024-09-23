@@ -56,6 +56,12 @@ function Header() {
       case 1:
         navigate('/about')
         break
+      case 2:
+        navigate('/service')
+        break
+      case 4:
+        navigate('/contact')
+        break
       default:
         navigate('/home')
     }

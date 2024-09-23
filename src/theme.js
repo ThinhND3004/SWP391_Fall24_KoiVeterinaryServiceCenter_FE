@@ -10,6 +10,7 @@ export const GREEN_COLOR = '#D3EFED'
 export const YELLOW_COLOR = '#FFDC60'
 export const PURPLE_COLOR = '#FAEFFF'
 export const ORANGE_PASTEL_COLOR = '#FFE6E4'
+export const INPUT_FIELD_COLOR = '#D6EAE8'
 
 const theme = createTheme({
   palette: {

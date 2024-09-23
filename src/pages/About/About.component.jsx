@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import Quality from './AboutPageDetails/Quality.'
+import Quality from './AboutPageDetails/Quality'
 import ReliableAndTrust from './AboutPageDetails/ReliableAndTrust'
 import Title from './AboutPageDetails/Title'
 import SatisfactionGuaranteed from './AboutPageDetails/SatisfactionGuaranteed'
