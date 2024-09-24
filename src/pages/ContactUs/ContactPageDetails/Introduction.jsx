@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
-import { BLUE_COLOR, INPUT_FIELD_COLOR } from '~/theme'
+import { BLACK_COLOR, BLUE_COLOR, INPUT_FIELD_COLOR } from '~/theme'
 import TextField from '@mui/material/TextField'
 
 function Introduction() {
@@ -37,8 +37,10 @@ function Introduction() {
                     }
                   },
                   '& input': {
-                    padding: '10px 15px',
-                    fontSize: '16px'
+                    backgroundColor: INPUT_FIELD_COLOR,
+                    padding: '20px 15px',
+                    fontSize: '16px',
+                    borderRadius: '15px'
                   }
                 }}
               />
@@ -61,8 +63,10 @@ function Introduction() {
                     }
                   },
                   '& input': {
-                    padding: '10px 15px',
-                    fontSize: '16px'
+                    backgroundColor: INPUT_FIELD_COLOR,
+                    padding: '20px 15px',
+                    fontSize: '16px',
+                    borderRadius: '15px'
                   }
                 }}
               />
@@ -87,8 +91,10 @@ function Introduction() {
                     }
                   },
                   '& input': {
-                    padding: '10px 15px',
-                    fontSize: '16px'
+                    backgroundColor: INPUT_FIELD_COLOR,
+                    padding: '20px 15px',
+                    fontSize: '16px',
+                    borderRadius: '15px'
                   }
                 }}
               />
@@ -111,8 +117,10 @@ function Introduction() {
                     }
                   },
                   '& input': {
-                    padding: '10px 15px',
-                    fontSize: '16px'
+                    backgroundColor: INPUT_FIELD_COLOR,
+                    padding: '20px 15px',
+                    fontSize: '16px',
+                    borderRadius: '15px'
                   }
                 }}
               />
@@ -139,9 +147,11 @@ function Introduction() {
                       borderColor: BLUE_COLOR
                     }
                   },
-                  '& input': {
-                    padding: '10px 15px',
-                    fontSize: '16px'
+                  '& textarea': {
+                    backgroundColor: INPUT_FIELD_COLOR,
+                    padding: '20px 15px',
+                    fontSize: '16px',
+                    borderRadius: '15px'
                   }
                 }}
               />
