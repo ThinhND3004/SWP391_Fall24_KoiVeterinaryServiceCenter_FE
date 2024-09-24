@@ -6,6 +6,7 @@ import HomePageComponent from '~/pages/HomePage/HomePage.component'
 import ContactUs from '~/pages/ContactUs/ContactUs.component'
 import ServicePage from '~/pages/ServicePage/Service.component'
 import KoiHealthComponent from '~/pages/KoiHealthPage/KoiHealth.component'
+import LoginPage from '~/pages/LoginPage/LoginPage.component'
 
 const RouteComponent = () => {
   return (
@@ -16,6 +17,7 @@ const RouteComponent = () => {
         <Route path='/contact' element={<ContactUs />} />
         <Route path='/service' element={<ServicePage />} />
         <Route path='/koihealth' element={<KoiHealthComponent />} />
+        <Route path='/login' element={<LoginPage />} />
       </Route>
 
       <Route path='/' element={

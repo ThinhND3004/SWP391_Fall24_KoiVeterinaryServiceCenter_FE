@@ -178,7 +178,7 @@ function Header() {
             ))}
           </Box>
           <Box minWidth={300} display={'flex'} justifyContent={'center'}>
-            <Button variant="outlined" sx={{
+            <Button variant="outlined" onClick={() => navigate('/login')} sx={{
               border: `1px ${BLUE_COLOR} solid`,
               borderRadius: '30px',
               color: BLUE_COLOR,
