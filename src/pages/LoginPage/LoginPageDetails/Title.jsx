@@ -3,9 +3,12 @@ import React from 'react'
 import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
+import { useNavigate } from 'react-router-dom'
 
 
 function Title() {
+  const navigate = useNavigate()
+  
   return (
     <div>
       <Box display={'flex'} flexDirection={'column'} gap={'100px'} px={'30px'}>
@@ -129,7 +132,7 @@ function Title() {
             <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', marginTop: '20px' }}>
               <Typography sx={{ fontWeight: '500', fontSize: 15 }}>Don't have an account?</Typography>
 
-              <Button onClick={() => navigate('/register')} sx={{
+              {/* <Button onClick={() => navigate('/register')} sx={{
                 color: ORANGE_COLOR,
                 fontWeight: 600,
                 fontSize: 15,
@@ -137,7 +140,17 @@ function Title() {
                 m: 0
               }}>
                 Sign up for free
-              </Button>
+              </Button> */}
+              <Typography onClick={() => navigate('/register')} component={'a'} sx={{
+                color: ORANGE_COLOR,
+                fontWeight: 600,
+                fontSize: 15,
+                cursor: 'pointer',
+                p: 0,
+                m: 0
+              }}>
+                Sign up for free
+              </Typography>
             </Box>
 
             <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', marginTop: '10px' }}>
