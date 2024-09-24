@@ -12,7 +12,7 @@ function Introduction() {
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           minHeight: '100vh',
-          padding: '20px'
+          padding: '20px',
         }}
       >
         <Box sx={{ textAlign: 'center' }}>
