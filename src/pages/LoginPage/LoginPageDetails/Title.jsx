@@ -12,6 +12,12 @@ function Title() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  useEffect(() => {
+    const isLoginned = localStorage.getItem('token') != null;
+    if (isLoginned)
+      navigate('/home');
+  }, [])
+
   const handleLogin = async () => {
     console.log(email);
     console.log(password);
@@ -23,8 +29,7 @@ function Title() {
       });
       console.log(response.data.data.token)
       const { token } = response.data.data.token;
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(response.data.data.token));
+      localStorage.setItem("token", JSON.stringify(response.data.data.token));
       navigate("/home");
     } catch (err) {
       console.log(err);
