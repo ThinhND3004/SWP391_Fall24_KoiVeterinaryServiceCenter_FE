@@ -1,14 +1,38 @@
 import { Box, TextField, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import { useNavigate } from 'react-router-dom'
-
+import api from '~/config/axios'
 
 function Title() {
   const navigate = useNavigate()
-  
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {
+    console.log(email);
+    console.log(password);
+
+    try {
+      // Wrap email and password in an object to send as POST data
+      const response = await api.post("/auth/login-password", {
+        email,
+        password,
+      });
+      console.log(response.data.data.token)
+      const { token } = response.data.data.token;
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(response.data.data.token));
+      navigate("/home");
+    } catch (err) {
+      console.log(err);
+      alert(err.response.data.data.token);
+    }
+  };
+
   return (
     <div>
       <Box display={'flex'} flexDirection={'column'} gap={'100px'} px={'30px'}>
@@ -16,13 +40,13 @@ function Title() {
           <img src='https://i.etsystatic.com/16221531/r/il/283513/3896651157/il_570xN.3896651157_7xfk.jpg' style={{ objectFit: 'contain', width: '400px', borderRadius: '26px' }} />
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 30, textAlign: 'center', color: BLUE_COLOR }}>
-              Welcome to <span style={{ color: ORANGE_COLOR }} >Koi Care Clinic</span>
+              Welcome to <span style={{ color: ORANGE_COLOR }}>Koi Care Clinic</span>
             </Typography>
             <Typography sx={{ textAlign: 'center', fontSize: 12, marginTop: '10px' }}>
               Complete. Connected. Compassionate. At Tia, we care for the whole you with a team of<br /> providers working together to help you achieve optimal health, on your terms.
             </Typography>
 
-            {/* Login using google */}
+            {/* Login using Google */}
             <Box sx={{ marginTop: '30px', display: 'flex', justifyContent: 'center' }}>
               <Button variant="contained" sx={{
                 borderRadius: '15px',
@@ -47,23 +71,19 @@ function Title() {
             </Box>
 
             {/* Login using email + pwd */}
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                flexDirection: 'column',
-              }}
-            >
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
               <Box sx={{ paddingTop: '20px', display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
                 <Typography sx={{ fontWeight: 600, fontSize: 15 }}>
                   Email
-                  <span style={{ color: ORANGE_COLOR }} > *</span>
+                  <span style={{ color: ORANGE_COLOR }}> *</span>
                 </Typography>
                 <TextField
                   id="outlined-basic"
                   placeholder='Enter your email'
                   variant="outlined"
+                  type='email'
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   sx={{
                     width: '500px',
                     '& .MuiOutlinedInput-root': {
@@ -85,12 +105,15 @@ function Title() {
               <Box sx={{ paddingTop: '30px' }}>
                 <Typography sx={{ fontWeight: 600, fontSize: 15 }}>
                   Password
-                  <span style={{ color: ORANGE_COLOR }} > *</span>
+                  <span style={{ color: ORANGE_COLOR }}> *</span>
                 </Typography>
                 <TextField
                   id="outlined-basic"
                   placeholder='Enter your password'
                   variant="outlined"
+                  type='password'
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   sx={{
                     width: '500px',
                     '& .MuiOutlinedInput-root': {
@@ -111,7 +134,6 @@ function Title() {
               </Box>
             </Box>
 
-
             {/* Login submit */}
             <Box sx={{ marginTop: '30px', display: 'flex', justifyContent: 'center' }}>
               <Button variant="contained" sx={{
@@ -123,7 +145,9 @@ function Title() {
                 boxShadow: 'none',
                 gap: 2,
                 color: '#fff'
-              }}>
+              }}
+              onClick={handleLogin}
+              >
                 Login
               </Button>
             </Box>
@@ -132,15 +156,6 @@ function Title() {
             <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', marginTop: '20px' }}>
               <Typography sx={{ fontWeight: '500', fontSize: 15 }}>Don't have an account?</Typography>
 
-              {/* <Button onClick={() => navigate('/register')} sx={{
-                color: ORANGE_COLOR,
-                fontWeight: 600,
-                fontSize: 15,
-                p: 0,
-                m: 0
-              }}>
-                Sign up for free
-              </Button> */}
               <Typography onClick={() => navigate('/register')} component={'a'} sx={{
                 color: ORANGE_COLOR,
                 fontWeight: 600,
@@ -155,15 +170,15 @@ function Title() {
 
             <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', marginTop: '10px' }}>
               <Typography sx={{ fontSize: '14px' }}>
-                By signing up, you argee to our <span style={{ fontWeight: 500 }} >Terms of services & Privacy policy.</span>
+                By signing up, you agree to our <span style={{ fontWeight: 500 }}>Terms of services & Privacy policy.</span>
               </Typography>
             </Box>
 
           </Box>
         </Box>
-      </Box >
+      </Box>
     </div>
   )
 }
 
-export default Title
+export default Title;
