@@ -1,5 +1,5 @@
 import { Box, TextField, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
@@ -17,7 +17,6 @@ function Title() {
     console.log(password);
 
     try {
-      // Wrap email and password in an object to send as POST data
       const response = await api.post("/auth/login-password", {
         email,
         password,
@@ -32,6 +31,20 @@ function Title() {
       alert(err.response.data.data.token);
     }
   };
+
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === 'Enter') {
+        handleLogin();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [email, password]);
 
   return (
     <div>
