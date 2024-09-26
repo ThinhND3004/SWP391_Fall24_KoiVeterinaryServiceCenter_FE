@@ -33,7 +33,7 @@ function TimeBlock({ dayIndex, time }) {
     return (
         <Box
             sx={{
-                backgroundColor: 'rgb(255, 216, 216)',
+                backgroundColor: 'white',
                 width: '100%',
                 height: 'calc(20px + 0.22vw)',
                 borderLeft: '1px solid rgb(22, 21, 21)',
@@ -63,8 +63,8 @@ function TableGrid() {
                 <React.Fragment key={dayIndex}>
                     {timeArr.map((time, timeIndex) => (
                         <React.Fragment key={timeIndex}>
-                            <TimeBlock day_index={dayIndex} time={`${timeArr[timeIndex]}:00`} />
-                            <TimeBlock day_index={dayIndex} time={`${timeArr[timeIndex]}:30`} />
+                            <TimeBlock dayIndex={dayIndex} time={`${timeArr[timeIndex]}:00`} />
+                            <TimeBlock dayIndex={dayIndex} time={`${timeArr[timeIndex]}:30`} />
                         </React.Fragment>
                     ))}
                 </React.Fragment>
