@@ -8,7 +8,7 @@ import GradeIcon from '@mui/icons-material/Grade'
 function Customer() {
   return (
     <div>
-      <Box sx={{ bgcolor: '#D3EFED', padding: '50px 0px 50px 0px', borderRadius: '14px' }}>
+      <Box sx={{ bgcolor: '#D3EFED', padding: '50px 0px 50px 0px', borderRadius: '14px', marginBottom: '40px' }}>
         <Typography
           sx={{
             fontFamily: 'SVN-Konga Pro',

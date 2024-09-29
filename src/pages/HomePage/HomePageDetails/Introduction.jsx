@@ -8,10 +8,10 @@ function Introduction() {
       <Box
         sx={{
           backgroundImage: 'url("src/assets/images/bg.png")', // Replace with your image URL
-          backgroundSize: 'cover',
+          backgroundSize: '100%',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          minHeight: '100vh',
+          minHeight: '70vh',
           padding: '20px',
         }}
       >

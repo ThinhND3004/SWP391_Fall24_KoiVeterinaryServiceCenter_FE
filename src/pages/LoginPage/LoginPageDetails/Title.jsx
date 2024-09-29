@@ -55,12 +55,12 @@ function Title() {
     <div>
       <Box display={'flex'} flexDirection={'column'} gap={'100px'} px={'30px'}>
         <Box sx={{ display: 'flex', justifyContent: 'space-around', marginBottom: '50px', marginTop: '10px' }}>
-          <img src='https://i.etsystatic.com/16221531/r/il/283513/3896651157/il_570xN.3896651157_7xfk.jpg' style={{ objectFit: 'contain', width: '400px', borderRadius: '26px' }} />
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 30, textAlign: 'center', color: BLUE_COLOR }}>
+          <img src='https://i.etsystatic.com/16221531/r/il/283513/3896651157/il_570xN.3896651157_7xfk.jpg' style={{ objectFit: 'contain', width: '500px', borderRadius: '26px' }} />
+          <Box sx={{ display: 'flex', flexDirection: 'column', mt: '40px' }}>
+            <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 40, textAlign: 'center', color: BLUE_COLOR }}>
               Welcome to <span style={{ color: ORANGE_COLOR }}>Koi Care Clinic</span>
             </Typography>
-            <Typography sx={{ textAlign: 'center', fontSize: 12, marginTop: '10px' }}>
+            <Typography sx={{ textAlign: 'center', fontSize: 14, marginTop: '10px' }}>
               Complete. Connected. Compassionate. At Tia, we care for the whole you with a team of<br /> providers working together to help you achieve optimal health, on your terms.
             </Typography>
 
@@ -84,14 +84,14 @@ function Title() {
             {/* Divider */}
             <Box sx={{ marginTop: '20px' }}>
               <Divider>
-                <Typography sx={{ fontSize: 12 }}>or</Typography>
+                <Typography sx={{ fontSize: 14 }}>or</Typography>
               </Divider>
             </Box>
 
             {/* Login using email + pwd */}
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
               <Box sx={{ paddingTop: '20px', display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
-                <Typography sx={{ fontWeight: 600, fontSize: 15 }}>
+                <Typography sx={{ fontWeight: 600, fontSize: 18 }}>
                   Email
                   <span style={{ color: ORANGE_COLOR }}> *</span>
                 </Typography>
@@ -121,7 +121,7 @@ function Title() {
                 />
               </Box>
               <Box sx={{ paddingTop: '30px' }}>
-                <Typography sx={{ fontWeight: 600, fontSize: 15 }}>
+                <Typography sx={{ fontWeight: 600, fontSize: 18 }}>
                   Password
                   <span style={{ color: ORANGE_COLOR }}> *</span>
                 </Typography>
@@ -164,7 +164,7 @@ function Title() {
                 gap: 2,
                 color: '#fff'
               }}
-              onClick={handleLogin}
+                onClick={handleLogin}
               >
                 Login
               </Button>
