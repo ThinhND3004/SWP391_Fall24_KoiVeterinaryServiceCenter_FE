@@ -5,7 +5,7 @@ import { BLUE_COLOR, ORANGE_COLOR } from '~/theme'
 function Quality() {
   return (
     <div>
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex', height: '500px' }}>
         <Box sx={{ position: 'relative', background: `url(${koiAboutImg}) no-repeat 50% 50%`, width: '750px', height: '710px', top: '-280px' }} />
         <Box sx={{ width: '800px' }}>
           <Typography
