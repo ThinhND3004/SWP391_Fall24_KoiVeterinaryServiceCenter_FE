@@ -57,10 +57,10 @@ function Title() {
         <Box sx={{ display: 'flex', justifyContent: 'space-around', marginBottom: '50px', marginTop: '10px' }}>
           <img src='https://i.etsystatic.com/16221531/r/il/283513/3896651157/il_570xN.3896651157_7xfk.jpg' style={{ objectFit: 'contain', width: '500px', borderRadius: '26px' }} />
           <Box sx={{ display: 'flex', flexDirection: 'column', mt: '40px' }}>
-            <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 48, textAlign: 'center', color: BLUE_COLOR }}>
+            <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 45, textAlign: 'center', color: BLUE_COLOR }}>
               Welcome to <span style={{ color: ORANGE_COLOR }}>Koi Care Clinic</span>
             </Typography>
-            <Typography sx={{ textAlign: 'center', fontSize: 15, marginTop: '10px' }}>
+            <Typography sx={{ textAlign: 'center', fontSize: 14, marginTop: '10px' }}>
               Complete. Connected. Compassionate. At Tia, we care for the whole you with a team of<br /> providers working together to help you achieve optimal health, on your terms.
             </Typography>
 
@@ -72,7 +72,7 @@ function Title() {
                 height: '60px',
                 width: '560px',
                 fontWeight: 600,
-                fontSize: 20,
+                fontSize: 16,
                 boxShadow: 'none',
                 gap: 2
               }}>
@@ -91,7 +91,7 @@ function Title() {
             {/* Login using email + pwd */}
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
               <Box sx={{ paddingTop: '20px', display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
-                <Typography sx={{ fontWeight: 600, fontSize: 20 }}>
+                <Typography sx={{ fontWeight: 600, fontSize: 16 }}>
                   Email
                   <span style={{ color: ORANGE_COLOR }}> *</span>
                 </Typography>
@@ -115,13 +115,13 @@ function Title() {
                     },
                     '& input': {
                       padding: '10px 15px',
-                      fontSize: '18px'
+                      fontSize: '16px'
                     }
                   }}
                 />
               </Box>
               <Box sx={{ paddingTop: '30px' }}>
-                <Typography sx={{ fontWeight: 600, fontSize: 20 }}>
+                <Typography sx={{ fontWeight: 600, fontSize: 16 }}>
                   Password
                   <span style={{ color: ORANGE_COLOR }}> *</span>
                 </Typography>
@@ -145,7 +145,7 @@ function Title() {
                     },
                     '& input': {
                       padding: '10px 15px',
-                      fontSize: '18px'
+                      fontSize: '16px'
                     }
                   }}
                 />
@@ -159,7 +159,7 @@ function Title() {
                 bgcolor: BLUE_COLOR,
                 height: '60px',
                 width: '560px',
-                fontSize: 20,
+                fontSize: 16,
                 boxShadow: 'none',
                 gap: 2,
                 color: '#fff'
@@ -172,12 +172,12 @@ function Title() {
 
             {/* Don't have account? */}
             <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', marginTop: '20px' }}>
-              <Typography sx={{ fontWeight: '500', fontSize: 20 }}>Don't have an account?</Typography>
+              <Typography sx={{ fontWeight: '500', fontSize: 16 }}>Don't have an account?</Typography>
 
               <Typography onClick={() => navigate('/register')} component={'a'} sx={{
                 color: ORANGE_COLOR,
                 fontWeight: 600,
-                fontSize: 20,
+                fontSize: 16,
                 cursor: 'pointer',
                 p: 0,
                 m: 0

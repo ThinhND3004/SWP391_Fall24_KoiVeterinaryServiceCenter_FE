@@ -14,17 +14,17 @@ function RegisterPageDetails() {
   return (
     <div>
       <Box sx={{ margin: 0, padding: 0 }}>
-        <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 64, textAlign: 'left', color: BLUE_COLOR }}>
+        <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 50, textAlign: 'left', color: BLUE_COLOR }}>
           Registration
         </Typography>
-        <Typography sx={{ fontSize: 15, textAlign: 'left', color: BLUE_COLOR }}>
+        <Typography sx={{ fontSize: 14, textAlign: 'left', color: BLUE_COLOR }}>
           Enter your details below to create your account and get started
         </Typography>
         <Box>
 
           <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-between' }}>
             <Box>
-              <Typography sx={{ fontWeight: 600, fontSize: 20 }}>First name</Typography>
+              <Typography sx={{ fontWeight: 600, fontSize: 16 }}>First name</Typography>
               <TextField
                 id="outlined-basic"
                 placeholder='Enter your first name'
@@ -50,7 +50,7 @@ function RegisterPageDetails() {
               />
             </Box>
             <Box>
-              <Typography sx={{ fontWeight: 600, fontSize: 20 }}>Last name</Typography>
+              <Typography sx={{ fontWeight: 600, fontSize: 16 }}>Last name</Typography>
               <TextField
                 id="outlined-basic"
                 placeholder='Enter your last name'
@@ -78,7 +78,7 @@ function RegisterPageDetails() {
           </Box>
           <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-between' }}>
             <Box>
-              <Typography sx={{ fontWeight: 600, fontSize: 20 }}>Email</Typography>
+              <Typography sx={{ fontWeight: 600, fontSize: 16 }}>Email</Typography>
               <TextField
                 id="outlined-basic"
                 placeholder='Enter your email'
@@ -105,7 +105,7 @@ function RegisterPageDetails() {
             </Box>
             <Box>
 
-              <Typography sx={{ fontWeight: 600, fontSize: 20 }}>Date of Birth</Typography>
+              <Typography sx={{ fontWeight: 600, fontSize: 16 }}>Date of Birth</Typography>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={['DatePicker']} variant='outlined'
                   sx={{
@@ -142,7 +142,7 @@ function RegisterPageDetails() {
 
           <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-between' }}>
             <Box>
-              <Typography sx={{ fontWeight: 600, fontSize: 20 }}>Phone number</Typography>
+              <Typography sx={{ fontWeight: 600, fontSize: 16 }}>Phone number</Typography>
               <TextField
                 id="outlined-basic"
                 placeholder='Enter your phone number'
@@ -168,7 +168,7 @@ function RegisterPageDetails() {
               />
             </Box>
             <Box>
-              <Typography sx={{ fontWeight: 600, fontSize: 20 }}>Address</Typography>
+              <Typography sx={{ fontWeight: 600, fontSize: 16 }}>Address</Typography>
               <TextField
                 id="outlined-basic"
                 placeholder='Enter your address'
@@ -197,7 +197,7 @@ function RegisterPageDetails() {
 
           <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-between' }}>
             <Box>
-              <Typography sx={{ fontWeight: 600, fontSize: 20 }}>Password</Typography>
+              <Typography sx={{ fontWeight: 600, fontSize: 16 }}>Password</Typography>
               <TextField
                 id="outlined-basic"
                 placeholder='Enter your password'
@@ -223,7 +223,7 @@ function RegisterPageDetails() {
               />
             </Box>
             <Box>
-              <Typography sx={{ fontWeight: 600, fontSize: 20 }}>Confirm Password</Typography>
+              <Typography sx={{ fontWeight: 600, fontSize: 16 }}>Confirm Password</Typography>
               <TextField
                 id="outlined-basic"
                 placeholder='Enter your password'
@@ -283,7 +283,8 @@ function RegisterPageDetails() {
                     justifyContent: 'center',
                     color: BLUE_COLOR,
                     fontFamily: 'Poppins',
-                    textAlign: 'center'
+                    textAlign: 'center',
+                    fontWeight: 600
                   }}
                 >
                   Cancel
@@ -321,7 +322,8 @@ function RegisterPageDetails() {
                     justifyContent: 'center',
                     color: '#fff',
                     fontFamily: 'Poppins',
-                    textAlign: 'center'
+                    textAlign: 'center',
+                    fontWeight: 500
                   }}
                 >
                   Create account
@@ -331,12 +333,12 @@ function RegisterPageDetails() {
           </Box>
 
           <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', marginBottom: '40px' }}>
-            <Typography sx={{ fontWeight: '500', fontSize: 20 }}>Already have an account?</Typography>
+            <Typography sx={{ fontWeight: '500', fontSize: 16 }}>Already have an account?</Typography>
 
             <Typography onClick={() => navigate('/login')} component={'a'} sx={{
               color: ORANGE_COLOR,
               fontWeight: 600,
-              fontSize: 20,
+              fontSize: 16,
               cursor: 'pointer',
               p: 0,
               m: 0

@@ -18,10 +18,10 @@ function Introduction() {
         }}
       >
         <Box sx={{ textAlign: 'center' }}>
-          <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 100, color: BLUE_COLOR }}>
+          <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 80, color: BLUE_COLOR }}>
             Your <span style={{ color: ORANGE_COLOR }}>koi's</span> best
           </Typography>
-          <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 100, color: ORANGE_COLOR, marginTop: '-30px' }}>
+          <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 80, color: ORANGE_COLOR, marginTop: '-30px' }}>
             friend
           </Typography>
         </Box>

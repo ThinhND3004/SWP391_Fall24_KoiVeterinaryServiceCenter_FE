@@ -55,7 +55,7 @@ function Question() {
               id="panel2-header"
               sx={{ bgcolor: '#D3EFED', borderRadius: '15px', height: '60px', display: 'flex', alignItems: 'center' }}
             >
-              <Typography sx={{ fontWeight: 600, color: BLUE_COLOR, height: '30px', display: 'flex', alignItems: 'center', gap: 0.5 }}>How does<span style={{ color: ORANGE_COLOR }}>Koi Care Clinic </span> work?</Typography>
+              <Typography sx={{ fontWeight: 600, color: BLUE_COLOR, height: '30px', display: 'flex', alignItems: 'center', gap: 0.5, fontSize: '18px' }}>How does<span style={{ color: ORANGE_COLOR }}>Koi Care Clinic </span> work?</Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ bgcolor: '#D6EAE8', borderRadius: '15px', mt: 2 }}>
               <Typography>
@@ -77,7 +77,7 @@ function Question() {
               id="panel2-header"
               sx={{ bgcolor: '#D3EFED', borderRadius: '15px', height: '60px', display: 'flex', alignItems: 'center' }}
             >
-              <Typography sx={{ fontWeight: 600, color: BLUE_COLOR, height: '30px', display: 'flex', alignItems: 'center', gap: 0.5 }}>How does<span style={{ color: ORANGE_COLOR }}>Koi Care Clinic </span> work?</Typography>
+              <Typography sx={{ fontWeight: 600, color: BLUE_COLOR, height: '30px', display: 'flex', alignItems: 'center', gap: 0.5, fontSize: '18px' }}>How does<span style={{ color: ORANGE_COLOR }}>Koi Care Clinic </span> work?</Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ bgcolor: '#D6EAE8', borderRadius: '15px', mt: 2 }}>
               <Typography>
@@ -99,7 +99,7 @@ function Question() {
               id="panel2-header"
               sx={{ bgcolor: '#D3EFED', borderRadius: '15px', height: '60px', display: 'flex', alignItems: 'center' }}
             >
-              <Typography sx={{ fontWeight: 600, color: BLUE_COLOR, height: '30px', display: 'flex', alignItems: 'center', gap: 0.5 }}>How does<span style={{ color: ORANGE_COLOR }}>Koi Care Clinic </span> work?</Typography>
+              <Typography sx={{ fontWeight: 600, color: BLUE_COLOR, height: '30px', display: 'flex', alignItems: 'center', gap: 0.5, fontSize: '18px' }}>How does<span style={{ color: ORANGE_COLOR }}>Koi Care Clinic </span> work?</Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ bgcolor: '#D6EAE8', borderRadius: '15px', mt: 2 }}>
               <Typography>
@@ -121,7 +121,7 @@ function Question() {
               id="panel2-header"
               sx={{ bgcolor: '#D3EFED', borderRadius: '15px', height: '60px', display: 'flex', alignItems: 'center' }}
             >
-              <Typography sx={{ fontWeight: 600, color: BLUE_COLOR, height: '30px', display: 'flex', alignItems: 'center', gap: 0.5 }}>How does<span style={{ color: ORANGE_COLOR }}>Koi Care Clinic </span> work?</Typography>
+              <Typography sx={{ fontWeight: 600, color: BLUE_COLOR, height: '30px', display: 'flex', alignItems: 'center', gap: 0.5, fontSize: '18px' }}>How does<span style={{ color: ORANGE_COLOR }}>Koi Care Clinic </span> work?</Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ bgcolor: '#D6EAE8', borderRadius: '15px', mt: 2 }}>
               <Typography>

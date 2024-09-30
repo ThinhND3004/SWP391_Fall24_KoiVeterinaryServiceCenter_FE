@@ -42,8 +42,8 @@ function ConsultVet() {
           </Box>
 
           <Box>
-            <Typography sx={{ fontWeight: 400, fontSize: 18, lineHeight: 1.7 }}>With years of experience in aquatic animal health, our veterinarian is well-equipped to diagnose and treat various koi ailments.</Typography>
-            <Typography sx={{ fontWeight: 400, fontSize: 18, lineHeight: 1.7 }}>
+            <Typography sx={{ fontWeight: 400, fontSize: 16, lineHeight: 2 }}>With years of experience in aquatic animal health, our veterinarian is well-equipped to diagnose and treat various koi ailments.</Typography>
+            <Typography sx={{ fontWeight: 400, fontSize: 16, lineHeight: 2 }}>
               <ul>
                 <li>Regular check-ups can help prevent costly treatments in the long run.</li>
                 <li>Early detection and treatment can significantly improve your koi's chances of recovery.</li>
@@ -66,11 +66,10 @@ function ConsultVet() {
                 height: 'fit-content',
                 backgroundColor: BLUE_COLOR,
                 borderRadius: '40px',
-                // boxShadow: '0px 5px 10px #bebebe',
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 border: 'none',
-                cursor: 'pointer',
+                cursor: 'pointer'
               }}
             >
               {/* Text on the left */}

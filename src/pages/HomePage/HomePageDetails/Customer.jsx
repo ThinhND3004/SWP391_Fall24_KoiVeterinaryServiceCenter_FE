@@ -42,11 +42,11 @@ function Customer() {
           <Box sx={{ width: '600px', borderRadius: '26px', padding: '0px 50px' }}>
 
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <Typography sx={{ fontWeight: 400, fontSize: 18, lineHeight: 2 }}>
+              <Typography sx={{ fontWeight: 400, fontSize: 16, lineHeight: 2 }}>
                 I had a fantastic experience at Koi Care Clinic! The staff was friendly and knowledgeable, and they explained every step of my koi’s treatment clearly. The follow-up care really showed how much they care about their clients. My only suggestion would be to offer weekend appointments for added convenience. Highly recommend this clinic for any koi care!
               </Typography>
               <Box sx={{ display: 'flex', gap: 5 }}>
-                <Typography sx={{ fontWeight: 700, fontSize: 24 }}>Sarah Thompson</Typography>
+                <Typography sx={{ fontWeight: 700, fontSize: 20 }}>Sarah Thompson</Typography>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <GradeIcon sx={{ color: '#F3A230', fontSize: 24 }} />
                   <Typography sx={{ fontWeight: 700, fontSize: 24 }}>5.0</Typography>
