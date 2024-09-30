@@ -1,8 +1,10 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
 import { BLUE_COLOR, ORANGE_COLOR } from '~/theme'
+import { useNavigate } from 'react-router-dom'
 
 function Introduction() {
+  const navigate = useNavigate()
   return (
     <div>
       <Box
@@ -61,7 +63,9 @@ function Introduction() {
                 fontFamily: 'Poppins'
               }}
             >
-              Get Started
+              <Typography onClick={() => navigate('/service')} component={'a'}>
+                Get Started
+              </Typography>
             </Box>
 
             {/* Circle with icon on the right */}

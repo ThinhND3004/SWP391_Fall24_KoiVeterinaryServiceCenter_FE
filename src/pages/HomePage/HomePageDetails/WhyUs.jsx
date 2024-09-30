@@ -1,8 +1,10 @@
 import React from 'react'
 import { Box, Typography } from '@mui/material'
 import { BG_COLOR, BLUE_COLOR, GRAY_COLOR, ORANGE_COLOR } from '~/theme'
+import { useNavigate } from 'react-router-dom'
 
 function WhyUs() {
+  const navigate = useNavigate()
   return (
     <div>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -67,7 +69,9 @@ function WhyUs() {
                   fontFamily: 'Poppins'
                 }}
               >
-                Learn More
+                <Typography onClick={() => navigate('/about')} component={'a'}>
+                  Learn More
+                </Typography>
               </Box>
 
               {/* Circle with icon on the right */}

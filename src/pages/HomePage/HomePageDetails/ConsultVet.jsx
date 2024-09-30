@@ -2,9 +2,10 @@ import React from 'react'
 import { Box, Typography } from '@mui/material'
 import { BG_COLOR, BLUE_COLOR, GRAY_COLOR, ORANGE_COLOR } from '~/theme'
 import { List, ListItem } from '@mui/material'
-
+import { useNavigate } from 'react-router-dom'
 
 function ConsultVet() {
+  const navigate = useNavigate()
   return (
     <div>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -84,7 +85,9 @@ function ConsultVet() {
                   fontFamily: 'Poppins'
                 }}
               >
-                Request Appointment
+                <Typography onClick={() => navigate('/requestAppointment')} component={'a'}>
+                  Request Appointment
+                </Typography>
               </Box>
 
               <svg

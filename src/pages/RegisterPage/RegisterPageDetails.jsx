@@ -131,7 +131,8 @@ function RegisterPageDetails() {
                     label=''
                     sx={{
                       backgroundColor: INPUT_FIELD_COLOR,
-                      width: '600px'
+                      width: '600px',
+                      borderRadius: '15px'
                     }} />
                 </DemoContainer>
               </LocalizationProvider>
