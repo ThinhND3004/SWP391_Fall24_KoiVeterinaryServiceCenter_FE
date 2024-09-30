@@ -1,12 +1,16 @@
 import { Box, TextField, Typography } from '@mui/material'
 import React from 'react'
-import { BLUE_COLOR, INPUT_FIELD_COLOR } from '~/theme'
+import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { useNavigate } from 'react-router-dom'
+
 
 function RegisterPageDetails() {
+  const navigate = useNavigate()
+
   return (
     <div>
       <Box sx={{ margin: 0, padding: 0 }}>
@@ -103,16 +107,32 @@ function RegisterPageDetails() {
 
               <Typography sx={{ fontWeight: 600, fontSize: 20 }}>Date of Birth</Typography>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={['DatePicker']} sx={{
-                  color: INPUT_FIELD_COLOR,
-                  borderRadius: '15px',
-                  borderColor: BLUE_COLOR,
-                  height: '60px',
-                  marginTop: '15px'
-                }}>
-                  <DatePicker label="Select your date" sx={{
-                    width: '600px'
-                  }} />
+                <DemoContainer components={['DatePicker']} variant='outlined'
+                  sx={{
+                    overflow: 'hidden',
+                    width: '600px',
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '15px',
+                      borderColor: BLUE_COLOR,
+                      height: '60px',
+                      '&.Mui-focused fieldset': {
+                        borderColor: BLUE_COLOR
+                      }
+                    },
+                    '& input': {
+                      backgroundColor: INPUT_FIELD_COLOR,
+                      padding: '20px 15px',
+                      fontSize: '16px',
+                      borderRadius: '15px'
+                    }
+                  }}>
+                  <DatePicker
+                    placeholder="Select your date"
+                    label=''
+                    sx={{
+                      backgroundColor: INPUT_FIELD_COLOR,
+                      width: '600px'
+                    }} />
                 </DemoContainer>
               </LocalizationProvider>
 
@@ -308,6 +328,23 @@ function RegisterPageDetails() {
               </Box>
             </Box>
           </Box>
+
+          <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', marginBottom: '40px' }}>
+            <Typography sx={{ fontWeight: '500', fontSize: 20 }}>Already have an account?</Typography>
+
+            <Typography onClick={() => navigate('/login')} component={'a'} sx={{
+              color: ORANGE_COLOR,
+              fontWeight: 600,
+              fontSize: 20,
+              cursor: 'pointer',
+              p: 0,
+              m: 0
+            }}>
+              Login
+            </Typography>
+          </Box>
+
+
         </Box>
       </Box>
     </div >
