@@ -27,13 +27,17 @@ function Title() {
         email,
         password,
       });
-      console.log(response.data.data.token)
-      const { token } = response.data.data.token;
-      localStorage.setItem("token", JSON.stringify(response.data.data.token));
-      navigate("/home");
+      console.log("LOGIN_RES: ", response)
+      if(response.data.data.token != null)
+      {
+        localStorage.setItem("token", response.data.data.token);
+        navigate("/home");
+      }
+
+      
     } catch (err) {
       console.log(err);
-      alert(err.response.data.data.token);
+      alert(err.response.data.token);
     }
   };
 

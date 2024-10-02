@@ -1,18 +1,140 @@
-import { Box, TextField, Typography } from '@mui/material'
-import React from 'react'
+import { Box, Container, TextField, Typography } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { useNavigate } from 'react-router-dom'
+import api from '~/config/axios'
+import dayjs from 'dayjs'
+import { set, setDate } from 'date-fns'
+import Alert from '@mui/material/Alert';
+
 
 
 function RegisterPageDetails() {
   const navigate = useNavigate()
 
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [dob, setDob] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
+  const [role, setRole] = useState('CUSTOMER');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const [dateOfBirth, setDateOfBirth] = useState(dayjs());
+
+  const [errRes, setErrRes] = useState('');
+
+  useEffect(() => {
+    if (dateOfBirth) {
+      setDob(dateOfBirth.format("YYYY-MM-DD"));
+    }
+  }, [dateOfBirth])
+
+  const [error, setError] = useState({})
+
+
+  const handleValidation = () => {
+
+    const newError = {};
+
+    if (!firstName) newError.firstName = 'First name is required!';
+    if (!lastName) newError.lastName = 'Last name is required!';
+    if (!password) newError.password = 'Password is required!';
+    if (!email) newError.email = 'Email is required!';
+    if (!dob) newError.dob = 'Date of birth is required!';
+    if (!address) newError.address = 'Address is required!';
+    if (!phone) newError.phone = 'Phone number is required!';
+    if (password != confirmPassword) newError.password = 'Password and Confirm Password must be same!'
+
+    setError(newError);
+
+    return Object.keys(newError).length === 0;
+  }
+
+
+  const handleClearInfo = () => {
+    setFirstName('');
+    setLastName('');
+    setPassword('');
+    setAddress('');
+    setConfirmPassword('');
+    setDateOfBirth(dayjs());
+    setDob('');
+    setEmail('');
+    setPhone('');
+  }
+
+
+
+  const handleRegis = async (e) => {
+    e.preventDefault(); // Prevent form from refreshing the page
+    console.log("DOB: ", dob)
+    try {
+      // Validate the form fields
+      if (handleValidation()) {
+        // Send the registration data to the API
+        const response = await api.post("/accounts", {
+          email,
+          password,
+          firstName,
+          lastName,
+          dob,
+          phone,
+          address,
+          role
+        });
+
+        const dataErr = response.data.err;
+
+        if(dataErr != null)
+        {
+          setErrRes(dataErr);
+        } else
+        {
+          setErrRes(null);
+        }
+        
+
+        console.log("REGISTER RESULT: ", response);
+
+        handleClearInfo();
+        // Optional: Handle success (e.g., redirect user, show success message)
+      } else {
+        console.log("Validation failed. Please check your inputs.");
+      }
+    } catch (error) {
+      console.error("ERROR: ", error); // Log the actual error for debugging
+      // Optional: Show user-friendly error message (e.g., "Failed to create account")
+    }
+  };
+
+
+
+
   return (
     <div>
+
+      {errRes
+        &&
+        <Alert variant="filled" severity="error">
+          { errRes }
+        </Alert>
+      }
+
+{!errRes
+        &&
+        <Alert variant="filled" severity="success">
+          Register successfully
+        </Alert>
+      }
+
+
       <Box sx={{ margin: 0, padding: 0 }}>
         <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 50, textAlign: 'left', color: BLUE_COLOR }}>
           Registration
@@ -29,6 +151,9 @@ function RegisterPageDetails() {
                 id="outlined-basic"
                 placeholder='Enter your first name'
                 variant="outlined"
+                type='text'
+                value={firstName}
+                onChange={(e) => { setFirstName(e.target.value) }}
                 sx={{
                   width: '600px',
                   '& .MuiOutlinedInput-root': {
@@ -48,13 +173,18 @@ function RegisterPageDetails() {
                   }
                 }}
               />
+              {error.firstName && <span style={{ color: 'red' }}>{error.firstName}</span>}
             </Box>
+
             <Box>
               <Typography sx={{ fontWeight: 600, fontSize: 16 }}>Last name</Typography>
               <TextField
                 id="outlined-basic"
                 placeholder='Enter your last name'
                 variant="outlined"
+                type='text'
+                value={lastName}
+                onChange={(e) => { setLastName(e.target.value) }}
                 sx={{
                   width: '600px',
                   '& .MuiOutlinedInput-root': {
@@ -74,6 +204,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
+              {error.lastName && <span style={{ color: 'red' }}>{error.lastName}</span>}
             </Box>
           </Box>
           <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-between' }}>
@@ -83,6 +214,9 @@ function RegisterPageDetails() {
                 id="outlined-basic"
                 placeholder='Enter your email'
                 variant="outlined"
+                type='email'
+                value={email}
+                onChange={(e) => { setEmail(e.target.value) }}
                 sx={{
                   width: '600px',
                   '& .MuiOutlinedInput-root': {
@@ -102,12 +236,16 @@ function RegisterPageDetails() {
                   }
                 }}
               />
+              {error.email && <span style={{ color: 'red' }}>{error.email}</span>}
             </Box>
-            <Box>
 
+            <Box>
               <Typography sx={{ fontWeight: 600, fontSize: 16 }}>Date of Birth</Typography>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={['DatePicker']} variant='outlined'
+              {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer 
+                  components={['DatePicker']} 
+                  variant='outlined'
+                  
                   sx={{
                     overflow: 'hidden',
                     width: '600px',
@@ -133,12 +271,27 @@ function RegisterPageDetails() {
                       backgroundColor: INPUT_FIELD_COLOR,
                       width: '600px',
                       borderRadius: '15px'
-                    }} />
+                    }} 
+                    onChange={(value) => { setDob(value.target.value.$d) }}
+                    />
                 </DemoContainer>
+              </LocalizationProvider> */}
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label="Select a date"
+                  value={dateOfBirth}
+                  onChange={(newValue) => setDateOfBirth(newValue)}
+                  renderInput={(params) => <TextField {...params} />}
+                />
               </LocalizationProvider>
-
+              {error.dob && <span style={{ color: 'red' }}>{error.dob}</span>}
             </Box>
+
+
+
           </Box>
+
+
 
           <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-between' }}>
             <Box>
@@ -147,6 +300,9 @@ function RegisterPageDetails() {
                 id="outlined-basic"
                 placeholder='Enter your phone number'
                 variant="outlined"
+                type='phoneNumber'
+                value={phone}
+                onChange={(e) => { setPhone(e.target.value) }}
                 sx={{
                   width: '600px',
                   '& .MuiOutlinedInput-root': {
@@ -166,6 +322,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
+              {error.phone && <span style={{ color: 'red' }}>{error.phone}</span>}
             </Box>
             <Box>
               <Typography sx={{ fontWeight: 600, fontSize: 16 }}>Address</Typography>
@@ -173,6 +330,9 @@ function RegisterPageDetails() {
                 id="outlined-basic"
                 placeholder='Enter your address'
                 variant="outlined"
+                type='text'
+                value={address}
+                onChange={(e) => { setAddress(e.target.value) }}
                 sx={{
                   width: '600px',
                   '& .MuiOutlinedInput-root': {
@@ -192,6 +352,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
+              {error.address && <span style={{ color: 'red' }}>{error.address}</span>}
             </Box>
           </Box>
 
@@ -202,6 +363,9 @@ function RegisterPageDetails() {
                 id="outlined-basic"
                 placeholder='Enter your password'
                 variant="outlined"
+                type='password'
+                value={password}
+                onChange={(e) => { setPassword(e.target.value) }}
                 sx={{
                   width: '600px',
                   '& .MuiOutlinedInput-root': {
@@ -221,6 +385,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
+              {error.password && <span style={{ color: 'red' }}>{error.password}</span>}
             </Box>
             <Box>
               <Typography sx={{ fontWeight: 600, fontSize: 16 }}>Confirm Password</Typography>
@@ -228,6 +393,9 @@ function RegisterPageDetails() {
                 id="outlined-basic"
                 placeholder='Enter your password'
                 variant="outlined"
+                type='password'
+                value={confirmPassword}
+                onChange={(e) => { setConfirmPassword(e.target.value) }}
                 sx={{
                   width: '600px',
                   '& .MuiOutlinedInput-root': {
@@ -247,6 +415,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
+              {error.password && <span style={{ color: 'red' }}>{error.password}</span>}
             </Box>
           </Box>
 
@@ -325,6 +494,8 @@ function RegisterPageDetails() {
                     textAlign: 'center',
                     fontWeight: 500
                   }}
+                  type='submit'
+                  onClick={handleRegis}
                 >
                   Create account
                 </Box>
