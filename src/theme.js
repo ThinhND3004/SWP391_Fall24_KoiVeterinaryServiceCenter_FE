@@ -9,6 +9,8 @@ export const BG_COLOR = '#E6F4F3'
 export const GREEN_COLOR = '#D3EFED'
 export const YELLOW_COLOR = '#FFDC60'
 export const PURPLE_COLOR = '#FAEFFF'
+export const LIGHT_PINK = 'rgb(255, 216, 216)'
+export const DARK_GREEN = 'rgb(48, 147, 56)'
 export const ORANGE_PASTEL_COLOR = '#FFE6E4'
 export const INPUT_FIELD_COLOR = '#D6EAE8'
 

@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
+import { DARK_GREEN, LIGHT_PINK } from '~/theme';
 
 function LegendItem({ label, color }) {
     return (
@@ -24,8 +25,8 @@ function LegendItem({ label, color }) {
 function TableHeader() {
     return (
         <Box sx={{ display: 'inline-flex', marginTop: '5px' }}>
-            <LegendItem label="Unavailable" color="rgb(255, 216, 216)" /> 
-            <LegendItem label="Available" color="rgb(48, 147, 56)" />
+            <LegendItem label="Unavailable" color={LIGHT_PINK} /> 
+            <LegendItem label="Available" color={DARK_GREEN} />
         </Box>
     );
 }

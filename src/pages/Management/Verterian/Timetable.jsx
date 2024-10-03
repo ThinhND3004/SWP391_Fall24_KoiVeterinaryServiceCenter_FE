@@ -1,20 +1,20 @@
 import { Typography, Box } from '@mui/material';
-import SaveButton from './SaveButton';
 import TableHeader from './TableHeader';
 import Schedule from './Schedule';
+import { ORANGE_COLOR } from '~/theme';
 
 function Timetable() {
     return (
         <Box sx={{ textAlign: 'center' }}>
-            <SaveButton></SaveButton>
-
-            <Box sx={{ transition: '0.5s' }}>
-                <Typography variant='h1'>Your Availability</Typography>
-                <TableHeader></TableHeader>
-                <Typography variant='p' sx={{fontStyle: 'italic', marginTop: 'calc(10px + 0.5vw) !important' }}>
-                    Drag to Toggle;
+            <Box sx={{ transition: '0.5s', display: 'block' }}>
+                <Typography variant='h2' 
+                sx={{
+                    fontFamily: 'SVN-Konga Pro',
+                    color: ORANGE_COLOR
+                    }}>
+                        Your Availability
                 </Typography>
-
+                <TableHeader></TableHeader>
                 <Schedule></Schedule>
             </Box>
 
