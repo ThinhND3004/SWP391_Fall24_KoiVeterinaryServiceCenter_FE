@@ -2,6 +2,7 @@ import { Typography, Box } from '@mui/material';
 import TableHeader from './TableHeader';
 import Schedule from './Schedule';
 import { ORANGE_COLOR } from '~/theme';
+import SaveButton from './SaveButton';
 
 function Timetable() {
     return (
@@ -16,6 +17,7 @@ function Timetable() {
                 </Typography>
                 <TableHeader></TableHeader>
                 <Schedule></Schedule>
+                <SaveButton></SaveButton>
             </Box>
 
         </Box>

@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import TimeBlock from "./TimeBlock";
-import { DARK_GREEN, LIGHT_PINK } from "~/theme";
 import { Box } from "@mui/material";
 
 const text = 'rgb(22, 21, 21)';
@@ -9,11 +8,9 @@ const timeArr = ['9', '10', '11', '12', '13', '14', '15', '16', '17'];
 const timeBlockArr = [];
 
 // Assuming timeArr and dayArr are defined
-timeArr.slice(0, timeArr.length - 1).forEach((time) => {
-  dayArr.forEach((day) => {
+dayArr.forEach((day) => {
+  timeArr.slice(0, timeArr.length - 1).forEach((time) => {
     timeBlockArr.push(`${day} ${time}:00`); // Push hour time blocks
-  });
-  dayArr.forEach((day) => {
     timeBlockArr.push(`${day} ${time}:30`); // Push half-hour time blocks
   });
 });
@@ -29,7 +26,6 @@ const TableGrid = () => {
 
   const startSelecting = (e) => {
     if (!containerRef.current) return;
-    console.log(e.target.id)
 
     if (selectedBoxes.includes(e.target.id)) setIsBoxSelected(true);
     else setIsBoxSelected(false);
@@ -95,7 +91,6 @@ const TableGrid = () => {
         ) {
           // Deselect => PINK
           const index = selected.indexOf(timeBlock);
-          console.log(index)
           if (isBoxSelected && index > -1) {
             selected.splice(index, 1); // 2nd parameter means remove one item only
           }
@@ -122,9 +117,9 @@ const TableGrid = () => {
     >
 
       {isSelecting && selectionBox && (
-        <div
+        <Box
           ref={selectionRef}
-          style={{
+          sx={{
             position: "absolute",
             border: "1px dashed #000",
             backgroundColor: "rgba(0, 0, 255, 0.1)",
@@ -135,14 +130,15 @@ const TableGrid = () => {
             height: selectionBox.height + "px",
             pointerEvents: "none", // Prevent interaction with selection box
           }}
-        ></div>
+        ></Box>
       )}
 
       {/* TABLE GRID */}
-      <div
+      <Box
         style={{
           display: 'inline-grid',
-          gridTemplateColumns: `repeat(${dayArr.length}, 1fr)`,
+          gridTemplateRows: `repeat(${(timeArr.length-1) * 2}, 1fr)`, // Define rows instead of columns
+          gridAutoFlow: 'column', // Set auto flow to fill columns first
           width: '100%',
           borderTop: `1px solid ${text}`,
           transition: '0.5s'
@@ -152,12 +148,12 @@ const TableGrid = () => {
         {timeBlockArr.map((timeBlock) => (
           <TimeBlock
             key={timeBlock}
-            title={timeBlock}
-            backgroundColor={selectedBoxes.includes(timeBlock) ? DARK_GREEN : LIGHT_PINK}
+            id={timeBlock}
+            isSelected={selectedBoxes.includes(timeBlock)}
             borderBottom={timeBlock.includes('30') ? 'solid' : 'dashed'}
           ></TimeBlock>
         ))}
-      </div>
+      </Box>
     </Box>
   );
 };

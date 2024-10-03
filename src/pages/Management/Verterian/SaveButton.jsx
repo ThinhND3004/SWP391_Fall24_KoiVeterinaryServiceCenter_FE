@@ -13,23 +13,22 @@ function save_button_clicked() {
     let data = [];
 
     for (let i = 0; i < selectedElements.length;) {
-        const label = selectedElements[i].getAttribute("label");
+        const label = selectedElements[i].getAttribute("id");
         const day = label.split(" ")[0];
         const start_time = turn_string_to_date(label.split(" ")[1]);
 
         // Clone start_time to avoid mutating the original start_time
         let continous_time = new Date(start_time.getTime());
         continous_time.setMinutes(continous_time.getMinutes() + 30);
-        i++;
-        for (; i < selectedElements.length; i++) {
-            const temp_label = selectedElements[i].getAttribute("label");
+
+        for (i=i+1; i < selectedElements.length; i++) {
+            const temp_label = selectedElements[i].getAttribute("id");
             const next_day = temp_label.split(" ")[0];
             const next_time = turn_string_to_date(temp_label.split(" ")[1]);
 
             // Time in the current day is continuous with 30 minutes
             console.log(`Continous time: ${continous_time.getHours() + ':' + continous_time.getMinutes().toString().padStart(2, '0')} AND Next time: ${next_time.getHours() + ':' + next_time.getMinutes().toString().padStart(2, '0')}`)
-            if (day === next_day && continous_time.getTime() == next_time.getTime()) {
-                console.log("All true;")
+            if (day === next_day && continous_time.getTime() === next_time.getTime()) {
                 continous_time.setMinutes(continous_time.getMinutes() + 30);
             } else break;
 
@@ -41,8 +40,7 @@ function save_button_clicked() {
             end_time: continous_time.getHours() + ':' + continous_time.getMinutes().toString().padStart(2, '0')
         });
     }
-
-    console.log(data);
+    console.log(data)
     return data;
 }
 
