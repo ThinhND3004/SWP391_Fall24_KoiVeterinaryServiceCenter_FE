@@ -92,14 +92,12 @@ function RegisterPageDetails() {
 
         const dataErr = response.data.err;
 
-        if(dataErr != null)
-        {
+        if (dataErr != null) {
           setErrRes(dataErr);
-        } else
-        {
+        } else {
           setErrRes(null);
         }
-        
+
 
         console.log("REGISTER RESULT: ", response);
 
@@ -123,11 +121,11 @@ function RegisterPageDetails() {
       {errRes
         &&
         <Alert variant="filled" severity="error">
-          { errRes }
+          {errRes}
         </Alert>
       }
 
-{!errRes
+      {!errRes
         &&
         <Alert variant="filled" severity="success">
           Register successfully
@@ -286,11 +284,7 @@ function RegisterPageDetails() {
               </LocalizationProvider>
               {error.dob && <span style={{ color: 'red' }}>{error.dob}</span>}
             </Box>
-
-
-
           </Box>
-
 
 
           <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-between' }}>

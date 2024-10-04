@@ -7,14 +7,11 @@ import Typography from '@mui/material/Typography'
 import Menu from '@mui/material/Menu'
 import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
-import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
-import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
-import AdbIcon from '@mui/icons-material/Adb'
 import { useDispatch, useSelector } from 'react-redux'
 import { setNavbarId } from '~/redux/globalConfigSlice'
-import { BG_COLOR, GRAY_COLOR, ORANGE_COLOR, BLUE_COLOR } from '~/theme'
+import { GRAY_COLOR, ORANGE_COLOR, BLUE_COLOR } from '~/theme'
 import { Divider } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
@@ -74,7 +71,6 @@ function Header() {
     <AppBar position="static" color='transparent' sx={{ minHeight: '85px' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
           <Typography
             variant="h6"
             noWrap
@@ -170,7 +166,6 @@ function Header() {
                   borderBottom: navbarId === idx ? `3px ${ORANGE_COLOR} solid` : '',
                   display: 'block',
                   fontWeight: 600,
-                  // transition: 'all 0.3s ease-in',
                 }}
               >
                 {page}
@@ -185,7 +180,6 @@ function Header() {
               fontWeight: 600,
               p: '10px 38px',
               boxShadow: '0px 3px 1px rgba(0, 0, 0, 0.2)'
-              // boxShadow: '1px 2px'
             }}>
               Login
             </Button>
