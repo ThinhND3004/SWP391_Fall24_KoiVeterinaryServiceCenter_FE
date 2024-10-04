@@ -9,6 +9,7 @@ import KoiHealthComponent from '~/pages/KoiHealthPage/KoiHealth.component'
 import Timetable from '~/pages/Management/Verterian/Timetable'
 import LoginPage from '~/pages/LoginPage/LoginPage.component'
 import RegisterPage from '~/pages/RegisterPage/RegisterPage.component'
+import RequestAppointment from '~/pages/RequestAppointment/RequestAppointment.component'
 
 const RouteComponent = () => {
   return (
@@ -22,6 +23,7 @@ const RouteComponent = () => {
         <Route path='/veterian' element={<Timetable />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
+        <Route path='/requestAppointment' element={<RequestAppointment />} />
       </Route>
 
       <Route path='/' element={

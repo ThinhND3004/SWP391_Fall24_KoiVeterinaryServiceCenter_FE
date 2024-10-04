@@ -30,7 +30,7 @@ function SatisfactionGuaranteed() {
               Guaranteed
             </Typography>
 
-            <Typography sx={{ fontWeight: 400, fontSize: 18, lineHeight: 1.7 }}>
+            <Typography sx={{ fontWeight: 400, fontSize: 16, lineHeight: 2 }}>
               Koi Care Clinic is a unique facility that specializes in providing comprehensive care for koi fish.
               <br />
               Our team of experienced professionals offers a wide range of services, including routine check-ups, disease diagnosis and treatment, pond maintenance, and water quality testing.

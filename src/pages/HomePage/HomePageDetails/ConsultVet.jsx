@@ -2,9 +2,10 @@ import React from 'react'
 import { Box, Typography } from '@mui/material'
 import { BG_COLOR, BLUE_COLOR, GRAY_COLOR, ORANGE_COLOR } from '~/theme'
 import { List, ListItem } from '@mui/material'
-
+import { useNavigate } from 'react-router-dom'
 
 function ConsultVet() {
+  const navigate = useNavigate()
   return (
     <div>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -41,8 +42,8 @@ function ConsultVet() {
           </Box>
 
           <Box>
-            <Typography sx={{ fontWeight: 400, fontSize: 18, lineHeight: 1.7 }}>With years of experience in aquatic animal health, our veterinarian is well-equipped to diagnose and treat various koi ailments.</Typography>
-            <Typography sx={{ fontWeight: 400, fontSize: 18, lineHeight: 1.7 }}>
+            <Typography sx={{ fontWeight: 400, fontSize: 16, lineHeight: 2 }}>With years of experience in aquatic animal health, our veterinarian is well-equipped to diagnose and treat various koi ailments.</Typography>
+            <Typography sx={{ fontWeight: 400, fontSize: 16, lineHeight: 2 }}>
               <ul>
                 <li>Regular check-ups can help prevent costly treatments in the long run.</li>
                 <li>Early detection and treatment can significantly improve your koi's chances of recovery.</li>
@@ -65,11 +66,10 @@ function ConsultVet() {
                 height: 'fit-content',
                 backgroundColor: BLUE_COLOR,
                 borderRadius: '40px',
-                // boxShadow: '0px 5px 10px #bebebe',
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 border: 'none',
-                cursor: 'pointer',
+                cursor: 'pointer'
               }}
             >
               {/* Text on the left */}
@@ -84,7 +84,9 @@ function ConsultVet() {
                   fontFamily: 'Poppins'
                 }}
               >
-                Request Appointment
+                <Typography onClick={() => navigate('/requestAppointment')} component={'a'}>
+                  Request Appointment
+                </Typography>
               </Box>
 
               <svg

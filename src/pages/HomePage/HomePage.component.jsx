@@ -12,7 +12,7 @@ import Feedback from './HomePageDetails/Feedback'
 const HomePageComponent = () => {
   return (
     <>
-      <Box display={'flex'} flexDirection={'column'} gap={'100px'} px={'30px'}>
+      <Box display={'flex'} flexDirection={'column'} gap={'50px'} px={'30px'}>
         {/* INTRODUCTION */}
         <Introduction />
         {/* OUR SERVICES */}
@@ -28,7 +28,7 @@ const HomePageComponent = () => {
         {/* HOW CUSTOMER FEELS */}
         <Customer />
         {/* FEEDBACK */}
-        <Feedback />
+        {/* <Feedback /> */}
       </Box>
     </>
   )

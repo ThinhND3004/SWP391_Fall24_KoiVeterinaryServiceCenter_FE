@@ -27,13 +27,17 @@ function Title() {
         email,
         password,
       });
-      console.log(response.data.data.token)
-      const { token } = response.data.data.token;
-      localStorage.setItem("token", JSON.stringify(response.data.data.token));
-      navigate("/home");
+      console.log("LOGIN_RES: ", response)
+      if(response.data.data.token != null)
+      {
+        localStorage.setItem("token", response.data.data.token);
+        navigate("/home");
+      }
+
+      
     } catch (err) {
       console.log(err);
-      alert(err.response.data.data.token);
+      alert(err.response.data.token);
     }
   };
 
@@ -55,12 +59,12 @@ function Title() {
     <div>
       <Box display={'flex'} flexDirection={'column'} gap={'100px'} px={'30px'}>
         <Box sx={{ display: 'flex', justifyContent: 'space-around', marginBottom: '50px', marginTop: '10px' }}>
-          <img src='https://i.etsystatic.com/16221531/r/il/283513/3896651157/il_570xN.3896651157_7xfk.jpg' style={{ objectFit: 'contain', width: '400px', borderRadius: '26px' }} />
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 30, textAlign: 'center', color: BLUE_COLOR }}>
+          <img src='https://i.etsystatic.com/16221531/r/il/283513/3896651157/il_570xN.3896651157_7xfk.jpg' style={{ objectFit: 'contain', width: '500px', borderRadius: '26px' }} />
+          <Box sx={{ display: 'flex', flexDirection: 'column', mt: '40px' }}>
+            <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 45, textAlign: 'center', color: BLUE_COLOR }}>
               Welcome to <span style={{ color: ORANGE_COLOR }}>Koi Care Clinic</span>
             </Typography>
-            <Typography sx={{ textAlign: 'center', fontSize: 12, marginTop: '10px' }}>
+            <Typography sx={{ textAlign: 'center', fontSize: 14, marginTop: '10px' }}>
               Complete. Connected. Compassionate. At Tia, we care for the whole you with a team of<br /> providers working together to help you achieve optimal health, on your terms.
             </Typography>
 
@@ -69,10 +73,10 @@ function Title() {
               <Button variant="contained" sx={{
                 borderRadius: '15px',
                 bgcolor: INPUT_FIELD_COLOR,
-                height: '50px',
-                width: '500px',
+                height: '60px',
+                width: '560px',
                 fontWeight: 600,
-                fontSize: 15,
+                fontSize: 16,
                 boxShadow: 'none',
                 gap: 2
               }}>
@@ -84,14 +88,14 @@ function Title() {
             {/* Divider */}
             <Box sx={{ marginTop: '20px' }}>
               <Divider>
-                <Typography sx={{ fontSize: 12 }}>or</Typography>
+                <Typography sx={{ fontSize: 14 }}>or</Typography>
               </Divider>
             </Box>
 
             {/* Login using email + pwd */}
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
               <Box sx={{ paddingTop: '20px', display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
-                <Typography sx={{ fontWeight: 600, fontSize: 15 }}>
+                <Typography sx={{ fontWeight: 600, fontSize: 16 }}>
                   Email
                   <span style={{ color: ORANGE_COLOR }}> *</span>
                 </Typography>
@@ -103,11 +107,11 @@ function Title() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   sx={{
-                    width: '500px',
+                    width: '560px',
                     '& .MuiOutlinedInput-root': {
                       borderRadius: '15px',
                       borderColor: BLUE_COLOR,
-                      height: '50px',
+                      height: '60px',
                       marginTop: '10px',
                       '&.Mui-focused fieldset': {
                         borderColor: BLUE_COLOR
@@ -115,13 +119,13 @@ function Title() {
                     },
                     '& input': {
                       padding: '10px 15px',
-                      fontSize: '15px'
+                      fontSize: '16px'
                     }
                   }}
                 />
               </Box>
               <Box sx={{ paddingTop: '30px' }}>
-                <Typography sx={{ fontWeight: 600, fontSize: 15 }}>
+                <Typography sx={{ fontWeight: 600, fontSize: 16 }}>
                   Password
                   <span style={{ color: ORANGE_COLOR }}> *</span>
                 </Typography>
@@ -133,11 +137,11 @@ function Title() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   sx={{
-                    width: '500px',
+                    width: '560px',
                     '& .MuiOutlinedInput-root': {
                       borderRadius: '15px',
                       borderColor: BLUE_COLOR,
-                      height: '50px',
+                      height: '60px',
                       marginTop: '15px',
                       '&.Mui-focused fieldset': {
                         borderColor: BLUE_COLOR
@@ -145,7 +149,7 @@ function Title() {
                     },
                     '& input': {
                       padding: '10px 15px',
-                      fontSize: '15px'
+                      fontSize: '16px'
                     }
                   }}
                 />
@@ -157,14 +161,14 @@ function Title() {
               <Button variant="contained" sx={{
                 borderRadius: '15px',
                 bgcolor: BLUE_COLOR,
-                height: '50px',
-                width: '500px',
-                fontSize: 15,
+                height: '60px',
+                width: '560px',
+                fontSize: 16,
                 boxShadow: 'none',
                 gap: 2,
                 color: '#fff'
               }}
-              onClick={handleLogin}
+                onClick={handleLogin}
               >
                 Login
               </Button>
@@ -172,23 +176,17 @@ function Title() {
 
             {/* Don't have account? */}
             <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', marginTop: '20px' }}>
-              <Typography sx={{ fontWeight: '500', fontSize: 15 }}>Don't have an account?</Typography>
+              <Typography sx={{ fontWeight: '500', fontSize: 16 }}>Don't have an account?</Typography>
 
               <Typography onClick={() => navigate('/register')} component={'a'} sx={{
                 color: ORANGE_COLOR,
                 fontWeight: 600,
-                fontSize: 15,
+                fontSize: 16,
                 cursor: 'pointer',
                 p: 0,
                 m: 0
               }}>
                 Sign up for free
-              </Typography>
-            </Box>
-
-            <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', marginTop: '10px' }}>
-              <Typography sx={{ fontSize: '14px' }}>
-                By signing up, you agree to our <span style={{ fontWeight: 500 }}>Terms of services & Privacy policy.</span>
               </Typography>
             </Box>
 

@@ -14,7 +14,7 @@ function ServiceNo2() {
           <Typography
             sx={{
               fontFamily: 'SVN-Konga Pro',
-              fontSize: '48px',
+              fontSize: '45px',
               color: BLUE_COLOR,
               display: 'flex',
               justifyContent: 'start'
@@ -24,7 +24,8 @@ function ServiceNo2() {
           </Typography>
 
           <Box>
-            <Typography sx={{ fontWeight: 400, fontSize: 18, lineHeight: 1.7 }}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</Typography>
+            <Typography sx={{ fontWeight: 400, fontSize: 16, lineHeight: 2, marginTop: '20px' }}>Koi Care Clinic is a unique facility that specializes in providing comprehensive care for koi fish.
+              Our team of experienced professionals offers a wide range of services, including routine check-ups, disease diagnosis and treatment, pond maintenance, and water quality testing.</Typography>
           </Box>
 
           <Box
