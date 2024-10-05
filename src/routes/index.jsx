@@ -12,6 +12,7 @@ import RegisterPage from '~/pages/RegisterPage/RegisterPage.component'
 import RequestAppointment from '~/pages/RequestAppointment/RequestAppointment.component'
 import AdminLayout from '~/layouts/AdminLayout/admin.layout'
 import AdminHomePage from '~/pages/AdminPage/AdminPage.component'
+import PasswordPage from '~/pages/AdminPage/PasswordPage/PasswordPage.component'
 
 const RouteComponent = () => {
   return (
@@ -30,6 +31,7 @@ const RouteComponent = () => {
 
       <Route element={<AdminLayout />}>
         <Route path='/admin' element={<AdminHomePage />} />
+        <Route path='/password' element={<PasswordPage />} />
       </Route>
 
       <Route path='/' element={

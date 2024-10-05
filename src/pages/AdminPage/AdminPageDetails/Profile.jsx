@@ -235,8 +235,8 @@ function Profile() {
         sx={{
           display: 'flex',
           justifyContent: 'start',
-          marginTop: '40px',
           marginBottom: '60px'
+
         }}
       >
         <Box
