@@ -8,8 +8,9 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { useNavigate } from 'react-router-dom'
 import api from '~/config/axios'
 import dayjs from 'dayjs'
-import { set, setDate } from 'date-fns'
-import Alert from '@mui/material/Alert';
+import { Alert } from '@mui/material';
+import { CheckCircleOutlineIcon, ErrorIcon } from '@mui/icons-material';
+
 
 
 
@@ -29,6 +30,8 @@ function RegisterPageDetails() {
   const [dateOfBirth, setDateOfBirth] = useState(dayjs());
 
   const [errRes, setErrRes] = useState('');
+
+  const [alertTrigger, setAlertTrigger] = useState(false);
 
   useEffect(() => {
     if (dateOfBirth) {
@@ -73,12 +76,10 @@ function RegisterPageDetails() {
 
 
   const handleRegis = async (e) => {
-    e.preventDefault(); // Prevent form from refreshing the page
+    e.preventDefault(); 
     console.log("DOB: ", dob)
     try {
-      // Validate the form fields
       if (handleValidation()) {
-        // Send the registration data to the API
         const response = await api.post("/accounts", {
           email,
           password,
@@ -96,19 +97,18 @@ function RegisterPageDetails() {
           setErrRes(dataErr);
         } else {
           setErrRes(null);
+          setAlertTrigger(true);
+          handleClearInfo();
         }
-
+        setAlertTrigger(true)
 
         console.log("REGISTER RESULT: ", response);
 
-        handleClearInfo();
-        // Optional: Handle success (e.g., redirect user, show success message)
       } else {
         console.log("Validation failed. Please check your inputs.");
       }
     } catch (error) {
-      console.error("ERROR: ", error); // Log the actual error for debugging
-      // Optional: Show user-friendly error message (e.g., "Failed to create account")
+      console.error("ERROR: ", error); 
     }
   };
 
@@ -120,17 +120,27 @@ function RegisterPageDetails() {
 
       {errRes
         &&
-        <Alert variant="filled" severity="error">
+        <Alert
+        security='error'
+        iconMapping={{
+          error: <ErrorIcon fontSize="inherit" />,
+        }}
+      > 
           {errRes}
         </Alert>
       }
 
-      {!errRes
+      {!errRes && alertTrigger
         &&
-        <Alert variant="filled" severity="success">
-          Register successfully
-        </Alert>
+        <Alert
+        iconMapping={{
+          success: <CheckCircleOutlineIcon fontSize="inherit" />,
+        }}
+      > 
+        Register successfully!
+      </Alert>
       }
+
 
 
       <Box sx={{ margin: 0, padding: 0 }}>
@@ -170,7 +180,7 @@ function RegisterPageDetails() {
                     borderRadius: '15px'
                   }
                 }}
-              />
+              /> <br/>
               {error.firstName && <span style={{ color: 'red' }}>{error.firstName}</span>}
             </Box>
 
@@ -202,6 +212,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
+              <br/>
               {error.lastName && <span style={{ color: 'red' }}>{error.lastName}</span>}
             </Box>
           </Box>
@@ -234,6 +245,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
+              <br/>
               {error.email && <span style={{ color: 'red' }}>{error.email}</span>}
             </Box>
 
@@ -276,12 +288,18 @@ function RegisterPageDetails() {
               </LocalizationProvider> */}
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
-                  label="Select a date"
+                sx={{
+                  marginTop: '15px',
+                  backgroundColor: INPUT_FIELD_COLOR,
+                  width: '600px',
+                  borderRadius: '15px'
+                }} 
                   value={dateOfBirth}
                   onChange={(newValue) => setDateOfBirth(newValue)}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
+              <br/>
               {error.dob && <span style={{ color: 'red' }}>{error.dob}</span>}
             </Box>
           </Box>
@@ -316,6 +334,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
+              <br/>
               {error.phone && <span style={{ color: 'red' }}>{error.phone}</span>}
             </Box>
             <Box>
@@ -346,6 +365,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
+              <br/>
               {error.address && <span style={{ color: 'red' }}>{error.address}</span>}
             </Box>
           </Box>
@@ -379,6 +399,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
+              <br/>
               {error.password && <span style={{ color: 'red' }}>{error.password}</span>}
             </Box>
             <Box>
@@ -409,6 +430,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
+              <br/>
               {error.password && <span style={{ color: 'red' }}>{error.password}</span>}
             </Box>
           </Box>
