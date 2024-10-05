@@ -11,8 +11,9 @@ import LoginPage from '~/pages/LoginPage/LoginPage.component'
 import RegisterPage from '~/pages/RegisterPage/RegisterPage.component'
 import RequestAppointment from '~/pages/RequestAppointment/RequestAppointment.component'
 import AdminLayout from '~/layouts/AdminLayout/admin.layout'
-import AdminHomePage from '~/pages/AdminPage/AdminPage.component'
+import AdminHomePage from '~/pages/AdminPage/AdminPage.component.jsx'
 import PasswordPage from '~/pages/AdminPage/PasswordPage/PasswordPage.component'
+import CustomerPage from '~/pages/AdminPage/CustomerPage/CustomerPage.component'
 
 const RouteComponent = () => {
   return (
@@ -32,6 +33,10 @@ const RouteComponent = () => {
       <Route element={<AdminLayout />}>
         <Route path='/admin' element={<AdminHomePage />} />
         <Route path='/password' element={<PasswordPage />} />
+        <Route path='/customer' element={<CustomerPage />} />
+        {/* Route path='/booking' element={<BookingPage />} /> */}
+        {/* Route path='/veterian' element={<VeterianPage />} /> */}
+        {/* Route path='/prescription' element={<PrescriptonPage />} /> */}
       </Route>
 
       <Route path='/' element={

@@ -75,7 +75,7 @@ function Navbar() {
         <List>
           <Box sx={{ display: 'flex', alignItems: 'center', color: '#000' }}>
             <AccountCircleIcon />
-            <ListItem button component={Link} to="#" >
+            <ListItem button onClick={() => navigate('/admin')}>
               <ListItemText
                 primary="Account"
                 primaryTypographyProps={{
@@ -91,7 +91,7 @@ function Navbar() {
 
           <Box sx={{ display: 'flex', alignItems: 'center', color: '#000', paddingTop: '10px' }}>
             <LockIcon />
-            <ListItem button component={Link} to="#" sx={{ color: '#000' }}>
+            <ListItem button onClick={() => navigate('/password')}>
               <ListItemText
                 primary="Password"
                 primaryTypographyProps={{
@@ -107,7 +107,7 @@ function Navbar() {
 
           <Box sx={{ display: 'flex', alignItems: 'center', color: '#000', paddingTop: '10px' }}>
             <SupportAgentIcon />
-            <ListItem button component={Link} to="#" sx={{ color: '#000' }}>
+            <ListItem button onClick={() => navigate('/customer')}>
               <ListItemText
                 primary="Customer"
                 primaryTypographyProps={{
@@ -123,7 +123,7 @@ function Navbar() {
 
           <Box sx={{ display: 'flex', alignItems: 'center', color: '#000', paddingTop: '10px' }}>
             <CalendarMonthIcon />
-            <ListItem button component={Link} to="#" sx={{ color: '#000' }}>
+            <ListItem button onClick={() => navigate('/booking')}>
               <ListItemText
                 primary="Booking"
                 primaryTypographyProps={{
@@ -139,7 +139,7 @@ function Navbar() {
 
           <Box sx={{ display: 'flex', alignItems: 'center', color: '#000', paddingTop: '10px' }}>
             <LocalHospitalIcon />
-            <ListItem button component={Link} to="#" sx={{ color: '#000' }}>
+            <ListItem button onClick={() => navigate('/veterian')}>
               <ListItemText
                 primary="Veterian"
                 primaryTypographyProps={{
@@ -155,7 +155,7 @@ function Navbar() {
 
           <Box sx={{ display: 'flex', alignItems: 'center', color: '#000', paddingTop: '10px' }}>
             <ArticleIcon />
-            <ListItem button component={Link} to="#" sx={{ color: '#000' }}>
+            <ListItem button onClick={() => navigate('/prescription')}>
               <ListItemText
                 primary="Prescription"
                 primaryTypographyProps={{

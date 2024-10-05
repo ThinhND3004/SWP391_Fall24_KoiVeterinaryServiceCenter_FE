@@ -111,10 +111,10 @@ function Profile() {
           />
         </Box>
         <Box>
-          <Typography sx={{ fontWeight: 600, fontSize: 18 }}>First name</Typography>
+          <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Last name</Typography>
           <TextField
             id="outlined-basic"
-            placeholder='Enter your first name'
+            placeholder='Enter your last name'
             variant="outlined"
             sx={{
               width: '500px',
@@ -142,7 +142,7 @@ function Profile() {
           <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Phone number</Typography>
           <TextField
             id="outlined-basic"
-            placeholder='Enter your first name'
+            placeholder='Enter your phone number'
             variant="outlined"
             sx={{
               width: '500px',

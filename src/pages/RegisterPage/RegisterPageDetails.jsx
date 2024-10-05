@@ -9,7 +9,10 @@ import { useNavigate } from 'react-router-dom'
 import api from '~/config/axios'
 import dayjs from 'dayjs'
 import { Alert } from '@mui/material';
-import { CheckCircleOutlineIcon, ErrorIcon } from '@mui/icons-material';
+// import { CheckCircleOutlineIcon, ErrorIcon } from '@mui/icons-material';
+import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
+import ErrorIcon from '@mui/icons-material/Error';
+
 
 
 
@@ -76,7 +79,7 @@ function RegisterPageDetails() {
 
 
   const handleRegis = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     console.log("DOB: ", dob)
     try {
       if (handleValidation()) {
@@ -108,7 +111,7 @@ function RegisterPageDetails() {
         console.log("Validation failed. Please check your inputs.");
       }
     } catch (error) {
-      console.error("ERROR: ", error); 
+      console.error("ERROR: ", error);
     }
   };
 
@@ -121,11 +124,11 @@ function RegisterPageDetails() {
       {errRes
         &&
         <Alert
-        security='error'
-        iconMapping={{
-          error: <ErrorIcon fontSize="inherit" />,
-        }}
-      > 
+          security='error'
+          iconMapping={{
+            error: <ErrorIcon fontSize="inherit" />,
+          }}
+        >
           {errRes}
         </Alert>
       }
@@ -133,12 +136,12 @@ function RegisterPageDetails() {
       {!errRes && alertTrigger
         &&
         <Alert
-        iconMapping={{
-          success: <CheckCircleOutlineIcon fontSize="inherit" />,
-        }}
-      > 
-        Register successfully!
-      </Alert>
+          iconMapping={{
+            success: <CheckCircleOutlineOutlinedIcon fontSize="inherit" />,
+          }}
+        >
+          Register successfully!
+        </Alert>
       }
 
 
@@ -180,7 +183,7 @@ function RegisterPageDetails() {
                     borderRadius: '15px'
                   }
                 }}
-              /> <br/>
+              /> <br />
               {error.firstName && <span style={{ color: 'red' }}>{error.firstName}</span>}
             </Box>
 
@@ -212,7 +215,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
-              <br/>
+              <br />
               {error.lastName && <span style={{ color: 'red' }}>{error.lastName}</span>}
             </Box>
           </Box>
@@ -245,61 +248,26 @@ function RegisterPageDetails() {
                   }
                 }}
               />
-              <br/>
+              <br />
               {error.email && <span style={{ color: 'red' }}>{error.email}</span>}
             </Box>
 
             <Box>
               <Typography sx={{ fontWeight: 600, fontSize: 16 }}>Date of Birth</Typography>
-              {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer 
-                  components={['DatePicker']} 
-                  variant='outlined'
-                  
-                  sx={{
-                    overflow: 'hidden',
-                    width: '600px',
-                    '& .MuiOutlinedInput-root': {
-                      borderRadius: '15px',
-                      borderColor: BLUE_COLOR,
-                      height: '60px',
-                      '&.Mui-focused fieldset': {
-                        borderColor: BLUE_COLOR
-                      }
-                    },
-                    '& input': {
-                      backgroundColor: INPUT_FIELD_COLOR,
-                      padding: '20px 15px',
-                      fontSize: '16px',
-                      borderRadius: '15px'
-                    }
-                  }}>
-                  <DatePicker
-                    placeholder="Select your date"
-                    label=''
-                    sx={{
-                      backgroundColor: INPUT_FIELD_COLOR,
-                      width: '600px',
-                      borderRadius: '15px'
-                    }} 
-                    onChange={(value) => { setDob(value.target.value.$d) }}
-                    />
-                </DemoContainer>
-              </LocalizationProvider> */}
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
-                sx={{
-                  marginTop: '15px',
-                  backgroundColor: INPUT_FIELD_COLOR,
-                  width: '600px',
-                  borderRadius: '15px'
-                }} 
+                  sx={{
+                    marginTop: '15px',
+                    backgroundColor: INPUT_FIELD_COLOR,
+                    width: '600px',
+                    borderRadius: '15px'
+                  }}
                   value={dateOfBirth}
                   onChange={(newValue) => setDateOfBirth(newValue)}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
-              <br/>
+              <br />
               {error.dob && <span style={{ color: 'red' }}>{error.dob}</span>}
             </Box>
           </Box>
@@ -334,7 +302,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
-              <br/>
+              <br />
               {error.phone && <span style={{ color: 'red' }}>{error.phone}</span>}
             </Box>
             <Box>
@@ -365,7 +333,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
-              <br/>
+              <br />
               {error.address && <span style={{ color: 'red' }}>{error.address}</span>}
             </Box>
           </Box>
@@ -399,7 +367,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
-              <br/>
+              <br />
               {error.password && <span style={{ color: 'red' }}>{error.password}</span>}
             </Box>
             <Box>
@@ -430,7 +398,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
-              <br/>
+              <br />
               {error.password && <span style={{ color: 'red' }}>{error.password}</span>}
             </Box>
           </Box>
