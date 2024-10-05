@@ -8,8 +8,9 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { useNavigate } from 'react-router-dom'
 import api from '~/config/axios'
 import dayjs from 'dayjs'
-import { set, setDate } from 'date-fns'
-import Alert from '@mui/material/Alert';
+import { Alert } from '@mui/material';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+
 
 
 
@@ -75,12 +76,10 @@ function RegisterPageDetails() {
 
 
   const handleRegis = async (e) => {
-    e.preventDefault(); // Prevent form from refreshing the page
+    e.preventDefault(); 
     console.log("DOB: ", dob)
     try {
-      // Validate the form fields
       if (handleValidation()) {
-        // Send the registration data to the API
         const response = await api.post("/accounts", {
           email,
           password,
@@ -105,14 +104,11 @@ function RegisterPageDetails() {
 
         console.log("REGISTER RESULT: ", response);
 
-        
-        // Optional: Handle success (e.g., redirect user, show success message)
       } else {
         console.log("Validation failed. Please check your inputs.");
       }
     } catch (error) {
-      console.error("ERROR: ", error); // Log the actual error for debugging
-      // Optional: Show user-friendly error message (e.g., "Failed to create account")
+      console.error("ERROR: ", error); 
     }
   };
 
@@ -131,10 +127,15 @@ function RegisterPageDetails() {
 
       {!errRes && alertTrigger
         &&
-        <Alert variant="filled" severity="success">
-          Register successfully
-        </Alert>
+        <Alert
+        iconMapping={{
+          success: <CheckCircleOutlineIcon fontSize="inherit" />,
+        }}
+      > 
+        Register successfully!
+      </Alert>
       }
+
 
 
       <Box sx={{ margin: 0, padding: 0 }}>
@@ -296,11 +297,7 @@ function RegisterPageDetails() {
               <br/>
               {error.dob && <span style={{ color: 'red' }}>{error.dob}</span>}
             </Box>
-
-
-
           </Box>
-
 
 
           <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-between' }}>

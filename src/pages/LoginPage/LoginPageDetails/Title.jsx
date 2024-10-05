@@ -1,16 +1,20 @@
-import { Box, TextField, Typography } from '@mui/material'
+import { Alert, Box, TextField, Typography } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import { useNavigate } from 'react-router-dom'
 import api from '~/config/axios'
+import ErrorIcon from '@mui/icons-material/Error';
+
+
 
 function Title() {
   const navigate = useNavigate()
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loginMess, setLoginMess] = useState('');
 
   useEffect(() => {
     const isLoginned = localStorage.getItem('token') != null;
@@ -19,27 +23,34 @@ function Title() {
   }, [])
 
   const handleLogin = async () => {
-    console.log(email);
-    console.log(password);
-
+    setLoginMess(""); // Clear previous messages
+  
+    if (!email || !password) {
+      setLoginMess("Email and Password are required");
+      return;
+    }
+  
     try {
       const response = await api.post("/auth/login-password", {
         email,
         password,
       });
-      console.log("LOGIN_RES: ", response)
-      if(response.data.data.token != null)
-      {
+      console.log("LOGIN ERROR: ", response.data.data.err)
+  
+      if (response?.data?.data?.err) {
+        setLoginMess(response.data.data.err);
+      } else if (response?.data?.data?.token) {
         localStorage.setItem("token", response.data.data.token);
         navigate("/home");
+      } else {
+        setLoginMess("Unexpected error occurred.");
       }
-
-      
     } catch (err) {
-      console.log(err);
-      alert(err.response.data.token);
+      const errorMessage = "Login failed. Please try again.";
+      setLoginMess(errorMessage);
     }
   };
+  
 
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -56,7 +67,23 @@ function Title() {
   }, [email, password]);
 
   return (
+
+
+
     <div>
+
+      {loginMess && (
+        <Alert
+        severity = 'error'
+        iconMapping={{
+          error: <ErrorIcon fontSize="inherit" />,
+        }}
+      > 
+        {loginMess}
+      </Alert>
+      )}
+
+
       <Box display={'flex'} flexDirection={'column'} gap={'100px'} px={'30px'}>
         <Box sx={{ display: 'flex', justifyContent: 'space-around', marginBottom: '50px', marginTop: '10px' }}>
           <img src='https://i.etsystatic.com/16221531/r/il/283513/3896651157/il_570xN.3896651157_7xfk.jpg' style={{ objectFit: 'contain', width: '500px', borderRadius: '26px' }} />

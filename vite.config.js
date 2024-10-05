@@ -10,5 +10,8 @@ export default defineConfig({
     alias: [
       { find: '~', replacement: '/src' }
     ]
+  },
+  optimizeDeps: {
+    include: ['selection-area'],
   }
 })
