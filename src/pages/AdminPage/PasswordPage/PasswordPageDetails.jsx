@@ -1,11 +1,27 @@
 import React from 'react'
 import Navbar from '../AdminPageDetails/Navbar'
-import { Box, TextField, Typography } from '@mui/material'
+import { Box, Breadcrumbs, TextField, Typography } from '@mui/material'
 import { BLUE_COLOR, INPUT_FIELD_COLOR } from '~/theme'
+import { Link } from 'react-router-dom'
+
+
+function handleClick(event) {
+  event.preventDefault()
+  console.info('You clicked a breadcrumb.')
+}
 
 function PasswordPageDetails() {
   return (
     <div>
+      <Breadcrumbs aria-label="breadcrumb">
+        <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
+          Nguyen Van A
+        </Typography>
+        <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
+          Account
+        </Typography>
+      </Breadcrumbs>
+
       <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-around', gap: 10 }}>
         <Box>
           <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Enter your old password</Typography>
