@@ -30,6 +30,8 @@ function RegisterPageDetails() {
 
   const [errRes, setErrRes] = useState('');
 
+  const [alertTrigger, setAlertTrigger] = useState(false);
+
   useEffect(() => {
     if (dateOfBirth) {
       setDob(dateOfBirth.format("YYYY-MM-DD"));
@@ -92,18 +94,18 @@ function RegisterPageDetails() {
 
         const dataErr = response.data.err;
 
-        if(dataErr != null)
-        {
+        if (dataErr != null) {
           setErrRes(dataErr);
-        } else
-        {
+        } else {
           setErrRes(null);
+          setAlertTrigger(true);
+          handleClearInfo();
         }
-        
+        setAlertTrigger(true)
 
         console.log("REGISTER RESULT: ", response);
 
-        handleClearInfo();
+        
         // Optional: Handle success (e.g., redirect user, show success message)
       } else {
         console.log("Validation failed. Please check your inputs.");
@@ -123,11 +125,11 @@ function RegisterPageDetails() {
       {errRes
         &&
         <Alert variant="filled" severity="error">
-          { errRes }
+          {errRes}
         </Alert>
       }
 
-{!errRes
+      {!errRes && alertTrigger
         &&
         <Alert variant="filled" severity="success">
           Register successfully
@@ -172,7 +174,7 @@ function RegisterPageDetails() {
                     borderRadius: '15px'
                   }
                 }}
-              />
+              /> <br/>
               {error.firstName && <span style={{ color: 'red' }}>{error.firstName}</span>}
             </Box>
 
@@ -204,6 +206,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
+              <br/>
               {error.lastName && <span style={{ color: 'red' }}>{error.lastName}</span>}
             </Box>
           </Box>
@@ -236,6 +239,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
+              <br/>
               {error.email && <span style={{ color: 'red' }}>{error.email}</span>}
             </Box>
 
@@ -278,12 +282,18 @@ function RegisterPageDetails() {
               </LocalizationProvider> */}
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
-                  label="Select a date"
+                sx={{
+                  marginTop: '15px',
+                  backgroundColor: INPUT_FIELD_COLOR,
+                  width: '600px',
+                  borderRadius: '15px'
+                }} 
                   value={dateOfBirth}
                   onChange={(newValue) => setDateOfBirth(newValue)}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
+              <br/>
               {error.dob && <span style={{ color: 'red' }}>{error.dob}</span>}
             </Box>
 
@@ -322,6 +332,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
+              <br/>
               {error.phone && <span style={{ color: 'red' }}>{error.phone}</span>}
             </Box>
             <Box>
@@ -352,6 +363,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
+              <br/>
               {error.address && <span style={{ color: 'red' }}>{error.address}</span>}
             </Box>
           </Box>
@@ -385,6 +397,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
+              <br/>
               {error.password && <span style={{ color: 'red' }}>{error.password}</span>}
             </Box>
             <Box>
@@ -415,6 +428,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
+              <br/>
               {error.password && <span style={{ color: 'red' }}>{error.password}</span>}
             </Box>
           </Box>
