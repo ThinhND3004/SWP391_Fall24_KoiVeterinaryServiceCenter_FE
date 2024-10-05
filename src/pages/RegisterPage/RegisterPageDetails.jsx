@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import api from '~/config/axios'
 import dayjs from 'dayjs'
 import { Alert } from '@mui/material';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { CheckCircleOutlineIcon, ErrorIcon } from '@mui/icons-material';
 
 
 
@@ -120,7 +120,12 @@ function RegisterPageDetails() {
 
       {errRes
         &&
-        <Alert variant="filled" severity="error">
+        <Alert
+        security='error'
+        iconMapping={{
+          error: <ErrorIcon fontSize="inherit" />,
+        }}
+      > 
           {errRes}
         </Alert>
       }
