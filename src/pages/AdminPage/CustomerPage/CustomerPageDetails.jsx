@@ -71,8 +71,6 @@ const rows = [
   createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspend'),
   createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspend'),
   createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspend')
-
-
 ]
 
 
@@ -100,31 +98,33 @@ function CustomerPageDetails() {
             bgcolor: INPUT_FIELD_COLOR
           }}>
             <SearchIconWrapper>
-              <SearchIcon sx={{ color: GRAY_COLOR }} />
+              <SearchIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
             </SearchIconWrapper>
-            <StyledInputBase
+            <StyledInputBase sx={{ fontSize: '14px' }}
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
 
           <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: INPUT_FIELD_COLOR, borderRadius: '10px', gap: 1 }}>
-            <FilterListIcon sx={{ color: GRAY_COLOR }} />
-            <Typography sx={{ color: GRAY_COLOR, fontWeight: 500 }}>
+            <FilterListIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
+            <Typography sx={{ color: GRAY_COLOR, fontWeight: 500, fontSize: '14px' }}>
               Filter
             </Typography>
           </Button>
 
           <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: INPUT_FIELD_COLOR, borderRadius: '10px', gap: 1 }}>
-            <FileDownloadIcon sx={{ color: GRAY_COLOR }} />
-            <Typography sx={{ color: GRAY_COLOR, fontWeight: 500 }}>
+            <FileDownloadIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
+            <Typography sx={{ color: GRAY_COLOR, fontWeight: 500, fontSize: '14px' }}>
               Import
             </Typography>
           </Button>
 
           <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: BLUE_COLOR, borderRadius: '10px', color: '#fff', gap: 1 }}>
-            <AddIcon />
-            Add
+            <AddIcon sx={{ fontSize: '14px' }} />
+            <Typography sx={{ fontSize: '14px' }}>
+              Add
+            </Typography>
           </Button>
         </Box>
       </Box>

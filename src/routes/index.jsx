@@ -14,6 +14,7 @@ import AdminLayout from '~/layouts/AdminLayout/admin.layout'
 import AdminHomePage from '~/pages/AdminPage/AdminPage.component.jsx'
 import PasswordPage from '~/pages/AdminPage/PasswordPage/PasswordPage.component'
 import CustomerPage from '~/pages/AdminPage/CustomerPage/CustomerPage.component'
+import BookingPage from '~/pages/AdminPage/BookingPage/BookingPage.component'
 
 const RouteComponent = () => {
   return (
@@ -34,7 +35,7 @@ const RouteComponent = () => {
         <Route path='/admin' element={<AdminHomePage />} />
         <Route path='/password' element={<PasswordPage />} />
         <Route path='/customer' element={<CustomerPage />} />
-        {/* Route path='/booking' element={<BookingPage />} /> */}
+        <Route path='/booking' element={<BookingPage />} />
         {/* Route path='/veterian' element={<VeterianPage />} /> */}
         {/* Route path='/prescription' element={<PrescriptonPage />} /> */}
       </Route>
