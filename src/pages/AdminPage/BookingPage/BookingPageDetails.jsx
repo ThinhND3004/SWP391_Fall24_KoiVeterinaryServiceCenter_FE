@@ -201,12 +201,12 @@ export default function BookingPageDetails() {
                 <Table sx={{ minWidth: 500 }} aria-label="customer table">
                   <TableHead sx={{ bgcolor: BG_COLOR }}>
                     <TableRow>
-                      <TableCell align="center" sx={{ fontWeight: 600 }} >Name</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Date of Birth</TableCell>
+                      <TableCell align="center" sx={{ fontWeight: 600 }} >Customer Name</TableCell>
+                      <TableCell align="center" sx={{ fontWeight: 600 }}>Veterinarian</TableCell>
                       <TableCell align="center" sx={{ fontWeight: 600 }}>Fullname</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Start Date</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Email</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Phone number</TableCell>
+                      <TableCell align="center" sx={{ fontWeight: 600 }}>Description</TableCell>
+                      <TableCell align="center" sx={{ fontWeight: 600 }}>Total Price</TableCell>
+                      <TableCell align="center" sx={{ fontWeight: 600 }}>Created At</TableCell>
                       <TableCell align="center" sx={{ fontWeight: 600 }}>Status</TableCell>
                     </TableRow>
                   </TableHead>

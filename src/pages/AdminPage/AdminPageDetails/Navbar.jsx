@@ -54,7 +54,7 @@ function Navbar() {
         navigate('/booking')
         break
       case 4:
-        navigate('/veterian')
+        navigate('/veterinarian_management')
         break
       default:
         navigate('/prescription')
@@ -139,7 +139,7 @@ function Navbar() {
 
           <Box sx={{ display: 'flex', alignItems: 'center', color: '#000', paddingTop: '10px' }}>
             <LocalHospitalIcon />
-            <ListItem button onClick={() => navigate('/veterian')}>
+            <ListItem button onClick={() => navigate('/veterinarian_management')}>
               <ListItemText
                 primary="Veterian"
                 primaryTypographyProps={{

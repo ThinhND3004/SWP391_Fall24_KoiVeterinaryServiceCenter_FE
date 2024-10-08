@@ -21,6 +21,8 @@ import AdminHomePage from '~/pages/AdminPage/AdminPage.component.jsx'
 import PasswordPage from '~/pages/AdminPage/PasswordPage/PasswordPage.component'
 import CustomerPage from '~/pages/AdminPage/CustomerPage/CustomerPage.component'
 import BookingPage from '~/pages/AdminPage/BookingPage/BookingPage.component'
+import VeterianPage from '~/pages/AdminPage/VeterianPage/VeterianPage.component'
+import PrescriptionPage from '~/pages/AdminPage/PrescriptionPage/PrescriptionPage.component'
 
 const RouteComponent = () => {
   return (
@@ -47,8 +49,8 @@ const RouteComponent = () => {
         <Route path='/password' element={<PasswordPage />} />
         <Route path='/customer' element={<CustomerPage />} />
         <Route path='/booking' element={<BookingPage />} />
-        {/* Route path='/veterian' element={<VeterianPage />} /> */}
-        {/* Route path='/prescription' element={<PrescriptonPage />} /> */}
+        <Route path='/veterinarian_management' element={<VeterianPage />} />
+        <Route path='/prescription' element={<PrescriptionPage />} />
       </Route>
 
       <Route path='/' element={
