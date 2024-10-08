@@ -265,41 +265,6 @@ function RegisterPageDetails() {
 
             <Box>
               <Typography sx={{ fontWeight: 600, fontSize: 16 }}>Date of Birth</Typography>
-              {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer 
-                  components={['DatePicker']} 
-                  variant='outlined'
-                  
-                  sx={{
-                    overflow: 'hidden',
-                    width: '600px',
-                    '& .MuiOutlinedInput-root': {
-                      borderRadius: '15px',
-                      borderColor: BLUE_COLOR,
-                      height: '60px',
-                      '&.Mui-focused fieldset': {
-                        borderColor: BLUE_COLOR
-                      }
-                    },
-                    '& input': {
-                      backgroundColor: INPUT_FIELD_COLOR,
-                      padding: '20px 15px',
-                      fontSize: '16px',
-                      borderRadius: '15px'
-                    }
-                  }}>
-                  <DatePicker
-                    placeholder="Select your date"
-                    label=''
-                    sx={{
-                      backgroundColor: INPUT_FIELD_COLOR,
-                      width: '600px',
-                      borderRadius: '15px'
-                    }} 
-                    onChange={(value) => { setDob(value.target.value.$d) }}
-                    />
-                </DemoContainer>
-              </LocalizationProvider> */}
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   sx={{

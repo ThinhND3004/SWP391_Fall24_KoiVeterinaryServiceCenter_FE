@@ -5,11 +5,31 @@ import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import Breadcrumbs from '@mui/material/Breadcrumbs'
+import Link from '@mui/material/Link'
+
+function handleClick(event) {
+  event.preventDefault()
+  console.info('You clicked a breadcrumb.');
+}
+
 
 function Profile() {
   return (
     <div>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Breadcrumbs aria-label="breadcrumb">
+        <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
+          Nguyen Van A
+        </Typography>
+        <Typography sx={{
+          fontWeight: 600, fontSize: '20px'
+        }}
+        >
+          Account
+        </Typography>
+      </Breadcrumbs>
+
+      <Box sx={{ display: 'flex', alignItems: 'center', mt: 3 }}>
         <img
           src="https://scontent.fsgn5-9.fna.fbcdn.net/v/t39.30808-6/458543500_486467400928330_5441971395471908329_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeG9aEDsMnsuTmFaO8Epz9VcDiAcRaAw4hkOIBxFoDDiGTXGkPiU9zzUxUGkGkdr1svwU_EwP1sGV_CCraO7qIOG&_nc_ohc=k5-ZFDezAWUQ7kNvgH4vh-e&_nc_ht=scontent.fsgn5-9.fna&_nc_gid=ABiNWvdY4Elz_QxnESTEqWB&oh=00_AYCCDQQa6NLtHjADKD_H7Ea46FYv15SSjcd_1Klye2CmSQ&oe=6705EF9F"
           style={{ width: '90px', height: '90px', borderRadius: '50%', marginRight: '20px' }}
@@ -111,10 +131,10 @@ function Profile() {
           />
         </Box>
         <Box>
-          <Typography sx={{ fontWeight: 600, fontSize: 18 }}>First name</Typography>
+          <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Last name</Typography>
           <TextField
             id="outlined-basic"
-            placeholder='Enter your first name'
+            placeholder='Enter your last name'
             variant="outlined"
             sx={{
               width: '500px',
@@ -142,7 +162,7 @@ function Profile() {
           <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Phone number</Typography>
           <TextField
             id="outlined-basic"
-            placeholder='Enter your first name'
+            placeholder='Enter your phone number'
             variant="outlined"
             sx={{
               width: '500px',
@@ -235,8 +255,8 @@ function Profile() {
         sx={{
           display: 'flex',
           justifyContent: 'start',
-          marginTop: '40px',
           marginBottom: '60px'
+
         }}
       >
         <Box
