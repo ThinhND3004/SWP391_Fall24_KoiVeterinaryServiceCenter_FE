@@ -9,7 +9,10 @@ import { useNavigate } from 'react-router-dom'
 import api from '~/config/axios'
 import dayjs from 'dayjs'
 import { Alert } from '@mui/material';
-import { CheckCircleOutlineIcon, ErrorIcon } from '@mui/icons-material';
+import ErrorIcon from '@mui/icons-material/Error';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+
+
 
 
 
@@ -39,7 +42,7 @@ function RegisterPageDetails() {
     }
   }, [dateOfBirth])
 
-  const [error, setError] = useState({})
+  const [error, setError] = useState({});
 
 
   const handleValidation = () => {
@@ -76,7 +79,7 @@ function RegisterPageDetails() {
 
 
   const handleRegis = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     console.log("DOB: ", dob)
     try {
       if (handleValidation()) {
@@ -108,7 +111,7 @@ function RegisterPageDetails() {
         console.log("Validation failed. Please check your inputs.");
       }
     } catch (error) {
-      console.error("ERROR: ", error); 
+      console.error("ERROR: ", error);
     }
   };
 
@@ -118,28 +121,39 @@ function RegisterPageDetails() {
   return (
     <div>
 
-      {errRes
-        &&
+      {errRes && (
         <Alert
-        security='error'
-        iconMapping={{
-          error: <ErrorIcon fontSize="inherit" />,
-        }}
-      > 
+          severity='error'
+          iconMapping={{
+            error: <ErrorIcon fontSize="inherit" />,
+          }}
+          sx={{
+            mt: 2,
+            color: 'red',
+            bgcolor: 'rgba(255, 0, 0, 0.1)',
+          }}
+        >
           {errRes}
         </Alert>
-      }
+      )}
 
-      {!errRes && alertTrigger
-        &&
+
+      {!errRes && alertTrigger && (
         <Alert
-        iconMapping={{
-          success: <CheckCircleOutlineIcon fontSize="inherit" />,
-        }}
-      > 
-        Register successfully!
-      </Alert>
-      }
+          severity='success'
+          iconMapping={{
+            success: <CheckCircleOutlineIcon fontSize="inherit" />,
+          }}
+          sx={{
+            mt: 2,
+            color: 'green',
+            bgcolor: 'rgba(0, 255, 0, 0.1)',
+          }}
+        >
+          Register successfully!
+        </Alert>
+      )}
+
 
 
 
@@ -180,7 +194,7 @@ function RegisterPageDetails() {
                     borderRadius: '15px'
                   }
                 }}
-              /> <br/>
+              /> <br />
               {error.firstName && <span style={{ color: 'red' }}>{error.firstName}</span>}
             </Box>
 
@@ -212,7 +226,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
-              <br/>
+              <br />
               {error.lastName && <span style={{ color: 'red' }}>{error.lastName}</span>}
             </Box>
           </Box>
@@ -245,7 +259,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
-              <br/>
+              <br />
               {error.email && <span style={{ color: 'red' }}>{error.email}</span>}
             </Box>
 
@@ -288,18 +302,18 @@ function RegisterPageDetails() {
               </LocalizationProvider> */}
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
-                sx={{
-                  marginTop: '15px',
-                  backgroundColor: INPUT_FIELD_COLOR,
-                  width: '600px',
-                  borderRadius: '15px'
-                }} 
+                  sx={{
+                    marginTop: '15px',
+                    backgroundColor: INPUT_FIELD_COLOR,
+                    width: '600px',
+                    borderRadius: '15px'
+                  }}
                   value={dateOfBirth}
                   onChange={(newValue) => setDateOfBirth(newValue)}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
-              <br/>
+              <br />
               {error.dob && <span style={{ color: 'red' }}>{error.dob}</span>}
             </Box>
           </Box>
@@ -334,7 +348,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
-              <br/>
+              <br />
               {error.phone && <span style={{ color: 'red' }}>{error.phone}</span>}
             </Box>
             <Box>
@@ -365,7 +379,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
-              <br/>
+              <br />
               {error.address && <span style={{ color: 'red' }}>{error.address}</span>}
             </Box>
           </Box>
@@ -399,7 +413,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
-              <br/>
+              <br />
               {error.password && <span style={{ color: 'red' }}>{error.password}</span>}
             </Box>
             <Box>
@@ -430,7 +444,7 @@ function RegisterPageDetails() {
                   }
                 }}
               />
-              <br/>
+              <br />
               {error.password && <span style={{ color: 'red' }}>{error.password}</span>}
             </Box>
           </Box>
