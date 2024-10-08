@@ -13,6 +13,8 @@ export const LIGHT_PINK = 'rgb(255, 216, 216)'
 export const DARK_GREEN = 'rgb(48, 147, 56)'
 export const ORANGE_PASTEL_COLOR = '#FFE6E4'
 export const INPUT_FIELD_COLOR = '#D6EAE8'
+export const ONLINE_BUTTON = '#34C759'
+export const OFFLINE_CENTER_BUTTON = '#E2A03F'
 
 const theme = createTheme({
   palette: {
