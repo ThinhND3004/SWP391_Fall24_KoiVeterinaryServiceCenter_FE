@@ -131,7 +131,7 @@ function CustomerPageDetails() {
 
       {/* Table */}
       <Box sx={{ mt: 3, mb: 3 }}>
-        <TableContainer component={Paper} sx={{ maxHeight: 460, overflowY: 'auto' }}>
+        <TableContainer component={Paper} sx={{ maxHeight: 500, overflowY: 'auto' }}>
           <Table sx={{ minWidth: 650 }} aria-label="customer table">
             <TableHead sx={{ bgcolor: BG_COLOR }}>
               <TableRow>

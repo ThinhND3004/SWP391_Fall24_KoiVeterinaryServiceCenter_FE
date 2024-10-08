@@ -99,36 +99,36 @@ function SimpleDialog(props) {
           backgroundColor: BG_COLOR, // Background color
           padding: 3, // Padding inside the dialog
           borderRadius: '15px', // Rounded corners
-          width: '600px', // Fixed width
+          width: '500px' // Fixed width
           // height: '550px'
         }
       }}>
       <DialogTitle>
-        <Typography sx={{ color: BLUE_COLOR, fontSize: 26, fontWeight: 700, textAlign: 'center' }}>
+        <Typography sx={{ color: BLUE_COLOR, fontSize: 20, fontWeight: 700, textAlign: 'center' }}>
           Prescription Details
         </Typography>
       </DialogTitle>
 
-      <Box sx={{ mt: 3 }}>
-        <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Full name</Typography>
+      <Box sx={{ mt: 2 }}>
+        <Typography sx={{ fontWeight: 600, fontSize: 16 }}>Full name</Typography>
         <TextField
           id="outlined-basic"
           placeholder='Enter your full name'
           variant="outlined"
           sx={{
-            width: '600px',
+            width: '500px',
             '& .MuiOutlinedInput-root': {
               borderRadius: '15px',
               borderColor: BLUE_COLOR,
-              height: '60px',
+              height: '40px',
               marginTop: '15px',
               '&.Mui-focused fieldset': {
                 borderColor: BLUE_COLOR
               }
             },
             '& input': {
-              backgroundColor: INPUT_FIELD_COLOR,
-              padding: '20px 15px',
+              // backgroundColor: INPUT_FIELD_COLOR,
+              // padding: '20px 15px',
               fontSize: '16px',
               borderRadius: '15px'
             }
@@ -136,26 +136,26 @@ function SimpleDialog(props) {
         />
       </Box>
 
-      <Box sx={{ mt: 3 }}>
-        <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Service</Typography>
+      <Box sx={{ mt: 2 }}>
+        <Typography sx={{ fontWeight: 600, fontSize: 16 }}>Service</Typography>
         <TextField
           id="outlined-basic"
           placeholder='Enter your service name'
           variant="outlined"
           sx={{
-            width: '600px',
+            width: '500px',
             '& .MuiOutlinedInput-root': {
               borderRadius: '15px',
               borderColor: BLUE_COLOR,
-              height: '60px',
+              height: '40px',
               marginTop: '15px',
               '&.Mui-focused fieldset': {
                 borderColor: BLUE_COLOR
               }
             },
             '& input': {
-              backgroundColor: INPUT_FIELD_COLOR,
-              padding: '20px 15px',
+              // backgroundColor: INPUT_FIELD_COLOR,
+              // padding: '20px 15px',
               fontSize: '16px',
               borderRadius: '15px'
             }
@@ -163,26 +163,26 @@ function SimpleDialog(props) {
         />
       </Box>
 
-      <Box sx={{ mt: 3 }}>
+      <Box sx={{ mt: 2 }}>
         <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Prescription</Typography>
         <TextField
           id="outlined-basic"
           placeholder='Enter your prescription'
           variant="outlined"
           sx={{
-            width: '600px',
+            width: '500px',
             '& .MuiOutlinedInput-root': {
               borderRadius: '15px',
               borderColor: BLUE_COLOR,
-              height: '100px',
+              height: '70px',
               marginTop: '15px',
               '&.Mui-focused fieldset': {
                 borderColor: BLUE_COLOR
               }
             },
             '& input': {
-              backgroundColor: INPUT_FIELD_COLOR,
-              padding: '20px 15px',
+              // backgroundColor: INPUT_FIELD_COLOR,
+              // padding: '20px 15px',
               fontSize: '16px',
               borderRadius: '15px'
             }
@@ -190,25 +190,25 @@ function SimpleDialog(props) {
         />
       </Box>
 
-      <Box sx={{ mt: 3 }}>
+      <Box sx={{ mt: 2 }}>
         <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Shipping Method</Typography>
         <TextField
           id="outlined-basic"
           placeholder='Enter your shipping'
           variant="outlined"
           sx={{
-            width: '600px',
+            width: '500px',
             '& .MuiOutlinedInput-root': {
               borderRadius: '15px',
               borderColor: BLUE_COLOR,
-              height: '60px',
+              height: '40px',
               marginTop: '15px',
               '&.Mui-focused fieldset': {
                 borderColor: BLUE_COLOR
               }
             },
             '& input': {
-              backgroundColor: INPUT_FIELD_COLOR,
+              // backgroundColor: INPUT_FIELD_COLOR,
               padding: '20px 15px',
               fontSize: '16px',
               borderRadius: '15px'
@@ -223,7 +223,7 @@ function SimpleDialog(props) {
 
       <Box
         sx={{
-          mt: 3,
+          mt: 2,
           display: 'flex',
           justifyContent: 'start',
           marginBottom: '20px'
@@ -305,7 +305,7 @@ function PrescriptionPageDetails() {
       </Box>
 
       <Box sx={{ mt: 3, mb: 3 }}>
-        <TableContainer component={Paper} sx={{ maxHeight: 460, overflowY: 'auto' }}>
+        <TableContainer component={Paper} sx={{ maxHeight: 500, overflowY: 'auto' }}>
           <Table sx={{ minWidth: 650 }} aria-label="customer table">
             <TableHead sx={{ bgcolor: BG_COLOR }}>
               <TableRow>

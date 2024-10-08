@@ -112,58 +112,59 @@ export default function BookingPageDetails() {
   return (
     <div>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Breadcrumbs aria-label="breadcrumb">
-            <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-              Nguyen Van A
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Breadcrumbs aria-label="breadcrumb">
+              <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
+                Nguyen Van A
+              </Typography>
+              <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
+                Bookings Management
+              </Typography>
+            </Breadcrumbs>
+          </Box>
+        </Box>
+        {/* search box */}
+        <Box sx={{ display: 'flex', gap: 2, mt: 3 }}>
+          <Search sx={{
+            borderRadius: '10px',
+            bgcolor: INPUT_FIELD_COLOR
+          }}>
+            <SearchIconWrapper>
+              <SearchIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
+            </SearchIconWrapper>
+            <StyledInputBase sx={{ fontSize: '14px' }}
+              placeholder="Search…"
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </Search>
+
+          <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: INPUT_FIELD_COLOR, borderRadius: '10px', gap: 1 }}>
+            <FilterListIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
+            <Typography sx={{ color: GRAY_COLOR, fontWeight: 500, fontSize: '14px' }}>
+              Filter
             </Typography>
-            <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-              Bookings Management
+          </Button>
+
+          <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: INPUT_FIELD_COLOR, borderRadius: '10px', gap: 1 }}>
+            <FileDownloadIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
+            <Typography sx={{ color: GRAY_COLOR, fontWeight: 500, fontSize: '14px' }}>
+              Import
             </Typography>
-          </Breadcrumbs>
+          </Button>
+
+          <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: BLUE_COLOR, borderRadius: '10px', color: '#fff', gap: 1 }}>
+            <AddIcon sx={{ fontSize: '14px' }} />
+            <Typography sx={{ fontSize: '14px' }}>
+              Add
+            </Typography>
+          </Button>
         </Box>
       </Box>
-      {/* search box */}
-      <Box sx={{ display: 'flex', gap: 2, mt: 3 }}>
-        <Search sx={{
-          borderRadius: '10px',
-          bgcolor: INPUT_FIELD_COLOR
-        }}>
-          <SearchIconWrapper>
-            <SearchIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
-          </SearchIconWrapper>
-          <StyledInputBase sx={{ fontSize: '14px' }}
-            placeholder="Search…"
-            inputProps={{ 'aria-label': 'search' }}
-          />
-        </Search>
-
-        <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: INPUT_FIELD_COLOR, borderRadius: '10px', gap: 1 }}>
-          <FilterListIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
-          <Typography sx={{ color: GRAY_COLOR, fontWeight: 500, fontSize: '14px' }}>
-            Filter
-          </Typography>
-        </Button>
-
-        <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: INPUT_FIELD_COLOR, borderRadius: '10px', gap: 1 }}>
-          <FileDownloadIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
-          <Typography sx={{ color: GRAY_COLOR, fontWeight: 500, fontSize: '14px' }}>
-            Import
-          </Typography>
-        </Button>
-
-        <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: BLUE_COLOR, borderRadius: '10px', color: '#fff', gap: 1 }}>
-          <AddIcon sx={{ fontSize: '14px' }} />
-          <Typography sx={{ fontSize: '14px' }}>
-            Add
-          </Typography>
-        </Button>
-      </Box>
-
 
       {/* tab bar */}
       <Box>
-        <Box sx={{ width: '100%', mt: 3 }}>
+        <Box sx={{ width: '100%' }}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={valueTab} onChange={handleChange} aria-label="basic tabs example" variant="fullWidth" centered>
               <Tab
@@ -194,14 +195,21 @@ export default function BookingPageDetails() {
             </Tabs>
           </Box>
 
+          {/* Table */}
           <CustomTabPanel value={valueTab} index={0}>
-            {/* Table */}
-            <Box sx={{ mt: 3, mb: 3 }}>
+            <Box>
               <TableContainer component={Paper} sx={{ maxHeight: 460, overflowY: 'auto' }}>
-                <Table sx={{ minWidth: 500 }} aria-label="customer table">
+                <Table
+                  sx={{
+                    minWidth: 500,
+                    borderCollapse: 'collapse', // Ensures no extra spacing between cells
+                    border: 'none' // Removes the border from the table itself
+                  }}
+                  aria-label="customer table"
+                >
                   <TableHead sx={{ bgcolor: BG_COLOR }}>
-                    <TableRow>
-                      <TableCell align="center" sx={{ fontWeight: 600 }} >Customer Name</TableCell>
+                    <TableRow sx={{ borderBottom: 'none' }}> {/* Removes border under the header row */}
+                      <TableCell align="center" sx={{ fontWeight: 600 }}>Customer Name</TableCell>
                       <TableCell align="center" sx={{ fontWeight: 600 }}>Veterinarian</TableCell>
                       <TableCell align="center" sx={{ fontWeight: 600 }}>Fullname</TableCell>
                       <TableCell align="center" sx={{ fontWeight: 600 }}>Description</TableCell>
@@ -212,18 +220,16 @@ export default function BookingPageDetails() {
                   </TableHead>
                   <TableBody sx={{ bgcolor: BG_COLOR }}>
                     {rows.map((row) => (
-                      <TableRow
-                        key={row.name}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                      >
-                        <TableCell component="th" scope="row" >{row.name}</TableCell>
+                      <TableRow key={row.name} sx={{ borderBottom: 'none' }}> {/* Removes border under each row */}
+                        <TableCell component="th" scope="row">{row.name}</TableCell>
                         <TableCell align="center">{row.dob}</TableCell>
                         <TableCell align="center">{row.fullName}</TableCell>
                         <TableCell align="center">{row.startDate}</TableCell>
                         <TableCell align="center">{row.email}</TableCell>
                         <TableCell align="center">{row.phoneNumber}</TableCell>
-                        {/* <TableCell align="center" sx={{ bgcolor: '#E2A03F', borderRadius: '4px', color: '#fff' }}>{row.status}</TableCell> */}
-                        <TableCell align="center" sx={{ borderRadius: '4px', color: ORANGE_COLOR, fontWeight: 500 }}>{row.status}</TableCell>
+                        <TableCell align="center" sx={{ borderRadius: '4px', color: ORANGE_COLOR, fontWeight: 500 }}>
+                          {row.status}
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -233,33 +239,39 @@ export default function BookingPageDetails() {
           </CustomTabPanel>
 
           <CustomTabPanel value={valueTab} index={1}>
-            <Box sx={{ mt: 3, mb: 3 }}>
+            <Box>
               <TableContainer component={Paper} sx={{ maxHeight: 460, overflowY: 'auto' }}>
-                <Table sx={{ minWidth: 500 }} aria-label="customer table">
+                <Table
+                  sx={{
+                    minWidth: 500,
+                    borderCollapse: 'collapse', // Ensures no extra spacing between cells
+                    border: 'none' // Removes the border from the table itself
+                  }}
+                  aria-label="customer table"
+                >
                   <TableHead sx={{ bgcolor: BG_COLOR }}>
-                    <TableRow>
-                      <TableCell align="center" sx={{ fontWeight: 600 }} >Name</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Date of Birth</TableCell>
+                    <TableRow sx={{ borderBottom: 'none' }}> {/* Removes border under the header row */}
+                      <TableCell align="center" sx={{ fontWeight: 600 }}>Customer Name</TableCell>
+                      <TableCell align="center" sx={{ fontWeight: 600 }}>Veterinarian</TableCell>
                       <TableCell align="center" sx={{ fontWeight: 600 }}>Fullname</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Start Date</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Email</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Phone number</TableCell>
+                      <TableCell align="center" sx={{ fontWeight: 600 }}>Description</TableCell>
+                      <TableCell align="center" sx={{ fontWeight: 600 }}>Total Price</TableCell>
+                      <TableCell align="center" sx={{ fontWeight: 600 }}>Created At</TableCell>
                       <TableCell align="center" sx={{ fontWeight: 600 }}>Status</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody sx={{ bgcolor: BG_COLOR }}>
                     {rows.map((row) => (
-                      <TableRow
-                        key={row.name}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                      >
-                        <TableCell component="th" scope="row" >{row.name}</TableCell>
+                      <TableRow key={row.name} sx={{ borderBottom: 'none' }}> {/* Removes border under each row */}
+                        <TableCell component="th" scope="row">{row.name}</TableCell>
                         <TableCell align="center">{row.dob}</TableCell>
                         <TableCell align="center">{row.fullName}</TableCell>
                         <TableCell align="center">{row.startDate}</TableCell>
                         <TableCell align="center">{row.email}</TableCell>
                         <TableCell align="center">{row.phoneNumber}</TableCell>
-                        <TableCell align="center" sx={{ borderRadius: '4px', color: ORANGE_COLOR, fontWeight: 500 }}>{row.status}</TableCell>
+                        <TableCell align="center" sx={{ borderRadius: '4px', color: ORANGE_COLOR, fontWeight: 500 }}>
+                          {row.status}
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -269,34 +281,39 @@ export default function BookingPageDetails() {
           </CustomTabPanel>
 
           <CustomTabPanel value={valueTab} index={2}>
-            <Box sx={{ mt: 3, mb: 3 }}>
+            <Box>
               <TableContainer component={Paper} sx={{ maxHeight: 460, overflowY: 'auto' }}>
-                <Table sx={{ minWidth: 500 }} aria-label="customer table">
+                <Table
+                  sx={{
+                    minWidth: 500,
+                    borderCollapse: 'collapse', // Ensures no extra spacing between cells
+                    border: 'none' // Removes the border from the table itself
+                  }}
+                  aria-label="customer table"
+                >
                   <TableHead sx={{ bgcolor: BG_COLOR }}>
-                    <TableRow>
-                      <TableCell align="center" sx={{ fontWeight: 600 }} >Name</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Date of Birth</TableCell>
+                    <TableRow sx={{ borderBottom: 'none' }}> {/* Removes border under the header row */}
+                      <TableCell align="center" sx={{ fontWeight: 600 }}>Customer Name</TableCell>
+                      <TableCell align="center" sx={{ fontWeight: 600 }}>Veterinarian</TableCell>
                       <TableCell align="center" sx={{ fontWeight: 600 }}>Fullname</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Start Date</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Email</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Phone number</TableCell>
+                      <TableCell align="center" sx={{ fontWeight: 600 }}>Description</TableCell>
+                      <TableCell align="center" sx={{ fontWeight: 600 }}>Total Price</TableCell>
+                      <TableCell align="center" sx={{ fontWeight: 600 }}>Created At</TableCell>
                       <TableCell align="center" sx={{ fontWeight: 600 }}>Status</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody sx={{ bgcolor: BG_COLOR }}>
                     {rows.map((row) => (
-                      <TableRow
-                        key={row.name}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                      >
-                        <TableCell component="th" scope="row" >{row.name}</TableCell>
+                      <TableRow key={row.name} sx={{ borderBottom: 'none' }}> {/* Removes border under each row */}
+                        <TableCell component="th" scope="row">{row.name}</TableCell>
                         <TableCell align="center">{row.dob}</TableCell>
                         <TableCell align="center">{row.fullName}</TableCell>
                         <TableCell align="center">{row.startDate}</TableCell>
                         <TableCell align="center">{row.email}</TableCell>
                         <TableCell align="center">{row.phoneNumber}</TableCell>
-                        {/* <TableCell align="center" sx={{ bgcolor: '#E2A03F', borderRadius: '4px', color: '#fff' }}>{row.status}</TableCell> */}
-                        <TableCell align="center" sx={{ borderRadius: '4px', color: ORANGE_COLOR, fontWeight: 500 }}>{row.status}</TableCell>
+                        <TableCell align="center" sx={{ borderRadius: '4px', color: ORANGE_COLOR, fontWeight: 500 }}>
+                          {row.status}
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
