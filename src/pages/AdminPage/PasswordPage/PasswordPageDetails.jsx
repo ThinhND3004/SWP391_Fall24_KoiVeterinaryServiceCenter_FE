@@ -18,7 +18,7 @@ function PasswordPageDetails() {
           Nguyen Van A
         </Typography>
         <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-          Account
+          Password Management
         </Typography>
       </Breadcrumbs>
 

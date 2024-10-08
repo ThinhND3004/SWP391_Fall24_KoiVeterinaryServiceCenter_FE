@@ -87,7 +87,7 @@ function CustomerPageDetails() {
               fontWeight: 600, fontSize: '20px'
             }}
             >
-              Account
+              Customers Management
             </Typography>
           </Breadcrumbs>
         </Box>
