@@ -23,8 +23,7 @@ function Title() {
   }, [])
 
   const handleLogin = async () => {
-    setLoginMess(""); // Clear previous messages
-  
+    setLoginMess(""); 
     if (!email || !password) {
       setLoginMess("Email and Password are required");
       return;
