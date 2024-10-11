@@ -118,7 +118,7 @@ function SimpleDialog(props) {
           sx={{
             width: '500px',
             '& .MuiOutlinedInput-root': {
-              borderRadius: '15px',
+              borderRadius: '10px',
               borderColor: BLUE_COLOR,
               height: '40px',
               marginTop: '15px',
@@ -145,7 +145,7 @@ function SimpleDialog(props) {
           sx={{
             width: '500px',
             '& .MuiOutlinedInput-root': {
-              borderRadius: '15px',
+              borderRadius: '10px',
               borderColor: BLUE_COLOR,
               height: '40px',
               marginTop: '15px',
@@ -172,7 +172,7 @@ function SimpleDialog(props) {
           sx={{
             width: '500px',
             '& .MuiOutlinedInput-root': {
-              borderRadius: '15px',
+              borderRadius: '10px',
               borderColor: BLUE_COLOR,
               height: '70px',
               marginTop: '15px',
@@ -199,7 +199,7 @@ function SimpleDialog(props) {
           sx={{
             width: '500px',
             '& .MuiOutlinedInput-root': {
-              borderRadius: '15px',
+              borderRadius: '10px',
               borderColor: BLUE_COLOR,
               height: '40px',
               marginTop: '15px',

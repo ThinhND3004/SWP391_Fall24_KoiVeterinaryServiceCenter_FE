@@ -8,7 +8,6 @@ function AdminPage() {
     <div>
       <Box display={'flex'} flexDirection={'column'} gap={'50px'} px={'30px'}>
         <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
-          <Navbar />
           <Profile />
         </Box>
       </Box>

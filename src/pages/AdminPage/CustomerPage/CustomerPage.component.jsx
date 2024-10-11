@@ -1,18 +1,27 @@
 import React from 'react'
 import Navbar from '../AdminPageDetails/Navbar'
 import CustomerPageDetails from '~/pages/AdminPage/CustomerPage/CustomerPageDetails'
-import { Box } from '@mui/material'
+import { Box, Breadcrumbs, Typography } from '@mui/material'
 
 function CustomerPage() {
   return (
-    <div>
-      <Box display={'flex'} flexDirection={'column'} gap={'50px'} px={'30px'}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
-          <Navbar />
-          <CustomerPageDetails />
-        </Box>
+    <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Breadcrumbs aria-label="breadcrumb">
+          <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
+            Nguyen Van A
+          </Typography>
+          <Typography sx={{
+            fontWeight: 600, fontSize: '20px'
+          }}
+          >
+            Customers Management
+          </Typography>
+        </Breadcrumbs>
       </Box>
-    </div >
+      <CustomerPageDetails />
+    </Box>
+
   )
 }
 

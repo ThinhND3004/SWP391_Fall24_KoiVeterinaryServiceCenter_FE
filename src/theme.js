@@ -18,6 +18,9 @@ export const OFFLINE_CENTER_BUTTON = '#E2A03F'
 
 const theme = createTheme({
   palette: {
+    background: {
+      default: BG_COLOR
+    },
     primary: {
       main: '#E6F4F3'
     },

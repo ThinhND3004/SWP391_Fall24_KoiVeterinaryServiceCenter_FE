@@ -10,7 +10,7 @@ import Link from '@mui/material/Link'
 
 function handleClick(event) {
   event.preventDefault()
-  console.info('You clicked a breadcrumb.');
+  console.info('You clicked a breadcrumb.')
 }
 
 
@@ -31,7 +31,7 @@ function Profile() {
 
       <Box sx={{ display: 'flex', alignItems: 'center', mt: 3 }}>
         <img
-          src="https://scontent.fsgn5-9.fna.fbcdn.net/v/t39.30808-6/458543500_486467400928330_5441971395471908329_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeG9aEDsMnsuTmFaO8Epz9VcDiAcRaAw4hkOIBxFoDDiGTXGkPiU9zzUxUGkGkdr1svwU_EwP1sGV_CCraO7qIOG&_nc_ohc=k5-ZFDezAWUQ7kNvgH4vh-e&_nc_ht=scontent.fsgn5-9.fna&_nc_gid=ABiNWvdY4Elz_QxnESTEqWB&oh=00_AYCCDQQa6NLtHjADKD_H7Ea46FYv15SSjcd_1Klye2CmSQ&oe=6705EF9F"
+          src="https://scontent.fsgn2-5.fna.fbcdn.net/v/t39.30808-6/462254484_1075104570840409_1720952893450055569_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeHBDw4RgEsvpNbYjcISu1i-NyLFAtlmEDY3IsUC2WYQNsSPnRUqTF1rGaAXgHitmqP4APbrVRbnBdYMfUAhFBj-&_nc_ohc=v3kjlMgghMQQ7kNvgHfPoeQ&_nc_ht=scontent.fsgn2-5.fna&_nc_gid=AWZg7-R8bHWFKC0HOW-berR&oh=00_AYA-k4UZjqk6z8BAP38BCWqLMPUhWfyrgt9OA-joHMvMlg&oe=670C1D26"
           style={{ width: '90px', height: '90px', borderRadius: '50%', marginRight: '20px' }}
         />
         <Box>
@@ -251,12 +251,12 @@ function Profile() {
         />
       </Box>
 
+      {/* Submit button */}
       <Box
         sx={{
           display: 'flex',
           justifyContent: 'start',
           marginBottom: '60px'
-
         }}
       >
         <Box

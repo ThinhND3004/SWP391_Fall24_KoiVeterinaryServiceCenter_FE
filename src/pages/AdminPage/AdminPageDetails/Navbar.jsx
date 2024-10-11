@@ -13,7 +13,37 @@ import Divider from '@mui/material/Divider'
 import { useDispatch, useSelector } from 'react-redux'
 
 
-const pages = ['Account', 'Password', 'Customer', 'Booking', 'Veterian', 'Prescription']
+const menus = [
+  {
+    title: 'Account',
+    icon: AccountCircleIcon,
+    url: '/admin'
+  },
+  {
+    title: 'Password',
+    icon: LockIcon,
+    url: '/password'
+  },
+  {
+    title: 'Customer',
+    icon: SupportAgentIcon,
+    url: '/customer'
+  },
+  {
+    title: 'Booking',
+    icon: CalendarMonthIcon,
+    url: '/booking'
+  },
+  {
+    title: 'Veterian',
+    icon: LocalHospitalIcon,
+    url: '/veterinarian_management'
+  },
+  {
+    title: 'Prescription',
+    icon: ArticleIcon,
+    url: '/prescription'
+  }]
 
 
 function Navbar() {
@@ -73,101 +103,28 @@ function Navbar() {
         }}
       >
         <List>
-          <Box sx={{ display: 'flex', alignItems: 'center', color: '#000' }}>
-            <AccountCircleIcon />
-            <ListItem button onClick={() => navigate('/admin')}>
-              <ListItemText
-                primary="Account"
-                primaryTypographyProps={{
-                  sx: {
-                    fontSize: '18px',
-                    color: '#000',
-                    fontWeight: 500
-                  }
-                }}
-              />
-            </ListItem>
-          </Box>
+          {menus.map((menu, idx) => {
+            const IconComponent = menu.icon
 
-          <Box sx={{ display: 'flex', alignItems: 'center', color: '#000', paddingTop: '10px' }}>
-            <LockIcon />
-            <ListItem button onClick={() => navigate('/password')}>
-              <ListItemText
-                primary="Password"
-                primaryTypographyProps={{
-                  sx: {
-                    fontSize: '18px',
-                    color: '#000',
-                    fontWeight: 500
-                  }
-                }}
-              />
-            </ListItem>
-          </Box>
+            return (
+              <Box key={`menu-${idx}`} sx={{ display: 'flex', alignItems: 'center', color: '#000' }}>
+                <ListItem button onClick={() => navigate(menu.url)} sx={{ gap: 1.5, cursor: 'pointer' }}>
+                  <IconComponent />
+                  <ListItemText
+                    primary={menu.title}
+                    primaryTypographyProps={{
+                      sx: {
+                        fontSize: '18px',
+                        color: '#000',
+                        fontWeight: 500
+                      }
+                    }}
+                  />
+                </ListItem>
+              </Box>
+            )
 
-          <Box sx={{ display: 'flex', alignItems: 'center', color: '#000', paddingTop: '10px' }}>
-            <SupportAgentIcon />
-            <ListItem button onClick={() => navigate('/customer')}>
-              <ListItemText
-                primary="Customer"
-                primaryTypographyProps={{
-                  sx: {
-                    fontSize: '18px',
-                    color: '#000',
-                    fontWeight: 500
-                  }
-                }}
-              />
-            </ListItem>
-          </Box>
-
-          <Box sx={{ display: 'flex', alignItems: 'center', color: '#000', paddingTop: '10px' }}>
-            <CalendarMonthIcon />
-            <ListItem button onClick={() => navigate('/booking')}>
-              <ListItemText
-                primary="Booking"
-                primaryTypographyProps={{
-                  sx: {
-                    fontSize: '18px',
-                    color: '#000',
-                    fontWeight: 500
-                  }
-                }}
-              />
-            </ListItem>
-          </Box>
-
-          <Box sx={{ display: 'flex', alignItems: 'center', color: '#000', paddingTop: '10px' }}>
-            <LocalHospitalIcon />
-            <ListItem button onClick={() => navigate('/veterinarian_management')}>
-              <ListItemText
-                primary="Veterian"
-                primaryTypographyProps={{
-                  sx: {
-                    fontSize: '18px',
-                    color: '#000',
-                    fontWeight: 500
-                  }
-                }}
-              />
-            </ListItem>
-          </Box>
-
-          <Box sx={{ display: 'flex', alignItems: 'center', color: '#000', paddingTop: '10px' }}>
-            <ArticleIcon />
-            <ListItem button onClick={() => navigate('/prescription')}>
-              <ListItemText
-                primary="Prescription"
-                primaryTypographyProps={{
-                  sx: {
-                    fontSize: '18px',
-                    color: '#000',
-                    fontWeight: 500
-                  }
-                }}
-              />
-            </ListItem>
-          </Box>
+          })}
 
           <Divider sx={{ paddingTop: '50px' }} />
           <Box sx={{ display: 'flex', alignItems: 'center', color: ORANGE_COLOR, paddingTop: '10px' }}>

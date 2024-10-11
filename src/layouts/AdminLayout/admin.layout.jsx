@@ -1,9 +1,10 @@
-import { Container, Grid2 } from '@mui/material'
+import { Box, Container, Grid2 } from '@mui/material'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import { BG_COLOR } from '~/theme'
 import AdminHeader from '~/layouts/AdminHeader'
 import AdminFooter from '../AdminFooter'
+import Navbar from '~/pages/AdminPage/AdminPageDetails/Navbar'
 
 function AdminLayout() {
   return (
@@ -13,12 +14,15 @@ function AdminLayout() {
       direction="column"
       alignItems="center"
       justify="center"
+      height={'100%'}
       sx={{ m: 0, p: 0, bgcolor: BG_COLOR }}
     >
-
       <Container maxWidth={'xl'}>
         <AdminHeader />
-        <Outlet />
+        <Box display={'flex'} gap={'50px'} px={'30px'}>
+          <Navbar />
+          <Outlet />
+        </Box>
         <AdminFooter />
       </Container>
     </Grid2>
