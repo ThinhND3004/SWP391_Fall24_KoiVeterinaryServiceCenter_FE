@@ -62,7 +62,7 @@ function Header() {
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
               <Typography sx={{ fontSize: '14x', fontWeight: '500', color: BLUE_COLOR }}>Hi, Duong</Typography>
               <img
-                src="https://scontent.fsgn2-5.fna.fbcdn.net/v/t39.30808-6/462254484_1075104570840409_1720952893450055569_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeHBDw4RgEsvpNbYjcISu1i-NyLFAtlmEDY3IsUC2WYQNsSPnRUqTF1rGaAXgHitmqP4APbrVRbnBdYMfUAhFBj-&_nc_ohc=v3kjlMgghMQQ7kNvgHfPoeQ&_nc_ht=scontent.fsgn2-5.fna&_nc_gid=AWZg7-R8bHWFKC0HOW-berR&oh=00_AYA-k4UZjqk6z8BAP38BCWqLMPUhWfyrgt9OA-joHMvMlg&oe=670C1D26"
+                src="https://scontent.fsgn5-6.fna.fbcdn.net/v/t39.30808-6/462711740_18005468618659508_2399165263118220467_n.jpg?_nc_cat=1&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGgpYmZozIN8KHUTZoNLzjGU-vZdd6xRrVT69l13rFGtantx4zkHnpDZHBJOis87DDVjUIpZvcdv5zvbhPL48IS&_nc_ohc=uqKFgbi2lTEQ7kNvgEQtt6i&_nc_ht=scontent.fsgn5-6.fna&_nc_gid=ABnDpDsis1fk5uA5uWyXpqV&oh=00_AYDLmxD5gdEYkVp0AOoNzOs0kQZ41mHFTEBBGrLbFeJKvQ&oe=670F28A5"
                 style={{ width: '40px', height: '40px', borderRadius: '50%' }}
               />
             </Box>

@@ -14,12 +14,12 @@ function handleClick(event) {
 }
 
 
-function Profile() {
+function ProfilePageDetails() {
   return (
     <div>
       <Breadcrumbs aria-label="breadcrumb">
         <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-          Nguyen Van A
+          Tran Dang Duong
         </Typography>
         <Typography sx={{
           fontWeight: 600, fontSize: '20px'
@@ -291,4 +291,4 @@ function Profile() {
   )
 }
 
-export default Profile
+export default ProfilePageDetails

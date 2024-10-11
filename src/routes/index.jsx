@@ -23,6 +23,13 @@ import CustomerPage from '~/pages/AdminPage/CustomerPage/CustomerPage.component'
 import BookingPage from '~/pages/AdminPage/BookingPage/BookingPage.component'
 import VeterianPage from '~/pages/AdminPage/VeterianPage/VeterianPage.component'
 import PrescriptionPage from '~/pages/AdminPage/PrescriptionPage/PrescriptionPage.component'
+import StaffLayout from '~/layouts/StaffLayout/staff.layout'
+import StaffHomePage from '~/pages/StaffPage/Profile/StaffHomePage.component.jsx'
+import StaffPasswordPage from '~/pages/StaffPage/StaffPasswordPage/StaffPasswordPage.component'
+import StaffCustomerPage from '~/pages/StaffPage/StaffCustomerPage/StaffCustomerPage.component'
+import StaffBookingPage from '~/pages/StaffPage/StaffBookingPage/StaffBookingPage.component'
+import StaffVeterinarianPage from '~/pages/StaffPage/StaffVeterinarianPage/StaffVeterinarianPage.component'
+import StaffPrescriptionPage from '~/pages/StaffPage/StaffPrescriptionPage/StaffPrescriptionPage.component'
 
 const RouteComponent = () => {
   return (
@@ -53,12 +60,25 @@ const RouteComponent = () => {
         <Route path='/prescription' element={<PrescriptionPage />} />
       </Route>
 
+      <Route element={<StaffLayout />}>
+        <Route path='/staff' element={<StaffHomePage />} />
+        <Route path='/staff_password' element={<StaffPasswordPage />} />
+        <Route path='/staff_customer' element={<StaffCustomerPage />} />
+        <Route path='/staff_booking' element={<StaffBookingPage />} />
+        <Route path='/staff_veterinarian_management' element={<StaffVeterinarianPage />} />
+        <Route path='/staff_prescription' element={<StaffPrescriptionPage />} />
+      </Route>
+
       <Route path='/' element={
         <Navigate to='/home' relative={true} />
       } />
 
       <Route path='/' element={
         <Navigate to='/admin' relative={true} />
+      } />
+
+      <Route path='/' element={
+        <Navigate to='/staff' relative={true} />
       } />
     </Routes >
   )
