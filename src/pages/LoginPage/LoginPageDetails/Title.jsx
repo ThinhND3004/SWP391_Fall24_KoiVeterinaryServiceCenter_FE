@@ -23,8 +23,7 @@ function Title() {
   }, [])
 
   const handleLogin = async () => {
-    setLoginMess(""); // Clear previous messages
-  
+    setLoginMess(""); 
     if (!email || !password) {
       setLoginMess("Email and Password are required");
       return;
@@ -42,7 +41,8 @@ function Title() {
         setLoginMess(response.data.data.err);
       } else if (response?.data?.data?.token) {
         localStorage.setItem("token", response.data.data.token);
-        navigate("/home");
+        window.location.href = "/home";
+
       } else {
         setLoginMess("Unexpected error occurred.");
       }
