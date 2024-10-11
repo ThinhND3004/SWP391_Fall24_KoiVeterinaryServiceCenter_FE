@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useState, useEffect } from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -14,6 +14,10 @@ import { setNavbarId } from '~/redux/globalConfigSlice'
 import { GRAY_COLOR, ORANGE_COLOR, BLUE_COLOR } from '~/theme'
 import { Divider } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import api from '~/config/axios'
+import Avatar from '@mui/material/Avatar';
+
+
 
 const pages = ['Home', 'About us', 'Service', 'Koi Health', 'Contact Us']
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
@@ -25,9 +29,64 @@ function Header() {
 
   // doc mess
   const dispatch = useDispatch()
-  const [anchorElNav, setAnchorElNav] = React.useState(null)
-  const [anchorElUser, setAnchorElUser] = React.useState(null)
+  const [anchorElNav, setAnchorElNav] = useState(null)
+  const [anchorElUser, setAnchorElUser] = useState(null)
   const navigate = useNavigate()
+
+  const [accInfo, setAccInfo] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  // const [token, setToken] = useState(localStorage.getItem('token'))
+
+  const handleGetAccInfo = async () => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      try {
+
+        console.log("TOKEN: ", token)
+        const response = await api.get(`accounts/getInfo?token=${token}`);
+
+        console.log("INFO: ", response.data.data);
+
+        if (response) {
+          setAccInfo(response.data.data);
+          localStorage.setItem('accountInfo', JSON.stringify(response.data.data));
+        }
+      } catch {
+        console.log("ERROR GET INFO");
+      }
+    }
+  }
+
+  useEffect(() => {
+    handleGetAccInfo();
+  }, []);
+
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  // Close dropdown menu
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  // Handle logout
+  const handleLogout = () => {
+    handleClose();
+    localStorage.removeItem("accountInfo");
+    localStorage.removeItem("token");
+    // navigate("/home");
+    window.location.href = "/home";
+  };
+
+  // Handle profile
+  const handleProfile = () => {
+    handleClose();
+    console.log('Go to profile...');
+    // Add your profile navigation logic here
+  };
+
 
   // d biet
   const handleOpenNavMenu = (event) => {
@@ -172,7 +231,10 @@ function Header() {
               </Button>
             ))}
           </Box>
-          <Box minWidth={300} display={'flex'} justifyContent={'center'}>
+
+          {/* login button */}
+
+          {!accInfo && <Box minWidth={300} display={'flex'} justifyContent={'center'}>
             <Button variant="outlined" onClick={() => navigate('/login')} sx={{
               border: `1px ${BLUE_COLOR} solid`,
               borderRadius: '30px',
@@ -184,6 +246,48 @@ function Header() {
               Login
             </Button>
           </Box>
+          }
+
+          {accInfo &&
+            <>
+              <Typography
+                sx={{
+                  py: '20px',
+                  color: GRAY_COLOR,
+                  display: 'block',
+                  fontWeight: 600,
+                }}
+              >Hi, {accInfo.firstName} {accInfo.lastName}
+              
+              </Typography>
+              <IconButton onClick={handleMenuClick} color="inherit">
+                <Avatar alt='hello' src='src\assets\images\avtDemo.jpg' />
+              </IconButton>
+
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+              >
+                <MenuItem onClick={handleProfile}>Profile</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              </Menu>
+            </>
+
+          }
+
+
+
+
+
         </Toolbar>
       </Container>
       <Divider />

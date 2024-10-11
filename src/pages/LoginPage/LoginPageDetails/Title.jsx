@@ -41,7 +41,8 @@ function Title() {
         setLoginMess(response.data.data.err);
       } else if (response?.data?.data?.token) {
         localStorage.setItem("token", response.data.data.token);
-        navigate("/home");
+        window.location.href = "/home";
+
       } else {
         setLoginMess("Unexpected error occurred.");
       }
