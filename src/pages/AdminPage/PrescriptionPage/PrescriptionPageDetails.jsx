@@ -16,6 +16,7 @@ import { blue } from '@mui/material/colors'
 import {
   BG_COLOR, BLUE_COLOR, GRAY_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR
 } from '~/theme'
+import DynamicDataGrid from './testGrid'
 
 // Search Component Styles
 const Search = styled('div')(({ theme }) => ({
@@ -66,16 +67,16 @@ function createData(name, dob, fullName, startDate, email, phoneNumber, status) 
 
 // Sample data
 const rows = [
-  createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspend'),
-  createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspend'),
-  createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspend'),
-  createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspend'),
-  createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspend'),
-  createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspend'),
-  createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspend'),
-  createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspend'),
-  createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspend'),
-  createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspend'),
+  createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspended'),
+  createData('Genevieve U. Watts', '01/01/2000', 'Eget Incorporated', '07/18/2017', 'Nullam.vitae@egestas.edu', '0800 025698', 'Closed'),
+  createData('Kyra S. Baldwin', '01/01/2000', 'Lorem Vitae Limited', '04/14/2016', 'in@elita.org', '0800 237 8846', 'Suspended'),
+  createData('Stephen V. Hill', '01/01/2000', 'Eget Mollis Institute', '03/03/2016', 'eu@vel.com', '0800 682 4591', 'Active'),
+  createData('Vielka Q. Chapman', '01/01/2000', 'Eu Ltd', '06/25/2017', 'orci.Donec.nibh@mauriseratget.edu', '0800 181 5795', 'Suspended'),
+  createData('Ocean W. Curtis', '01/01/2000', 'Eu Ltd', '08/24/2017', 'cursus.et@cursus.edu', '(016977) 9585', 'Active'),
+  createData('Kato F. Tucker', '01/01/2000', 'Vel Lectus Limited', '11/06/2017', 'Duis@Lorem.edu', '070 0981 8503', 'Active'),
+  createData('Robin J. Wise', '01/01/2000', 'Curabitur Dictum PC', '02/09/2017', 'blandit@montesnascetur.edu', '0800 259158', 'Active'),
+  createData('Uriel H. Guerrero', '01/01/2000', 'Mauris Inc.', '02/11/2018', 'vitae@linnecorci.net', '0500 948772', 'Active'),
+  createData('Yasir W. Benson', '01/01/2000', 'At Incorporated', '01/13/2017', 'ornare.elit.elit@atortor.edu', '0391 916 3600', 'Active')
 ]
 
 const emails = ['username@gmail.com', 'user02@gmail.com']
@@ -269,78 +270,52 @@ function PrescriptionPageDetails() {
     setSelectedValue(value)
   }
 
-  return (
-    <div>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Breadcrumbs aria-label="breadcrumb">
-            <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>Nguyen Van A</Typography>
-            <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>Prescriptions Management</Typography>
-          </Breadcrumbs>
-        </Box>
 
+  return (
+    <Box>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
         <Box sx={{ display: 'flex', gap: 2 }}>
-          <Search sx={{ borderRadius: '10px', bgcolor: INPUT_FIELD_COLOR }}>
+          <Search sx={{
+            borderRadius: '10px',
+            bgcolor: INPUT_FIELD_COLOR
+          }}>
             <SearchIconWrapper>
               <SearchIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
             </SearchIconWrapper>
-            <StyledInputBase sx={{ fontSize: '14px' }} placeholder="Search…" inputProps={{ 'aria-label': 'search' }} />
+            <StyledInputBase sx={{ fontSize: '14px' }}
+              placeholder="Search…"
+              inputProps={{ 'aria-label': 'search' }}
+            />
           </Search>
 
           <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: INPUT_FIELD_COLOR, borderRadius: '10px', gap: 1 }}>
             <FilterListIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
-            <Typography sx={{ color: GRAY_COLOR, fontWeight: 500, fontSize: '14px' }}>Filter</Typography>
+            <Typography sx={{ color: GRAY_COLOR, fontWeight: 500, fontSize: '14px' }}>
+              Filter
+            </Typography>
           </Button>
 
           <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: INPUT_FIELD_COLOR, borderRadius: '10px', gap: 1 }}>
             <FileDownloadIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
-            <Typography sx={{ color: GRAY_COLOR, fontWeight: 500, fontSize: '14px' }}>Import</Typography>
+            <Typography sx={{ color: GRAY_COLOR, fontWeight: 500, fontSize: '14px' }}>
+              Import
+            </Typography>
           </Button>
 
           <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: BLUE_COLOR, borderRadius: '10px', color: '#fff', gap: 1 }}>
             <AddIcon sx={{ fontSize: '14px' }} />
-            <Typography sx={{ fontSize: '14px' }}>Add</Typography>
+            <Typography sx={{ fontSize: '14px' }}>
+              Add
+            </Typography>
           </Button>
         </Box>
       </Box>
 
+      {/* Table */}
       <Box sx={{ mt: 3, mb: 3 }}>
-        <TableContainer component={Paper} sx={{ maxHeight: 500, overflowY: 'auto' }}>
-          <Table sx={{ minWidth: 650 }} aria-label="customer table">
-            <TableHead sx={{ bgcolor: BG_COLOR }}>
-              <TableRow>
-                <TableCell align="center" sx={{ fontWeight: 600 }}>Booking ID</TableCell>
-                <TableCell align="center" sx={{ fontWeight: 600 }}>Customer Name</TableCell>
-                <TableCell align="center" sx={{ fontWeight: 600 }}>Phone number</TableCell>
-                <TableCell align="center" sx={{ fontWeight: 600 }}>Address</TableCell>
-                <TableCell align="center" sx={{ fontWeight: 600 }}>Email</TableCell>
-                <TableCell align="center" sx={{ fontWeight: 600 }}>Created At</TableCell>
-                <TableCell align="center" sx={{ fontWeight: 600 }}>View Prescription</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody sx={{ bgcolor: BG_COLOR }}>
-              {rows.map((row) => (
-                <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                  <TableCell component="th" scope="row">{row.name}</TableCell>
-                  <TableCell align="center">{row.dob}</TableCell>
-                  <TableCell align="center">{row.fullName}</TableCell>
-                  <TableCell align="center">{row.startDate}</TableCell>
-                  <TableCell align="center">{row.email}</TableCell>
-                  <TableCell align="center">{row.phoneNumber}</TableCell>
-                  <TableCell align="center">
-                    <Button variant="outlined" onClick={handleClickOpen} sx={{ bgcolor: ORANGE_COLOR, borderRadius: '10px' }}>
-                      Active
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <DynamicDataGrid data={rows} />
       </Box>
-
-      <SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} />
-    </div>
+    </Box>
   )
 }
 

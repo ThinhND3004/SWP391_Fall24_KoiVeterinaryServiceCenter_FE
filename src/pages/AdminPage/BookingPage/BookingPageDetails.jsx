@@ -1,131 +1,86 @@
-import React, { useState } from 'react'
-import Navbar from '../AdminPageDetails/Navbar'
-import { Box, Breadcrumbs, Typography, Tabs, Tab, TextField, FormGroup, FormControlLabel, Checkbox, Button, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@mui/material'
-import PropTypes from 'prop-types'
-import { BG_COLOR, BLUE_COLOR, GRAY_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme'
-import { Table } from 'react-bootstrap'
-import Paper from '@mui/material/Paper'
 import { styled, alpha } from '@mui/material/styles'
+import Box from '@mui/material/Box'
 import InputBase from '@mui/material/InputBase'
+import SearchIcon from '@mui/icons-material/Search'
+import { BG_COLOR, BLUE_COLOR, GRAY_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme'
+import Button from '@mui/material/Button'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import AddIcon from '@mui/icons-material/Add'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
-import SearchIcon from '@mui/icons-material/Search'
+import { Breadcrumbs, Typography } from '@mui/material'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import Paper from '@mui/material/Paper'
+import DynamicDataGrid from './testGrid'
 
-
-function CustomTabPanel(props) {
-  const { children, value, index, ...other } = props
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-    </div>
-  )
-}
-
-CustomTabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired
-}
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.white, 0.25)
+  },
+  marginLeft: 0,
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(1),
+    width: 'auto'
   }
-}
+}))
 
-export default function BookingPageDetails() {
-  const [valueTab, setValueTab] = useState(0)
-  const [todoDatas, setTodoDatas] = useState([])
-  const [fieldData, setFieldData] = useState('')
-  const [id, setId] = useState(0)
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
+}))
 
-  const handleChange = (event, newValue) => {
-    setValueTab(newValue)
-  }
-
-  function createData(name, dob, fullName, startDate, email, phoneNumber, status) {
-    return { name, dob, fullName, startDate, email, phoneNumber, status }
-  }
-
-  const rows = [
-    createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspend'),
-    createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspend'),
-    createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspend'),
-    createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspend'),
-    createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspend'),
-    createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspend'),
-    createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspend'),
-    createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspend'),
-    createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspend')
-  ]
-
-  const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25)
-    },
-    marginLeft: 0,
-    width: '100%',
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  width: '100%',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto'
-    }
-  }))
-
-  const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }))
-
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    width: '100%',
-    '& .MuiInputBase-input': {
-      padding: theme.spacing(1, 1, 1, 0),
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create('width'),
-      [theme.breakpoints.up('sm')]: {
-        width: '12ch',
-        '&:focus': {
-          width: '20ch'
-        }
+      width: '12ch',
+      '&:focus': {
+        width: '20ch'
       }
     }
-  }))
+  }
+}))
 
+function createData(name, dob, fullName, startDate, email, phoneNumber, status) {
+  return { name, dob, fullName, startDate, email, phoneNumber, status }
+}
+
+const rows = [
+  createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspended'),
+  createData('Genevieve U. Watts', '01/01/2000', 'Eget Incorporated', '07/18/2017', 'Nullam.vitae@egestas.edu', '0800 025698', 'Closed'),
+  createData('Kyra S. Baldwin', '01/01/2000', 'Lorem Vitae Limited', '04/14/2016', 'in@elita.org', '0800 237 8846', 'Suspended'),
+  createData('Stephen V. Hill', '01/01/2000', 'Eget Mollis Institute', '03/03/2016', 'eu@vel.com', '0800 682 4591', 'Active'),
+  createData('Vielka Q. Chapman', '01/01/2000', 'Eu Ltd', '06/25/2017', 'orci.Donec.nibh@mauriseratget.edu', '0800 181 5795', 'Suspended'),
+  createData('Ocean W. Curtis', '01/01/2000', 'Eu Ltd', '08/24/2017', 'cursus.et@cursus.edu', '(016977) 9585', 'Active'),
+  createData('Kato F. Tucker', '01/01/2000', 'Vel Lectus Limited', '11/06/2017', 'Duis@Lorem.edu', '070 0981 8503', 'Active'),
+  createData('Robin J. Wise', '01/01/2000', 'Curabitur Dictum PC', '02/09/2017', 'blandit@montesnascetur.edu', '0800 259158', 'Active'),
+  createData('Uriel H. Guerrero', '01/01/2000', 'Mauris Inc.', '02/11/2018', 'vitae@linnecorci.net', '0500 948772', 'Active'),
+  createData('Yasir W. Benson', '01/01/2000', 'At Incorporated', '01/13/2017', 'ornare.elit.elit@atortor.edu', '0391 916 3600', 'Active')
+]
+
+
+function BookingPageDetails() {
   return (
-    <div>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Breadcrumbs aria-label="breadcrumb">
-              <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-                Nguyen Van A
-              </Typography>
-              <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-                Bookings Management
-              </Typography>
-            </Breadcrumbs>
-          </Box>
-        </Box>
-        {/* search box */}
-        <Box sx={{ display: 'flex', gap: 2, mt: 3 }}>
+    <Box>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
+        <Box sx={{ display: 'flex', gap: 2 }}>
           <Search sx={{
             borderRadius: '10px',
             bgcolor: INPUT_FIELD_COLOR
@@ -162,167 +117,12 @@ export default function BookingPageDetails() {
         </Box>
       </Box>
 
-      {/* tab bar */}
-      <Box>
-        <Box sx={{ width: '100%' }}>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={valueTab} onChange={handleChange} aria-label="basic tabs example" variant="fullWidth" centered>
-              <Tab
-                label="Pending"
-                {...a11yProps(0)}
-                sx={{
-                  color: BLUE_COLOR,
-                  fontWeight: 700,
-                  '&.Mui-selected': {
-                    color: ORANGE_COLOR
-                  }
-                }}
-              />
-              <Tab label="In progress" {...a11yProps(1)} sx={{
-                color: BLUE_COLOR,
-                fontWeight: 700,
-                '&.Mui-selected': {
-                  color: ORANGE_COLOR
-                }
-              }} />
-              <Tab label="Complete" {...a11yProps(2)} sx={{
-                color: BLUE_COLOR,
-                fontWeight: 700,
-                '&.Mui-selected': {
-                  color: ORANGE_COLOR
-                }
-              }} />
-            </Tabs>
-          </Box>
-
-          {/* Table */}
-          <CustomTabPanel value={valueTab} index={0}>
-            <Box>
-              <TableContainer component={Paper} sx={{ maxHeight: 460, overflowY: 'auto' }}>
-                <Table
-                  sx={{
-                    minWidth: 500,
-                    borderCollapse: 'collapse', // Ensures no extra spacing between cells
-                    border: 'none' // Removes the border from the table itself
-                  }}
-                  aria-label="customer table"
-                >
-                  <TableHead sx={{ bgcolor: BG_COLOR }}>
-                    <TableRow sx={{ borderBottom: 'none' }}> {/* Removes border under the header row */}
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Customer Name</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Veterinarian</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Fullname</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Description</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Total Price</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Created At</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Status</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody sx={{ bgcolor: BG_COLOR }}>
-                    {rows.map((row) => (
-                      <TableRow key={row.name} sx={{ borderBottom: 'none' }}> {/* Removes border under each row */}
-                        <TableCell component="th" scope="row">{row.name}</TableCell>
-                        <TableCell align="center">{row.dob}</TableCell>
-                        <TableCell align="center">{row.fullName}</TableCell>
-                        <TableCell align="center">{row.startDate}</TableCell>
-                        <TableCell align="center">{row.email}</TableCell>
-                        <TableCell align="center">{row.phoneNumber}</TableCell>
-                        <TableCell align="center" sx={{ borderRadius: '4px', color: ORANGE_COLOR, fontWeight: 500 }}>
-                          {row.status}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Box>
-          </CustomTabPanel>
-
-          <CustomTabPanel value={valueTab} index={1}>
-            <Box>
-              <TableContainer component={Paper} sx={{ maxHeight: 460, overflowY: 'auto' }}>
-                <Table
-                  sx={{
-                    minWidth: 500,
-                    borderCollapse: 'collapse', // Ensures no extra spacing between cells
-                    border: 'none' // Removes the border from the table itself
-                  }}
-                  aria-label="customer table"
-                >
-                  <TableHead sx={{ bgcolor: BG_COLOR }}>
-                    <TableRow sx={{ borderBottom: 'none' }}> {/* Removes border under the header row */}
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Customer Name</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Veterinarian</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Fullname</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Description</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Total Price</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Created At</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Status</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody sx={{ bgcolor: BG_COLOR }}>
-                    {rows.map((row) => (
-                      <TableRow key={row.name} sx={{ borderBottom: 'none' }}> {/* Removes border under each row */}
-                        <TableCell component="th" scope="row">{row.name}</TableCell>
-                        <TableCell align="center">{row.dob}</TableCell>
-                        <TableCell align="center">{row.fullName}</TableCell>
-                        <TableCell align="center">{row.startDate}</TableCell>
-                        <TableCell align="center">{row.email}</TableCell>
-                        <TableCell align="center">{row.phoneNumber}</TableCell>
-                        <TableCell align="center" sx={{ borderRadius: '4px', color: ORANGE_COLOR, fontWeight: 500 }}>
-                          {row.status}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Box>
-          </CustomTabPanel>
-
-          <CustomTabPanel value={valueTab} index={2}>
-            <Box>
-              <TableContainer component={Paper} sx={{ maxHeight: 460, overflowY: 'auto' }}>
-                <Table
-                  sx={{
-                    minWidth: 500,
-                    borderCollapse: 'collapse', // Ensures no extra spacing between cells
-                    border: 'none' // Removes the border from the table itself
-                  }}
-                  aria-label="customer table"
-                >
-                  <TableHead sx={{ bgcolor: BG_COLOR }}>
-                    <TableRow sx={{ borderBottom: 'none' }}> {/* Removes border under the header row */}
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Customer Name</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Veterinarian</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Fullname</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Description</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Total Price</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Created At</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 600 }}>Status</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody sx={{ bgcolor: BG_COLOR }}>
-                    {rows.map((row) => (
-                      <TableRow key={row.name} sx={{ borderBottom: 'none' }}> {/* Removes border under each row */}
-                        <TableCell component="th" scope="row">{row.name}</TableCell>
-                        <TableCell align="center">{row.dob}</TableCell>
-                        <TableCell align="center">{row.fullName}</TableCell>
-                        <TableCell align="center">{row.startDate}</TableCell>
-                        <TableCell align="center">{row.email}</TableCell>
-                        <TableCell align="center">{row.phoneNumber}</TableCell>
-                        <TableCell align="center" sx={{ borderRadius: '4px', color: ORANGE_COLOR, fontWeight: 500 }}>
-                          {row.status}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Box>
-          </CustomTabPanel>
-        </Box>
+      {/* Table */}
+      <Box sx={{ mt: 3, mb: 3 }}>
+        <DynamicDataGrid data={rows} />
       </Box>
-    </div >
+    </Box>
   )
 }
+
+export default BookingPageDetails

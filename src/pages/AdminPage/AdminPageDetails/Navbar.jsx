@@ -108,7 +108,7 @@ function Navbar() {
 
             return (
               <Box key={`menu-${idx}`} sx={{ display: 'flex', alignItems: 'center', color: '#000' }}>
-                <ListItem button onClick={() => navigate(menu.url)} sx={{ gap: 1.5, cursor: 'pointer' }}>
+                <ListItem button onClick={() => navigate(menu.url)} sx={{ gap: 1.5, cursor: 'pointer', mt: 2 }}>
                   <IconComponent />
                   <ListItemText
                     primary={menu.title}
@@ -143,7 +143,6 @@ function Navbar() {
             </ListItem>
           </Box>
         </List>
-
       </Box>
 
     </div >
