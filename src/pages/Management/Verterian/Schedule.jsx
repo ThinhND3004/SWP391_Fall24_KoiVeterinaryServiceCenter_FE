@@ -1,6 +1,5 @@
 import { Typography, Box } from '@mui/material';
 import React from 'react';
-import { LIGHT_PINK } from '~/theme';
 import TableGrid from './TableGrid';
 
 const dayArr = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -35,54 +34,6 @@ function TableDay() {
         </Box>
     )
 }
-
-// function TimeBlock({ dayIndex, time, borderBottom }) {
-//     return (
-//         <Box
-//         className={'time-block'}
-//             sx={{
-//                 backgroundColor: LIGHT_PINK, 
-//                 width: '100%',
-//                 height: 'calc(20px + 0.22vw)',
-//                 borderLeft: `1px solid ${text}`,
-//                 borderRight: `1px solid ${text}`,
-//                 transition: '0.1s',
-//                 borderBottom: `1px ${borderBottom} ${text}` 
-//             }}
-//             title={`${dayArr[dayIndex]} ${time}`} 
-//         ></Box>
-//     );
-// }
-
-// function TableGrid() {
-//     return (
-//         <Box
-//             sx={{
-//                 display: 'inline-grid',
-//                 gridTemplateColumns: `repeat(${dayArr.length}, 1fr)`,
-//                 width: '100%',
-//                 borderTop: `1px solid ${text}`,
-//                 transition: '0.5s'
-//             }}
-//         >
-//             {timeArr.slice(0,timeArr.length-1).map((time, timeIndex) => (
-//                 <React.Fragment key={timeIndex}>
-//                     {dayArr.map((day, dayIndex) => (
-//                         <React.Fragment key={dayIndex}>
-//                             <TimeBlock dayIndex={dayIndex} time={`${timeArr[timeIndex]}:00`} borderBottom={'dashed'} />
-//                         </React.Fragment>
-//                     ))}
-//                      {dayArr.map((day, dayIndex) => (
-//                         <React.Fragment key={dayIndex}>
-//                             <TimeBlock dayIndex={dayIndex} time={`${timeArr[timeIndex]}:30`} borderBottom={'solid'} />
-//                         </React.Fragment>
-//                     ))}
-//                 </React.Fragment>
-//             ))}
-//         </Box>
-//     );
-// }
-
 
 function Schedule() {
     return (

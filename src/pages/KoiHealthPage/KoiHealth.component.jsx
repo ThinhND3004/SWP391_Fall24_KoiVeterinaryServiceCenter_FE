@@ -15,7 +15,7 @@ const KoiHealthComponent = () => {
         <CareTeam />
         {/* OUR TEAM */}
         <OurTeam />
-        <Feedback />
+        {/* <Feedback /> */}
       </Box>
     </div>
   )

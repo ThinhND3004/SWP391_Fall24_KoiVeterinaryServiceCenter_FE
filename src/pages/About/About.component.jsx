@@ -7,7 +7,7 @@ import SatisfactionGuaranteed from './AboutPageDetails/SatisfactionGuaranteed'
 const AboutComponent = () => {
     return (
         <div>
-            <Box display={'flex'} flexDirection={'column'} gap={'100px'} px={'30px'}>
+            <Box display={'flex'} flexDirection={'column'} gap={'50px'} px={'30px'}>
                 {/* Title */}
                 <div>
                     <Title />

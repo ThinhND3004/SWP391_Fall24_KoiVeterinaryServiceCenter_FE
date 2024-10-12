@@ -1,25 +1,27 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
 import { BLUE_COLOR, ORANGE_COLOR } from '~/theme'
+import { useNavigate } from 'react-router-dom'
 
 function Introduction() {
+  const navigate = useNavigate()
   return (
     <div>
       <Box
         sx={{
           backgroundImage: 'url("src/assets/images/bg.png")', // Replace with your image URL
-          backgroundSize: 'cover',
+          backgroundSize: '100%',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          minHeight: '100vh',
+          minHeight: '70vh',
           padding: '20px',
         }}
       >
         <Box sx={{ textAlign: 'center' }}>
-          <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 100, color: BLUE_COLOR }}>
+          <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 80, color: BLUE_COLOR }}>
             Your <span style={{ color: ORANGE_COLOR }}>koi's</span> best
           </Typography>
-          <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 100, color: ORANGE_COLOR, marginTop: '-30px' }}>
+          <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 80, color: ORANGE_COLOR, marginTop: '-30px' }}>
             friend
           </Typography>
         </Box>
@@ -61,7 +63,9 @@ function Introduction() {
                 fontFamily: 'Poppins'
               }}
             >
-              Get Started
+              <Typography onClick={() => navigate('/service')} component={'a'}>
+                Get Started
+              </Typography>
             </Box>
 
             {/* Circle with icon on the right */}

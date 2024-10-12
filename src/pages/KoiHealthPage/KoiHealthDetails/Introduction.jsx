@@ -7,7 +7,7 @@ function Introduction() {
   return (
     <div>
       <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 250, textAlign: 'center', color: BLUE_COLOR }}>KOI HEALTH</Typography>
-      <Typography sx={{ textAlign: 'center', fontSize: 40, marginTop: '10px', fontWeight: 700 }}>
+      <Typography sx={{ textAlign: 'center', fontSize: 30, marginTop: '10px', fontWeight: 700 }}>
         Quality <span style={{ color: ORANGE_COLOR }} >Koi Fish</span> Care
       </Typography>
       <Typography sx={{ textAlign: 'center', fontSize: 14, marginTop: '10px' }}>

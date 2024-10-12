@@ -24,12 +24,12 @@ function Footer() {
             <Typography sx={{
               textTransform: 'uppercase',
               fontWeight: '700',
-              fontSize: '18px'
+              fontSize: '16px'
             }}>
               Koi Care Clinic
             </Typography>
 
-            <Typography sx={{ lineHeight: '2' }}>
+            <Typography sx={{ lineHeight: '2', fontSize: '14px' }}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, laudantium harum! Nam aperiam assumenda molestiae nobis aliquid sequi maxime
             </Typography>
 
@@ -39,24 +39,24 @@ function Footer() {
           }}>
             <Typography sx={{
               fontWeight: '700',
-              fontSize: '18px'
+              fontSize: '16px'
             }}>
               Services
             </Typography>
 
-            <Typography sx={{ lineHeight: '2' }}>
+            <Typography sx={{ lineHeight: '2', fontSize: '14px' }}>
               Koi Care
             </Typography>
 
-            <Typography sx={{ lineHeight: '2' }}>
+            <Typography sx={{ lineHeight: '2', fontSize: '14px' }}>
               Veterinary
             </Typography>
 
-            <Typography sx={{ lineHeight: '2' }}>
+            <Typography sx={{ lineHeight: '2', fontSize: '14px' }}>
               Vaccination
             </Typography>
 
-            <Typography sx={{ lineHeight: '2' }}>
+            <Typography sx={{ lineHeight: '2', fontSize: '14px' }}>
               Cleaning
             </Typography>
           </Box>
@@ -65,20 +65,20 @@ function Footer() {
           }}>
             <Typography sx={{
               fontWeight: '700',
-              fontSize: '18px'
+              fontSize: '16px'
             }}>
               Community
             </Typography>
 
-            <Typography sx={{ lineHeight: '2' }}>
+            <Typography sx={{ lineHeight: '2', fontSize: '14px' }}>
               My Account
             </Typography>
 
-            <Typography sx={{ lineHeight: '2' }}>
+            <Typography sx={{ lineHeight: '2', fontSize: '14px' }}>
               Login/ Register
             </Typography>
 
-            <Typography sx={{ lineHeight: '2' }}>
+            <Typography sx={{ lineHeight: '2', fontSize: '14px' }}>
               Request Appointment
             </Typography>
           </Box>
@@ -87,24 +87,24 @@ function Footer() {
           }}>
             <Typography sx={{
               fontWeight: '700',
-              fontSize: '18px'
+              fontSize: '16px'
             }}>
               Platform
             </Typography>
 
-            <Typography sx={{ lineHeight: '2' }}>
+            <Typography sx={{ lineHeight: '2', fontSize: '14px' }}>
               Privacy Policy
             </Typography>
 
-            <Typography sx={{ lineHeight: '2' }}>
+            <Typography sx={{ lineHeight: '2', fontSize: '14px' }}>
               Terms Of Use
             </Typography>
 
-            <Typography sx={{ lineHeight: '2' }}>
+            <Typography sx={{ lineHeight: '2', fontSize: '14px' }}>
               FAQ
             </Typography>
 
-            <Typography sx={{ lineHeight: '2' }}>
+            <Typography sx={{ lineHeight: '2', fontSize: '14px' }}>
               Contact
             </Typography>
           </Box>
@@ -123,10 +123,10 @@ function Footer() {
             color: BLUE_COLOR
           }} />
 
-          <CopyrightIcon fontSize="sm" />
+          <CopyrightIcon fontSize="sx" />
           <Typography sx={{
             fontWeight: '300',
-            fontSize: '15px',
+            fontSize: '12px',
             padding: '20px 3px',
             color: BLUE_COLOR
           }}>

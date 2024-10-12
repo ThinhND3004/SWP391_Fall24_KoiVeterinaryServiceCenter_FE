@@ -51,7 +51,7 @@ function OurService() {
                                 src="src\assets\images\medicine.png"
                                 alt="Koi care"
                             />
-                            <Typography gutterBottom variant="h5" sx={{ fontWeight: 600, color: BLUE_COLOR }}>
+                            <Typography gutterBottom variant="h6" sx={{ fontWeight: 600, color: BLUE_COLOR }}>
                                 Koi Care
                             </Typography>
                         </Box>
@@ -67,7 +67,7 @@ function OurService() {
                                 src="src\assets\images\doctor.png"
                                 alt="Koi care"
                             />
-                            <Typography gutterBottom variant="h5" sx={{ fontWeight: 600, color: BLUE_COLOR }}>
+                            <Typography gutterBottom variant="h6" sx={{ fontWeight: 600, color: BLUE_COLOR }}>
                                 Veterinary
                             </Typography>
                         </Box>
@@ -82,7 +82,7 @@ function OurService() {
                                 src="src\assets\images\vaccination.png"
                                 alt="Koi care"
                             />
-                            <Typography gutterBottom variant="h5" sx={{ fontWeight: 600, color: BLUE_COLOR }}>
+                            <Typography gutterBottom variant="h6" sx={{ fontWeight: 600, color: BLUE_COLOR }}>
                                 Vaccination
                             </Typography>
                         </Box>
@@ -98,7 +98,7 @@ function OurService() {
                                 src="src\assets\images\gloves.png"
                                 alt="Koi care"
                             />
-                            <Typography gutterBottom variant="h5" sx={{ fontWeight: 600, color: BLUE_COLOR }}>
+                            <Typography gutterBottom variant="h6" sx={{ fontWeight: 600, color: BLUE_COLOR }}>
                                 Cleaning
                             </Typography>
                         </Box>
@@ -109,8 +109,8 @@ function OurService() {
 
             <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '100px' }}>
                 <Box sx={{ bgcolor: '#D3EFED', width: '600px', borderRadius: '26px', padding: '50px' }}>
-                    <Typography sx={{ fontWeight: 800, fontSize: 30, marginBottom: '10px', color: BLUE_COLOR, textAlign: 'left' }}>Expert Koi Care for Healthy Fish</Typography>
-                    <Typography sx={{ fontWeight: 400, fontSize: 16, lineHeight: 1.7 }}>Koi Care Clinic is a unique facility that specializes in providing comprehensive care for koi fish.<br /> Our team of experienced professionals offers a wide range of services, including routine check-ups, disease diagnosis and treatment, pond maintenance, and water quality testing. <br />We are dedicated to helping koi enthusiasts maintain the health and well-being of their beloved fish. </Typography>
+                    <Typography sx={{ fontWeight: 800, fontSize: 28, marginBottom: '10px', color: BLUE_COLOR, textAlign: 'left' }}>Expert Koi Care for Healthy Fish</Typography>
+                    <Typography sx={{ fontWeight: 400, fontSize: 16, lineHeight: 2 }}>Koi Care Clinic is a unique facility that specializes in providing comprehensive care for koi fish.<br /> Our team of experienced professionals offers a wide range of services, including routine check-ups, disease diagnosis and treatment, pond maintenance, and water quality testing. <br />We are dedicated to helping koi enthusiasts maintain the health and well-being of their beloved fish. </Typography>
                 </Box>
                 <img src="https://img.freepik.com/premium-photo/beautiful-painting-three-colorful-koi-fish-are-swimming-pet-generative-ai-illustration_132416-8965.jpg" style={{ objectFit: 'contain', width: '600px', borderRadius: '26px' }} />
             </Box>

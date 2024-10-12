@@ -12,7 +12,7 @@ function OurTeam() {
         <Typography
           sx={{
             fontFamily: 'SVN-Konga Pro',
-            fontSize: '48px',
+            fontSize: '45px',
             color: BLUE_COLOR,
             display: 'flex',
             textAlign: 'left'
@@ -20,7 +20,7 @@ function OurTeam() {
         >
           Who's on our <span style={{ color: ORANGE_COLOR, marginLeft: '8px' }}> care team?</span>
         </Typography>
-        <Typography>
+        <Typography sx={{ fontSize: '16px' }}>
           From billing to prescriptions, from referrals to procedures, we know healthcare can be scary and confusing. Our goal is to support you before, during, and after every visit so you feel informed, and confident in your care.
         </Typography>
       </Box>
@@ -40,7 +40,7 @@ function OurTeam() {
 
           </Box>
           <Box sx={{ marginTop: '40px', width: '300px', color: BLUE_COLOR }}>
-            <Typography sx={{ fontWeight: 600, fontSize: 24 }}>
+            <Typography sx={{ fontWeight: 600, fontSize: 22 }}>
               Care Providers
             </Typography>
             <Typography sx={{ fontSize: 12, paddingTop: '8px' }}>
@@ -60,7 +60,7 @@ function OurTeam() {
             </Box>
           </Box>
           <Box sx={{ marginTop: '40px', width: '300px', color: BLUE_COLOR }}>
-            <Typography sx={{ fontWeight: 600, fontSize: 24 }}>
+            <Typography sx={{ fontWeight: 600, fontSize: 22 }}>
               Care Providers
             </Typography>
             <Typography sx={{ fontSize: 12, paddingTop: '8px' }}>
@@ -81,7 +81,7 @@ function OurTeam() {
             </Box>
           </Box>
           <Box sx={{ marginTop: '40px', width: '300px', color: BLUE_COLOR }}>
-            <Typography sx={{ fontWeight: 600, fontSize: 24 }}>
+            <Typography sx={{ fontWeight: 600, fontSize: 22 }}>
               Care Providers
             </Typography>
             <Typography sx={{ fontSize: 12, paddingTop: '8px' }}>

@@ -7,20 +7,20 @@ function Introduction() {
   return (
     <div>
       <Box sx={{ margin: 0, padding: 0 }}>
-        <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 64, textAlign: 'left', color: BLUE_COLOR }}>
+        <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 50, textAlign: 'left', color: BLUE_COLOR }}>
           Love to hear from you,
         </Typography>
         <Box sx={{ display: 'flex' }}>
-          <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 64, textAlign: 'left', color: BLUE_COLOR }}>
+          <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 50, textAlign: 'left', color: BLUE_COLOR }}>
             Get in touch
           </Typography>
-          <img src='src\assets\images\Koi 3.png' style={{ width: '150px' }} />
+          <img src='src\assets\images\Koi 3.png' style={{ width: '100px' }} />
         </Box>
         <Box>
 
           <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-between' }}>
             <Box>
-              <Typography sx={{ fontWeight: 600, fontSize: 20 }}>First name</Typography>
+              <Typography sx={{ fontWeight: 600, fontSize: 18 }}>First name</Typography>
               <TextField
                 id="outlined-basic"
                 placeholder='Enter your first name'
@@ -46,7 +46,7 @@ function Introduction() {
               />
             </Box>
             <Box>
-              <Typography sx={{ fontWeight: 600, fontSize: 20 }}>Last name</Typography>
+              <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Last name</Typography>
               <TextField
                 id="outlined-basic"
                 placeholder='Enter your last name'
@@ -74,7 +74,7 @@ function Introduction() {
           </Box>
           <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-between' }}>
             <Box>
-              <Typography sx={{ fontWeight: 600, fontSize: 20 }}>Phone number</Typography>
+              <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Phone number</Typography>
               <TextField
                 id="outlined-basic"
                 placeholder='Enter your phone number'
@@ -100,7 +100,7 @@ function Introduction() {
               />
             </Box>
             <Box>
-              <Typography sx={{ fontWeight: 600, fontSize: 20 }}>Email</Typography>
+              <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Email</Typography>
               <TextField
                 id="outlined-basic"
                 placeholder='Enter your email'
@@ -128,17 +128,18 @@ function Introduction() {
           </Box>
           <Box sx={{ display: 'block', marginTop: '40px', marginBottom: '60px' }}>
             <Box>
-              <Typography sx={{ fontWeight: 600, fontSize: 20 }}>Message</Typography>
+              <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Message</Typography>
               <TextField
                 id="outlined-basic"
                 placeholder='Enter your message'
                 variant="outlined"
                 multiline
                 maxRows={4}
-                rows={4}
+                rows={6}
                 sx={{
                   maxWidth: '100%',
                   width: '100%',
+                  // alignItems: 'center',
                   '& .MuiOutlinedInput-root': {
                     borderRadius: '15px',
                     borderColor: BLUE_COLOR,
@@ -173,7 +174,6 @@ function Introduction() {
                 height: 'fit-content',
                 backgroundColor: BLUE_COLOR,
                 borderRadius: '40px',
-                // boxShadow: '0px 5px 10px #bebebe',
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 border: 'none',

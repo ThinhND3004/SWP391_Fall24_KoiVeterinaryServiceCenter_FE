@@ -1,8 +1,10 @@
 import React from 'react'
 import { Box, Typography } from '@mui/material'
 import { BG_COLOR, BLUE_COLOR, GRAY_COLOR, ORANGE_COLOR } from '~/theme'
+import { useNavigate } from 'react-router-dom'
 
 function WhyUs() {
+  const navigate = useNavigate()
   return (
     <div>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -33,7 +35,7 @@ function WhyUs() {
               }}
             />
           </Box>
-          <Typography sx={{ fontWeight: 400, fontSize: 18, lineHeight: 1.7 }}>Koi Care Clinic is a unique facility that specializes in providing comprehensive care for koi fish.<br /> Our team of experienced professionals offers a wide range of services, including routine check-ups, disease diagnosis and treatment, pond maintenance, and water quality testing. <br />We are dedicated to helping koi enthusiasts maintain the health and well-being of their beloved fish.</Typography>
+          <Typography sx={{ fontWeight: 400, fontSize: 16, lineHeight: 2 }}>Koi Care Clinic is a unique facility that specializes in providing comprehensive care for koi fish.<br /> Our team of experienced professionals offers a wide range of services, including routine check-ups, disease diagnosis and treatment, pond maintenance, and water quality testing. <br />We are dedicated to helping koi enthusiasts maintain the health and well-being of their beloved fish.</Typography>
           <Box
             sx={{
               display: 'flex',
@@ -48,11 +50,10 @@ function WhyUs() {
                 height: 'fit-content',
                 backgroundColor: BLUE_COLOR,
                 borderRadius: '40px',
-                // boxShadow: '0px 5px 10px #bebebe',
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 border: 'none',
-                cursor: 'pointer',
+                cursor: 'pointer'
               }}
             >
               {/* Text on the left */}
@@ -67,7 +68,9 @@ function WhyUs() {
                   fontFamily: 'Poppins'
                 }}
               >
-                Learn More
+                <Typography onClick={() => navigate('/about')} component={'a'}>
+                  Learn More
+                </Typography>
               </Box>
 
               {/* Circle with icon on the right */}
