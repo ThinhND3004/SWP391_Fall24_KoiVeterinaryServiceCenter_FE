@@ -12,11 +12,11 @@ function ConsultVet() {
         <Box>
           <img src="src\assets\images\vet.jpg" style={{ objectFit: 'contain', width: '400px', borderRadius: '26px' }} />
         </Box>
-        <Box sx={{ width: '600px', borderRadius: '26px', padding: '0px 50px 0px 50px' }}>
+        <Box sx={{ width: '650px', borderRadius: '26px', padding: '0px 50px 0px 50px' }}>
           <Typography
             sx={{
               fontFamily: 'SVN-Konga Pro',
-              fontSize: '48px',
+              fontSize: '45px',
               color: BLUE_COLOR,
               display: 'flex',
               justifyContent: 'start'

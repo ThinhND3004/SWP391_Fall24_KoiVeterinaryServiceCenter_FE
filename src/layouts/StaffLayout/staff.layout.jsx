@@ -13,8 +13,8 @@ function StaffLayout() {
       container
       spacing={0}
       direction="column"
-      alignItems="center"
-      justify="center"
+      // alignItems="center"
+      // justify="center"
       height={'100%'}
       sx={{ m: 0, p: 0, bgcolor: BG_COLOR }}
     >

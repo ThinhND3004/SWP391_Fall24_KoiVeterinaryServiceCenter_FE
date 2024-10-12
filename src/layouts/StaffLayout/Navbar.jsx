@@ -72,22 +72,22 @@ function Navbar() {
   const handleNavClick = (id) => {
     switch (id) {
       case 0:
-        navigate('/account')
+        navigate('/staff')
         break
       case 1:
-        navigate('/password')
+        navigate('/staff_password')
         break
       case 2:
-        navigate('/customer')
+        navigate('/staff_customer')
         break
       case 3:
-        navigate('/booking')
+        navigate('/staff_booking')
         break
       case 4:
-        navigate('/veterinarian_management')
+        navigate('/staff_veterinarian_management')
         break
       default:
-        navigate('/prescription')
+        navigate('/staff_prescription')
     }
   }
 
