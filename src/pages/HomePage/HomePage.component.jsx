@@ -1,3 +1,5 @@
+window.global ||= window;
+
 import { Box, Typography } from '@mui/material'
 import React from 'react'
 import Introduction from './HomePageDetails/Introduction'

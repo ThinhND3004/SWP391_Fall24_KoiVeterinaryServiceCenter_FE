@@ -44,7 +44,7 @@ function Header() {
       try {
 
         console.log("TOKEN: ", token)
-        const response = await api.get(`accounts/getInfo?token=${token}`);
+        const response = await api.get(`accounts/current`);
 
         console.log("INFO: ", response.data.data);
 
