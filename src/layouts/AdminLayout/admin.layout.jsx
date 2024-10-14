@@ -5,6 +5,7 @@ import { BG_COLOR } from '~/theme'
 import AdminHeader from '~/layouts/AdminHeader'
 import AdminFooter from '../AdminFooter'
 import Navbar from '~/pages/AdminPage/AdminPageDetails/Navbar'
+import Header from '../Header'
 
 function AdminLayout() {
   return (
@@ -12,8 +13,6 @@ function AdminLayout() {
       container
       spacing={0}
       direction="column"
-      alignItems="center"
-      justify="center"
       height={'100%'}
       sx={{ m: 0, p: 0, bgcolor: BG_COLOR }}
     >

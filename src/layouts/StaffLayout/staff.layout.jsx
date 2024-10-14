@@ -2,7 +2,7 @@ import { Box, Grid2 } from '@mui/material'
 import React from 'react'
 import { Container } from 'react-bootstrap'
 import AdminFooter from '../AdminFooter'
-import Navbar from './Navbar'
+import Navbar from '../Navbar'
 import { Outlet } from 'react-router-dom'
 import { BG_COLOR } from '~/theme'
 import StaffHeader from './StaffHeader'
@@ -13,8 +13,6 @@ function StaffLayout() {
       container
       spacing={0}
       direction="column"
-      // alignItems="center"
-      // justify="center"
       height={'100%'}
       sx={{ m: 0, p: 0, bgcolor: BG_COLOR }}
     >
