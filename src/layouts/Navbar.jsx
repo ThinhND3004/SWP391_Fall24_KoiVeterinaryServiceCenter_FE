@@ -97,24 +97,25 @@ function Navbar() {
             </Box>
           )
         })}
-      </List>
 
-      <Divider sx={{ paddingTop: '50px' }} />
-      <Box sx={{ display: 'flex', alignItems: 'center', color: ORANGE_COLOR, paddingTop: '10px' }}>
-        <LoginIcon />
-        <ListItem button component={Link} to="#" sx={{ color: ORANGE_COLOR, paddingTop: '10px' }}>
-          <ListItemText
-            primary="Logout"
-            primaryTypographyProps={{
-              sx: {
-                fontSize: '18px',
-                color: ORANGE_COLOR,
-                fontWeight: 500
-              }
-            }}
-          />
-        </ListItem>
-      </Box>
+
+        <Divider sx={{ paddingTop: '50px' }} />
+        <Box sx={{ display: 'flex', alignItems: 'center', color: ORANGE_COLOR, paddingTop: '10px' }}>
+          <LoginIcon />
+          <ListItem button component={Link} to="#" sx={{ color: ORANGE_COLOR, paddingTop: '10px' }}>
+            <ListItemText
+              primary="Logout"
+              primaryTypographyProps={{
+                sx: {
+                  fontSize: '18px',
+                  color: ORANGE_COLOR,
+                  fontWeight: 500
+                }
+              }}
+            />
+          </ListItem>
+        </Box>
+      </List>
     </Box>
   )
 }
