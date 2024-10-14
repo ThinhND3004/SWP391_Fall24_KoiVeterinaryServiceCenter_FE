@@ -1,5 +1,5 @@
 import { Box, List, ListItem, ListItemText } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import LockIcon from '@mui/icons-material/Lock'
 import { ORANGE_COLOR } from '~/theme'
@@ -10,8 +10,6 @@ import LocalHospitalIcon from '@mui/icons-material/LocalHospital'
 import ArticleIcon from '@mui/icons-material/Article'
 import LoginIcon from '@mui/icons-material/Login'
 import Divider from '@mui/material/Divider'
-import { useDispatch, useSelector } from 'react-redux'
-
 
 const menus = [
   {
@@ -43,52 +41,16 @@ const menus = [
     title: 'Prescription',
     icon: ArticleIcon,
     url: '/prescription'
-  }]
-
+  }
+]
 
 function Navbar() {
-  const navbarId = useSelector(state => state.globalConfig.navbarId)
-  const dispatch = useDispatch()
-  const [anchorElNav, setAnchorElNav] = React.useState(null)
-  const [anchorElUser, setAnchorElUser] = React.useState(null)
   const navigate = useNavigate()
+  const [selectedMenu, setSelectedMenu] = useState(null)
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget)
-  }
-
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget)
-  }
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null)
-  }
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null)
-  }
-
-  const handleNavClick = (id) => {
-    switch (id) {
-      case 0:
-        navigate('/account')
-        break
-      case 1:
-        navigate('/password')
-        break
-      case 2:
-        navigate('/customer')
-        break
-      case 3:
-        navigate('/booking')
-        break
-      case 4:
-        navigate('/veterinarian_management')
-        break
-      default:
-        navigate('/prescription')
-    }
+  const handleMenuClick = (menu, idx) => {
+    setSelectedMenu(idx)
+    navigate(menu.url)
   }
 
   return (
@@ -108,22 +70,32 @@ function Navbar() {
 
             return (
               <Box key={`menu-${idx}`} sx={{ display: 'flex', alignItems: 'center', color: '#000' }}>
-                <ListItem button onClick={() => navigate(menu.url)} sx={{ gap: 1.5, cursor: 'pointer', mt: 2 }}>
+                <ListItem
+                  button
+                  onClick={() => handleMenuClick(menu, idx)}
+                  sx={{
+                    gap: 1.5,
+                    cursor: 'pointer',
+                    mt: 2,
+                    fontWeight: selectedMenu === idx ? 'bold' : 'normal',
+                    color: selectedMenu === idx ? 'bold' : 'normal'
+                  }}
+                >
                   <IconComponent />
                   <ListItemText
                     primary={menu.title}
                     primaryTypographyProps={{
                       sx: {
                         fontSize: '18px',
-                        color: '#000',
-                        fontWeight: 500
+                        // Apply bold style for the text of the selected item
+                        fontWeight: selectedMenu === idx ? 'bold' : 'normal',
+                        color: selectedMenu === idx ? 'bold' : 'normal'
                       }
                     }}
                   />
                 </ListItem>
               </Box>
             )
-
           })}
 
           <Divider sx={{ paddingTop: '50px' }} />
@@ -144,8 +116,7 @@ function Navbar() {
           </Box>
         </List>
       </Box>
-
-    </div >
+    </div>
   )
 }
 
