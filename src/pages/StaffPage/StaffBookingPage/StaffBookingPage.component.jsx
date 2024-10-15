@@ -1,10 +1,25 @@
 import React from 'react'
+import BookingPageDetails from './BookingPageDetails'
+import { Box, Breadcrumbs, Typography } from '@mui/material'
 
 function StaffBookingPage() {
   return (
-    <div>
-      Staff booking page
-    </div>
+    <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Breadcrumbs aria-label="breadcrumb">
+          <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
+            Nguyen Van A
+          </Typography>
+          <Typography sx={{
+            fontWeight: 600, fontSize: '20px'
+          }}
+          >
+            Bookings Management
+          </Typography>
+        </Breadcrumbs>
+      </Box>
+      <BookingPageDetails />
+    </Box>
   )
 }
 

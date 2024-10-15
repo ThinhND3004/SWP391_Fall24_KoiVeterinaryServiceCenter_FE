@@ -2,19 +2,12 @@ import { styled, alpha } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import InputBase from '@mui/material/InputBase'
 import SearchIcon from '@mui/icons-material/Search'
-import { BG_COLOR, BLUE_COLOR, GRAY_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme'
+import { BLUE_COLOR, GRAY_COLOR, INPUT_FIELD_COLOR } from '~/theme'
 import Button from '@mui/material/Button'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import AddIcon from '@mui/icons-material/Add'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
-import { Breadcrumbs, Typography } from '@mui/material'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
+import { Typography } from '@mui/material'
 import DynamicDataGrid from './testGrid'
 
 const Search = styled('div')(({ theme }) => ({
@@ -22,7 +15,7 @@ const Search = styled('div')(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25)
+    backgroundColor: INPUT_FIELD_COLOR
   },
   marginLeft: 0,
   width: '100%',
@@ -75,7 +68,7 @@ const rows = [
   createData('Yasir W. Benson', '01/01/2000', 'At Incorporated', '01/13/2017', 'ornare.elit.elit@atortor.edu', '0391 916 3600', 'Active')
 ]
 
-function VeterianPageDetails() {
+function StaffVeterinarianPageDetails() {
   return (
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
@@ -124,4 +117,4 @@ function VeterianPageDetails() {
   )
 }
 
-export default VeterianPageDetails
+export default StaffVeterinarianPageDetails
