@@ -30,6 +30,9 @@ import StaffCustomerPage from '~/pages/StaffPage/StaffCustomerPage/StaffCustomer
 import StaffBookingPage from '~/pages/StaffPage/StaffBookingPage/StaffBookingPage.component'
 import StaffVeterinarianPage from '~/pages/StaffPage/StaffVeterinarianPage/StaffVeterinarianPage.component'
 import StaffPrescriptionPage from '~/pages/StaffPage/StaffPrescriptionPage/StaffPrescriptionPage.component'
+import VeterinarianLayout from '~/layouts/VeterinarianLayout/veterinarian.layout'
+import VeterinarianHomePage from '~/pages/VeterinarianHomePage/Profile/ProfilePage.component'
+import VeterinarianPasswordPage from '~/pages/VeterinarianHomePage/VeterinarianPasswordPage/VeterinarianPasswordPage.component'
 
 const RouteComponent = () => {
   return (
@@ -69,6 +72,14 @@ const RouteComponent = () => {
         <Route path='/staff_prescription' element={<StaffPrescriptionPage />} />
       </Route>
 
+      <Route element={<VeterinarianLayout />}>
+        <Route path='/veterinarian' element={<VeterinarianHomePage />} />
+        <Route path='/veterinarian_password' element={<VeterinarianPasswordPage />} />
+        {/* <Route path='/veterinarian_booking' element={<VeterinarianBookingPage />} /> */}
+        {/* <Route path='/veterinarian_medical_report' element={<VeterinarianMedicalReportPage />} /> */}
+        {/* <Route path='/veterinarian_medicine' element={<VeterinarianMedicinePage />} /> */}
+      </Route>
+
       <Route path='/' element={
         <Navigate to='/home' relative={true} />
       } />
@@ -79,6 +90,10 @@ const RouteComponent = () => {
 
       <Route path='/' element={
         <Navigate to='/staff' relative={true} />
+      } />
+
+      <Route path='/' element={
+        <Navigate to='/veterinarian' relative={true} />
       } />
     </Routes >
   )

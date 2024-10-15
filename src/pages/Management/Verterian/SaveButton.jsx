@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import api from "~/config/axios";
+import { BLUE_COLOR } from "~/theme";
 
 function turn_string_to_date(day_string) {
     let [hours, minute] = day_string.split(":").map(Number);
@@ -22,7 +23,7 @@ async function save_button_clicked() {
         let continous_time = new Date(start_time.getTime());
         continous_time.setMinutes(continous_time.getMinutes() + 30);
 
-        for (i=i+1; i < selectedElements.length; i++) {
+        for (i = i + 1; i < selectedElements.length; i++) {
             const temp_label = selectedElements[i].getAttribute("id");
             const next_day = temp_label.split(" ")[0];
             const next_time = turn_string_to_date(temp_label.split(" ")[1]);
@@ -49,19 +50,19 @@ async function save_button_clicked() {
 
     await api.post('/timetable/save', {
         data
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 }
 
 
-function SaveButton(){
+function SaveButton() {
     return (
-        <Button sx={{padding: '10px', backgroundColor: 'green', color: 'white'}} onClick={save_button_clicked}>
+        <Button sx={{ padding: '10px', backgroundColor: BLUE_COLOR, color: 'white', borderRadius: '30px', width: '100px' }} onClick={save_button_clicked}>
             Save
         </Button>
     )

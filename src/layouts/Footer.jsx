@@ -2,13 +2,15 @@ import CopyrightIcon from '@mui/icons-material/Copyright'
 import { Box, Typography } from '@mui/material'
 import Divider from '@mui/material/Divider'
 import { BG_COLOR, BLUE_COLOR } from '~/theme'
+import { useNavigate } from 'react-router-dom'
 
 function Footer() {
+  const navigate = useNavigate()
   return (
     <div>
       <Divider />
       <Box sx={{
-        backgroundColor: BG_COLOR,
+        backgroundColor: BG_COLOR
       }}>
         <Box sx={{
           display: 'flex',
@@ -30,7 +32,7 @@ function Footer() {
             </Typography>
 
             <Typography sx={{ lineHeight: '2', fontSize: '14px' }}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, laudantium harum! Nam aperiam assumenda molestiae nobis aliquid sequi maxime
+              Koi Care Clinic provides expert veterinary care for koi and pond fish, ensuring their health and well-being with professional and compassionate attention.
             </Typography>
 
           </Box>
@@ -44,19 +46,19 @@ function Footer() {
               Services
             </Typography>
 
-            <Typography sx={{ lineHeight: '2', fontSize: '14px' }}>
+            <Typography onClick={() => navigate('/home')} component={'a'} sx={{ lineHeight: '2', fontSize: '14px', cursor: 'pointer' }}>
               Koi Care
             </Typography>
 
-            <Typography sx={{ lineHeight: '2', fontSize: '14px' }}>
+            <Typography onClick={() => navigate('/')} sx={{ lineHeight: '2', fontSize: '14px', cursor: 'pointer' }}>
               Veterinary
             </Typography>
 
-            <Typography sx={{ lineHeight: '2', fontSize: '14px' }}>
+            <Typography onClick={() => navigate('/')} sx={{ lineHeight: '2', fontSize: '14px', cursor: 'pointer' }}>
               Vaccination
             </Typography>
 
-            <Typography sx={{ lineHeight: '2', fontSize: '14px' }}>
+            <Typography onClick={() => navigate('/')} sx={{ lineHeight: '2', fontSize: '14px', cursor: 'pointer' }}>
               Cleaning
             </Typography>
           </Box>
@@ -66,24 +68,25 @@ function Footer() {
             <Typography sx={{
               fontWeight: '700',
               fontSize: '16px'
+
             }}>
               Community
             </Typography>
 
-            <Typography sx={{ lineHeight: '2', fontSize: '14px' }}>
-              My Account
+            <Typography onClick={() => navigate('/login')} sx={{ lineHeight: '2', fontSize: '14px', cursor: 'pointer' }}>
+              Login
             </Typography>
 
-            <Typography sx={{ lineHeight: '2', fontSize: '14px' }}>
-              Login/ Register
+            <Typography onClick={() => navigate('/register')} sx={{ lineHeight: '2', fontSize: '14px', cursor: 'pointer' }}>
+              Register
             </Typography>
 
-            <Typography sx={{ lineHeight: '2', fontSize: '14px' }}>
+            <Typography onClick={() => navigate('/requestAppointment')} sx={{ lineHeight: '2', fontSize: '14px', cursor: 'pointer' }}>
               Request Appointment
             </Typography>
           </Box>
 
-          <Box sx={{
+          {/* <Box sx={{
           }}>
             <Typography sx={{
               fontWeight: '700',
@@ -107,7 +110,7 @@ function Footer() {
             <Typography sx={{ lineHeight: '2', fontSize: '14px' }}>
               Contact
             </Typography>
-          </Box>
+          </Box> */}
         </Box >
 
         <Divider />
@@ -134,7 +137,7 @@ function Footer() {
           </Typography>
         </Box>
       </Box>
-    </div>
+    </div >
   )
 }
 
