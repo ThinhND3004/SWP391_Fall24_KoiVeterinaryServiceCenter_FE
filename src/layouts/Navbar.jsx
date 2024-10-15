@@ -8,7 +8,6 @@ import LocalHospitalIcon from '@mui/icons-material/LocalHospital'
 import ArticleIcon from '@mui/icons-material/Article'
 import LoginIcon from '@mui/icons-material/Login'
 import { ORANGE_COLOR } from '~/theme'
-import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
 
 const menus = [
