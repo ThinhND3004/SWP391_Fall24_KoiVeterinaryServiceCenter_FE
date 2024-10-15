@@ -44,7 +44,7 @@ function Header() {
       try {
 
         console.log("TOKEN: ", token)
-        const response = await api.get(`accounts/getInfo?token=${token}`);
+        const response = await api.get(`accounts/current`);
 
         console.log("INFO: ", response.data.data);
 
@@ -59,7 +59,19 @@ function Header() {
   }
 
   useEffect(() => {
+
+    // const loginedAccInfo = localStorage.getItem('accountInfo');
+    // console.log("JSON: ", JSON.parse(loginedAccInfo));
+    // if (loginedAccInfo) {
+    //   setAccInfo(JSON.parse(loginedAccInfo))
+    //   console.log("JSON PARSE: ", JSON.parse(loginedAccInfo));
+    // } else {
+    //   handleGetAccInfo();
+    // }
+
     handleGetAccInfo();
+
+
   }, []);
 
   const handleMenuClick = (event) => {
@@ -258,7 +270,7 @@ function Header() {
                   fontWeight: 600,
                 }}
               >Hi, {accInfo.firstName} {accInfo.lastName}
-              
+
               </Typography>
               <IconButton onClick={handleMenuClick} color="inherit">
                 <Avatar alt='hello' src='src\assets\images\avtDemo.jpg' />
