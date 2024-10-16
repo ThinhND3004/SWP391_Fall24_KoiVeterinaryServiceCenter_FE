@@ -29,41 +29,49 @@ function Introduction({ service }) {
               width: 170,
               borderRadius: "10px",
               height: "30px",
+              lineHeight: "30px", // Căn giữa nội dung theo chiều dọc
             }}
           >
             {service.meetingMethod}
           </Typography>
 
-          <Typography
-            sx={{
-              fontWeight: 400,
-              fontSize: 16,
-              lineHeight: 2,
-              marginTop: "20px",
-            }}
-          >
+          <Typography sx={{ fontWeight: 400, fontSize: 16, lineHeight: 2 }}>
             {service.overview}
-
-            <p>
-              <strong>Price:</strong> ${service.price}
-            </p>
-
-            <p>
-              <strong>Estimated Time:</strong> {service.estimatedTime || "N/A"}
-            </p>
-            
-            <p>
-              <strong>Travel Price : </strong>{" "}
-              {service.travelPricePerMeter || "N/A"} $/meter
-            </p>
-
-            <p>
-              <strong>Address:</strong> {service.address || "N/A"}
-            </p>
           </Typography>
+
+          <Box sx={{ marginTop: 2 }}>
+            <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+              <Typography variant="subtitle1" fontWeight="bold">
+                Price:
+              </Typography>
+              <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
+                ${service.price}
+              </Typography>
+            </Box>
+
+            <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+              <Typography variant="subtitle1" fontWeight="bold">
+                Estimated Time:
+              </Typography>
+              <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
+                {service.estimatedTime || "N/A"}
+              </Typography>
+            </Box>
+
+            <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+              <Typography variant="subtitle1" fontWeight="bold">
+                Address:
+              </Typography>
+              <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
+                {service.address || "N/A"}
+              </Typography>
+            </Box>
+          </Box>
         </Box>
+
         <img
           src="https://cdn.shopify.com/s/files/1/1083/2612/files/koi2_480x480.jpg?v=1719301650"
+          alt="Koi service"
           style={{ objectFit: "contain", width: "500px", borderRadius: "26px" }}
         />
       </Box>

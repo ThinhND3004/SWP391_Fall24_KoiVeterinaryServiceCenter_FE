@@ -1,62 +1,90 @@
-// import { Typography } from '@mui/material'
-import React from 'react'
-// import { BLUE_COLOR, ORANGE_COLOR } from '~/theme'
-import { Box, Typography, Button } from '@mui/material'
-import { BG_COLOR, BLUE_COLOR, GRAY_COLOR, OFFLINE_CENTER_BUTTON, ONLINE_BUTTON, ORANGE_COLOR } from '~/theme'
+import React from "react";
+import { Box, Typography } from "@mui/material";
+import {
+  BLUE_COLOR,
+  ONLINE_BUTTON,
+} from "~/theme";
 
-function Introduction({service}) {
+function Introduction({ service }) {
   return (
-    <div>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Box sx={{ width: '600px', borderRadius: '26px' }}>
+    <Box>
+      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+        <Box sx={{ width: "600px", borderRadius: "26px", padding: 2 }}>
           <Typography
             sx={{
-              fontFamily: 'SVN-Konga Pro',
-              fontSize: '45px',
+              fontFamily: "SVN-Konga Pro",
+              fontSize: "45px",
               color: BLUE_COLOR,
-              display: 'flex',
-              justifyContent: 'start'
+              mb: 2, // margin bottom
             }}
           >
-            <span style={{ color: BLUE_COLOR, marginLeft: '8px' }}>{service.name} </span>
+            {service.name}
           </Typography>
 
-          <Typography 
-                sx={{
-                  textAlign: 'center',
-                  backgroundColor: ONLINE_BUTTON,
-                  color: 'white',
-                  width: 100,
-                  borderRadius: '10px',
-                  height: '30px' 
-                }}
-              >
-                {service.meetingMethod}
-                </Typography>
-          {/* </div> */}
-          <Typography sx={{ fontWeight: 400, fontSize: 16, lineHeight: 2, marginTop: '20px' }}>
+          <Typography
+            sx={{
+              textAlign: "center",
+              backgroundColor: ONLINE_BUTTON,
+              color: "white",
+              width: "100px",
+              borderRadius: "10px",
+              height: "30px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              mb: 2, // margin bottom
+            }}
+          >
+            {service.meetingMethod}
+          </Typography>
+
+          <Typography sx={{ fontWeight: 400, fontSize: 16, lineHeight: 2 }}>
             {service.overview}
-
-            <p>
-              <strong>Price:</strong> ${service.price}
-            </p>
-
-            <p>
-              <strong>Estimated Time:</strong> {service.estimatedTime || "N/A"}
-            </p>
-
-            <p>
-              <strong>Address:</strong> {service.address || "N/A"}
-            </p>
-
           </Typography>
 
-        
+          <Box sx={{ marginTop: 2 }}>
+            <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+              <Typography variant="subtitle1" fontWeight="bold">
+                Price:
+              </Typography>
+              <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
+                ${service.price}
+              </Typography>
+            </Box>
+
+            <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+              <Typography variant="subtitle1" fontWeight="bold">
+                Estimated Time:
+              </Typography>
+              <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
+                {service.estimatedTime || "N/A"}
+              </Typography>
+            </Box>
+
+            <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+              <Typography variant="subtitle1" fontWeight="bold">
+                Address:
+              </Typography>
+              <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
+                {service.address || "N/A"}
+              </Typography>
+            </Box>
+          </Box>
         </Box>
-        <img src="https://cdn.shopify.com/s/files/1/1083/2612/files/koi2_480x480.jpg?v=1719301650" style={{ objectFit: 'contain', width: '500px', borderRadius: '26px' }} />
+
+        <Box
+          component="img"
+          src="https://cdn.shopify.com/s/files/1/1083/2612/files/koi2_480x480.jpg?v=1719301650"
+          sx={{
+            objectFit: "contain",
+            width: "500px",
+            borderRadius: "26px",
+            ml: 2, // margin left
+          }}
+        />
       </Box>
-    </div>
-  )
+    </Box>
+  );
 }
 
-export default Introduction
+export default Introduction;

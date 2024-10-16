@@ -2,10 +2,7 @@ import React from 'react';
 import { Box, Typography } from '@mui/material'
 import { useLocation } from 'react-router-dom';
 import BookingForm from './BookingFlexibleScheduleDetails/BookingForm';
-// import Introduction from '../ContactUs/ContactPageDetails/Introduction';
-// import App from './BookingFlexibleScheduleDetails/App';
 import Introduction from './BookingFlexibleScheduleDetails/Introduction';
-import Test2 from './BookingFlexibleScheduleDetails/Test2'
 
 
 const BookingFlexibleScheduleComponent = () => {
@@ -18,7 +15,6 @@ const BookingFlexibleScheduleComponent = () => {
         
         <Introduction service = {service}/>
         <BookingForm service = {service}/>
-        {/* <Test2/> */}
 
       </Box>
     </>

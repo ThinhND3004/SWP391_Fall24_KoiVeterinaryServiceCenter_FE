@@ -1,36 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import { CircularProgress, Button, Typography } from '@mui/material';
+import React from 'react';
+import { Typography } from '@mui/material';
 
-const Content = ({service}) => {
+const Content = ({ service }) => {
   return (
     <div>
       {service && (
         <div>
-          {/* Hiển thị dữ liệu chi tiết của service */}
-          <Typography sx={{ 
-            fontWeight: 400, 
-            fontSize: 16, 
-            lineHeight: 2, 
-            // marginTop: '20px' 
-            }}>
-          {/* <p>
-            <strong>Price:</strong> ${service.price}
-          </p>
-          <p>
-            <strong>Estimated Time:</strong> {service.estimatedTime || 'N/A'}
-          </p> */}
-          <p>
+          <Typography
+            sx={{
+              fontWeight: 400,
+              fontSize: 16,
+              lineHeight: 2,
+            }}
+          >
             {service.description}
-          </p>
-          {/* <p>
-            <strong>Address:</strong> {service.address || 'N/A'}
-          </p> */}
-          {service.isDisable && <p style={{ color: 'red' }}>This service is currently unavailable.</p>}
           </Typography>
+
+          <Typography>
+            <strong>Price:</strong> ${service.price}
+          </Typography>
+
+          <Typography>
+            <strong>Estimated Time:</strong> {service.estimatedTime || 'N/A'}
+          </Typography>
+
+          <Typography>
+            <strong>Address:</strong> {service.address || 'N/A'}
+          </Typography>
+
+          {service.isDisable && (
+            <Typography sx={{ color: 'red' }}>
+              This service is currently unavailable.
+            </Typography>
+          )}
         </div>
       )}
-
-      {/* Add additional content rendering based on service data */}
     </div>
   );
 };

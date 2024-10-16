@@ -81,10 +81,8 @@ export default function BookingForm({ service }) {
     const url = `geocode/search?text=${encodeURIComponent(location)}&apiKey=${apiKey}`;
   
     try {
-      const response = await geoapifyApi.get(url); // Gọi API
-  
-      // Không cần kiểm tra response.ok, vì Axios sẽ ném lỗi nếu có lỗi xảy ra
-      const data = response.data; // Truy cập trực tiếp vào dữ liệu từ phản hồi
+      const response = await geoapifyApi.get(url);
+      const data = response.data;
   
       if (data.features && data.features.length > 0) {
         return {
@@ -96,7 +94,7 @@ export default function BookingForm({ service }) {
       }
     } catch (error) {
       console.error("Error fetching coordinates:", error);
-      throw error; // Ném lại lỗi để có thể xử lý ở nơi gọi hàm này
+      throw error;
     }
   };
   
@@ -114,7 +112,6 @@ export default function BookingForm({ service }) {
       const url = `routing?waypoints=${waypoints}&mode=drive&apiKey=${routingApiKey}`;
 
       const response = await geoapifyApi.get(url);
-      // if (!response.ok) throw new Error("Lỗi khi tính khoảng cách");
 
       const data = response.data;
       if (data.features && data.features.length > 0) {

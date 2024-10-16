@@ -93,8 +93,8 @@ const ConfirmBookingComponent = () => {
           <Typography>{bookingData.additionalInformation}</Typography>
         </Box>
 
-        {bookingData.serviceName === "ONLINE" &&
-          bookingData.serviceName === "OFFLINE_CENTER" && (
+        {bookingData.serviceMeetingMethod !== "ONLINE" &&
+        bookingData.serviceMeetingMethod !== "OFFLINE_CENTER" && (
             <>
               <Box display="flex" alignItems="center">
                 <Typography fontWeight="bold" style={{ marginRight: "8px" }}>

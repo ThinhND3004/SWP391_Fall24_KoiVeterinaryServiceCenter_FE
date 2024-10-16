@@ -13,71 +13,90 @@ import {
 
 function Introduction({ service }) {
   return (
-    <div>
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Box sx={{ width: "600px", borderRadius: "26px" }}>
-          <Typography
-            sx={{
-              fontFamily: "SVN-Konga Pro",
-              fontSize: "45px",
-              color: BLUE_COLOR,
-              display: "flex",
-              justifyContent: "start",
-            }}
-          >
-            <span style={{ color: BLUE_COLOR, marginLeft: "8px" }}>
-              {service.name}{" "}
-            </span>
-          </Typography>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+      }}
+    >
+      <Box sx={{ width: "600px", borderRadius: "26px", padding: 2 }}>
+        <Typography
+          sx={{
+            fontFamily: "SVN-Konga Pro",
+            fontSize: "45px",
+            color: BLUE_COLOR,
+            marginBottom: 2, // Margin bottom for spacing
+          }}
+        >
+          {service.name}
+        </Typography>
 
-          <Typography
-            sx={{
-              textAlign: "center",
-              backgroundColor: ONLINE_BUTTON,
-              color: "white",
-              width: 100,
-              borderRadius: "10px",
-              height: "30px",
-            }}
-          >
-            {service.meetingMethod}
-          </Typography>
-          {/* </div> */}
-          <Typography
-            sx={{
-              fontWeight: 400,
-              fontSize: 16,
-              lineHeight: 2,
-              marginTop: "20px",
-            }}
-          >
-            {service.overview}
+        <Typography
+          sx={{
+            textAlign: "center",
+            backgroundColor: ONLINE_BUTTON,
+            color: "white",
+            width: 100,
+            borderRadius: "10px",
+            height: "30px",
+            marginBottom: 2, // Margin bottom for spacing
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {service.meetingMethod}
+        </Typography>
 
-            <p>
-              <strong>Price:</strong> ${service.price}
-            </p>
+        <Typography
+          sx={{ fontWeight: 400, fontSize: 16, lineHeight: 2, marginTop: 2 }}
+        >
+          {service.overview}
+        </Typography>
 
-            <p>
-              <strong>Estimated Time:</strong> {service.estimatedTime || "N/A"}
-            </p>
+        {/* Displaying Price, Estimated Time, and Address using Box for better structure */}
+        <Box sx={{ marginTop: 2 }}>
+          <Box sx={{ display: "flex", alignItems: "center", marginBottom: 1 }}>
+            <Typography variant="subtitle1" fontWeight="bold">
+              Price:
+            </Typography>
+            <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
+              ${service.price}
+            </Typography>
+          </Box>
 
-            {service.travelPricePerMeter > 0 && (
-              <p>
-                <strong>Travel Price: </strong>
-                {service.travelPricePerMeter} $/meter
-              </p>
-            )}
-            <p>
-              <strong>Address:</strong> {service.address || "N/A"}
-            </p>
-          </Typography>
+          <Box sx={{ display: "flex", alignItems: "center", marginBottom: 1 }}>
+            <Typography variant="subtitle1" fontWeight="bold">
+              Estimated Time:
+            </Typography>
+            <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
+              {service.estimatedTime || "N/A"}
+            </Typography>
+          </Box>
+
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Typography variant="subtitle1" fontWeight="bold">
+              Address:
+            </Typography>
+            <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
+              {service.address || "N/A"}
+            </Typography>
+          </Box>
         </Box>
-        <img
-          src="https://cdn.shopify.com/s/files/1/1083/2612/files/koi2_480x480.jpg?v=1719301650"
-          style={{ objectFit: "contain", width: "500px", borderRadius: "26px" }}
-        />
       </Box>
-    </div>
+
+      <Box
+        component="img"
+        src="https://cdn.shopify.com/s/files/1/1083/2612/files/koi2_480x480.jpg?v=1719301650"
+        sx={{
+          objectFit: "contain",
+          width: "500px",
+          borderRadius: "26px",
+          marginLeft: 2, // Margin left for spacing
+        }}
+      />
+    </Box>
   );
 }
 
