@@ -16,6 +16,14 @@ function Title() {
   const [password, setPassword] = useState('');
   const [loginMess, setLoginMess] = useState('');
 
+
+  const setTokenWithExpiry = (token) => {
+    const now = new Date();
+    const expiryTime = now.getTime() + 30 * 60 * 1000; // 30 phút tính bằng milliseconds
+    const tokenData = { token, expiryTime };
+    localStorage.setItem('token', JSON.stringify(tokenData));
+  };
+
   useEffect(() => {
     const isLoginned = localStorage.getItem('token') != null;
     if (isLoginned)
@@ -40,7 +48,8 @@ function Title() {
       if (response?.data?.data?.err) {
         setLoginMess(response.data.data.err);
       } else if (response?.data?.data?.token) {
-        localStorage.setItem("token", response.data.data.token);
+        // localStorage.setItem("token", response.data.data.token);
+        setTokenWithExpiry(response.data.data.token)
         window.location.href = "/home";
 
       } else {

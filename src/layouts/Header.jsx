@@ -37,9 +37,39 @@ function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
   // const [token, setToken] = useState(localStorage.getItem('token'))
 
-  const handleGetAccInfo = async () => {
-    const token = localStorage.getItem('token');
 
+  const setTokenWithExpiry = (token) =>
+  {
+    const now = new Date();
+    const expiry = now.getTime + 30 * 60 * 1000;
+    const tokenData = { token, expiry };
+    localStorage.setItem('token', JSON.stringify(tokenData));
+  };
+
+  const getToken = () =>
+  {
+    const tokenData = localStorage.getItem('token');
+
+    if (!tokenData)
+      return null;
+
+    const now = new Date();
+
+    const { token, expiry } = JSON.parse(tokenData);
+
+    if (now.getTime() > expiry)
+    {
+      localStorage.removeItem('token');
+      return null;
+    }
+
+    return token;
+
+  }
+
+
+  const handleGetAccInfo = async () => {
+    const token = getToken();
     if (token) {
       try {
 
@@ -55,7 +85,7 @@ function Header() {
       } catch {
         console.log("ERROR GET INFO");
       }
-    }
+    } else console.log('DO NOT HAVE TOKEN!');
   }
 
   useEffect(() => {
@@ -68,7 +98,8 @@ function Header() {
     // } else {
     //   handleGetAccInfo();
     // }
-
+    const token = getToken();
+    console.log("EFFECT TOKEN: ", token);
     handleGetAccInfo();
 
 
