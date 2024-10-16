@@ -55,7 +55,7 @@ const RouteComponent = () => {
       </Route>
 
       <Route element={<AdminLayout />}>
-        <Route path='/admin' element={<AdminHomePage />} />
+        <Route path='/profile' element={<AdminHomePage />} />
         <Route path='/password' element={<PasswordPage />} />
         <Route path='/customer' element={<CustomerPage />} />
         <Route path='/booking' element={<BookingPage />} />

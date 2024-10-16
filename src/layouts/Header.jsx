@@ -38,13 +38,7 @@ function Header() {
   // const [token, setToken] = useState(localStorage.getItem('token'))
 
 
-  const setTokenWithExpiry = (token) =>
-  {
-    const now = new Date();
-    const expiry = now.getTime + 30 * 60 * 1000;
-    const tokenData = { token, expiry };
-    localStorage.setItem('token', JSON.stringify(tokenData));
-  };
+  
 
   const getToken = () =>
   {
@@ -74,7 +68,8 @@ function Header() {
       try {
 
         console.log("TOKEN: ", token)
-        const response = await api.get(`accounts/current`);
+        // const response = await api.get(`accounts/current`);
+        const response = await api.get(`accounts/getLoginAccInfo?token=${token}`);
 
         console.log("INFO: ", response.data.data);
 
