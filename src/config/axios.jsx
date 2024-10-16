@@ -22,4 +22,9 @@ const handleBefore = (config) => {
 
 api.interceptors.request.use(handleBefore, null);
 
+const geoapifyApi = axios.create({
+  baseURL: "https://api.geoapify.com/v1/",
+});
+
 export default api;
+export { geoapifyApi };

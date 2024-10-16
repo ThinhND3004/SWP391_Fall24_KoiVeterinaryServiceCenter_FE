@@ -33,6 +33,12 @@ import StaffPrescriptionPage from '~/pages/StaffPage/StaffPrescriptionPage/Staff
 import VeterinarianLayout from '~/layouts/VeterinarianLayout/veterinarian.layout'
 import VeterinarianHomePage from '~/pages/VeterinarianHomePage/Profile/ProfilePage.component'
 import VeterinarianPasswordPage from '~/pages/VeterinarianHomePage/VeterinarianPasswordPage/VeterinarianPasswordPage.component'
+import OnlineConsultantComponent from '~/pages/OnlineConsultantPage/OnlineConsultant.component'
+import KoiTreatmentAtCenterComponent from '~/pages/KoiTreatmentAtCenterPage/KoiTreatmentAtCenter.component'
+import KoiTreatmentAtHomeComponent from '~/pages/KoiTreatmentAtHomePage/KoiTreatmentAtHome.component'
+import PondInspectComponent from '~/pages/PondInspectPage/PondInspect.component'
+import BookingFlexibleScheduleComponent from '~/pages/BookingFlexibleSchedule/BookingFlexibleSchedule.component'
+import ConfirmBookingComponent from '~/pages/ConfirmBookingPage/ConfirmBooking.component'
 
 const RouteComponent = () => {
   return (
@@ -46,6 +52,14 @@ const RouteComponent = () => {
         <Route path='/service' element={<ServicePage />} />
         <Route path='/serviceDemo' element={<ServicePageDemo />} />
         <Route path='/serviceChooseCon' element={<ServiceChooseConPageComponent />} />
+
+        {/* Service Details */}
+        <Route path='/online-consultant' element={<OnlineConsultantComponent />} />
+        <Route path='/koi-treatment-at-center' element={<KoiTreatmentAtCenterComponent/>} />
+        <Route path='/koi-treatment-at-home' element={<KoiTreatmentAtHomeComponent/>} />
+        <Route path='/pond-inspect' element={<PondInspectComponent />} />
+        <Route path='/booking-flexible-schedule' element={< BookingFlexibleScheduleComponent />} />
+        <Route path='/confirm-booking' element={< ConfirmBookingComponent />} />
 
         <Route path='/koihealth' element={<KoiHealthComponent />} />
         <Route path='/veterian' element={<Timetable />} />
