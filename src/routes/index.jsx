@@ -61,7 +61,6 @@ const RouteComponent = () => {
         <Route path='/booking-flexible-schedule' element={< BookingFlexibleScheduleComponent />} />
         <Route path='/confirm-booking' element={< ConfirmBookingComponent />} />
 
-
         <Route path='/koihealth' element={<KoiHealthComponent />} />
         <Route path='/veterian' element={<Timetable />} />
         <Route path='/login' element={<LoginPage />} />
