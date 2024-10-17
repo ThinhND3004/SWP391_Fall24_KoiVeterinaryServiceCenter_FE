@@ -9,7 +9,7 @@ import AddIcon from '@mui/icons-material/Add'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import { Typography } from '@mui/material'
 import DynamicDataGrid from './testGrid'
-import StaffApi from '../StaffApi'
+import ManagementApi from '../../../api/ManagementApi'
 import { useEffect, useState } from "react";
 
 const Search = styled('div')(({ theme }) => ({
@@ -58,7 +58,7 @@ function StaffCustomerPageDetails() {
   const [searchValue, setSearchValue] = useState("");
 
   const fetchData = async () => {
-    const data = await StaffApi.getAccounts(1, 10, 'CUSTOMER');
+    const data = await ManagementApi.getAccounts('CUSTOMER');
     setCustomerData(data)
   }
 
@@ -66,10 +66,10 @@ function StaffCustomerPageDetails() {
     const searchValue = event.target.value || "";
 
     let data;
-    if(searchValue === "") 
-      data = await StaffApi.getAccounts(1, 10, 'CUSTOMER');
+    if (searchValue === "")
+      data = await ManagementApi.getAccounts('CUSTOMER');
     else {
-      const searchData = await StaffApi.searchAccountsByFullName(1, 10, 'CUSTOMER', searchValue);
+      const searchData = await ManagementApi.searchAccountsByFullName('CUSTOMER', searchValue);
       data = searchData.filter((data) => {
         return data.fullName.toLowerCase().includes(searchValue.toLowerCase());
       });
