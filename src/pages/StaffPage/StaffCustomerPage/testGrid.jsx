@@ -50,7 +50,7 @@ const DynamicDataGrid = ({ data, pageSize = 5 }) => {
   if (!data || !data.length) {
     return <div>No data available</div>
   }
-
+  console.log(data)
   // Automatically generate columns based on the keys of the first row
   const columns = Object.keys(data[0]).map((key) => ({
     field: key,
