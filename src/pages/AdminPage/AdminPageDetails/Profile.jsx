@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button'
 import { Box, TextField, Typography } from '@mui/material'
 import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme'
@@ -7,6 +7,9 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import Breadcrumbs from '@mui/material/Breadcrumbs'
 import Link from '@mui/material/Link'
+import dayjs from 'dayjs';
+import api from '~/config/axios'
+import axios, { Axios } from 'axios'
 
 function handleClick(event) {
   event.preventDefault()
@@ -14,12 +17,87 @@ function handleClick(event) {
 }
 
 
+
+
 function Profile() {
+
+
+
+  
+
+  const [userInfo, setUserInfo] = useState({});
+
+  const handleChangeInfo = (field, value) => {
+    setUserInfo(previuos => ({
+      ...previuos,
+      [field]: value
+    }));
+  }
+
+  // useEffect(() => {
+  //   if (userInfo.dob) {
+  //     setDob(pre => ({
+  //       ...pre,
+  //       [dob]: dob.format("YYYY-MM-DD")
+  //     }));
+  //   }
+  // }, [])
+
+
+  const handleClickSaveChange = async () => {
+      const accInfo = JSON.parse(localStorage.getItem('accountInfo'))
+      console.log("UPDATE DATA: ", userInfo);
+      try {
+        // const response = await api.put(`accounts/${accInfo.id}`, {
+        //   firstName: userInfo.firstName,
+        //   lastName: userInfo.lastName,
+        //   dob: userInfo.dob,
+        //   phone: userInfo.phone,
+        //   address: userInfo.add
+        // });
+
+        const response = await axios.put(`http://localhost:8080/accounts/${accInfo.id}`, userInfo);
+
+        console.log("UPDATE RESULT: ", response.data);
+      } catch {
+        console.log("ERROR UPDATE OCCUR!!!");
+      }
+    }
+
+  const handleGetUserInfo = () => {
+    const accInfo = localStorage.getItem('accountInfo');
+    console.log('ACCOUNT: ', JSON.parse(accInfo))
+    if (accInfo) {
+      const info = JSON.parse(accInfo);
+
+      const firstName = info.firstName;
+      const lastName = info.lastName;
+      const email = info.email;
+      const phone = info.phone;
+      const dob = info.dob;
+      const address = info.address;
+
+
+      setUserInfo({
+        firstName,
+        lastName,
+        email,
+        dob,
+        address,
+        phone
+      })
+    }
+  }
+
+  useEffect(() => {
+    handleGetUserInfo();
+  }, [])
+
   return (
     <div>
       <Breadcrumbs aria-label="breadcrumb">
         <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-          Nguyen Van A
+          {userInfo.firstName} {userInfo.lastName}
         </Typography>
         <Typography sx={{
           fontWeight: 600, fontSize: '20px'
@@ -82,6 +160,8 @@ function Profile() {
             id="outlined-basic"
             placeholder='Enter your first name'
             variant="outlined"
+            value={userInfo.email}
+            disabled
             sx={{
               width: '500px',
               '& .MuiOutlinedInput-root': {
@@ -110,6 +190,8 @@ function Profile() {
             id="outlined-basic"
             placeholder='Enter your first name'
             variant="outlined"
+            value={userInfo.firstName}
+            onChange={(e) => {handleChangeInfo('firstName', e.target.value)}}
             sx={{
               width: '500px',
               '& .MuiOutlinedInput-root': {
@@ -136,6 +218,8 @@ function Profile() {
             id="outlined-basic"
             placeholder='Enter your last name'
             variant="outlined"
+            value={userInfo.lastName}
+            onChange={(e) => {handleChangeInfo('lastName', e.target.value)}}
             sx={{
               width: '500px',
               '& .MuiOutlinedInput-root': {
@@ -164,6 +248,8 @@ function Profile() {
             id="outlined-basic"
             placeholder='Enter your phone number'
             variant="outlined"
+            value={userInfo.phone}
+            onChange={(e) => {handleChangeInfo('phone', e.target.value)}}
             sx={{
               width: '500px',
               '& .MuiOutlinedInput-root': {
@@ -191,6 +277,7 @@ function Profile() {
             <DemoContainer
               components={['DatePicker']}
               variant='outlined'
+
               sx={{
                 overflow: 'hidden',
                 width: '500px',
@@ -212,6 +299,8 @@ function Profile() {
               <DatePicker
                 placeholder="Select your date"
                 label=''
+                value={dayjs(userInfo.dob)}
+                onChange={(e) => {handleChangeInfo('dob', e.target.value)}}
                 sx={{
                   backgroundColor: INPUT_FIELD_COLOR,
                   width: '600px',
@@ -230,6 +319,8 @@ function Profile() {
           placeholder='Enter your address'
           variant="outlined"
           type='text'
+          onChange={(e) => {handleChangeInfo('add', e.target.value)}}
+          value={userInfo.address}
           sx={{
             width: '1090px',
             '& .MuiOutlinedInput-root': {
@@ -272,7 +363,8 @@ function Profile() {
             cursor: 'pointer'
           }}
         >
-          <Box
+          <Button
+            
             sx={{
               width: 'calc(250px - 45px)',
               height: '60px',
@@ -282,9 +374,10 @@ function Profile() {
               color: '#fff',
               fontFamily: 'Poppins'
             }}
+            onClick={handleClickSaveChange}
           >
             Save changes
-          </Box>
+          </Button>
         </Box>
       </Box>
     </div>
