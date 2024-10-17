@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emotion/react": "^11.13.3",
+    "@emotion/react": "11.13.3",
     "@emotion/styled": "11.13.0",
     "@fontsource/poppins": "5.0.16",
     "@mui/icons-material": "6.1.2",

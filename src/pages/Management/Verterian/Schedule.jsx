@@ -1,7 +1,6 @@
 import { Typography, Box } from '@mui/material'
 import React from 'react'
 import TableGrid from './TableGrid'
-import { INPUT_FIELD_COLOR } from '~/theme'
 
 const dayArr = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 const timeArr = ['9', '10', '11', '12', '13', '14', '15', '16', '17']

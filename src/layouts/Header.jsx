@@ -40,28 +40,25 @@ function Header() {
 
   const setTokenWithExpiry = (token) =>
   {
-    const now = new Date();
-    const expiry = now.getTime + 30 * 60 * 1000;
-    const tokenData = { token, expiry };
-    localStorage.setItem('token', JSON.stringify(tokenData));
+    localStorage.setItem('token',token);
   };
 
   const getToken = () =>
   {
-    const tokenData = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
-    if (!tokenData)
-      return null;
+    // if (!tokenData)
+    //   return null;
 
-    const now = new Date();
+    // const now = new Date();
 
-    const { token, expiry } = JSON.parse(tokenData);
+    // const { token, expiry } = JSON.parse(tokenData);
 
-    if (now.getTime() > expiry)
-    {
-      localStorage.removeItem('token');
-      return null;
-    }
+    // if (now.getTime() > expiry)
+    // {
+    //   localStorage.removeItem('token');
+    //   return null;
+    // }
 
     return token;
 
