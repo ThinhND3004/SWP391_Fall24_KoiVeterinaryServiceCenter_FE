@@ -9,6 +9,7 @@ import AddIcon from '@mui/icons-material/Add'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import { Typography } from '@mui/material'
 import DynamicDataGrid from './testGrid'
+import StaffApi from './staff-customer.api'
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -54,6 +55,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function createData(name, dob, fullName, startDate, email, phoneNumber, status) {
   return { name, dob, fullName, startDate, email, phoneNumber, status }
+}
+
+function setCustomerTable(){
+
 }
 
 const rows = [
@@ -105,7 +110,7 @@ function StaffCustomerPageDetails() {
 
       {/* Table */}
       <Box sx={{ mt: 3, mb: 3 }}>
-        <DynamicDataGrid data={rows} />
+        <DynamicDataGrid data={StaffApi.getCustomers()} />
       </Box>
     </div>
   )
