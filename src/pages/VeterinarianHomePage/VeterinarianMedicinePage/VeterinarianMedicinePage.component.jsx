@@ -1,28 +1,26 @@
-import React from 'react'
-import Navbar from '../AdminPageDetails/Navbar'
-import CustomerPageDetails from '~/pages/AdminPage/CustomerPage/CustomerPageDetails'
 import { Box, Breadcrumbs, Typography } from '@mui/material'
+import React from 'react'
+import VeterinarianMedicinePageDetails from './VeterinarianMedicinePageDetails'
 
-function CustomerPage() {
+function VeterinarianMedicinePage() {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', width: '80%', marginLeft: '250px' }}>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Breadcrumbs aria-label="breadcrumb">
           <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-            Nguyen Van A
+            Pham Luu Tuan Tai
           </Typography>
           <Typography sx={{
             fontWeight: 600, fontSize: '20px'
           }}
           >
-            Customers Management
+            Medicines Management
           </Typography>
         </Breadcrumbs>
       </Box>
-      <CustomerPageDetails />
+      <VeterinarianMedicinePageDetails />
     </Box>
-
   )
 }
 
-export default CustomerPage
+export default VeterinarianMedicinePage

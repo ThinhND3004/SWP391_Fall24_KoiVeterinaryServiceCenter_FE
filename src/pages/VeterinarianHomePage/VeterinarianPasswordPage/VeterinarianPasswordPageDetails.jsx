@@ -11,10 +11,10 @@ function handleClick(event) {
 
 function VeterinarianPasswordPageDetails() {
   return (
-    <div>
+    <div style={{ left: '250px', position: 'relative' }}>
       <Breadcrumbs aria-label="breadcrumb">
         <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-          Tran Dang Duong
+          Pham Luu Tuan Tai
         </Typography>
         <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
           Password Management

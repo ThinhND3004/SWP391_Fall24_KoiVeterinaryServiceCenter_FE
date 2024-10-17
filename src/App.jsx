@@ -5,9 +5,10 @@ import NotificationHandler from "./components/NotificationHandler"
 function App() {
 
   return (
-    <><div>
+    <>
+    {/* <div>
       <NotificationHandler />
-    </div>
+    </div> */}
     <BrowserRouter>
         <RouteComponent />
       </BrowserRouter></>
