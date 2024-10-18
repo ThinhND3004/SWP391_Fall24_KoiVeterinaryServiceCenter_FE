@@ -7,11 +7,19 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import SupportAgentIcon from '@mui/icons-material/SupportAgent'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital'
-import ArticleIcon from '@mui/icons-material/Article'
 import LoginIcon from '@mui/icons-material/Login'
 import Divider from '@mui/material/Divider'
+import SetMealIcon from '@mui/icons-material/SetMeal'
+import VaccinesIcon from '@mui/icons-material/Vaccines'
+import LocalShippingIcon from '@mui/icons-material/LocalShipping'
+import DashboardIcon from '@mui/icons-material/Dashboard'
 
 const menus = [
+  {
+    title: 'Dashboard',
+    icon: DashboardIcon,
+    url: '/dashboard'
+  },
   {
     title: 'Account',
     icon: AccountCircleIcon,
@@ -20,27 +28,37 @@ const menus = [
   {
     title: 'Password',
     icon: LockIcon,
-    url: '/password'
+    url: '/admin_password'
   },
   {
-    title: 'Customer',
+    title: 'Staff',
     icon: SupportAgentIcon,
-    url: '/customer'
-  },
-  {
-    title: 'Booking',
-    icon: CalendarMonthIcon,
-    url: '/booking'
+    url: '/admin_staff'
   },
   {
     title: 'Veterian',
     icon: LocalHospitalIcon,
-    url: '/veterinarian_management'
+    url: '/admin_veterinarian_management'
   },
   {
-    title: 'Prescription',
-    icon: ArticleIcon,
-    url: '/prescription'
+    title: 'Service',
+    icon: CalendarMonthIcon,
+    url: '/admin_service'
+  },
+  {
+    title: 'Koi Species',
+    icon: SetMealIcon,
+    url: '/admin_koi_species'
+  },
+  {
+    title: 'Medicine',
+    icon: VaccinesIcon,
+    url: '/admin_medicine'
+  },
+  {
+    title: 'Delivery',
+    icon: LocalShippingIcon,
+    url: '/admin_delivery'
   }
 ]
 
@@ -57,7 +75,7 @@ function Navbar() {
     <div>
       <Box
         sx={{
-          padding: '20px',
+          // padding: '20px',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'start',
@@ -100,7 +118,7 @@ function Navbar() {
             )
           })}
 
-          <Divider sx={{ paddingTop: '50px' }} />
+          <Divider sx={{ paddingTop: '10px' }} />
           <Box sx={{ display: 'flex', alignItems: 'center', color: ORANGE_COLOR, paddingTop: '10px' }}>
             <LoginIcon />
             <ListItem button component={Link} to="#" sx={{ color: ORANGE_COLOR, paddingTop: '10px' }}>

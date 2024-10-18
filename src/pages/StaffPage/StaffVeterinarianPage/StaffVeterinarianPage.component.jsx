@@ -8,7 +8,7 @@ function StaffVeterinarianPage() {
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Breadcrumbs aria-label="breadcrumb">
           <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-            Nguyen Van A
+            Admin
           </Typography>
           <Typography sx={{
             fontWeight: 600, fontSize: '20px'

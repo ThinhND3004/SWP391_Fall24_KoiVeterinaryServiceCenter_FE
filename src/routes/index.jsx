@@ -19,10 +19,10 @@ import RequestAppointment from '~/pages/RequestAppointment/RequestAppointment.co
 import AdminLayout from '~/layouts/AdminLayout/admin.layout'
 import AdminHomePage from '~/pages/AdminPage/AdminPage.component.jsx'
 import PasswordPage from '~/pages/AdminPage/PasswordPage/PasswordPage.component'
-import CustomerPage from '~/pages/AdminPage/CustomerPage/CustomerPage.component'
-import BookingPage from '~/pages/AdminPage/BookingPage/BookingPage.component'
+import StaffPage from '~/pages/AdminPage/StaffPage/StaffPage.component'
+import StaffServicePage from '~/pages/AdminPage/ServicePage/ServicePage.component'
 import VeterianPage from '~/pages/AdminPage/VeterianPage/VeterianPage.component'
-import PrescriptionPage from '~/pages/AdminPage/PrescriptionPage/PrescriptionPage.component'
+import KoiSpeciesPage from '~/pages/AdminPage/KoiSpeciesPage/KoiSpeciesPage.component'
 import StaffLayout from '~/layouts/StaffLayout/staff.layout'
 import StaffHomePage from '~/pages/StaffPage/Profile/StaffHomePage.component.jsx'
 import StaffPasswordPage from '~/pages/StaffPage/StaffPasswordPage/StaffPasswordPage.component'
@@ -42,6 +42,8 @@ import KoiTreatmentAtHomeComponent from '~/pages/KoiTreatmentAtHomePage/KoiTreat
 import PondInspectComponent from '~/pages/PondInspectPage/PondInspect.component'
 import BookingFlexibleScheduleComponent from '~/pages/BookingFlexibleSchedule/BookingFlexibleSchedule.component'
 import ConfirmBookingComponent from '~/pages/ConfirmBookingPage/ConfirmBooking.component'
+import DeliveryPage from '~/pages/AdminPage/DeliveryPage/DeliveryPage.component'
+import AdminMedicinePage from '~/pages/AdminPage/MedicinePage/AdminMedicinePage.component'
 
 const RouteComponent = () => {
   return (
@@ -72,12 +74,15 @@ const RouteComponent = () => {
       </Route>
 
       <Route element={<AdminLayout />}>
+        <Route path='/dashboard' element={<AdminHomePage />} />
         <Route path='/profile' element={<AdminHomePage />} />
-        <Route path='/password' element={<PasswordPage />} />
-        <Route path='/customer' element={<CustomerPage />} />
-        <Route path='/booking' element={<BookingPage />} />
-        <Route path='/veterinarian_management' element={<VeterianPage />} />
-        <Route path='/prescription' element={<PrescriptionPage />} />
+        <Route path='/admin_password' element={<PasswordPage />} />
+        <Route path='/admin_staff' element={<StaffPage />} />
+        <Route path='/admin_service' element={<StaffServicePage />} />
+        <Route path='/admin_veterinarian_management' element={<VeterianPage />} />
+        <Route path='/admin_koi_species' element={<KoiSpeciesPage />} />
+        <Route path='/admin_medicine' element={<AdminMedicinePage />} />
+        <Route path='/admin_delivery' element={<DeliveryPage />} />
       </Route>
 
       <Route element={<StaffLayout />}>

@@ -1,27 +1,27 @@
 import { Box, Breadcrumbs, Typography } from '@mui/material'
 import React from 'react'
-import BookingPageDetails from './BookingPageDetails'
+import PrescriptionPageDetails from './KoiSpeciesPageDetails'
 import Navbar from '../AdminPageDetails/Navbar'
 
-function BookingPage() {
+function PrescriptionPage() {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', width: '80%', marginLeft: '250px' }}>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Breadcrumbs aria-label="breadcrumb">
           <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-            Nguyen Van A
+            Admin
           </Typography>
           <Typography sx={{
             fontWeight: 600, fontSize: '20px'
           }}
           >
-            Bookings Management
+            Koi Species Management
           </Typography>
         </Breadcrumbs>
       </Box>
-      <BookingPageDetails />
+      <PrescriptionPageDetails />
     </Box>
   )
 }
 
-export default BookingPage
+export default PrescriptionPage
