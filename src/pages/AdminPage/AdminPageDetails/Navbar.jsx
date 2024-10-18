@@ -15,7 +15,7 @@ const menus = [
   {
     title: 'Account',
     icon: AccountCircleIcon,
-    url: '/admin'
+    url: '/profile'
   },
   {
     title: 'Password',
@@ -61,7 +61,9 @@ function Navbar() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'start',
-          justifyContent: 'flex-start'
+          justifyContent: 'flex-start',
+          position: 'fixed',
+          width: '100%'
         }}
       >
         <List>

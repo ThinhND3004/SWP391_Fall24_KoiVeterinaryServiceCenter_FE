@@ -122,7 +122,7 @@ const TableGrid = () => {
           sx={{
             position: "absolute",
             border: "1px dashed #000",
-            backgroundColor: "rgba(0, 0, 255, 0.1)",
+            backgroundColor: "rgba(0, 0, 200, 0.1)",
             zIndex: 1000,
             left: selectionBox.startX + "px",
             top: selectionBox.startY + "px",

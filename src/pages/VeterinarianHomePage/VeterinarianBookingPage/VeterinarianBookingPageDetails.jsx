@@ -9,8 +9,6 @@ import AddIcon from '@mui/icons-material/Add'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import { Typography } from '@mui/material'
 import DynamicDataGrid from './testGrid'
-import StaffApi from './staff-customer.api'
-
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -57,10 +55,6 @@ function createData(name, dob, fullName, startDate, email, phoneNumber, status) 
   return { name, dob, fullName, startDate, email, phoneNumber, status }
 }
 
-function setCustomerTable(){
-
-}
-
 const rows = [
   createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspended'),
   createData('Genevieve U. Watts', '01/01/2000', 'Eget Incorporated', '07/18/2017', 'Nullam.vitae@egestas.edu', '0800 025698', 'Closed'),
@@ -74,9 +68,10 @@ const rows = [
   createData('Yasir W. Benson', '01/01/2000', 'At Incorporated', '01/13/2017', 'ornare.elit.elit@atortor.edu', '0391 916 3600', 'Active')
 ]
 
-function StaffCustomerPageDetails() {
+
+function VeterinarianBookingPageDetails() {
   return (
-    <div>
+    <Box>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
         <Box sx={{ display: 'flex', gap: 2 }}>
           <Search sx={{
@@ -91,6 +86,13 @@ function StaffCustomerPageDetails() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
+
+          {/* <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: INPUT_FIELD_COLOR, borderRadius: '10px', gap: 1 }}>
+            <FilterListIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
+            <Typography sx={{ color: GRAY_COLOR, fontWeight: 500, fontSize: '14px' }}>
+              Filter
+            </Typography>
+          </Button> */}
 
           <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: INPUT_FIELD_COLOR, borderRadius: '10px', gap: 1 }}>
             <FileDownloadIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
@@ -110,10 +112,10 @@ function StaffCustomerPageDetails() {
 
       {/* Table */}
       <Box sx={{ mt: 3, mb: 3 }}>
-        <DynamicDataGrid data={StaffApi.getCustomers()} />
+        <DynamicDataGrid data={rows} />
       </Box>
-    </div>
+    </Box>
   )
 }
 
-export default StaffCustomerPageDetails
+export default VeterinarianBookingPageDetails

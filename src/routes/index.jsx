@@ -33,6 +33,9 @@ import StaffPrescriptionPage from '~/pages/StaffPage/StaffPrescriptionPage/Staff
 import VeterinarianLayout from '~/layouts/VeterinarianLayout/veterinarian.layout'
 import VeterinarianHomePage from '~/pages/VeterinarianHomePage/Profile/ProfilePage.component'
 import VeterinarianPasswordPage from '~/pages/VeterinarianHomePage/VeterinarianPasswordPage/VeterinarianPasswordPage.component'
+import VeterinarianBookingPage from '~/pages/VeterinarianHomePage/VeterinarianBookingPage/VeterinarianBookingPage.component'
+import VeterinarianMedicalReportPage from '~/pages/VeterinarianHomePage/VeterinarianMedicalReportPage/VeterinarianMedicalReportPage.component'
+import VeterinarianMedicinePage from '~/pages/VeterinarianHomePage/VeterinarianMedicinePage/VeterinarianMedicinePage.component'
 import OnlineConsultantComponent from '~/pages/OnlineConsultantPage/OnlineConsultant.component'
 import KoiTreatmentAtCenterComponent from '~/pages/KoiTreatmentAtCenterPage/KoiTreatmentAtCenter.component'
 import KoiTreatmentAtHomeComponent from '~/pages/KoiTreatmentAtHomePage/KoiTreatmentAtHome.component'
@@ -55,8 +58,8 @@ const RouteComponent = () => {
 
         {/* Service Details */}
         <Route path='/online-consultant' element={<OnlineConsultantComponent />} />
-        <Route path='/koi-treatment-at-center' element={<KoiTreatmentAtCenterComponent/>} />
-        <Route path='/koi-treatment-at-home' element={<KoiTreatmentAtHomeComponent/>} />
+        <Route path='/koi-treatment-at-center' element={<KoiTreatmentAtCenterComponent />} />
+        <Route path='/koi-treatment-at-home' element={<KoiTreatmentAtHomeComponent />} />
         <Route path='/pond-inspect' element={<PondInspectComponent />} />
         <Route path='/booking-flexible-schedule' element={< BookingFlexibleScheduleComponent />} />
         <Route path='/confirm-booking' element={< ConfirmBookingComponent />} />
@@ -89,9 +92,9 @@ const RouteComponent = () => {
       <Route element={<VeterinarianLayout />}>
         <Route path='/veterinarian' element={<VeterinarianHomePage />} />
         <Route path='/veterinarian_password' element={<VeterinarianPasswordPage />} />
-        {/* <Route path='/veterinarian_booking' element={<VeterinarianBookingPage />} /> */}
-        {/* <Route path='/veterinarian_medical_report' element={<VeterinarianMedicalReportPage />} /> */}
-        {/* <Route path='/veterinarian_medicine' element={<VeterinarianMedicinePage />} /> */}
+        <Route path='/veterinarian_booking' element={<VeterinarianBookingPage />} />
+        <Route path='/veterinarian_medical_report' element={<VeterinarianMedicalReportPage />} />
+        <Route path='/veterinarian_medicine' element={<VeterinarianMedicinePage />} />
       </Route>
 
       <Route path='/' element={
