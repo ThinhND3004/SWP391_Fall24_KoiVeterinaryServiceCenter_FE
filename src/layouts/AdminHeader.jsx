@@ -57,7 +57,6 @@ function Header() {
             <Typography sx={{ fontFamily: 'SVN-Konga Pro', color: ORANGE_COLOR, fontSize: 32, textAlign: 'center', position: 'fixed', height: '30px' }}>
               Koi Care Clinic
             </Typography>
-
             {/* <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, left: '1300px', position: 'fixed', top: '10px' }}>
             <Typography sx={{ fontSize: '14x', fontWeight: '500', color: BLUE_COLOR }}>Hi, Tai</Typography>
             <img
