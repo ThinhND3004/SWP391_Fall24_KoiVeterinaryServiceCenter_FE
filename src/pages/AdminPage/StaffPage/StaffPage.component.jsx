@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from '../AdminPageDetails/Navbar'
-import CustomerPageDetails from '~/pages/AdminPage/CustomerPage/CustomerPageDetails'
+import CustomerPageDetails from '~/pages/AdminPage/StaffPage/StaffPageDetails'
 import { Box, Breadcrumbs, Typography } from '@mui/material'
 
 function CustomerPage() {
@@ -9,13 +9,13 @@ function CustomerPage() {
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Breadcrumbs aria-label="breadcrumb">
           <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-            Nguyen Van A
+            Admin
           </Typography>
           <Typography sx={{
             fontWeight: 600, fontSize: '20px'
           }}
           >
-            Customers Management
+            Staffs Management
           </Typography>
         </Breadcrumbs>
       </Box>
