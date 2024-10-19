@@ -5,38 +5,44 @@ import { useLocation } from "react-router-dom";
 
 const ConfirmBookingComponent = () => {
   const location = useLocation(); // Nhận dữ liệu từ state
-  const bookingData = location.state;
-  console.log(bookingData);
+  const { createBookingDTO, serviceEntity } = location.state;
+  console.log(createBookingDTO);
 
   const totalPrice =
-    bookingData.servicePrice +
-    bookingData.travelPricePerMeter * bookingData.distance;
+    createBookingDTO.servicePrice +
+    createBookingDTO.travelPrice * createBookingDTO.distanceMeters;
 
   //sẽ sửa chức năng này sau
 
-  // const handleBooking = async (bookingData) => {
-  //   console.log(bookingData)
-  //   try {
-  //     const response = await fetch("http://localhost:8080/bookings", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(bookingData), // gửi bookingData lên API
-  //     });
+  const handleBooking = async (createBookingDTO) => {
+    console.log(createBookingDTO);
 
-  //     const result = await response.json(); // Lấy dữ liệu phản hồi từ server
-  //     if (!response.ok) {
-  //       throw new Error(result.message || "Failed to create booking");
-  //     }
+    try {
+      const token = localStorage.getItem("token"); // Lấy token từ localStorage
+      console.log(token);
 
-  //     alert("Booking confirmed!");
-  //     // Bạn có thể thêm logic chuyển hướng hoặc cập nhật trạng thái khác tại đây
-  //   } catch (error) {
-  //     console.error("Error creating booking: ", error);
-  //     alert(`Error creating booking: ${error.message}`);
-  //   }
-  // };
+      const response = await fetch("http://localhost:8080/bookings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Thêm Authorization header
+        },
+        body: JSON.stringify(createBookingDTO), // gửi bookingData lên API
+      });
+
+      const result = await response.json(); // Lấy dữ liệu phản hồi từ server
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to create booking");
+      }
+      console.log(result);
+
+      alert("Booking confirmed!");
+      // Bạn có thể thêm logic chuyển hướng hoặc cập nhật trạng thái khác tại đây
+    } catch (error) {
+      console.error("Error creating booking: ", error);
+      alert(`Error creating booking: ${error.message}`);
+    }
+  };
 
   return (
     <div>
@@ -53,79 +59,92 @@ const ConfirmBookingComponent = () => {
         </Typography>
         <Box display="flex" alignItems="center">
           <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
-            Service Name:
+            Service:
           </Typography>
-          <Typography>{bookingData.serviceName}</Typography>
+          <Typography>{serviceEntity.name}</Typography>
+        </Box>
+
+        <Box display="flex" alignItems="center">
+          <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
+            Veterinarian:
+          </Typography>
+          <Typography>
+            {createBookingDTO.veterinarianId
+              ? createBookingDTO.veterinarianId
+              : "is not assigned"}
+          </Typography>
         </Box>
 
         <Box display="flex" alignItems="center">
           <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
             Type:
           </Typography>
-          <Typography>{bookingData.serviceType}</Typography>
+          <Typography>{serviceEntity.type}</Typography>
         </Box>
 
         <Box display="flex" alignItems="center">
           <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
             Meeting method:
           </Typography>
-          <Typography>{bookingData.serviceMeetingMethod}</Typography>
+          <Typography>{createBookingDTO.meetingMethod}</Typography>
         </Box>
 
         <Box display="flex" alignItems="center">
           <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
             Start At:
           </Typography>
-          <Typography>{bookingData.startAt}</Typography>
-        </Box>
-
-        <Box display="flex" alignItems="center">
-          <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
-            Type:
-          </Typography>
-          <Typography>{bookingData.serviceType}</Typography>
+          <Typography>{createBookingDTO.startAt}</Typography>
         </Box>
 
         <Box display="flex" alignItems="center">
           <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
             Additional Information:
           </Typography>
-          <Typography>{bookingData.additionalInformation}</Typography>
+          <Typography>
+            {createBookingDTO.additionalInformation
+              ? createBookingDTO.additionalInformation
+              : "nothing"}
+          </Typography>
         </Box>
 
-        {bookingData.serviceMeetingMethod !== "ONLINE" &&
-        bookingData.serviceMeetingMethod !== "OFFLINE_CENTER" && (
-            <>
-              <Box display="flex" alignItems="center">
-                <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
-                  Address:
-                </Typography>
-                <Typography>{bookingData.userAddress}</Typography>
-              </Box>
+        {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
+          createBookingDTO.meetingMethod !== "ONLINE" && (
+            // <>
+            <Box display="flex" alignItems="center">
+              <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
+                Address:
+              </Typography>
+              <Typography>{createBookingDTO.userAddress}</Typography>
+            </Box>
+          )}
 
-              <Box display="flex" alignItems="center">
-                <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
-                  Distance:
-                </Typography>
-                <Typography>{bookingData.distance}</Typography>
-              </Box>
+        {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
+          createBookingDTO.meetingMethod !== "ONLINE" && (
+            <Box display="flex" alignItems="center">
+              <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
+                Distance:
+              </Typography>
+              <Typography>{createBookingDTO.distanceMeters} km </Typography>
+            </Box>
+          )}
 
-              <Box display="flex" alignItems="center">
-                <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
-                  Travel Cost:
-                </Typography>
-                <Typography>
-                  {bookingData.travelPricePerMeter * bookingData.distance}
-                </Typography>
-              </Box>
-            </>
+        {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
+          createBookingDTO.meetingMethod !== "ONLINE" && (
+            <Box display="flex" alignItems="center">
+              <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
+                Travel Cost:
+              </Typography>
+              <Typography>
+                ${createBookingDTO.travelPrice * createBookingDTO.distanceMeters}
+              </Typography>
+            </Box>
           )}
 
         <Box display="flex" alignItems="center">
           <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
             Service Price:
           </Typography>
-          <Typography>{bookingData.servicePrice}</Typography>
+          <Typography>${createBookingDTO.servicePrice}</Typography>
         </Box>
 
         <Typography
@@ -139,7 +158,7 @@ const ConfirmBookingComponent = () => {
       <Button
         variant="contained"
         color="secondary"
-        // onClick={() => handleBooking(bookingData)}
+        onClick={() => handleBooking(createBookingDTO)}
       >
         Confirm Booking
       </Button>
