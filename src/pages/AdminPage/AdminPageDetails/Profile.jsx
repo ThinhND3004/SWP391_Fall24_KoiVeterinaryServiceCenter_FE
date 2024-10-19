@@ -17,21 +17,14 @@ function handleClick(event) {
 }
 
 
-
-
 function Profile() {
-
-
-
-
-
   const [userInfo, setUserInfo] = useState({});
 
   const handleChangeInfo = (field, value) => {
     setUserInfo(previuos => ({
       ...previuos,
       [field]: value
-    }));
+    }))
   }
 
   // useEffect(() => {
@@ -122,7 +115,6 @@ function Profile() {
               Delete picture
             </Button>
           </Box>
-
         </Box>
       </Box>
 
@@ -312,7 +304,7 @@ function Profile() {
         </Box>
       </Box>
 
-      <Box sx={{ mt: 5, mb: '80px' }}>
+      <Box sx={{ mt: 5, mb: '40px' }}>
         <Typography sx={{ fontWeight: 600, fontSize: 16 }}>Address</Typography>
         <TextField
           id="outlined-basic"
@@ -342,12 +334,73 @@ function Profile() {
         />
       </Box>
 
+      {/* update password */}
+      <Box sx={{ display: 'flex', justifyContent: 'space-around', gap: 10 }}>
+        <Box>
+          <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Enter your old password</Typography>
+          <TextField
+            id="outlined-basic"
+            placeholder='Enter your old password'
+            variant="outlined"
+            sx={{
+              width: '1100px',
+              '& .MuiOutlinedInput-root': {
+                borderRadius: '15px',
+                borderColor: BLUE_COLOR,
+                height: '60px',
+                marginTop: '15px',
+                '&.Mui-focused fieldset': {
+                  borderColor: BLUE_COLOR
+                }
+              },
+              '& input': {
+                backgroundColor: INPUT_FIELD_COLOR,
+                padding: '20px 15px',
+                fontSize: '16px',
+                borderRadius: '15px'
+              }
+            }}
+          />
+        </Box>
+      </Box>
+
+      <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-around', gap: 10 }}>
+        <Box>
+          <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Enter your new password</Typography>
+          <TextField
+            id="outlined-basic"
+            placeholder='Enter your new password'
+            variant="outlined"
+            sx={{
+              width: '1100px',
+              '& .MuiOutlinedInput-root': {
+                borderRadius: '15px',
+                borderColor: BLUE_COLOR,
+                height: '60px',
+                marginTop: '15px',
+                '&.Mui-focused fieldset': {
+                  borderColor: BLUE_COLOR
+                }
+              },
+              '& input': {
+                backgroundColor: INPUT_FIELD_COLOR,
+                padding: '20px 15px',
+                fontSize: '16px',
+                borderRadius: '15px'
+              }
+            }}
+          />
+        </Box>
+      </Box>
+
+
       {/* Submit button */}
       <Box
         sx={{
           display: 'flex',
           justifyContent: 'start',
-          marginBottom: '60px'
+          marginBottom: '60px',
+          marginTop: '40px'
         }}
       >
         <Box

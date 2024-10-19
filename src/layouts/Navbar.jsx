@@ -53,71 +53,74 @@ function Navbar() {
   }
 
   return (
-    <Box
-      sx={{
-        padding: '20px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'start',
-        justifyContent: 'flex-start',
-        position: 'fixed',
-        width: '100%'
-      }}
-    >
-      <List>
-        {menus.map((menu, idx) => {
-          const IconComponent = menu.icon
+    <div>
+      <Box
+        sx={{
+          padding: '20px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'start',
+          justifyContent: 'flex-start',
+          position: 'fixed',
+          width: '100%'
+        }}
+      >
+        <List>
+          {menus.map((menu, idx) => {
+            const IconComponent = menu.icon
 
-          return (
-            <Box
-              key={`menu-${idx}`}
-              sx={{ display: 'flex', alignItems: 'center', color: '#000' }}
-            >
-              <ListItem
-                button
-                onClick={() => handleMenuClick(menu, idx)}
-                sx={{
-                  gap: 1.5,
-                  cursor: 'pointer',
-                  mt: 2,
-                  fontWeight: selectedMenu === idx ? 'bold' : 'normal'
-                }}
-              >
-                <IconComponent />
-                <ListItemText
-                  primary={menu.title}
-                  primaryTypographyProps={{
-                    sx: {
-                      fontSize: '18px',
-                      color: '#000',
-                      fontWeight: selectedMenu === idx ? 'bold' : 'normal'
-                    }
+            return (
+              <Box
+                key={`menu-${idx}`}
+                sx={{ display: 'flex', alignItems: 'center', color: '#000' }}>
+                <ListItem
+                  button
+                  onClick={() => handleMenuClick(menu, idx)}
+                  sx={{
+                    gap: 1.5,
+                    cursor: 'pointer',
+                    mt: 2,
+                    fontWeight: selectedMenu === idx ? 'bold' : 'normal',
+                    color: selectedMenu === idx ? 'bold' : 'normal'
                   }}
-                />
-              </ListItem>
-            </Box>
-          )
-        })}
+                >
+                  <IconComponent />
+                  <ListItemText
+                    primary={menu.title}
+                    primaryTypographyProps={{
+                      sx: {
+                        fontSize: '18px',
+                        // color: '#000',
+                        fontWeight: selectedMenu === idx ? 'bold' : 'normal',
+                        color: selectedMenu === idx ? 'bold' : 'normal'
+                      }
+                    }}
+                  />
+                </ListItem>
+              </Box>
+            )
+          })}
 
 
-        <Divider sx={{ paddingTop: '50px' }} />
-        <Box sx={{ display: 'flex', alignItems: 'center', color: ORANGE_COLOR, paddingTop: '10px' }}>
-          <LoginIcon />
-          <ListItem button component={Link} to="#" sx={{ color: ORANGE_COLOR, paddingTop: '10px' }}>
-            <ListItemText
-              primary="Logout"
-              primaryTypographyProps={{
-                sx: {
-                  fontSize: '18px',
-                  color: ORANGE_COLOR,
-                  fontWeight: 500
-                }
-              }}
-            />
-          </ListItem>
-        </Box>
-      </List>
-    </Box>
+          <Divider sx={{ paddingTop: '50px' }} />
+          <Box sx={{ display: 'flex', alignItems: 'center', color: ORANGE_COLOR, paddingTop: '10px' }}>
+            <LoginIcon />
+            <ListItem button component={Link} to="#" sx={{ color: ORANGE_COLOR, paddingTop: '10px' }}>
+              <ListItemText
+                primary="Logout"
+                primaryTypographyProps={{
+                  sx: {
+                    fontSize: '18px',
+                    color: ORANGE_COLOR,
+                    fontWeight: 500
+                  }
+                }}
+              />
+            </ListItem>
+          </Box>
+        </List>
+      </Box>
+    </div >
   )
 }
 
