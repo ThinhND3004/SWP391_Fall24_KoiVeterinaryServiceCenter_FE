@@ -17,10 +17,10 @@ function handleClick(event) {
 
 function ProfilePageDetails() {
   return (
-    <div>
+    <div style={{ left: '250px', position: 'relative' }}>
       <Breadcrumbs aria-label="breadcrumb">
         <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-          Pham Luu Tuan Tai
+          Veterinarian
         </Typography>
         <Typography sx={{
           fontWeight: 600, fontSize: '20px'

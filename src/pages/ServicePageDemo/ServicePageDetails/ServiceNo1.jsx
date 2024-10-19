@@ -88,6 +88,7 @@ function ServiceNo1({ service }) {
   const navigate = useNavigate();
 
   const handleOnlineConsultantDetails = () => {
+    localStorage.setItem("serviceId", service.id)
     navigate("/online-consultant", { state: { service } }); // Truyền state qua route
   };
 

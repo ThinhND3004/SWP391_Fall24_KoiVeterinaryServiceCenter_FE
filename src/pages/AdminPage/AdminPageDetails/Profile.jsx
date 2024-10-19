@@ -17,21 +17,14 @@ function handleClick(event) {
 }
 
 
-
-
 function Profile() {
-
-
-
-  
-
   const [userInfo, setUserInfo] = useState({});
 
   const handleChangeInfo = (field, value) => {
     setUserInfo(previuos => ({
       ...previuos,
       [field]: value
-    }));
+    }))
   }
 
   // useEffect(() => {
@@ -45,24 +38,24 @@ function Profile() {
 
 
   const handleClickSaveChange = async () => {
-      const accInfo = JSON.parse(localStorage.getItem('accountInfo'))
-      console.log("UPDATE DATA: ", userInfo);
-      try {
-        // const response = await api.put(`accounts/${accInfo.id}`, {
-        //   firstName: userInfo.firstName,
-        //   lastName: userInfo.lastName,
-        //   dob: userInfo.dob,
-        //   phone: userInfo.phone,
-        //   address: userInfo.add
-        // });
+    const accInfo = JSON.parse(localStorage.getItem('accountInfo'))
+    console.log("UPDATE DATA: ", userInfo);
+    try {
+      // const response = await api.put(`accounts/${accInfo.id}`, {
+      //   firstName: userInfo.firstName,
+      //   lastName: userInfo.lastName,
+      //   dob: userInfo.dob,
+      //   phone: userInfo.phone,
+      //   address: userInfo.add
+      // });
 
-        const response = await axios.put(`http://localhost:8080/accounts/${accInfo.id}`, userInfo);
+      const response = await axios.put(`http://localhost:8080/accounts/${accInfo.id}`, userInfo);
 
-        console.log("UPDATE RESULT: ", response.data);
-      } catch {
-        console.log("ERROR UPDATE OCCUR!!!");
-      }
+      console.log("UPDATE RESULT: ", response.data);
+    } catch {
+      console.log("ERROR UPDATE OCCUR!!!");
     }
+  }
 
   const handleGetUserInfo = () => {
     const accInfo = localStorage.getItem('accountInfo');
@@ -94,7 +87,7 @@ function Profile() {
   }, [])
 
   return (
-    <div>
+    <div style={{ left: '250px', position: 'relative' }}>
       <Breadcrumbs aria-label="breadcrumb">
         <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
           {userInfo.firstName} {userInfo.lastName}
@@ -122,7 +115,6 @@ function Profile() {
               Delete picture
             </Button>
           </Box>
-
         </Box>
       </Box>
 
@@ -191,7 +183,7 @@ function Profile() {
             placeholder='Enter your first name'
             variant="outlined"
             value={userInfo.firstName}
-            onChange={(e) => {handleChangeInfo('firstName', e.target.value)}}
+            onChange={(e) => { handleChangeInfo('firstName', e.target.value) }}
             sx={{
               width: '500px',
               '& .MuiOutlinedInput-root': {
@@ -219,7 +211,7 @@ function Profile() {
             placeholder='Enter your last name'
             variant="outlined"
             value={userInfo.lastName}
-            onChange={(e) => {handleChangeInfo('lastName', e.target.value)}}
+            onChange={(e) => { handleChangeInfo('lastName', e.target.value) }}
             sx={{
               width: '500px',
               '& .MuiOutlinedInput-root': {
@@ -249,7 +241,7 @@ function Profile() {
             placeholder='Enter your phone number'
             variant="outlined"
             value={userInfo.phone}
-            onChange={(e) => {handleChangeInfo('phone', e.target.value)}}
+            onChange={(e) => { handleChangeInfo('phone', e.target.value) }}
             sx={{
               width: '500px',
               '& .MuiOutlinedInput-root': {
@@ -300,7 +292,7 @@ function Profile() {
                 placeholder="Select your date"
                 label=''
                 value={dayjs(userInfo.dob)}
-                onChange={(e) => {handleChangeInfo('dob', e.target.value)}}
+                onChange={(e) => { handleChangeInfo('dob', e.target.value) }}
                 sx={{
                   backgroundColor: INPUT_FIELD_COLOR,
                   width: '600px',
@@ -312,14 +304,14 @@ function Profile() {
         </Box>
       </Box>
 
-      <Box sx={{ mt: 5, mb: '80px' }}>
+      <Box sx={{ mt: 5, mb: '40px' }}>
         <Typography sx={{ fontWeight: 600, fontSize: 16 }}>Address</Typography>
         <TextField
           id="outlined-basic"
           placeholder='Enter your address'
           variant="outlined"
           type='text'
-          onChange={(e) => {handleChangeInfo('add', e.target.value)}}
+          onChange={(e) => { handleChangeInfo('add', e.target.value) }}
           value={userInfo.address}
           sx={{
             width: '1090px',
@@ -342,12 +334,73 @@ function Profile() {
         />
       </Box>
 
+      {/* update password */}
+      <Box sx={{ display: 'flex', justifyContent: 'space-around', gap: 10 }}>
+        <Box>
+          <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Enter your old password</Typography>
+          <TextField
+            id="outlined-basic"
+            placeholder='Enter your old password'
+            variant="outlined"
+            sx={{
+              width: '1100px',
+              '& .MuiOutlinedInput-root': {
+                borderRadius: '15px',
+                borderColor: BLUE_COLOR,
+                height: '60px',
+                marginTop: '15px',
+                '&.Mui-focused fieldset': {
+                  borderColor: BLUE_COLOR
+                }
+              },
+              '& input': {
+                backgroundColor: INPUT_FIELD_COLOR,
+                padding: '20px 15px',
+                fontSize: '16px',
+                borderRadius: '15px'
+              }
+            }}
+          />
+        </Box>
+      </Box>
+
+      <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-around', gap: 10 }}>
+        <Box>
+          <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Enter your new password</Typography>
+          <TextField
+            id="outlined-basic"
+            placeholder='Enter your new password'
+            variant="outlined"
+            sx={{
+              width: '1100px',
+              '& .MuiOutlinedInput-root': {
+                borderRadius: '15px',
+                borderColor: BLUE_COLOR,
+                height: '60px',
+                marginTop: '15px',
+                '&.Mui-focused fieldset': {
+                  borderColor: BLUE_COLOR
+                }
+              },
+              '& input': {
+                backgroundColor: INPUT_FIELD_COLOR,
+                padding: '20px 15px',
+                fontSize: '16px',
+                borderRadius: '15px'
+              }
+            }}
+          />
+        </Box>
+      </Box>
+
+
       {/* Submit button */}
       <Box
         sx={{
           display: 'flex',
           justifyContent: 'start',
-          marginBottom: '60px'
+          marginBottom: '60px',
+          marginTop: '40px'
         }}
       >
         <Box
@@ -364,7 +417,7 @@ function Profile() {
           }}
         >
           <Button
-            
+
             sx={{
               width: 'calc(250px - 45px)',
               height: '60px',

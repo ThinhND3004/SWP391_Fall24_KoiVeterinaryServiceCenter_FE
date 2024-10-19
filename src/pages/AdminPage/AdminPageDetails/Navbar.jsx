@@ -7,40 +7,58 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import SupportAgentIcon from '@mui/icons-material/SupportAgent'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital'
-import ArticleIcon from '@mui/icons-material/Article'
 import LoginIcon from '@mui/icons-material/Login'
 import Divider from '@mui/material/Divider'
+import SetMealIcon from '@mui/icons-material/SetMeal'
+import VaccinesIcon from '@mui/icons-material/Vaccines'
+import LocalShippingIcon from '@mui/icons-material/LocalShipping'
+import DashboardIcon from '@mui/icons-material/Dashboard'
 
 const menus = [
   {
+    title: 'Dashboard',
+    icon: DashboardIcon,
+    url: '/dashboard'
+  },
+  {
     title: 'Account',
     icon: AccountCircleIcon,
-    url: '/admin'
+    url: '/profile'
   },
+  // {
+  //   title: 'Password',
+  //   icon: LockIcon,
+  //   url: '/admin_password'
+  // },
   {
-    title: 'Password',
-    icon: LockIcon,
-    url: '/password'
-  },
-  {
-    title: 'Customer',
+    title: 'Staff',
     icon: SupportAgentIcon,
-    url: '/customer'
-  },
-  {
-    title: 'Booking',
-    icon: CalendarMonthIcon,
-    url: '/booking'
+    url: '/admin_staff'
   },
   {
     title: 'Veterian',
     icon: LocalHospitalIcon,
-    url: '/veterinarian_management'
+    url: '/admin_veterinarian_management'
   },
   {
-    title: 'Prescription',
-    icon: ArticleIcon,
-    url: '/prescription'
+    title: 'Service',
+    icon: CalendarMonthIcon,
+    url: '/admin_service'
+  },
+  {
+    title: 'Koi Species',
+    icon: SetMealIcon,
+    url: '/admin_koi_species'
+  },
+  {
+    title: 'Medicine',
+    icon: VaccinesIcon,
+    url: '/admin_medicine'
+  },
+  {
+    title: 'Delivery',
+    icon: LocalShippingIcon,
+    url: '/admin_delivery'
   }
 ]
 
@@ -57,11 +75,13 @@ function Navbar() {
     <div>
       <Box
         sx={{
-          padding: '20px',
+          // padding: '20px',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'start',
-          justifyContent: 'flex-start'
+          justifyContent: 'flex-start',
+          position: 'fixed',
+          width: '100%'
         }}
       >
         <List>
@@ -69,7 +89,9 @@ function Navbar() {
             const IconComponent = menu.icon
 
             return (
-              <Box key={`menu-${idx}`} sx={{ display: 'flex', alignItems: 'center', color: '#000' }}>
+              <Box
+                key={`menu-${idx}`}
+                sx={{ display: 'flex', alignItems: 'center', color: '#000' }}>
                 <ListItem
                   button
                   onClick={() => handleMenuClick(menu, idx)}

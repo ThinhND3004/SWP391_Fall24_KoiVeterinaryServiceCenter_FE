@@ -1,7 +1,6 @@
 import { Typography, Box } from '@mui/material';
 import TableHeader from './TableHeader';
 import Schedule from './Schedule';
-import { ORANGE_COLOR } from '~/theme';
 import SaveButton from './SaveButton';
 
 function Timetable() {

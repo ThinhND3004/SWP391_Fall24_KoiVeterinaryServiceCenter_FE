@@ -6,9 +6,9 @@ function App() {
 
   return (
     <>
-    <div>
+    {/* <div>
       <NotificationHandler />
-    </div>
+    </div> */}
     <BrowserRouter>
         <RouteComponent />
       </BrowserRouter></>

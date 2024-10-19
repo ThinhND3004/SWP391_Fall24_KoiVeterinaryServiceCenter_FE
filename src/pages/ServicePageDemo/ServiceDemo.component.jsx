@@ -31,6 +31,7 @@ import ServiceNo1 from './ServicePageDetails/ServiceNo1'
 import ServiceNo2_1 from './ServicePageDetails/ServiceNo2_1'
 import ServiceNo2_2 from './ServicePageDetails/ServiceNo2_2'
 import ServiceNo3 from './ServicePageDetails/ServiceNo3'
+import api from '~/config/axios';
 
 const SerivceComponent = () => {
     const [services, setServices] = useState([]);
@@ -40,13 +41,15 @@ const SerivceComponent = () => {
     //Call API
     const fetchServices = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/services`);
+            const response = await fetch(`http://localhost:8080/services/getAllService`);
+            // const response = await api.get("/services/getAllService");
+            console.log("SERVICE RESPONSE: ", response)
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
             const data = await response.json();
-            console.log(data);
-            setServices(data);
+            console.log("SERVICE RESPONSE: ", data.data);
+            setServices(data.data);
         } catch (err) {
             setError(err.message);
         } finally {
@@ -73,7 +76,9 @@ const SerivceComponent = () => {
             display={'flex'} 
             flexDirection={'column'} 
             gap={'100px'} 
-            px={'30px'}>
+            px={'30px'}
+            paddingBottom={'20px'}
+            >
                 
                 {/* Introduction */}
                 <Introduction />

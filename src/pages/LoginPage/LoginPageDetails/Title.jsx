@@ -18,10 +18,7 @@ function Title() {
 
 
   const setTokenWithExpiry = (token) => {
-    const now = new Date();
-    const expiryTime = now.getTime() + 30 * 60 * 1000; // 30 phút tính bằng milliseconds
-    const tokenData = { token, expiryTime };
-    localStorage.setItem('token', JSON.stringify(tokenData));
+    localStorage.setItem('token', token);
   };
 
   useEffect(() => {
