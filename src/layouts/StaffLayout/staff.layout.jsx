@@ -16,7 +16,7 @@ function StaffLayout() {
       height={'100%'}
       sx={{ m: 0, p: 0, bgcolor: BG_COLOR }}
     >
-      <Container maxWidth={'xl'}>
+      <Container maxwidth={'xl'}>
         <StaffHeader />
         <Box display={'flex'} gap={'50px'} px={'30px'}>
           <Navbar />

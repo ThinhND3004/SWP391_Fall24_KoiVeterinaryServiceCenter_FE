@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid'
 import PropTypes from 'prop-types'
 import { styled } from '@mui/material/styles'
@@ -46,11 +46,12 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   }
 }))
 
-const DynamicDataGrid = ({ data, pageSize = 5 }) => {
+const DynamicDataGrid = ({ data, unitPerPage = 5 }) => {
+  const [pageSize, setPageSize] = useState(unitPerPage);
   if (!data || !data.length) {
     return <div>No data available</div>
   }
-
+  console.log(data)
   // Automatically generate columns based on the keys of the first row
   const columns = Object.keys(data[0]).map((key) => ({
     field: key,
@@ -75,7 +76,8 @@ const DynamicDataGrid = ({ data, pageSize = 5 }) => {
         rows={rows}
         columns={columns}
         pageSize={pageSize}
-        rowsPerPageOptions={[5, 10, 20]}
+        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+        rowsPerPageOptions={[5, 10, 15]}
         disableSelectionOnClick
         sx={{ '&, [class^=MuiDataGrid]': { border: 'none' } }}
 
