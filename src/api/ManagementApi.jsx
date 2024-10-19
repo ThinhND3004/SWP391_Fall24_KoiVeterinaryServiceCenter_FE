@@ -10,9 +10,8 @@ function formatDate(dateString) {
 
 function setAccountData(data) {
     return {
-        name: data.lastName,
-        dob: formatDate(data.dob),
         fullName: data.firstName + ' ' + data.lastName,
+        dob: formatDate(data.dob),
         createdAt: formatDate(data.createAt),
         email: data.email,
         phoneNumber: data.phone,
@@ -20,7 +19,36 @@ function setAccountData(data) {
     }
 }
 
+function setBookingData(data){
+    return {
+        id: data.id,
+        customer: data.customerFullName,
+        veterian: data.veterinarianFullName,
+        service: data.serviceName,
+        totalPrice: data.totalPrice,
+        createdAt: formatDate(data.createdAt),
+        status: data.statusEnum 
+    }
+}
+
 export default class ManagementApi {
+    static async getCurrentAccount() {
+        const response = await api.get('/accounts/current');
+
+        const data = response.data.data;
+        console.log(data)
+
+        return {
+            email: data.email,
+            role: data.role,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            phoneNumber: data.phone,
+            dob: formatDate(data.dob),
+            address: data.address
+        };;
+    }
+
     static async getAccounts(role, page, unitPerPage) {
         const response = await api.get('/accounts', {
             params: { page, unitPerPage, role }
@@ -47,8 +75,14 @@ export default class ManagementApi {
 
     // BOOKING
     static async getBookings(status,page, unitPerPage){
-        const response = await api.get('/accounts/search-by-name/' + searchValue, {
-            params: { page, unitPerPage, role }
+        const response = await api.get('/bookings', {
+            params: { page, unitPerPage, status }
         });
+
+        const bookingData = response.data.data.map((data) => {
+            return setBookingData(data);
+        })
+
+        return bookingData;
     } 
 }

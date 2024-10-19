@@ -9,6 +9,8 @@ import AddIcon from '@mui/icons-material/Add'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import { Typography } from '@mui/material'
 import DynamicDataGrid from './testGrid'
+import ManagementApi from '~/api/ManagementApi'
+import { useEffect, useState } from 'react'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -69,6 +71,36 @@ const rows = [
 ]
 
 function BookingPageDetails() {
+  const [bookingData, setBookingData] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+
+  const fetchData = async () => {
+    const data = await ManagementApi.getBookings();
+    setBookingData(data)
+  }
+
+  // const handleSearching = async (event) => {
+  //   const searchValue = event.target.value || "";
+
+  //   let data;
+  //   if (searchValue === "")
+  //     data = await ManagementApi.getAccounts('CUSTOMER');
+  //   else {
+  //     const searchData = await ManagementApi.searchAccountsByFullName('CUSTOMER', searchValue);
+  //     data = searchData.filter((data) => {
+  //       return data.fullName.toLowerCase().includes(searchValue.toLowerCase());
+  //     });
+  //   }
+
+  //   setSearchValue(searchValue);
+  //   setCustomerData(data.length > 0 ? data : []);
+  // }
+
+  useEffect(() => {
+    fetchData()
+  }, []);
+
+
   return (
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
@@ -111,7 +143,7 @@ function BookingPageDetails() {
 
       {/* Table */}
       <Box sx={{ mt: 3, mb: 3 }}>
-        <DynamicDataGrid data={rows} />
+        <DynamicDataGrid data={bookingData} />
       </Box>
     </Box>
   )
