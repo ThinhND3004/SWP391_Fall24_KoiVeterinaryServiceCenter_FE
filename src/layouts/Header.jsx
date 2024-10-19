@@ -50,6 +50,7 @@ function Header() {
     const now = new Date();
 
     const { token, expiry } = JSON.parse(tokenData);
+    console.log("TOKEN DATA: ", tokenData)
 
     if (now.getTime() > expiry)
     {
@@ -69,8 +70,8 @@ function Header() {
 
         console.log("TOKEN: ", token)
         // const response = await api.get(`accounts/current`);
-        const response = await api.get(`accounts/getLoginAccInfo?token=${token}`);
-
+        // const response = await api.get(`accounts/getLoginAccInfo?token=${token}`);
+        const response = await api.get(`accounts/current`);
         console.log("INFO: ", response.data.data);
 
         if (response) {
