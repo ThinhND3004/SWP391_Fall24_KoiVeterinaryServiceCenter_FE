@@ -9,8 +9,8 @@ import AddIcon from '@mui/icons-material/Add'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import { Typography } from '@mui/material'
 import DynamicDataGrid from './testGrid'
-import StaffApi from './staff-customer.api'
-
+import ManagementApi from '../../../api/ManagementApi'
+import { useEffect, useState } from "react";
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -53,28 +53,36 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   }
 }))
 
-function createData(name, dob, fullName, startDate, email, phoneNumber, status) {
-  return { name, dob, fullName, startDate, email, phoneNumber, status }
-}
-
-function setCustomerTable(){
-
-}
-
-const rows = [
-  createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspended'),
-  createData('Genevieve U. Watts', '01/01/2000', 'Eget Incorporated', '07/18/2017', 'Nullam.vitae@egestas.edu', '0800 025698', 'Closed'),
-  createData('Kyra S. Baldwin', '01/01/2000', 'Lorem Vitae Limited', '04/14/2016', 'in@elita.org', '0800 237 8846', 'Suspended'),
-  createData('Stephen V. Hill', '01/01/2000', 'Eget Mollis Institute', '03/03/2016', 'eu@vel.com', '0800 682 4591', 'Active'),
-  createData('Vielka Q. Chapman', '01/01/2000', 'Eu Ltd', '06/25/2017', 'orci.Donec.nibh@mauriseratget.edu', '0800 181 5795', 'Suspended'),
-  createData('Ocean W. Curtis', '01/01/2000', 'Eu Ltd', '08/24/2017', 'cursus.et@cursus.edu', '(016977) 9585', 'Active'),
-  createData('Kato F. Tucker', '01/01/2000', 'Vel Lectus Limited', '11/06/2017', 'Duis@Lorem.edu', '070 0981 8503', 'Active'),
-  createData('Robin J. Wise', '01/01/2000', 'Curabitur Dictum PC', '02/09/2017', 'blandit@montesnascetur.edu', '0800 259158', 'Active'),
-  createData('Uriel H. Guerrero', '01/01/2000', 'Mauris Inc.', '02/11/2018', 'vitae@linnecorci.net', '0500 948772', 'Active'),
-  createData('Yasir W. Benson', '01/01/2000', 'At Incorporated', '01/13/2017', 'ornare.elit.elit@atortor.edu', '0391 916 3600', 'Active')
-]
-
 function StaffCustomerPageDetails() {
+  const [customerData, setCustomerData] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+
+  const fetchData = async () => {
+    const data = await ManagementApi.getAccounts('CUSTOMER');
+    setCustomerData(data)
+  }
+
+  const handleSearching = async (event) => {
+    const searchValue = event.target.value || "";
+
+    let data;
+    if (searchValue === "")
+      data = await ManagementApi.getAccounts('CUSTOMER');
+    else {
+      const searchData = await ManagementApi.searchAccountsByFullName('CUSTOMER', searchValue);
+      data = searchData.filter((data) => {
+        return data.fullName.toLowerCase().includes(searchValue.toLowerCase());
+      });
+    }
+
+    setSearchValue(searchValue);
+    setCustomerData(data.length > 0 ? data : []);
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, []);
+
   return (
     <div>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
@@ -89,6 +97,8 @@ function StaffCustomerPageDetails() {
             <StyledInputBase sx={{ fontSize: '14px' }}
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
+              value={searchValue}
+              onChange={handleSearching}
             />
           </Search>
 
@@ -110,7 +120,7 @@ function StaffCustomerPageDetails() {
 
       {/* Table */}
       <Box sx={{ mt: 3, mb: 3 }}>
-        <DynamicDataGrid data={StaffApi.getCustomers()} />
+        <DynamicDataGrid data={customerData} />
       </Box>
     </div>
   )
