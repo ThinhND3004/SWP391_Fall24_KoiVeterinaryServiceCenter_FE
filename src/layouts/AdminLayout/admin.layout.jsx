@@ -5,7 +5,6 @@ import { BG_COLOR } from '~/theme'
 import AdminHeader from '~/layouts/AdminHeader'
 import AdminFooter from '../AdminFooter'
 import Navbar from '~/pages/AdminPage/AdminPageDetails/Navbar'
-import Header from '../Header'
 
 function AdminLayout() {
   return (

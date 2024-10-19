@@ -25,11 +25,11 @@ const menus = [
     icon: AccountCircleIcon,
     url: '/profile'
   },
-  {
-    title: 'Password',
-    icon: LockIcon,
-    url: '/admin_password'
-  },
+  // {
+  //   title: 'Password',
+  //   icon: LockIcon,
+  //   url: '/admin_password'
+  // },
   {
     title: 'Staff',
     icon: SupportAgentIcon,
@@ -89,7 +89,9 @@ function Navbar() {
             const IconComponent = menu.icon
 
             return (
-              <Box key={`menu-${idx}`} sx={{ display: 'flex', alignItems: 'center', color: '#000' }}>
+              <Box
+                key={`menu-${idx}`}
+                sx={{ display: 'flex', alignItems: 'center', color: '#000' }}>
                 <ListItem
                   button
                   onClick={() => handleMenuClick(menu, idx)}
@@ -118,7 +120,7 @@ function Navbar() {
             )
           })}
 
-          <Divider sx={{ paddingTop: '10px' }} />
+          <Divider sx={{ paddingTop: '50px' }} />
           <Box sx={{ display: 'flex', alignItems: 'center', color: ORANGE_COLOR, paddingTop: '10px' }}>
             <LoginIcon />
             <ListItem button component={Link} to="#" sx={{ color: ORANGE_COLOR, paddingTop: '10px' }}>

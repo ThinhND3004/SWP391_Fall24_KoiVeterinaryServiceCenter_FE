@@ -44,7 +44,6 @@ function ProfilePageDetails() {
               Delete picture
             </Button>
           </Box>
-
         </Box>
       </Box>
 
