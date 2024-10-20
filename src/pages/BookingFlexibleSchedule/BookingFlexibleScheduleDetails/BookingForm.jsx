@@ -3,17 +3,7 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import {
-  TextField,
-  Typography,
-  Box,
-  List,
-  ListItem,
-  ListItemText,
-  Button,
-  Snackbar,
-  Alert,
-} from "@mui/material";
+import { TextField, Typography, Box, List, ListItem, ListItemText, Button, Snackbar, Alert} from "@mui/material";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import { debounce } from "lodash";
@@ -75,9 +65,7 @@ export default function BookingForm({ service }) {
 
   const fetchCoordinates = async (location) => {
     const apiKey = "f89b01272ab747dcb9eb87889236e016";
-    const url = `geocode/search?text=${encodeURIComponent(
-      location
-    )}&apiKey=${apiKey}`;
+    const url = `geocode/search?text=${encodeURIComponent(location)}&apiKey=${apiKey}`;
 
     try {
       const response = await geoapifyApi.get(url);
