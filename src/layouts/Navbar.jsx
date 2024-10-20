@@ -56,7 +56,7 @@ function Navbar() {
     <div>
       <Box
         sx={{
-          padding: '20px',
+          // padding: '20px',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'start',

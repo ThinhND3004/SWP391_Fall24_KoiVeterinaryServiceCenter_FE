@@ -44,6 +44,7 @@ import BookingFlexibleScheduleComponent from '~/pages/BookingFlexibleSchedule/Bo
 import ConfirmBookingComponent from '~/pages/ConfirmBookingPage/ConfirmBooking.component'
 import DeliveryPage from '~/pages/AdminPage/DeliveryPage/DeliveryPage.component'
 import AdminMedicinePage from '~/pages/AdminPage/MedicinePage/AdminMedicinePage.component'
+import DashboardPage from '~/pages/AdminPage/DashboardPage/DashboardPage.component'
 
 const RouteComponent = () => {
   return (
@@ -74,7 +75,7 @@ const RouteComponent = () => {
       </Route>
 
       <Route element={<AdminLayout />}>
-        <Route path='/dashboard' element={<AdminHomePage />} />
+        <Route path='/dashboard' element={<DashboardPage />} />
         <Route path='/profile' element={<AdminHomePage />} />
         <Route path='/admin_password' element={<PasswordPage />} />
         <Route path='/admin_staff' element={<StaffPage />} />
