@@ -13,7 +13,7 @@ const KoiTreatmentAtHomeComponent = () => {
 
   return (
     <div>
-      <Box display={'flex'} flexDirection={'column'} gap={'100px'} px={'30px'}>
+      <Box display={'flex'} flexDirection={'column'} gap={'100px'} px={'30px'} paddingBottom={'50px'}>
         {/* INTRODUCTION */}
         <Introduction service={service}/>
         {/* CONTENT  */}

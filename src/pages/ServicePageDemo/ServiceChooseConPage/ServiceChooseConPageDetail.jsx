@@ -5,8 +5,9 @@ import { Button } from 'react-bootstrap'
 import { BLACK_COLOR, BLUE_COLOR, GRAY_COLOR, INPUT_FIELD_COLOR } from '~/theme'
 import { List } from '@mui/material';
 import Grid from '@mui/material/Grid2';
+import { size } from 'lodash'
 
-const SerivceChooseCon = () => {
+const ServiceChooseCon = ({vet}) => {
     return (
         <div>
             <Box alignItems={'center'} display={'flex'} flexDirection={'row'} gap={'100px'} px={'30px'}
@@ -52,11 +53,8 @@ const SerivceChooseCon = () => {
 
                 {/* info */}
                 <Box>
-                    <Typography>
-                        Là giảng viên tại ĐH Y Hà Nội <br />
-                        Đã làm việc tại .... <br />
-                        Bao nhiêu năm kinh nghiệm <br />
-                        Địa điểm: Hà Nội
+                    <Typography style={{fontSize: '16px'}}>
+                        {vet.profileDto.education} <br /> {vet.profileDto.yearOfExperience}
                     </Typography>
                 </Box>
 
@@ -85,241 +83,26 @@ const SerivceChooseCon = () => {
 
                         <Grid container spacing={2}
                         >
-                            <Grid item size={4}>
-                                <Button
-                                    style={{
-
-                                        height: 50,
-                                        width: '100%',
-                                        backgroundColor: INPUT_FIELD_COLOR,
-                                        color: GRAY_COLOR,
-                                        borderRadius: 20,
-                                        border: '1px solid grey'
-
-                                    }}
-                                    variant="contained"
-                                    color="primary"
-                                    fullWidth
-                                    onClick={() => alert(`You selected`)}
-                                >
-                                    10h30 - 11h30
-                                </Button>
-                            </Grid>
-                            <Grid item size={4}>
-                                <Button
-                                    style={{
-
-                                        height: 50,
-                                        width: '100%',
-                                        backgroundColor: INPUT_FIELD_COLOR,
-                                        color: GRAY_COLOR,
-                                        borderRadius: 20,
-                                        border: '1px solid grey'
-
-                                    }}
-                                    variant="contained"
-                                    color="primary"
-                                    fullWidth
-                                    onClick={() => alert(`You selected`)}
-                                >
-                                    10h30 - 11h30
-                                </Button>
-                            </Grid>
-                            <Grid item size={4} >
-                                <Button
-                                    style={{
-                                        height: 50,
-                                        width: '100%',
-                                        backgroundColor: INPUT_FIELD_COLOR,
-                                        color: GRAY_COLOR,
-                                        borderRadius: 20,
-                                        border: '1px solid grey'
-
-                                    }}
-                                    variant="contained"
-                                    color="primary"
-                                    fullWidth
-                                    onClick={() => alert(`You selected`)}
-                                >
-                                    10h30 - 11h30
-                                </Button>
-                            </Grid>
-                            <Grid item size={4} >
-                                <Button
-                                    style={{
-                                        height: 50,
-                                        width: '100%',
-                                        backgroundColor: INPUT_FIELD_COLOR,
-                                        color: GRAY_COLOR,
-                                        borderRadius: 20,
-                                        border: '1px solid grey'
-
-                                    }}
-                                    variant="contained"
-                                    color="primary"
-                                    fullWidth
-                                    onClick={() => alert(`You selected`)}
-                                >
-                                    10h30 - 11h30
-                                </Button>
-                            </Grid>
-                            <Grid item size={4}>
-                                <Button
-                                    style={{
-
-                                        height: 50,
-                                        width: '100%',
-                                        backgroundColor: INPUT_FIELD_COLOR,
-                                        color: GRAY_COLOR,
-                                        borderRadius: 20,
-                                        border: '1px solid grey'
-
-                                    }}
-                                    variant="contained"
-                                    color="primary"
-                                    fullWidth
-                                    onClick={() => alert(`You selected`)}
-                                >
-                                    10h30 - 11h30
-                                </Button>
-                            </Grid>
-                            <Grid item size={4}>
-                                <Button
-                                    style={{
-
-                                        height: 50,
-                                        width: '100%',
-                                        backgroundColor: INPUT_FIELD_COLOR,
-                                        color: GRAY_COLOR,
-                                        borderRadius: 20,
-                                        border: '1px solid grey'
-
-                                    }}
-                                    variant="contained"
-                                    color="primary"
-                                    fullWidth
-                                    onClick={() => alert(`You selected`)}
-                                >
-                                    10h30 - 11h30
-                                </Button>
-                            </Grid>
-                            <Grid item size={4} >
-                                <Button
-                                    style={{
-                                        height: 50,
-                                        width: '100%',
-                                        backgroundColor: INPUT_FIELD_COLOR,
-                                        color: GRAY_COLOR,
-                                        borderRadius: 20,
-                                        border: '1px solid grey'
-
-                                    }}
-                                    variant="contained"
-                                    color="primary"
-                                    fullWidth
-                                    onClick={() => alert(`You selected`)}
-                                >
-                                    10h30 - 11h30
-                                </Button>
-                            </Grid>
-                            <Grid item size={4} >
-                                <Button
-                                    style={{
-                                        height: 50,
-                                        width: '100%',
-                                        backgroundColor: INPUT_FIELD_COLOR,
-                                        color: GRAY_COLOR,
-                                        borderRadius: 20,
-                                        border: '1px solid grey'
-
-                                    }}
-                                    variant="contained"
-                                    color="primary"
-                                    fullWidth
-                                    onClick={() => alert(`You selected`)}
-                                >
-                                    10h30 - 11h30
-                                </Button>
-                            </Grid>
-                            <Grid item size={4}>
-                                <Button
-                                    style={{
-
-                                        height: 50,
-                                        width: '100%',
-                                        backgroundColor: INPUT_FIELD_COLOR,
-                                        color: GRAY_COLOR,
-                                        borderRadius: 20,
-                                        border: '1px solid grey'
-
-                                    }}
-                                    variant="contained"
-                                    color="primary"
-                                    fullWidth
-                                    onClick={() => alert(`You selected`)}
-                                >
-                                    10h30 - 11h30
-                                </Button>
-                            </Grid>
-                            <Grid item size={4}>
-                                <Button
-                                    style={{
-
-                                        height: 50,
-                                        width: '100%',
-                                        backgroundColor: INPUT_FIELD_COLOR,
-                                        color: GRAY_COLOR,
-                                        borderRadius: 20,
-                                        border: '1px solid grey'
-
-                                    }}
-                                    variant="contained"
-                                    color="primary"
-                                    fullWidth
-                                    onClick={() => alert(`You selected`)}
-                                >
-                                    10h30 - 11h30
-                                </Button>
-                            </Grid>
-                            <Grid item size={4} >
-                                <Button
-                                    style={{
-                                        height: 50,
-                                        width: '100%',
-                                        backgroundColor: INPUT_FIELD_COLOR,
-                                        color: GRAY_COLOR,
-                                        borderRadius: 20,
-                                        border: '1px solid grey'
-
-                                    }}
-                                    variant="contained"
-                                    color="primary"
-                                    fullWidth
-                                    onClick={() => alert(`You selected`)}
-                                >
-                                    10h30 - 11h30
-                                </Button>
-                            </Grid>
-                            <Grid item size={4} >
-                                <Button
-                                    style={{
-                                        height: 50,
-                                        width: '100%',
-                                        backgroundColor: INPUT_FIELD_COLOR,
-                                        color: GRAY_COLOR,
-                                        borderRadius: 20,
-                                        border: '1px solid grey'
-
-                                    }}
-                                    variant="contained"
-                                    color="primary"
-                                    fullWidth
-                                    onClick={() => alert(`You selected`)}
-                                >
-                                    10h30 - 11h30
-                                </Button>
-                            </Grid>
-
+                            {vet.timeSlot.map((slot, index) => (
+                                <Grid item xs={4} key={index}>
+                                    <Button
+                                        style={{
+                                            height: 50,
+                                            width: '100%',
+                                            backgroundColor: INPUT_FIELD_COLOR,
+                                            color: GRAY_COLOR,
+                                            borderRadius: 20,
+                                            border: '1px solid grey'
+                                        }}
+                                        variant="contained"
+                                        color="primary"
+                                        fullWidth
+                                        onClick={() => alert(`You selected ${slot}`)}
+                                    >
+                                        {slot}
+                                    </Button>
+                                </Grid>
+                            ))}
                         </Grid>
                     </Box>
 
@@ -329,6 +112,6 @@ const SerivceChooseCon = () => {
     )
 }
 
-export default SerivceChooseCon
+export default ServiceChooseCon
 
 

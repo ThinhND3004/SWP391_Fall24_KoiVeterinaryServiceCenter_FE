@@ -3,24 +3,14 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import {
-  TextField,
-  Typography,
-  Box,
-  List,
-  ListItem,
-  ListItemText,
-  Button,
-  Snackbar,
-  Alert,
-} from "@mui/material";
+import { TextField, Typography, Box, List, ListItem, ListItemText, Button, Snackbar, Alert} from "@mui/material";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import { debounce } from "lodash";
 import { useNavigate } from "react-router-dom";
-import api, {geoapifyApi} from '~/config/axios';
+import api, { geoapifyApi } from "~/config/axios";
+import veterinarian from "~/layouts/VeterinarianLayout/veterinarian.layout";
 // import geoapifyApi from "~/config/axios";
-
 
 //Marker's icon
 delete L.Icon.Default.prototype._getIconUrl;
@@ -37,8 +27,6 @@ export default function BookingForm({ service }) {
   const [additionalInfo, setAdditionalInfo] = React.useState("");
   const [successMessage, setSuccessMessage] = React.useState("");
   const [errorMessage, setErrorMessage] = React.useState("");
-  // const [departurePoint, setDeparturePoint] = React.useState("");
-  // const [destinationPoint, setDestinationPoint] = React.useState("");
   const [statusMessage, setStatusMessage] = React.useState("");
   const [distance, setDistance] = React.useState(0);
   const [suggestions, setSuggestions] = React.useState([]);
@@ -75,15 +63,14 @@ export default function BookingForm({ service }) {
     fetchDistance(suggestion.properties.formatted); // Tính toán khoảng cách sau khi chọn
   };
 
-
   const fetchCoordinates = async (location) => {
     const apiKey = "f89b01272ab747dcb9eb87889236e016";
     const url = `geocode/search?text=${encodeURIComponent(location)}&apiKey=${apiKey}`;
-  
+
     try {
       const response = await geoapifyApi.get(url);
       const data = response.data;
-  
+
       if (data.features && data.features.length > 0) {
         return {
           lat: data.features[0].properties.lat,
@@ -97,7 +84,6 @@ export default function BookingForm({ service }) {
       throw error;
     }
   };
-  
 
   // Routing API
   const fetchDistance = async (address) => {
@@ -126,45 +112,6 @@ export default function BookingForm({ service }) {
     }
   };
 
-  //handle to submit Booking
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-
-  //   if (!dateTime || !userAddress || !service) {
-  //     setErrorMessage("Please fill in all required fields.");
-  //     return;
-  //   }
-
-  //   const bookingData = {
-  //     serviceId: service.id,
-  //     additionalInformation: additionalInfo,
-  //     userAddress,
-  //     startAt: dateTime ? dateTime.toISOString() : null,
-  //   };
-
-  //   try {
-  //     const response = await fetch("http://localhost:8080/bookings", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(bookingData),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error("Failed to create booking");
-  //     }
-
-  //     setSuccessMessage("Booking created successfully!");
-  //     setDateTime(null);
-  //     setUserAddress("");
-  //     setAdditionalInfo("");
-  //     setErrorMessage("");
-  //   } catch (error) {
-  //     setErrorMessage("Error creating booking: " + error.message);
-  //   }
-  // };
-
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -177,19 +124,23 @@ export default function BookingForm({ service }) {
 
     const bookingData = {
       serviceId: service.id,
-      serviceName: service.name,
-      serviceType: service.type,
-      serviceMeetingMethod: service.meetingMethod,
+      veterinarianId: null,
       additionalInformation: additionalInfo,
-      userAddress,
-      distance: distance,
       servicePrice: service.price, // Giả sử service có thuộc tính price
-      travelPricePerMeter: service.travelPricePerMeter,
+      distanceMeters: distance,
+      userAddress: userAddress,
+      meetingMethod: service.meetingMethod,
       startAt: dateTime ? dateTime.toISOString() : null,
+      travelPrice: service.travelPricePerMeter,
     };
 
     // Chuyển hướng người dùng sang trang xác nhận
-    navigate("/confirm-booking", { state: bookingData });
+    navigate("/confirm-booking", {
+      state: {
+        createBookingDTO: bookingData,
+        serviceEntity: service
+      },
+    });
   };
 
   return (

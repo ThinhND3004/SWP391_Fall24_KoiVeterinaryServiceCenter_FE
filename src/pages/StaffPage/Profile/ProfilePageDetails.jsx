@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button'
 import { Box, TextField, Typography } from '@mui/material'
 import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme'
@@ -6,7 +6,8 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import Breadcrumbs from '@mui/material/Breadcrumbs'
-import Link from '@mui/material/Link'
+import ManagementApi from '~/api/ManagementApi'
+import dayjs from 'dayjs'
 
 function handleClick(event) {
   event.preventDefault()
@@ -15,6 +16,18 @@ function handleClick(event) {
 
 
 function ProfilePageDetails() {
+  const [accountData, setAccountData] = useState(null);
+
+  const getCurrentAccount = async () => {
+    const account = await ManagementApi.getCurrentAccount();
+    setAccountData(account);
+    console.log(account)
+  };
+
+  useEffect(() => {
+    getCurrentAccount();
+  }, [])
+
   return (
     <div style={{ left: '250px', position: 'relative' }}>
       <Breadcrumbs aria-label="breadcrumb">
@@ -49,57 +62,37 @@ function ProfilePageDetails() {
 
       {/* Input */}
       <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-around', gap: 10 }}>
-        <Box>
-          <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Profile name</Typography>
-          <TextField
-            id="outlined-basic"
-            placeholder='Enter your first name'
-            variant="outlined"
-            sx={{
-              width: '500px',
-              '& .MuiOutlinedInput-root': {
-                borderRadius: '15px',
-                borderColor: BLUE_COLOR,
-                height: '60px',
-                marginTop: '15px',
-                '&.Mui-focused fieldset': {
-                  borderColor: BLUE_COLOR
-                }
-              },
-              '& input': {
-                backgroundColor: INPUT_FIELD_COLOR,
-                padding: '20px 15px',
-                fontSize: '16px',
-                borderRadius: '15px'
-              }
-            }}
-          />
-        </Box>
+
         <Box>
           <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Email</Typography>
-          <TextField
-            id="outlined-basic"
-            placeholder='Enter your first name'
-            variant="outlined"
+          <Typography
             sx={{
               width: '500px',
-              '& .MuiOutlinedInput-root': {
-                borderRadius: '15px',
-                borderColor: BLUE_COLOR,
-                height: '60px',
-                marginTop: '15px',
-                '&.Mui-focused fieldset': {
-                  borderColor: BLUE_COLOR
-                }
-              },
-              '& input': {
-                backgroundColor: INPUT_FIELD_COLOR,
-                padding: '20px 15px',
-                fontSize: '16px',
-                borderRadius: '15px'
-              }
+              borderRadius: '15px',
+              height: '60px',
+              marginTop: '15px',
+              padding: '20px 0px',
+              fontSize: '16px',
             }}
-          />
+          >
+            {accountData ? accountData.email : 'Loading...'}
+          </Typography>
+        </Box>
+
+        <Box>
+          <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Role</Typography>
+          <Typography
+            sx={{
+              width: '500px',
+              borderRadius: '15px',
+              height: '60px',
+              marginTop: '15px',
+              padding: '20px 0px',
+              fontSize: '16px',
+            }}
+          >
+            {accountData ? accountData.role : 'Loading...'}
+          </Typography>
         </Box>
       </Box>
       <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-around', gap: 10 }}>
@@ -108,6 +101,7 @@ function ProfilePageDetails() {
           <TextField
             id="outlined-basic"
             placeholder='Enter your first name'
+            value={accountData ? accountData.firstName : 'Loading...'}
             variant="outlined"
             sx={{
               width: '500px',
@@ -134,6 +128,7 @@ function ProfilePageDetails() {
           <TextField
             id="outlined-basic"
             placeholder='Enter your last name'
+            value={accountData ? accountData.lastName : 'Loading...'}
             variant="outlined"
             sx={{
               width: '500px',
@@ -153,7 +148,7 @@ function ProfilePageDetails() {
                 borderRadius: '15px'
               }
             }}
-          />
+          ></TextField>
         </Box>
       </Box>
       <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-around', gap: 10 }}>
@@ -162,6 +157,7 @@ function ProfilePageDetails() {
           <TextField
             id="outlined-basic"
             placeholder='Enter your phone number'
+            value={accountData ? accountData.phoneNumber : 'Loading...'}
             variant="outlined"
             sx={{
               width: '500px',
@@ -211,6 +207,7 @@ function ProfilePageDetails() {
               <DatePicker
                 placeholder="Select your date"
                 label=''
+                value={accountData ? dayjs(accountData.dob) : null} 
                 sx={{
                   backgroundColor: INPUT_FIELD_COLOR,
                   width: '600px',
@@ -227,6 +224,7 @@ function ProfilePageDetails() {
         <TextField
           id="outlined-basic"
           placeholder='Enter your address'
+          value={accountData ? accountData.address : 'Loading...'}
           variant="outlined"
           type='text'
           sx={{

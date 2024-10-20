@@ -9,7 +9,7 @@ const KoiTreatmentAtCenterComponent = () => {
 
   const location = useLocation(); // Nhận dữ liệu từ state
   const { service } = location.state || {};
-  console.log(service)
+  console.log("SERVICE DTO: ", service)
 
   return (
     <div>
