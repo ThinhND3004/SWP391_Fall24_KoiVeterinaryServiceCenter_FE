@@ -10,7 +10,8 @@ function handleClick(event) {
   console.info('You clicked a breadcrumb.')
 }
 
-function PasswordPageDetails() {
+function 
+PasswordPageDetails() {
   return (
     <div style={{ left: '250px', position: 'relative' }}>
       <Breadcrumbs aria-label="breadcrumb">

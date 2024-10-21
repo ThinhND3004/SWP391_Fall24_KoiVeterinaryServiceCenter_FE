@@ -1,17 +1,17 @@
-import React from 'react'
 import { Box } from '@mui/material'
-import PasswordPageDetails from './PasswordPageDetails'
+import React from 'react'
+import DashboardPageDetails from './DashboardPageDetails'
 
-function PasswordPage() {
+function DashboardPage() {
   return (
     <div>
       <Box display={'flex'} flexDirection={'column'} gap={'50px'} px={'30px'}>
         <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
-          <PasswordPageDetails />
+          <DashboardPageDetails />
         </Box>
       </Box>
     </div>
   )
 }
 
-export default PasswordPage
+export default DashboardPage
