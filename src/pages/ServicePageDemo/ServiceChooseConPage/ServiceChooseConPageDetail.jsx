@@ -6,8 +6,21 @@ import { BLACK_COLOR, BLUE_COLOR, GRAY_COLOR, INPUT_FIELD_COLOR } from '~/theme'
 import { List } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { size } from 'lodash'
+import { useEffect, useState } from 'react'
+import dayjs from 'dayjs'
 
-const ServiceChooseCon = ({vet}) => {
+const ServiceChooseCon = ({ vet }) => {
+
+    const [date, setDate] = useState(dayjs());
+    const [dateAvai, setDateAvai] = useState('');
+
+    useEffect(() => {
+        if (date) {
+            setDateAvai(date.format("YYYY-MM-DD"));
+        }
+    }, [date])
+
+
     return (
         <div>
             <Box alignItems={'center'} display={'flex'} flexDirection={'row'} gap={'100px'} px={'30px'}
@@ -53,7 +66,7 @@ const ServiceChooseCon = ({vet}) => {
 
                 {/* info */}
                 <Box>
-                    <Typography style={{fontSize: '16px'}}>
+                    <Typography style={{ fontSize: '16px' }}>
                         {vet.profileDto.education} <br /> {vet.profileDto.yearOfExperience}
                     </Typography>
                 </Box>
@@ -66,6 +79,9 @@ const ServiceChooseCon = ({vet}) => {
                                 backgroundColor: INPUT_FIELD_COLOR,
                                 width: '200px',
                             }}
+                            value={date}
+                            onChange={(newValue) => setDate(newValue)}
+                            renderInput={(params) => <TextField {...params} />}
                         />
                     </LocalizationProvider>
 
@@ -81,28 +97,37 @@ const ServiceChooseCon = ({vet}) => {
                         }}
                     >
 
-                        <Grid container spacing={2}
-                        >
+                        <Grid container spacing={2} >
+
                             {vet.timeSlot.map((slot, index) => (
-                                <Grid item xs={4} key={index}>
-                                    <Button
-                                        style={{
-                                            height: 50,
-                                            width: '100%',
-                                            backgroundColor: INPUT_FIELD_COLOR,
-                                            color: GRAY_COLOR,
-                                            borderRadius: 20,
-                                            border: '1px solid grey'
-                                        }}
-                                        variant="contained"
-                                        color="primary"
-                                        fullWidth
-                                        onClick={() => alert(`You selected ${slot}`)}
-                                    >
-                                        {slot}
-                                    </Button>
-                                </Grid>
+                                // Check if the slot date matches the selected date (dateAvai)
+                                slot.date === dateAvai && (
+                                    <Grid item xs={4} key={index}>
+                                        {slot.slots.map((slotEntity) => (
+                                            <Button
+                                                key={slotEntity.startTime}
+                                                style={{
+                                                    height: 50,
+                                                    width: 200,
+                                                    backgroundColor: INPUT_FIELD_COLOR,
+                                                    color: GRAY_COLOR,
+                                                    borderRadius: 20,
+                                                    border: '1px solid grey',
+                                                    margin: 5
+                                                }}
+                                                variant="contained"
+                                                fullWidth
+                                                onClick={() => alert(`You selected ${slotEntity.startTime} - ${slotEntity.endTime}`)}
+                                            >
+                                                {slotEntity.startTime} - {slotEntity.endTime}
+                                            </Button>
+                                        ))}
+                                    </Grid>
+                                )
                             ))}
+
+
+
                         </Grid>
                     </Box>
 
