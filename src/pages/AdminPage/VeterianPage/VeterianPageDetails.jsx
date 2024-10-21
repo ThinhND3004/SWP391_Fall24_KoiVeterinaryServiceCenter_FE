@@ -16,6 +16,9 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import DynamicDataGrid from './testGrid'
+import api from '~/config/axios'
+import { set } from 'lodash'
+import { useEffect, useState } from 'react'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -76,6 +79,28 @@ const rows = [
 ]
 
 function VeterianPageDetails() {
+
+  const [vet, setVet] = useState([]);
+
+  const handleGetUserData = async () => {
+    try {
+      const response = await api.get(`/accounts?role=${"VETERIAN"}`);
+      console.log("USER DATA RESPONSE: ", response.data.data);
+
+      if (response)
+      {
+        setVet(response.data.data);
+      }
+    } catch (err)
+    {
+      console.log("ERROR GET USER DATA: ", err)
+    }
+  }
+
+  useEffect(() => {
+    handleGetUserData();
+  }, [])
+
   return (
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
@@ -118,7 +143,7 @@ function VeterianPageDetails() {
 
       {/* Table */}
       <Box sx={{ mt: 3, mb: 3 }}>
-        <DynamicDataGrid data={rows} />
+        <DynamicDataGrid data={vet} />
       </Box>
     </Box>
   )

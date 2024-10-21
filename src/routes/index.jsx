@@ -44,9 +44,7 @@ import BookingFlexibleScheduleComponent from '~/pages/BookingFlexibleSchedule/Bo
 import ConfirmBookingComponent from '~/pages/ConfirmBookingPage/ConfirmBooking.component'
 import DeliveryPage from '~/pages/AdminPage/DeliveryPage/DeliveryPage.component'
 import AdminMedicinePage from '~/pages/AdminPage/MedicinePage/AdminMedicinePage.component'
-import DashboardPage from '~/pages/AdminPage/DashboardPage/DashboardBookingsPage/DashboardBookingsPage.component'
-import DashboardBookingPage from '~/pages/AdminPage/DashboardPage/DashboardBookingsPage/DashboardBookingsPage.component'
-import DashboardVeterinariansPage from '~/pages/AdminPage/DashboardPage/DashboardVeterinarianPage/DashboardVeterinariansPage.component'
+import DashboardPage from '~/pages/AdminPage/DashboardPage/DashboardPage.component'
 
 const RouteComponent = () => {
   return (
@@ -67,7 +65,11 @@ const RouteComponent = () => {
         <Route path='/koi-treatment-at-home' element={<KoiTreatmentAtHomeComponent />} />
         <Route path='/pond-inspect' element={<PondInspectComponent />} />
         <Route path='/booking-flexible-schedule' element={< BookingFlexibleScheduleComponent />} />
+        <Route path='/select-veterian' element={< SelectVeterinarianByAvailableSlotTimeComponent />} />
         <Route path='/confirm-booking' element={< ConfirmBookingComponent />} />
+
+
+        <Route path="/veterinarian-information" element={<VeterinarianInformation />} />
 
         <Route path='/koihealth' element={<KoiHealthComponent />} />
         <Route path='/veterian' element={<Timetable />} />

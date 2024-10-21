@@ -14,31 +14,17 @@ const ServiceChooseConPageComponent = () => {
 
     const handleGetVet = async () => {
         const serviceId = localStorage.getItem("serviceId");
-        console.log("Service id: ", serviceId);
-
-        // Ensure serviceId is defined before proceeding
-        if (!serviceId) {
-            console.error("No serviceId found in localStorage.");
-            return; // Early return if no serviceId
-        }
-
         try {
             const response = await api.get(`/accounts/veterian-with-time-slot/${serviceId}`);
-            console.log("RESPONSE GET VET TO CHOOSE: ", response.data.data);
-
-            // Check if the response data is an array before setting the state
-            if (Array.isArray(response.data.data)) {
-                setVets(response.data.data);
+            if (response.data && Array.isArray(response.data.data)) {
+                setVets(response.data.data); // Đảm bảo dữ liệu trả về là mảng
             } else {
-                console.error("Expected an array from response, but got:", response.data.data);
-                setVets([]); // Set to an empty array if data is not valid
+                console.log("Unexpected data format: ", response.data);
             }
-
         } catch (err) {
             console.log("ERROR GET VET: ", err);
         }
     };
-
     // Optional: useEffect to log the updated state
     useEffect(() => {
         console.log('AFTER SET VETS: ', vets);
@@ -55,9 +41,10 @@ const ServiceChooseConPageComponent = () => {
                 {/* Introduction */}
                 <Introduction />
 
+                
                 {vets.length > 0 ? (
                     vets.map((vet) => (
-                        <SerivceChooseCon key={vet.id} vet={vet} />
+                        <SerivceChooseCon key={vet.email} vet={vet} />
                     ))
                 ) : (
                     <p>No veterinarians available</p> // Fallback if no vets are available

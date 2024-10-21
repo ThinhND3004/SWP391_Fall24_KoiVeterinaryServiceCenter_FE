@@ -16,6 +16,8 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import DynamicDataGrid from './testGrid'
+import { useEffect, useState } from 'react'
+import api from '~/config/axios'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -75,7 +77,46 @@ const rows = [
   createData('Yasir W. Benson', '01/01/2000', 'At Incorporated', '01/13/2017', 'ornare.elit.elit@atortor.edu', '0391 916 3600', 'Active')
 ];
 
+
+
+
+
+
 function CustomerPageDetails() {
+
+  const [staff, setStaff] = useState([]);
+  const [page, setPage] = useState();
+  const [unitPerPage, setUnitPerPage] = useState();
+
+
+  const handleGetUserData = async () => {
+
+    try {
+      // const response = await api.get('/accounts', {
+      //   page,
+      //   unitPerPage,
+      //   role: "STAFF"
+      // })
+
+      const response = await api.get(`/accounts?role=STAFF`)
+
+      if (response)
+      {
+        console.log("GET USER DATA RESPONSE: ", response);
+        setStaff(response.data.data)
+      }
+    } catch (err)
+    {
+      console.log("ERROR GET USER DATA: ", err);
+    }
+
+  }
+
+  useEffect(() => {
+    handleGetUserData();
+  }, [])
+
+
   return (
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
@@ -118,7 +159,7 @@ function CustomerPageDetails() {
 
       {/* Table */}
       <Box sx={{ mt: 3, mb: 3 }}>
-        <DynamicDataGrid data={rows} />
+        <DynamicDataGrid data={staff} />
       </Box>
     </Box>
   )
