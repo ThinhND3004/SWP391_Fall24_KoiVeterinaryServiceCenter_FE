@@ -13,13 +13,28 @@ import SetMealIcon from '@mui/icons-material/SetMeal'
 import VaccinesIcon from '@mui/icons-material/Vaccines'
 import LocalShippingIcon from '@mui/icons-material/LocalShipping'
 import DashboardIcon from '@mui/icons-material/Dashboard'
+import { Button } from 'react-bootstrap'
 
 
 const menus = [
+  // {
+  //   title: 'Dashboard',
+  //   icon: DashboardIcon,
+  //   url: '/dashboard'
+  // },
   {
     title: 'Dashboard',
     icon: DashboardIcon,
-    url: '/dashboard'
+    data: [
+      {
+        title: 'Bookings',
+        url: '/bookings_dashboard'
+      },
+      {
+        title: 'Veterinarians',
+        url: '/veterinarians_dashboard'
+      }
+    ]
   },
   {
     title: 'Account',
@@ -66,17 +81,23 @@ const menus = [
 function Navbar() {
   const navigate = useNavigate()
   const [selectedMenu, setSelectedMenu] = useState(null)
+  const [openSubMenu, setOpenSubMenu] = useState(null)
 
   const handleMenuClick = (menu, idx) => {
     setSelectedMenu(idx)
-    navigate(menu.url)
+
+    // Check if the clicked menu has a submenu
+    if (menu.data) {
+      setOpenSubMenu((prev) => (prev === idx ? null : idx))
+    } else {
+      navigate(menu.url)
+    }
   }
 
   return (
     <div>
       <Box
         sx={{
-          // padding: '20px',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'start',
@@ -90,34 +111,61 @@ function Navbar() {
             const IconComponent = menu.icon
 
             return (
-              <Box
-                key={`menu-${idx}`}
-                sx={{ display: 'flex', alignItems: 'center', color: '#000' }}>
-                <ListItem
-                  button
-                  onClick={() => handleMenuClick(menu, idx)}
-                  sx={{
-                    gap: 1.5,
-                    cursor: 'pointer',
-                    mt: 2,
-                    fontWeight: selectedMenu === idx ? 'bold' : 'normal',
-                    color: selectedMenu === idx ? 'bold' : 'normal'
-                  }}
+              <React.Fragment key={`menu-${idx}`}>
+                <Box
+                  sx={{ display: 'flex', alignItems: 'center', color: '#000' }}
                 >
-                  <IconComponent />
-                  <ListItemText
-                    primary={menu.title}
-                    primaryTypographyProps={{
-                      sx: {
-                        fontSize: '18px',
-                        // Apply bold style for the text of the selected item
-                        fontWeight: selectedMenu === idx ? 'bold' : 'normal',
-                        color: selectedMenu === idx ? 'bold' : 'normal'
-                      }
+                  <ListItem
+                    button
+                    onClick={() => handleMenuClick(menu, idx)}
+                    sx={{
+                      gap: 1.5,
+                      cursor: 'pointer',
+                      mt: 2,
+                      fontWeight: selectedMenu === idx ? 'bold' : 'normal',
+                      color: selectedMenu === idx ? 'bold' : 'normal'
                     }}
-                  />
-                </ListItem>
-              </Box>
+                  >
+                    {IconComponent && <IconComponent />}
+                    <ListItemText
+                      primary={menu.title}
+                      primaryTypographyProps={{
+                        sx: {
+                          fontSize: '18px',
+                          fontWeight: selectedMenu === idx ? 'bold' : 'normal',
+                          color: selectedMenu === idx ? 'bold' : 'normal'
+                        }
+                      }}
+                    />
+                  </ListItem>
+                </Box>
+
+                {/* Render the submenu if it exists and it's open */}
+                {menu.data && openSubMenu === idx && (
+                  <Box sx={{ pl: 4, mt: 1 }}>
+                    <List>
+                      {menu.data.map((subMenu, subIdx) => (
+                        <ListItem
+                          button
+                          key={`submenu-${subIdx}`}
+                          onClick={() => navigate(subMenu.url)}
+                          sx={{ gap: 1.5, cursor: 'pointer', mt: 1 }}
+                        >
+                          <ListItemText
+                            primary={subMenu.title}
+                            primaryTypographyProps={{
+                              sx: {
+                                fontSize: '16px',
+                                fontWeight: selectedMenu === idx ? 'bold' : 'normal'
+                              }
+                            }}
+                          />
+                        </ListItem>
+                      ))}
+                    </List>
+                  </Box>
+                )}
+              </React.Fragment>
             )
           })}
 
