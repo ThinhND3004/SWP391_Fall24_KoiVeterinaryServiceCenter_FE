@@ -6,6 +6,7 @@ import { Box } from '@mui/material'
 import { BG_COLOR } from '~/theme'
 import { BorderStyle } from '@mui/icons-material'
 
+
 const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   '.MuiDataGrid-columnSeparator': {
     display: 'none'
@@ -27,21 +28,23 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
     '&:nth-of-type(even)': {
     }
   },
-  '& .MuiDataGrid-cell[data-field="status"]': {
-    '&.MuiDataGrid-cell--textActive': {
+  '& .MuiDataGrid-cell[data-field="disable"]': {
+    '&.MuiDataGrid-cell--true': {
       color: '#00796b',
       fontWeight: 'bold',
-      borderRadius: '4px'
+      borderRadius: '4px',
+      textTransform: 'capitalize'
     },
     '&.MuiDataGrid-cell--textSuspended': {
       color: '#e65100',
       fontWeight: 'bold',
       borderRadius: '4px'
     },
-    '&.MuiDataGrid-cell--textClosed': {
+    '&.MuiDataGrid-cell--false': {
       color: '#c62828',
       fontWeight: 'bold',
-      borderRadius: '4px'
+      borderRadius: '4px',
+      textTransform: 'capitalize'
     }
   }
 }))
@@ -54,11 +57,14 @@ const DynamicDataGrid = ({ data, pageSize = 5 }) => {
   // Automatically generate columns based on the keys of the first row
   const columns = Object.keys(data[0]).map((key) => ({
     field: key,
-    headerName: key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
+    headerName: key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase()),
     flex: 1,
     headerClassName: 'theme--header',
-    cellClassName: (params) => key === 'status' ? `MuiDataGrid-cell--text${params.value}` : ''
-  }))
+    cellClassName: (params) => 
+      key === 'disable'
+        ? params.value ? 'MuiDataGrid-cell--true' : 'MuiDataGrid-cell--false'
+        : '',
+  }));
 
   // Rows are filled directly from the data prop
   const rows = data.map((item, index) => ({ id: index, ...item }))
