@@ -4,6 +4,7 @@ import {
   BLUE_COLOR,
   ONLINE_BUTTON,
 } from "~/theme";
+import MeetingMethodTagHolder from "~/pages/ServicePage/ServicePageDetails/MethodMeetingTag";
 
 function Introduction({ service }) {
   return (
@@ -21,22 +22,7 @@ function Introduction({ service }) {
             {service.name}
           </Typography>
 
-          <Typography
-            sx={{
-              textAlign: "center",
-              backgroundColor: ONLINE_BUTTON,
-              color: "white",
-              width: "100px",
-              borderRadius: "10px",
-              height: "30px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              mb: 2, // margin bottom
-            }}
-          >
-            {service.meetingMethod}
-          </Typography>
+          <MeetingMethodTagHolder meetingMethod={service.meetingMethod} serviceType={service.type} />
 
           <Typography sx={{ fontWeight: 400, fontSize: 16, lineHeight: 2 }}>
             {service.overview}
@@ -61,14 +47,6 @@ function Introduction({ service }) {
               </Typography>
             </Box>
 
-            <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-              <Typography variant="subtitle1" fontWeight="bold">
-                Address:
-              </Typography>
-              <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
-                {service.address || "N/A"}
-              </Typography>
-            </Box>
           </Box>
         </Box>
 

@@ -1,6 +1,6 @@
 // import React from 'react'
 // import { Box, Typography } from '@mui/material'
-// import { BG_COLOR, BLUE_COLOR, GRAY_COLOR, OFFLINE_CENTER_BUTTON, ONLINE_BUTTON, ORANGE_COLOR } from '~/theme'
+// import { BG_COLOR, BLUE_COLOR, GRAY_COLOR, OFFLINE_BUTTON, ONLINE_BUTTON, ORANGE_COLOR } from '~/theme'
 // import { Button } from 'react-bootstrap'
 // import CallMadeIcon from '@mui/icons-material/CallMade';
 
@@ -36,7 +36,7 @@
 //               <Typography
 //                 sx={{
 //                   textAlign: 'center',
-//                   backgroundColor: OFFLINE_CENTER_BUTTON,
+//                   backgroundColor: OFFLINE_BUTTON,
 //                   color: 'white',
 //                   width: 100,
 //                   borderRadius: '10px',
@@ -78,7 +78,7 @@ import {
   BG_COLOR,
   BLUE_COLOR,
   GRAY_COLOR,
-  OFFLINE_CENTER_BUTTON,
+  OFFLINE_BUTTON,
   ONLINE_BUTTON,
   ORANGE_COLOR,
 } from "~/theme";
@@ -141,7 +141,7 @@ function ServiceNo1({ service }) {
               <Typography
                 sx={{
                   textAlign: "center",
-                  backgroundColor: OFFLINE_CENTER_BUTTON,
+                  backgroundColor: OFFLINE_BUTTON,
                   color: "white",
                   width: 100,
                   borderRadius: "10px",
