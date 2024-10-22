@@ -8,7 +8,6 @@ import ContactUs from '~/pages/ContactUs/ContactUs.component'
 // Service
 import ServicePage from '~/pages/ServicePage/Service.component'
 import ServicePageDemo from '~/pages/ServicePageDemo/ServiceDemo.component'
-import ServiceChooseConPageComponent from '~/pages/ServicePageDemo/ServiceChooseConPage/ServiceChooseConPage.component'
 
 
 import KoiHealthComponent from '~/pages/KoiHealthPage/KoiHealth.component'
@@ -44,11 +43,12 @@ import BookingFlexibleScheduleComponent from '~/pages/BookingFlexibleSchedule/Bo
 import ConfirmBookingComponent from '~/pages/ConfirmBookingPage/ConfirmBooking.component'
 import DeliveryPage from '~/pages/AdminPage/DeliveryPage/DeliveryPage.component'
 import AdminMedicinePage from '~/pages/AdminPage/MedicinePage/AdminMedicinePage.component'
-// import DashboardPage from '~/pages/AdminPage/DashboardPage/DashboardPage.component'
-import VeterinarianInformation from '~/pages/SelectVeterinarianByAvailableSlotTimePage/VeterinarianInfomation/VeterinarianInformation'
 import SelectVeterinarianByAvailableSlotTimeComponent from '~/pages/SelectVeterinarianByAvailableSlotTimePage/SelectVeterinarianByAvailableSlotTimePage.component'
+import VeterinarianInformation from '~/pages/SelectVeterinarianByAvailableSlotTimePage/VeterinarianInfomation/VeterinarianInformation'
 import DashboardBookingPage from '~/pages/AdminPage/DashboardPage/DashboardBookingsPage/DashboardBookingsPage.component'
 import DashboardVeterinariansPage from '~/pages/AdminPage/DashboardPage/DashboardVeterinarianPage/DashboardVeterinariansPage.component'
+import ServiceChooseConPageComponent from '~/pages/ServicePageDemo/ServiceChooseConPage/ServiceChooseConPage.component'
+import VeterianNotificationPage from '~/pages/VeterinarianHomePage/VeterianNotificationPage/VeterianNotificationPage.component'
 
 const RouteComponent = () => {
   return (
@@ -61,7 +61,7 @@ const RouteComponent = () => {
         {/* Service */}
         <Route path='/service' element={<ServicePage />} />
         <Route path='/serviceDemo' element={<ServicePageDemo />} />
-        <Route path='/serviceChooseCon' element={<ServiceChooseConPageComponent />} />
+        <Route path='/service-choose-consultant' element={<ServiceChooseConPageComponent />} />
 
         {/* Service Details */}
         <Route path='/online-consultant' element={<OnlineConsultantComponent />} />
@@ -103,6 +103,7 @@ const RouteComponent = () => {
         <Route path='/staff_booking' element={<StaffBookingPage />} />
         <Route path='/staff_veterinarian_management' element={<StaffVeterinarianPage />} />
         <Route path='/staff_prescription' element={<StaffPrescriptionPage />} />
+        <Route path='/staff/notification' element={<StaffPrescriptionPage />} />
       </Route>
 
       <Route element={<VeterinarianLayout />}>
@@ -111,6 +112,8 @@ const RouteComponent = () => {
         <Route path='/veterinarian_booking' element={<VeterinarianBookingPage />} />
         <Route path='/veterinarian_medical_report' element={<VeterinarianMedicalReportPage />} />
         <Route path='/veterinarian_medicine' element={<VeterinarianMedicinePage />} />
+        <Route path='/veterian/notifications' element={<VeterianNotificationPage />} />
+
       </Route>
 
       <Route path='/' element={
