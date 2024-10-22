@@ -73,6 +73,7 @@ const ServiceChooseCon = ({ veterian }) => {
 
 
                 {/* schedule */}
+
                 <Box>
                     <Typography marginBottom={3}>
                         {veterian.fullName}
@@ -98,14 +99,13 @@ const ServiceChooseCon = ({ veterian }) => {
                             marginTop: '10px',
                             // width: '700px',
                             padding: '20px',
-                            // maxHeight: '100px', // Set a max height for the container
                             overflowY: 'auto',  // Enable vertical scrollbar when content overflows
                             border: '1px solid #ccc', // Optional: Add a border to define the scrollable area
                             borderRadius: '8px', // Optional: Round the corners of the container
                         }}
                     >
 
-                        <Grid container spacing={2} >
+                        <Grid container spacing={2}>
 
                             {veterian.timeSlot.map((slot, index) => (
                                 // Check if the slot date matches the selected date (dateAvai)
