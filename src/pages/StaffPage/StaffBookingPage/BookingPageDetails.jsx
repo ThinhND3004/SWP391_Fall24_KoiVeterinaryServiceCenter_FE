@@ -2,9 +2,8 @@ import { styled, alpha } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import InputBase from '@mui/material/InputBase'
 import SearchIcon from '@mui/icons-material/Search'
-import { BLUE_COLOR, GRAY_COLOR, INPUT_FIELD_COLOR } from '~/theme'
+import { BLUE_COLOR, GRAY_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme'
 import Button from '@mui/material/Button'
-import FilterListIcon from '@mui/icons-material/FilterList'
 import AddIcon from '@mui/icons-material/Add'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import { Typography } from '@mui/material'
@@ -53,51 +52,57 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   }
 }))
 
-function createData(name, dob, fullName, startDate, email, phoneNumber, status) {
-  return { name, dob, fullName, startDate, email, phoneNumber, status }
-}
-
-const rows = [
-  createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspended'),
-  createData('Genevieve U. Watts', '01/01/2000', 'Eget Incorporated', '07/18/2017', 'Nullam.vitae@egestas.edu', '0800 025698', 'Closed'),
-  createData('Kyra S. Baldwin', '01/01/2000', 'Lorem Vitae Limited', '04/14/2016', 'in@elita.org', '0800 237 8846', 'Suspended'),
-  createData('Stephen V. Hill', '01/01/2000', 'Eget Mollis Institute', '03/03/2016', 'eu@vel.com', '0800 682 4591', 'Active'),
-  createData('Vielka Q. Chapman', '01/01/2000', 'Eu Ltd', '06/25/2017', 'orci.Donec.nibh@mauriseratget.edu', '0800 181 5795', 'Suspended'),
-  createData('Ocean W. Curtis', '01/01/2000', 'Eu Ltd', '08/24/2017', 'cursus.et@cursus.edu', '(016977) 9585', 'Active'),
-  createData('Kato F. Tucker', '01/01/2000', 'Vel Lectus Limited', '11/06/2017', 'Duis@Lorem.edu', '070 0981 8503', 'Active'),
-  createData('Robin J. Wise', '01/01/2000', 'Curabitur Dictum PC', '02/09/2017', 'blandit@montesnascetur.edu', '0800 259158', 'Active'),
-  createData('Uriel H. Guerrero', '01/01/2000', 'Mauris Inc.', '02/11/2018', 'vitae@linnecorci.net', '0500 948772', 'Active'),
-  createData('Yasir W. Benson', '01/01/2000', 'At Incorporated', '01/13/2017', 'ornare.elit.elit@atortor.edu', '0391 916 3600', 'Active')
-]
 
 function BookingPageDetails() {
-  const [bookingData, setBookingData] = useState([]);
-  const [searchValue, setSearchValue] = useState("");
+  const [rowData, setRowData] = useState([]);
+  const [navBarStatus, setNavBarStatus] = useState("ALL")
 
-  const fetchData = async () => {
-    const data = await ManagementApi.getBookings();
-    setBookingData(data)
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = String(date.getMonth() + 1).padStart(2, '0');
+    const month = String(date.getDate()).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${month}/${day}/${year}`;
   }
 
-  // const handleSearching = async (event) => {
-  //   const searchValue = event.target.value || "";
+  const fetchDataByStatus = async (status) => {
+    let data = [];
+    if(status === 'ALL') data = await ManagementApi.getBookings();
+    else data = await ManagementApi.getBookings(status);
 
-  //   let data;
-  //   if (searchValue === "")
-  //     data = await ManagementApi.getAccounts('CUSTOMER');
-  //   else {
-  //     const searchData = await ManagementApi.searchAccountsByFullName('CUSTOMER', searchValue);
-  //     data = searchData.filter((data) => {
-  //       return data.fullName.toLowerCase().includes(searchValue.toLowerCase());
-  //     });
-  //   }
+    const row = data.map((data) => {
+      return {
+        id: data.id,
+        customer: data.customerFullName,
+        veterian: data.veterinarianFullName,
+        service: data.serviceName,
+        createdAt: formatDate(data.createdAt),
+        status: data.statusEnum,
+        details: data
+      };
+    })
+    setRowData(row);
+  }
 
-  //   setSearchValue(searchValue);
-  //   setCustomerData(data.length > 0 ? data : []);
-  // }
+  function TableNavBar({ content, navBarStatus }) {
+    return (
+      <Button variant="contained" color="primary" sx={{
+        backgroundColor: navBarStatus === content ? ORANGE_COLOR : '',
+        color: navBarStatus === content ? 'white' : '',
+        borderRadius: '10px'
+      }}
+      onClick={()=> {
+        fetchDataByStatus(content);
+        setNavBarStatus(content);
+      }}
+      >
+        {content}
+      </Button>
+    )
+  }
 
   useEffect(() => {
-    fetchData()
+    fetchDataByStatus('ALL');
   }, []);
 
 
@@ -140,10 +145,18 @@ function BookingPageDetails() {
           </Button>
         </Box>
       </Box>
-
+      {/* Booking Nav Bar  */}
+      <Box display="flex" flexDirection="row" gap={2} marginTop={3}>
+        <TableNavBar content={'ALL'} navBarStatus={navBarStatus} />
+        <TableNavBar content={'UNPAID'} navBarStatus={navBarStatus} />
+        <TableNavBar content={'PENDING'} navBarStatus={navBarStatus} />
+        <TableNavBar content={'CONFIRMED'} navBarStatus={navBarStatus} />
+        <TableNavBar content={'COMPLETED'} navBarStatus={navBarStatus} />
+        <TableNavBar content={'CANCELED'} navBarStatus={navBarStatus} />
+      </Box>
       {/* Table */}
       <Box sx={{ mt: 3, mb: 3 }}>
-        <DynamicDataGrid data={bookingData} />
+        <DynamicDataGrid rowData={rowData} />
       </Box>
     </Box>
   )

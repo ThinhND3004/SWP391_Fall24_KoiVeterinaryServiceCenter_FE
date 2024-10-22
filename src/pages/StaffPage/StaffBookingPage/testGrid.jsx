@@ -2,9 +2,13 @@ import React from 'react'
 import { DataGrid } from '@mui/x-data-grid'
 import PropTypes from 'prop-types'
 import { styled } from '@mui/material/styles'
-import { Box } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import { BG_COLOR } from '~/theme'
 import { BorderStyle } from '@mui/icons-material'
+import BookingDialog from './BookingDialog'
+import VeterianChooseDialog from './VeterianChooseDialog'
+import { render } from 'react-dom'
+
 
 const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   '.MuiDataGrid-columnSeparator': {
@@ -46,22 +50,47 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   }
 }))
 
-const DynamicDataGrid = ({ data, pageSize = 5 }) => {
-  if (!data || !data.length) {
+const DynamicDataGrid = ({ rowData, pageSize = 5 }) => {
+  if (!rowData || !rowData.length) {
     return <div>No data available</div>
   }
 
   // Automatically generate columns based on the keys of the first row
-  const columns = Object.keys(data[0]).map((key) => ({
+  const columns = Object.keys(rowData[0]).map((key) => ({
     field: key,
     headerName: key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
     flex: 1,
     headerClassName: 'theme--header',
-    cellClassName: (params) => key === 'status' ? `MuiDataGrid-cell--text${params.value}` : ''
+    cellClassName: (params) => key === 'status' ? `MuiDataGrid-cell--text${params.value}` : '',
+    renderCell: (params) => {
+      const booking = params.row.details;
+      if (booking.statusEnum === 'PENDING' && params.field === 'veterian')
+        return <VeterianChooseDialog serviceId={booking.serviceId} startedAt={booking.startedAt} />;
+
+      return <span>{params.value}</span>
+    }
   }))
 
+
+  //Remove rowData.details column
+  columns.pop();
+
+  columns.push({
+    field: "action",
+    headerName: "Action",
+    sortable: false,
+    flex: 1,
+    renderCell: (params) => {
+      const booking = params.row.details;
+
+      return (
+        <BookingDialog booking={booking} />
+      )
+    }
+  })
+
   // Rows are filled directly from the data prop
-  const rows = data.map((item, index) => ({ id: index, ...item }))
+  const rows = rowData.map((item, index) => ({ id: index, ...item }))
 
   return (
     <Box sx={{
@@ -77,6 +106,9 @@ const DynamicDataGrid = ({ data, pageSize = 5 }) => {
         pageSize={pageSize}
         rowsPerPageOptions={[5, 10, 20]}
         disableSelectionOnClick
+
+        //  getRowSpacing={getRowSpacing}
+        // rowSpacingType="border"
         sx={{ '&, [class^=MuiDataGrid]': { border: 'none' } }}
 
       />

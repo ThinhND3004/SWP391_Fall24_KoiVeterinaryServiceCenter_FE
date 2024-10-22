@@ -15,11 +15,11 @@ function setAccountData(data) {
         createdAt: formatDate(data.createAt),
         email: data.email,
         phoneNumber: data.phone,
-        status: data.status ? 'Suspended' : 'Active'
+        status: data.disable ? 'Suspended' : 'Active',
     }
 }
 
-function setBookingData(data){
+function setBookingData(data) {
     return {
         id: data.id,
         customer: data.customerFullName,
@@ -27,7 +27,7 @@ function setBookingData(data){
         service: data.serviceName,
         totalPrice: data.totalPrice,
         createdAt: formatDate(data.createdAt),
-        status: data.statusEnum 
+        status: data.statusEnum
     }
 }
 
@@ -36,7 +36,6 @@ export default class ManagementApi {
         const response = await api.get('/accounts/current');
 
         const data = response.data.data;
-        console.log(data)
 
         return {
             email: data.email,
@@ -61,6 +60,17 @@ export default class ManagementApi {
         return customerData;
     }
 
+    static async getIdleAccounts({ serviceId, startDateTime }){
+        try{
+            const response = await api.get(`/accounts/idle-veterian-by-time/${serviceId}/${startDateTime}`);
+            if(response.data.data) return response.data.data;
+        }
+        catch(err){
+            console.error('Cannot get idle account: ' + err.message)
+        }
+        return [];
+    }
+
     static async searchAccountsByFullName(role, searchValue, page, unitPerPage) {
         const response = await api.get('/accounts/search-by-name/' + searchValue, {
             params: { page, unitPerPage, role }
@@ -73,16 +83,26 @@ export default class ManagementApi {
         return customerData;
     }
 
-    // BOOKING
-    static async getBookings(status,page, unitPerPage){
-        const response = await api.get('/bookings', {
-            params: { page, unitPerPage, status }
+    static async updateAccountStatus(email, status){
+        const response = await api.post('/accounts/update-status', {
+            email,
+            status
         });
+        return response.data.data;
+    }
 
-        const bookingData = response.data.data.map((data) => {
-            return setBookingData(data);
-        })
-
-        return bookingData;
-    } 
+    // BOOKING
+    static async getBookings(status, page, unitPerPage) {
+        try{
+            const response = await api.get('/bookings', {
+                params: { page, unitPerPage, status }
+            });
+            console.log("RESPONSE DATA: ", response.data.data);
+            if(response.data.data) return response.data.data;
+        }
+        catch(err){
+            console.error('Cannot get idle account: ' + err.message)
+        }
+        return [];
+    }
 }

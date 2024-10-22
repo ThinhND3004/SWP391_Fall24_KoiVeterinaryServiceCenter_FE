@@ -44,12 +44,10 @@ import BookingFlexibleScheduleComponent from '~/pages/BookingFlexibleSchedule/Bo
 import ConfirmBookingComponent from '~/pages/ConfirmBookingPage/ConfirmBooking.component'
 import DeliveryPage from '~/pages/AdminPage/DeliveryPage/DeliveryPage.component'
 import AdminMedicinePage from '~/pages/AdminPage/MedicinePage/AdminMedicinePage.component'
-
-import VeterinarianInformation from '~/pages/SelectVeterinarianByAvailableSlotTimePage/VeterinarianInfomation/VeterinarianInformation'
 import SelectVeterinarianByAvailableSlotTimeComponent from '~/pages/SelectVeterinarianByAvailableSlotTimePage/SelectVeterinarianByAvailableSlotTimePage.component'
-
-import DashboardPage from '~/pages/AdminPage/DashboardPage/DashboardPage.component'
-
+import VeterinarianInformation from '~/pages/SelectVeterinarianByAvailableSlotTimePage/VeterinarianInfomation/VeterinarianInformation'
+import DashboardBookingPage from '~/pages/AdminPage/DashboardPage/DashboardBookingsPage/DashboardBookingsPage.component'
+import DashboardVeterinariansPage from '~/pages/AdminPage/DashboardPage/DashboardVeterinarianPage/DashboardVeterinariansPage.component'
 
 const RouteComponent = () => {
   return (
@@ -84,7 +82,9 @@ const RouteComponent = () => {
       </Route>
 
       <Route element={<AdminLayout />}>
-        <Route path='/dashboard' element={<DashboardPage />} />
+        {/* <Route path='/dashboard' element={<DashboardPage />} /> */}
+        <Route path='/bookings_dashboard' element={<DashboardBookingPage />} />
+        <Route path='/veterinarians_dashboard' element={<DashboardVeterinariansPage />} />
         <Route path='/profile' element={<AdminHomePage />} />
         <Route path='/admin_password' element={<PasswordPage />} />
         <Route path='/admin_staff' element={<StaffPage />} />

@@ -1,8 +1,8 @@
 import { Box } from '@mui/material'
 import React from 'react'
-import DashboardPageDetails from './DashboardPageDetails'
+import DashboardPageDetails from './DashboardBookingsPageDetails'
 
-function DashboardPage() {
+function DashboardBookingPage() {
   return (
     <div>
       <Box display={'flex'} flexDirection={'column'} gap={'50px'} px={'30px'}>
@@ -14,4 +14,4 @@ function DashboardPage() {
   )
 }
 
-export default DashboardPage
+export default DashboardBookingPage

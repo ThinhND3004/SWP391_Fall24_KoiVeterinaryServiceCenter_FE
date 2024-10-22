@@ -121,7 +121,7 @@ function DashboardPageDetails() {
           fontWeight: 600, fontSize: '20px'
         }}
         >
-          Dashboard
+          Bookings Dashboard
         </Typography>
       </Breadcrumbs>
 
