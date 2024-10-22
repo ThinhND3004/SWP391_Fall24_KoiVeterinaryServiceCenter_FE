@@ -72,7 +72,7 @@ const ServiceChooseCon = ({ vet }) => {
                 </Box>
 
                 {/* schedule */}
-                <Box>
+                <Box >
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
                             sx={{
@@ -90,14 +90,14 @@ const ServiceChooseCon = ({ vet }) => {
                             marginTop: '10px',
                             width: '700px',
                             padding: '20px',
-                            maxHeight: '100px', // Set a max height for the container
+                            maxHeight: '200px', // Set a max height for the container
                             overflowY: 'auto',  // Enable vertical scrollbar when content overflows
                             border: '1px solid #ccc', // Optional: Add a border to define the scrollable area
                             borderRadius: '8px', // Optional: Round the corners of the container
                         }}
                     >
 
-                        <Grid container spacing={2} >
+                        <Grid container spacing={2}>
 
                             {vet.timeSlot.map((slot, index) => (
                                 // Check if the slot date matches the selected date (dateAvai)
