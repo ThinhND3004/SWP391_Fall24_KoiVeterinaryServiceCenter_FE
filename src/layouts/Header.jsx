@@ -15,11 +15,61 @@ import { GRAY_COLOR, ORANGE_COLOR, BLUE_COLOR } from '~/theme'
 import { Divider } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import api from '~/config/axios'
-import Avatar from '@mui/material/Avatar';
+import Avatar from '@mui/material/Avatar'
 
 
 
 const pages = ['Home', 'About us', 'Service', 'Koi Health', 'Contact Us']
+
+const LoginButton = ({ navigate }) => {
+  return <Box minWidth={300} display={'flex'} justifyContent={'center'}>
+    <Button variant="outlined" onClick={() => navigate('/login')} sx={{
+      border: `1px ${BLUE_COLOR} solid`,
+      borderRadius: '30px',
+      color: BLUE_COLOR,
+      fontWeight: 600,
+      p: '10px 38px',
+      boxShadow: '0px 3px 1px rgba(0, 0, 0, 0.2)'
+    }}>
+      Login
+    </Button>
+  </Box>
+}
+
+const Profile = ({ accInfo, anchorEl, handleMenuClick, handleClose, handleProfile, handleLogout }) => {
+  return <>
+    <Typography
+      sx={{
+        py: '20px',
+        color: GRAY_COLOR,
+        display: 'block',
+        fontWeight: 600,
+      }}
+    >Hi, {accInfo.firstName} {accInfo.lastName}
+
+    </Typography>
+    <IconButton onClick={handleMenuClick} color="inherit">
+      <Avatar alt='hello' src='src\assets\images\avtDemo.jpg' />
+    </IconButton>
+
+    <Menu
+      anchorEl={anchorEl}
+      open={Boolean(anchorEl)}
+      onClose={handleClose}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+    >
+      <MenuItem onClick={handleProfile}>Profile</MenuItem>
+      <MenuItem onClick={handleLogout}>Logout</MenuItem>
+    </Menu>
+  </>
+}
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
 function Header() {
@@ -33,21 +83,19 @@ function Header() {
   const [anchorElUser, setAnchorElUser] = useState(null)
   const navigate = useNavigate()
 
-  const [accInfo, setAccInfo] = useState(null);
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [accInfo, setAccInfo] = useState(null)
+  const [anchorEl, setAnchorEl] = useState(null)
   // const [token, setToken] = useState(localStorage.getItem('token'))
 
 
 
-  const setTokenWithExpiry = (token) =>
-  {
-    localStorage.setItem('token',token);
-  };
+  const setTokenWithExpiry = (token) => {
+    localStorage.setItem('token', token)
+  }
 
 
-  const getToken = () =>
-  {
-    const token = localStorage.getItem('token');
+  const getToken = () => {
+    const token = localStorage.getItem('token')
 
     // if (!tokenData)
     //   return null;
@@ -55,7 +103,7 @@ function Header() {
     // const now = new Date();
 
     // const  token = JSON.parse(tokenData);
-    console.log("TOKEN DATA: ", token);
+    // console.log('TOKEN DATA: ', token)
     // const { token, expiry } = JSON.parse(tokenData);
 
     // if (now.getTime() > expiry)
@@ -64,30 +112,30 @@ function Header() {
     //   return null;
     // }
 
-    return token;
+    return token
 
   }
 
 
   const handleGetAccInfo = async () => {
-    const token = getToken();
+    const token = getToken()
     if (token) {
       try {
 
-        console.log("TOKEN: ", token)
+        console.log('TOKEN: ', token)
         // const response = await api.get(`accounts/current`);
         // const response = await api.get(`accounts/getLoginAccInfo?token=${token}`);
-        const response = await api.get(`accounts/current`);
-        console.log("INFO: ", response.data.data);
+        const response = await api.get('accounts/current')
+        console.log('INFO: ', response.data.data)
 
         if (response) {
-          setAccInfo(response.data.data);
-          localStorage.setItem('accountInfo', JSON.stringify(response.data.data));
+          setAccInfo(response.data.data)
+          localStorage.setItem('accountInfo', JSON.stringify(response.data.data))
         }
       } catch {
-        console.log("ERROR GET INFO");
+        console.log('ERROR GET INFO')
       }
-    } else console.log('DO NOT HAVE TOKEN!');
+    }
   }
 
   useEffect(() => {
@@ -100,37 +148,37 @@ function Header() {
     // } else {
     //   handleGetAccInfo();
     // }
-    const token = getToken();
-    console.log("EFFECT TOKEN: ", token);
-    handleGetAccInfo();
+    const token = getToken()
+    console.log('EFFECT TOKEN: ', token)
+    handleGetAccInfo()
 
 
-  }, []);
+  }, [])
 
   const handleMenuClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+    setAnchorEl(event.currentTarget)
+  }
 
   // Close dropdown menu
   const handleClose = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
 
   // Handle logout
   const handleLogout = () => {
-    handleClose();
-    localStorage.removeItem("accountInfo");
-    localStorage.removeItem("token");
+    handleClose()
+    localStorage.removeItem('accountInfo')
+    localStorage.removeItem('token')
     // navigate("/home");
-    window.location.href = "/home";
-  };
+    window.location.href = '/home'
+  }
 
   // Handle profile
   const handleProfile = () => {
-    handleClose();
-    console.log('Go to profile...');
+    handleClose()
+    console.log('Go to profile...')
     // Add your profile navigation logic here
-  };
+  }
 
 
   // d biet
@@ -279,59 +327,18 @@ function Header() {
 
           {/* login button */}
 
-          {!accInfo && <Box minWidth={300} display={'flex'} justifyContent={'center'}>
-            <Button variant="outlined" onClick={() => navigate('/login')} sx={{
-              border: `1px ${BLUE_COLOR} solid`,
-              borderRadius: '30px',
-              color: BLUE_COLOR,
-              fontWeight: 600,
-              p: '10px 38px',
-              boxShadow: '0px 3px 1px rgba(0, 0, 0, 0.2)'
-            }}>
-              Login
-            </Button>
-          </Box>
-          }
-
-          {accInfo &&
-            <>
-              <Typography
-                sx={{
-                  py: '20px',
-                  color: GRAY_COLOR,
-                  display: 'block',
-                  fontWeight: 600,
-                }}
-              >Hi, {accInfo.firstName} {accInfo.lastName}
-
-              </Typography>
-              <IconButton onClick={handleMenuClick} color="inherit">
-                <Avatar alt='hello' src='src\assets\images\avtDemo.jpg' />
-              </IconButton>
-
-              <Menu
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-              >
-                <MenuItem onClick={handleProfile}>Profile</MenuItem>
-                <MenuItem onClick={handleLogout}>Logout</MenuItem>
-              </Menu>
-            </>
-
-          }
-
-
-
-
+          {!accInfo
+            ?
+            <LoginButton navigate={navigate} />
+            :
+            <Profile
+              accInfo={accInfo}
+              anchorEl={anchorEl}
+              handleMenuClick={handleMenuClick}
+              handleClose={handleClose}
+              handleProfile={handleProfile}
+              handleLogout={handleLogout}
+            />}
 
         </Toolbar>
       </Container>

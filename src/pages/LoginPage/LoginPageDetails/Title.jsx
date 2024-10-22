@@ -5,90 +5,103 @@ import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import { useNavigate } from 'react-router-dom'
 import api from '~/config/axios'
-import ErrorIcon from '@mui/icons-material/Error';
-
+import ErrorIcon from '@mui/icons-material/Error'
+import { toast } from 'react-toastify'
 
 
 function Title() {
   const navigate = useNavigate()
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loginMess, setLoginMess] = useState('');
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loginMess, setLoginMess] = useState('')
 
 
   const setTokenWithExpiry = (token) => {
-    localStorage.setItem('token', token);
-  };
+    localStorage.setItem('token', token)
+  }
 
   useEffect(() => {
-    const isLoginned = localStorage.getItem('token') != null;
+    const isLoginned = localStorage.getItem('token') != null
     if (isLoginned)
-      navigate('/home');
+      navigate('/home')
   }, [])
 
   const handleLogin = async () => {
-    setLoginMess(""); 
+    setLoginMess('')
     if (!email || !password) {
-      setLoginMess("Email and Password are required");
-      return;
+      setLoginMess('Email and Password are required')
+      return
     }
-  
-    try {
-      const response = await api.post("/auth/login-password", {
-        email,
-        password,
-      });
-      
-      console.log("LOGIN ERROR: ", response.data.data.err)
-  
-      if (response?.data?.data?.err) {
-        setLoginMess(response.data.data.err);
-      } else if (response?.data?.data?.token) {
-        // localStorage.setItem("token", response.data.data.token);
-        setTokenWithExpiry(response.data.data.token)
-        window.location.href = "/home";
 
+    try {
+      const response = await api.post('/auth/login-password', {
+        email,
+        password
+      })
+
+      // console.log('LOGIN ERROR: ', response.data.data.err)
+
+      // if (response?.data?.data?.err) {
+      //   setLoginMess(response.data.data.err)
+      // } else if (response?.data?.data?.token) {
+      //   // localStorage.setItem("token", response.data.data.token);
+      //   setTokenWithExpiry(response.data.data.token)
+      //   window.location.href = '/home'
+
+      // } else {
+      //   setLoginMess('Unexpected error occurred.')
+      // }
+
+      const { data, status, message, err } = response.data
+
+
+      if (status === 200) {
+        localStorage.setItem('token', data.token)
+        setTokenWithExpiry(data.token)
+        navigate('/home')
+        toast.success(message)
       } else {
-        setLoginMess("Unexpected error occurred.");
+        setLoginMess(err[0])
+        toast.error(err[0] || response?.error?.message)
       }
     } catch (err) {
-      const errorMessage = "Login failed. Please try again.";
-      setLoginMess(errorMessage);
+      const errorMessage = 'Login failed. Please try again.'
+      setLoginMess(errorMessage)
+      toast.error(errorMessage)
     }
-  };
-  
+  }
+
 
   useEffect(() => {
     const handleKeyPress = (event) => {
       if (event.key === 'Enter') {
-        handleLogin();
+        handleLogin()
       }
-    };
+    }
 
-    window.addEventListener('keydown', handleKeyPress);
+    window.addEventListener('keydown', handleKeyPress)
 
     return () => {
-      window.removeEventListener('keydown', handleKeyPress);
-    };
-  }, [email, password]);
+      window.removeEventListener('keydown', handleKeyPress)
+    }
+  }, [email, password])
 
   return (
 
 
-
     <div>
-
+{/* 
       {loginMess && (
         <Alert
-        severity = 'error'
-        iconMapping={{
-          error: <ErrorIcon fontSize="inherit" />,
-        }}
-      > 
-        {loginMess}
-      </Alert>
-      )}
+          severity='error'
+          iconMapping={{
+            error: <ErrorIcon fontSize="inherit" />
+          }}
+        >
+          {loginMess}
+        </Alert>
+      )} */}
 
 
       <Box display={'flex'} flexDirection={'column'} gap={'100px'} px={'30px'}>
@@ -231,4 +244,4 @@ function Title() {
   )
 }
 
-export default Title;
+export default Title
