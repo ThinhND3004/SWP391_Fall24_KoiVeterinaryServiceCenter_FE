@@ -1,5 +1,5 @@
 import React from "react";
-import { BLUE_COLOR, ORANGE_COLOR, OFFLINE_CENTER_BUTTON } from "~/theme";
+import { BLUE_COLOR, ORANGE_COLOR, OFFLINE_BUTTON } from "~/theme";
 import { Box, Typography } from "@mui/material";
 
 function Introduction({ service }) {
@@ -24,7 +24,7 @@ function Introduction({ service }) {
           <Typography
             sx={{
               textAlign: "center",
-              backgroundColor: OFFLINE_CENTER_BUTTON,
+              backgroundColor: OFFLINE_BUTTON,
               color: "white",
               width: 170,
               borderRadius: "10px",

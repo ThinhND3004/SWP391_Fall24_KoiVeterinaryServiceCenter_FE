@@ -1,6 +1,6 @@
 // import React from 'react'
 // import { Box, Typography } from '@mui/material'
-// import { BG_COLOR, BLUE_COLOR, GRAY_COLOR, OFFLINE_CENTER_BUTTON, ONLINE_BUTTON, ORANGE_COLOR } from '~/theme'
+// import { BG_COLOR, BLUE_COLOR, GRAY_COLOR, OFFLINE_BUTTON, ONLINE_BUTTON, ORANGE_COLOR } from '~/theme'
 // import { Button } from 'react-bootstrap'
 // import CallMadeIcon from '@mui/icons-material/CallMade';
 
@@ -23,11 +23,11 @@
 //           <Typography sx={{ fontWeight: 400, fontSize: 16, lineHeight: 2, marginTop: '20px' }}>Koi Care Clinic is a unique facility that specializes in providing comprehensive care for koi fish.<br /> Our team of experienced professionals offers a wide range of services, including routine check-ups, disease diagnosis and treatment, pond maintenance, and water quality testing.</Typography>
 //           <Box padding={'20px 0px'} display={'flex'} flexDirection={'row'} justifyContent={'space-between'} width={500} height={50}>
 //             <Box padding={'10px 0px'} display={'flex'} justifyContent={'space-between'} width={230}>
-              
+
 //               <Typography
 //                 sx={{
 //                   textAlign: 'center',
-//                   backgroundColor: OFFLINE_CENTER_BUTTON,
+//                   backgroundColor: OFFLINE_BUTTON,
 //                   color: 'white',
 //                   width: 170,
 //                   borderRadius: '10px',
@@ -54,7 +54,7 @@
 //             </Button>
 //           </Box>  
 //         </Box>
-        
+
 //         <img src="src\assets\images\multiColor.avif" style={{ objectFit: 'contain', width: '500px', borderRadius: '26px' }} />
 //       </Box>
 //     </div>
@@ -70,7 +70,7 @@ import {
   BG_COLOR,
   BLUE_COLOR,
   GRAY_COLOR,
-  OFFLINE_CENTER_BUTTON,
+  OFFLINE_BUTTON,
   ONLINE_BUTTON,
   ORANGE_COLOR,
 } from "~/theme";
@@ -120,7 +120,7 @@ function ServiceNo3({ service }) {
               <Typography
                 sx={{
                   textAlign: "center",
-                  backgroundColor: OFFLINE_CENTER_BUTTON,
+                  backgroundColor: OFFLINE_BUTTON,
                   color: "white",
                   width: "350px",
                   borderRadius: "10px",
@@ -134,7 +134,7 @@ function ServiceNo3({ service }) {
                 sx={{
                   marginLeft: "30px",
                   textAlign: "center",
-                  backgroundColor: OFFLINE_CENTER_BUTTON,
+                  backgroundColor: OFFLINE_BUTTON,
                   color: "white",
                   width: "100px",
                   borderRadius: "10px",

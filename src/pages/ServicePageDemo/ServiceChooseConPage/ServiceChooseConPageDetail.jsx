@@ -1,4 +1,4 @@
-import { Box, ListItem, ListItemText, Typography } from '@mui/material'
+import { Box, FormControl, InputLabel, ListItem, ListItemText, MenuItem, Select, Typography } from '@mui/material'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Button } from 'react-bootstrap'
@@ -9,27 +9,32 @@ import { size } from 'lodash'
 import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
 
-const ServiceChooseCon = ({ vet }) => {
+const ServiceChooseCon = ({ veterian }) => {
+    console.log("VETERIAN:", veterian.timeSlot[0].date)
 
-    const [date, setDate] = useState(dayjs());
+    const [date, setDate] = useState(veterian.timeSlot[0].date);
     const [dateAvai, setDateAvai] = useState('');
 
     useEffect(() => {
         if (date) {
-            setDateAvai(date.format("YYYY-MM-DD"));
+            console.log("DATE", date);
+            setDateAvai(date);
         }
     }, [date])
 
+    const handleDateChange = (event) => {
+        setDate(event.target.value);
+        setDateAvai(date);
+
+    };
 
     return (
         <div>
             <Box alignItems={'center'} display={'flex'} flexDirection={'row'} gap={'100px'} px={'30px'}
                 sx={{
-
                     backgroundColor: INPUT_FIELD_COLOR,
                     height: '400px',
                     width: '1400px'
-
                 }}
             >
                 {/* avt-btn */}
@@ -46,6 +51,8 @@ const ServiceChooseCon = ({ vet }) => {
                                                 -are-swimming-pet-generative-ai-illustration_132416-8965.jpg"
                         alt="Account image"
                     />
+
+
 
                     <Button
                         style={{
@@ -64,33 +71,34 @@ const ServiceChooseCon = ({ vet }) => {
                     </Button>
                 </Box>
 
-                {/* info */}
-                <Box>
-                    <Typography style={{ fontSize: '16px' }}>
-                        {vet.profileDto.education} <br /> {vet.profileDto.yearOfExperience}
-                    </Typography>
-                </Box>
 
                 {/* schedule */}
-                <Box >
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker
-                            sx={{
-                                backgroundColor: INPUT_FIELD_COLOR,
-                                width: '200px',
-                            }}
+
+                <Box>
+                    <Typography marginBottom={3}>
+                        {veterian.fullName}
+                    </Typography>
+                    <FormControl>
+                        <InputLabel id="demo-simple-select-label">Date</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
                             value={date}
-                            onChange={(newValue) => setDate(newValue)}
-                            renderInput={(params) => <TextField {...params} />}
-                        />
-                    </LocalizationProvider>
+                            onChange={handleDateChange}
+                            label="Date"
+                        >
+                            {veterian.timeSlot.map((timeSlot) => {
+                                return <MenuItem value={timeSlot.date}>{timeSlot.date}</MenuItem>
+                            })}
+
+                        </Select>
+                    </FormControl>
 
                     <Box
                         sx={{
                             marginTop: '10px',
-                            width: '700px',
+                            // width: '700px',
                             padding: '20px',
-                            maxHeight: '200px', // Set a max height for the container
                             overflowY: 'auto',  // Enable vertical scrollbar when content overflows
                             border: '1px solid #ccc', // Optional: Add a border to define the scrollable area
                             borderRadius: '8px', // Optional: Round the corners of the container
@@ -99,7 +107,7 @@ const ServiceChooseCon = ({ vet }) => {
 
                         <Grid container spacing={2}>
 
-                            {vet.timeSlot.map((slot, index) => (
+                            {veterian.timeSlot.map((slot, index) => (
                                 // Check if the slot date matches the selected date (dateAvai)
                                 slot.date === dateAvai && (
                                     <Grid item xs={4} key={index}>

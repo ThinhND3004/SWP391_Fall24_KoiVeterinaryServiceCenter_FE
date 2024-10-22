@@ -4,7 +4,7 @@ import {
   BG_COLOR,
   BLUE_COLOR,
   GRAY_COLOR,
-  OFFLINE_CENTER_BUTTON,
+  OFFLINE_BUTTON,
   ONLINE_BUTTON,
   ORANGE_COLOR,
 } from "~/theme";
@@ -53,11 +53,11 @@ function ServiceNo2_1({ service }) {
               <Typography
                 sx={{
                   textAlign: 'center',
-                  backgroundColor: OFFLINE_CENTER_BUTTON,
+                  backgroundColor: OFFLINE_BUTTON,
                   color: 'white',
                   width: '350px',
                   borderRadius: '10px',
-                  height: '30px' ,
+                  height: '30px',
                 }}
               >
                 {service.meetingMethod}
@@ -67,7 +67,7 @@ function ServiceNo2_1({ service }) {
                 sx={{
                   marginLeft: "30px",
                   textAlign: "center",
-                  backgroundColor: OFFLINE_CENTER_BUTTON,
+                  backgroundColor: OFFLINE_BUTTON,
                   color: "white",
                   width: '100px',
                   borderRadius: "10px",
@@ -103,7 +103,7 @@ function ServiceNo2_1({ service }) {
           >
             Learn more
           </Button>
-          </Box>
+        </Box>
 
         <img
           src="src\assets\images\multiColor.avif"
