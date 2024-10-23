@@ -1,12 +1,29 @@
 import { Box, Container, Grid2 } from '@mui/material'
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import { BG_COLOR } from '~/theme'
 import AdminHeader from '~/layouts/AdminHeader'
 import AdminFooter from '../AdminFooter'
 import Navbar from '~/pages/AdminPage/AdminPageDetails/Navbar'
+import ManagementApi from '~/api/ManagementApi'
+import { useEffect } from 'react'
 
 function AdminLayout() {
+
+  const navigate = useNavigate();
+
+//auth
+useEffect(() => {
+  const checkUserRole = async () => {
+    const hasPermission = await ManagementApi.permitFor(["ADMIN"]);
+    if (!hasPermission) {
+      navigate("/403");
+    }
+  };
+
+  checkUserRole();
+}, [navigate]);
+
   return (
     <Grid2
       container

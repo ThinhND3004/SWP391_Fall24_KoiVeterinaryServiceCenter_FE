@@ -49,6 +49,9 @@ import DashboardBookingPage from '~/pages/AdminPage/DashboardPage/DashboardBooki
 import DashboardVeterinariansPage from '~/pages/AdminPage/DashboardPage/DashboardVeterinarianPage/DashboardVeterinariansPage.component'
 import ServiceChooseConPageComponent from '~/pages/ServicePageDemo/ServiceChooseConPage/ServiceChooseConPage.component'
 import VeterianNotificationPage from '~/pages/VeterinarianHomePage/VeterianNotificationPage/VeterianNotificationPage.component'
+import ForbiddenPageDetail from '~/pages/AdditionalPages/ForbiddenPageDetail'
+import Profile from '~/pages/AdminPage/AdminPageDetails/Profile'
+import UserLayout from '~/layouts/UserLayout/user.layout'
 
 const RouteComponent = () => {
   return (
@@ -57,6 +60,8 @@ const RouteComponent = () => {
         <Route path='/home' element={<HomePageComponent />} />
         <Route path='/about' element={<AboutComponent />} />
         <Route path='/contact' element={<ContactUs />} />
+
+        <Route path='/403' element={<ForbiddenPageDetail />} />
 
         {/* Service */}
         <Route path='/service' element={<ServicePage />} />
@@ -86,7 +91,7 @@ const RouteComponent = () => {
         {/* <Route path='/dashboard' element={<DashboardPage />} /> */}
         <Route path='/bookings_dashboard' element={<DashboardBookingPage />} />
         <Route path='/veterinarians_dashboard' element={<DashboardVeterinariansPage />} />
-        <Route path='/profile' element={<AdminHomePage />} />
+        
         <Route path='/admin_password' element={<PasswordPage />} />
         <Route path='/admin_staff' element={<StaffPage />} />
         <Route path='/admin_service' element={<StaffServicePage />} />
@@ -95,6 +100,13 @@ const RouteComponent = () => {
         <Route path='/admin_medicine' element={<AdminMedicinePage />} />
         <Route path='/admin_delivery' element={<DeliveryPage />} />
       </Route>
+
+      {/* profile */}
+      <Route element={<UserLayout />}>
+        <Route path='/profile' element={<AdminHomePage />} />
+      </Route>
+
+
 
       <Route element={<StaffLayout />}>
         <Route path='/staff' element={<StaffHomePage />} />
