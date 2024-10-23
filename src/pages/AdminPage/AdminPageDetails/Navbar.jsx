@@ -156,7 +156,7 @@ function Navbar() {
                             primaryTypographyProps={{
                               sx: {
                                 fontSize: '16px',
-                                fontWeight: selectedMenu === idx ? 'bold' : 'normal'
+                                // fontWeight: selectedMenu === idx ? 'bold' : 'normal'
                               }
                             }}
                           />

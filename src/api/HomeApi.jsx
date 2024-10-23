@@ -8,5 +8,6 @@ export default class HomeApi {
         } catch (err) {
             console.log(err.message);
         }
+        return [];
     }
 }

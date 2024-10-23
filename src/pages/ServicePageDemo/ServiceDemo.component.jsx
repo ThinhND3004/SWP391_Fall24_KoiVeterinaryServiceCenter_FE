@@ -75,8 +75,7 @@ const SerivceComponent = () => {
             {/* Duyệt qua danh sách dịch vụ và truyền vào các component tương ứng */}
 
             {/* {services.map((service, index) => {
-                <ServiceNo1 service={service} key={index}/>
-                        
+                return <ServiceNo1 service={service} key={index}/>
             })} */}
 
             {/* Duyệt qua danh sách dịch vụ và truyền vào các component tương ứng */}

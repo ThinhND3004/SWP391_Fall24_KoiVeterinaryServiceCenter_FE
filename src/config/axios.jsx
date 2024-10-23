@@ -1,33 +1,33 @@
-import axios from "axios";
-const baseUrl = "http://localhost:8080/";
+import axios from 'axios'
+const baseUrl = 'http://localhost:8080/'
 // const baseUrl = "http://localhost:8080/api/";
 
 const config = {
-  baseUrl: baseUrl,
-};
+  baseUrl: baseUrl
+}
 
-const api = axios.create(config);
+const api = axios.create(config)
 
-api.defaults.baseURL = baseUrl;
+api.defaults.baseURL = baseUrl
 
 // handle before call API
 const handleBefore = (config) => {
   // handle hành động trước khi call API
 
   // lấy ra cái token và đính kèm theo cái request
-  const token = localStorage.getItem("token")?.replaceAll('"', "");
-  config.headers["Authorization"] = `Bearer ${token}`;
-  return config;
-};
+  const token = localStorage.getItem('token')?.replaceAll('"', '')
+  config.headers['Authorization'] = `Bearer ${token}`
+  return config
+}
 
-api.interceptors.request.use(handleBefore, null);
+api.interceptors.request.use(handleBefore, null)
 
 const geoapifyApi = axios.create({
-  baseURL: "https://api.geoapify.com/v1/",
-});
+  baseURL: 'https://api.geoapify.com/v1/'
+})
 
-export default api;
-export { geoapifyApi };
+export default api
+export { geoapifyApi }
 
 
 // import axios from "axios";
