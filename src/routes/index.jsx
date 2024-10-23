@@ -48,6 +48,7 @@ import SelectVeterinarianByAvailableSlotTimeComponent from '~/pages/SelectVeteri
 import VeterinarianInformation from '~/pages/SelectVeterinarianByAvailableSlotTimePage/VeterinarianInfomation/VeterinarianInformation'
 import DashboardBookingPage from '~/pages/AdminPage/DashboardPage/DashboardBookingsPage/DashboardBookingsPage.component'
 import DashboardVeterinariansPage from '~/pages/AdminPage/DashboardPage/DashboardVeterinarianPage/DashboardVeterinariansPage.component'
+import SelectVeterinarianByAnyDateTimeComponent from '~/pages/SelectVeterinarianByAnyDateTimePage/SelectByVeterinarianByAnyDateTime.component'
 
 const RouteComponent = () => {
   return (
@@ -70,6 +71,8 @@ const RouteComponent = () => {
         <Route path='/booking-flexible-schedule' element={< BookingFlexibleScheduleComponent />} />
         <Route path='/select-veterian' element={< SelectVeterinarianByAvailableSlotTimeComponent />} />
         <Route path='/confirm-booking' element={< ConfirmBookingComponent />} />
+        <Route path='/select-veterian-by-any-time' element={<  SelectVeterinarianByAnyDateTimeComponent/>} />
+
 
 
         <Route path="/veterinarian-information" element={<VeterinarianInformation />} />
