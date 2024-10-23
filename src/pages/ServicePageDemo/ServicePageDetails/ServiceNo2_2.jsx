@@ -12,9 +12,10 @@ import { useNavigate } from "react-router-dom";
 
 function ServiceNo2_2({ service }) {
   const navigate = useNavigate();
+  const serviceAddress = "Long Thanh My Ward, Thủ Đức, 71216, Vietnam";
 
   const handleKoiTreatmentAtHomeDetails = () => {
-    navigate("/koi-treatment-at-home", { state: { service } }); // Truyền state qua route
+    navigate("/koi-treatment-at-home", { state: { service, serviceAddress } }); // Truyền state qua route
   };
 
 

@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Box, CircularProgress, Button, Typography, Divider } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Button,
+  Typography,
+  Divider,
+} from "@mui/material";
 import { useLocation } from "react-router-dom";
+import dayjs from "dayjs";
 // import { cwd } from "process";
 
 const ConfirmBookingComponent = () => {
   const location = useLocation(); // Nhận dữ liệu từ state
-  const { createBookingDTO, serviceEntity } = location.state;
+  const { createBookingDTO, serviceEntity, veterinarianEntity } =
+    location.state;
   console.log(createBookingDTO);
+  // console.log(veterinarianEntity.fullName)
 
   const totalPrice =
     createBookingDTO.servicePrice +
@@ -45,7 +54,7 @@ const ConfirmBookingComponent = () => {
   // };
 
   const handleBooking = async (createBookingDTO) => {
-    console.log(createBookingDTO);
+    console.log(createBookingDTO.startAt);
 
     try {
       const token = localStorage.getItem("token"); // Lấy token từ localStorage
@@ -123,8 +132,8 @@ const ConfirmBookingComponent = () => {
   return (
     <Box
       display="flex"
-      justifyContent="center" 
-      alignItems="center" 
+      justifyContent="center"
+      alignItems="center"
       height="90vh"
     >
       <div>
@@ -150,9 +159,7 @@ const ConfirmBookingComponent = () => {
               Veterinarian:
             </Typography>
             <Typography>
-              {createBookingDTO.veterinarianId
-                ? createBookingDTO.veterinarianId
-                : "is not assigned"}
+              {veterinarianEntity?.fullName || "is not assigned"}
             </Typography>
           </Box>
 
@@ -174,7 +181,9 @@ const ConfirmBookingComponent = () => {
             <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
               Start At:
             </Typography>
-            <Typography>{createBookingDTO.startAt}</Typography>
+            <Typography>
+              {dayjs(createBookingDTO.startAt).format("DD/MM/YYYY HH:mm")}
+            </Typography>
           </Box>
 
           <Box display="flex" alignItems="center">
@@ -237,7 +246,7 @@ const ConfirmBookingComponent = () => {
 
           <Box display="flex" alignItems="center">
             <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
-              Payment Method: 
+              Payment Method:
             </Typography>
             <Typography>VNPay</Typography>
           </Box>
