@@ -50,6 +50,7 @@ import DashboardVeterinariansPage from '~/pages/AdminPage/DashboardPage/Dashboar
 import ServiceChooseConPageComponent from '~/pages/ServicePageDemo/ServiceChooseConPage/ServiceChooseConPage.component'
 import VeterianNotificationPage from '~/pages/VeterinarianHomePage/VeterianNotificationPage/VeterianNotificationPage.component'
 import SelectVeterinarianByAnyDateTimeComponent from '~/pages/SelectVeterinarianByAnyDateTimePage/SelectByVeterinarianByAnyDateTime.component'
+import AdditionalInfoBookingComponent from '~/pages/AdditionalInfoBookingPage/AdditionalInfoBooking.component'
 
 const RouteComponent = () => {
   return (
@@ -77,6 +78,9 @@ const RouteComponent = () => {
 
 
         <Route path="/veterinarian-information" element={<VeterinarianInformation />} />
+
+        <Route path="/additional-info-booking" element={<AdditionalInfoBookingComponent />} />
+
 
         <Route path='/koihealth' element={<KoiHealthComponent />} />
         <Route path='/veterian' element={<Timetable />} />
