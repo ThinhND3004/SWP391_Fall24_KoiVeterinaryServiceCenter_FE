@@ -13,7 +13,8 @@ function SatisfactionGuaranteed() {
           sx={{
             objectFit: 'contain',
             width: '600px',
-            borderRadius: '26px'
+            borderRadius: '26px',
+            
           }}
         />
         <Box sx={{ width: '600px', borderRadius: '26px' }}>
