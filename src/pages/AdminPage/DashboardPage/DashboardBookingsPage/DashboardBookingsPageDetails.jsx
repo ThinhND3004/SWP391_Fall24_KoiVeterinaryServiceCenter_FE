@@ -3,6 +3,9 @@ import React from 'react'
 import { INPUT_FIELD_COLOR } from '~/theme'
 import { BarChartPro } from '@mui/x-charts-pro/BarChartPro'
 import { PieChart } from '@mui/x-charts/PieChart'
+import ManagementApi from '~/api/ManagementApi'
+import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
 const data = [
   {
@@ -111,6 +114,18 @@ const series = [
 ]
 
 function DashboardPageDetails() {
+
+
+  // //auth
+  // useEffect(() => {
+  //   const checkRole = ManagementApi.permitFor(["ADMIN"]);
+  //   if (!checkRole)
+  //   {
+  //     // useNavigate("/home");
+  //     navigate("/home");
+  //   }
+  // }, [])
+
   return (
     <div style={{ left: '250px', position: 'relative' }}>
       <Breadcrumbs aria-label="breadcrumb">

@@ -105,4 +105,19 @@ export default class ManagementApi {
     }
     return [];
   }
+
+  static async permitFor(roles) {
+    const response = await this.getCurrentAccount();
+    let result = false;
+    console.log("CHECK ACC ROLE: ", response.role);
+    if (response) {
+      const accRole = response.role;
+      if (Array.isArray(roles)) {
+        result = roles.includes(accRole);
+      }
+    }
+    return result;
+
+  }
+
 }

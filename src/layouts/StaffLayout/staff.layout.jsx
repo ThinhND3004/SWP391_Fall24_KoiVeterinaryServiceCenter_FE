@@ -3,11 +3,29 @@ import React from 'react'
 import { Container } from 'react-bootstrap'
 import AdminFooter from '../AdminFooter'
 import Navbar from '../Navbar'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import { BG_COLOR } from '~/theme'
 import StaffHeader from './StaffHeader'
+import { useEffect } from 'react'
+import ManagementApi from '~/api/ManagementApi'
 
 function StaffLayout() {
+
+    //auth
+    const navigate = useNavigate();
+
+//auth
+useEffect(() => {
+  const checkUserRole = async () => {
+    const hasPermission = await ManagementApi.permitFor(["ADMIN", "MANAGER", "STAFF"]);
+    if (!hasPermission) {
+      navigate("/403");
+    }
+  };
+
+  checkUserRole();
+}, [navigate]);
+
   return (
     <Grid2
       container
