@@ -17,7 +17,7 @@ function handleClick(event) {
 }
 
 
-function Profile() {
+function  Profile() {
   const [userInfo, setUserInfo] = useState({});
 
   const handleChangeInfo = (field, value) => {

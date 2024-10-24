@@ -67,7 +67,7 @@ function BookingPageDetails() {
 
   const fetchDataByStatus = async (status) => {
     let data = [];
-    if(status === 'ALL') data = await ManagementApi.getBookings();
+    if (status === 'ALL') data = await ManagementApi.getBookings();
     else data = await ManagementApi.getBookings(status);
 
     const row = data.map((data) => {
@@ -89,12 +89,12 @@ function BookingPageDetails() {
       <Button variant="contained" color="primary" sx={{
         backgroundColor: navBarStatus === content ? ORANGE_COLOR : '',
         color: navBarStatus === content ? 'white' : '',
-        borderRadius: '10px'
+        borderRadius: '10px', boxShadow: 'none'
       }}
-      onClick={()=> {
-        fetchDataByStatus(content);
-        setNavBarStatus(content);
-      }}
+        onClick={() => {
+          fetchDataByStatus(content)
+          setNavBarStatus(content)
+        }}
       >
         {content}
       </Button>
@@ -122,13 +122,6 @@ function BookingPageDetails() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-
-          {/* <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: INPUT_FIELD_COLOR, borderRadius: '10px', gap: 1 }}>
-            <FilterListIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
-            <Typography sx={{ color: GRAY_COLOR, fontWeight: 500, fontSize: '14px' }}>
-              Filter
-            </Typography>
-          </Button> */}
 
           <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: INPUT_FIELD_COLOR, borderRadius: '10px', gap: 1 }}>
             <FileDownloadIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />

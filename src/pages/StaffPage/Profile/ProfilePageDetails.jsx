@@ -207,7 +207,7 @@ function ProfilePageDetails() {
               <DatePicker
                 placeholder="Select your date"
                 label=''
-                value={accountData ? dayjs(accountData.dob) : null} 
+                value={accountData ? dayjs(accountData.dob) : null}
                 sx={{
                   backgroundColor: INPUT_FIELD_COLOR,
                   width: '600px',
