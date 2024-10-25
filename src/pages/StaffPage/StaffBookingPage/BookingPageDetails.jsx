@@ -67,8 +67,8 @@ function BookingPageDetails() {
 
   const fetchDataByStatus = async (status) => {
     let data = [];
-    if (status === 'ALL') data = await ManagementApi.getBookings();
-    else data = await ManagementApi.getBookings(status);
+    if(status === 'ALL') data = await ManagementApi.getBookings();
+    else data = await ManagementApi.getBookings({status: status});
 
     const row = data.map((data) => {
       return {

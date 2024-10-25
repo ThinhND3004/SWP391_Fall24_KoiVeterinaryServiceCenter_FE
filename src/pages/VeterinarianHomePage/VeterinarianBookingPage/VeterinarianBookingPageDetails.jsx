@@ -2,13 +2,15 @@ import { styled, alpha } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import InputBase from '@mui/material/InputBase'
 import SearchIcon from '@mui/icons-material/Search'
-import { BLUE_COLOR, GRAY_COLOR, INPUT_FIELD_COLOR } from '~/theme'
+import { BLUE_COLOR, GRAY_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme'
 import Button from '@mui/material/Button'
-import FilterListIcon from '@mui/icons-material/FilterList'
 import AddIcon from '@mui/icons-material/Add'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import { Typography } from '@mui/material'
 import DynamicDataGrid from './testGrid'
+import ManagementApi from '~/api/ManagementApi'
+import { useEffect, useState } from 'react'
+import TimeUtils from '~/utils/TimeUtils'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -51,25 +53,56 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   }
 }))
 
-function createData(name, dob, fullName, startDate, email, phoneNumber, status) {
-  return { name, dob, fullName, startDate, email, phoneNumber, status }
-}
-
-const rows = [
-  createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspended'),
-  createData('Genevieve U. Watts', '01/01/2000', 'Eget Incorporated', '07/18/2017', 'Nullam.vitae@egestas.edu', '0800 025698', 'Closed'),
-  createData('Kyra S. Baldwin', '01/01/2000', 'Lorem Vitae Limited', '04/14/2016', 'in@elita.org', '0800 237 8846', 'Suspended'),
-  createData('Stephen V. Hill', '01/01/2000', 'Eget Mollis Institute', '03/03/2016', 'eu@vel.com', '0800 682 4591', 'Active'),
-  createData('Vielka Q. Chapman', '01/01/2000', 'Eu Ltd', '06/25/2017', 'orci.Donec.nibh@mauriseratget.edu', '0800 181 5795', 'Suspended'),
-  createData('Ocean W. Curtis', '01/01/2000', 'Eu Ltd', '08/24/2017', 'cursus.et@cursus.edu', '(016977) 9585', 'Active'),
-  createData('Kato F. Tucker', '01/01/2000', 'Vel Lectus Limited', '11/06/2017', 'Duis@Lorem.edu', '070 0981 8503', 'Active'),
-  createData('Robin J. Wise', '01/01/2000', 'Curabitur Dictum PC', '02/09/2017', 'blandit@montesnascetur.edu', '0800 259158', 'Active'),
-  createData('Uriel H. Guerrero', '01/01/2000', 'Mauris Inc.', '02/11/2018', 'vitae@linnecorci.net', '0500 948772', 'Active'),
-  createData('Yasir W. Benson', '01/01/2000', 'At Incorporated', '01/13/2017', 'ornare.elit.elit@atortor.edu', '0391 916 3600', 'Active')
-]
-
 
 function VeterinarianBookingPageDetails() {
+  const [rowData, setRowData] = useState([]);
+  const [navBarStatus, setNavBarStatus] = useState("ALL")
+  
+
+  const fetchDataByStatus = async (status) => {
+    let data = [];
+    const accountInfo = JSON.parse(localStorage.getItem('accountInfo'));
+    const email = accountInfo.email;
+    
+    if(status === 'ALL') data = await ManagementApi.getBookings({veterianEmail: email});
+    else data = await ManagementApi.getBookings({status: status, veterianEmail: email});
+
+    const row = data.map((data) => {
+      return {
+        id: data.id,
+        customer: data.customerFullName,
+        service: data.serviceName,
+        createdAt: TimeUtils.formatDateTime(data.createdAt),
+        startedAt: TimeUtils.formatDateTime(data.startedAt),
+        status: data.statusEnum,
+        details: data
+      };
+    })
+    setRowData(row);
+  }
+
+  function TableNavBar({ content, navBarStatus }) {
+    return (
+      <Button variant="contained" color="primary" sx={{
+        backgroundColor: navBarStatus === content ? ORANGE_COLOR : '',
+        color: navBarStatus === content ? 'white' : '',
+        borderRadius: '10px'
+      }}
+      onClick={()=> {
+        fetchDataByStatus(content);
+        setNavBarStatus(content);
+      }}
+      >
+        {content}
+      </Button>
+    )
+  }
+
+  useEffect(() => {
+    fetchDataByStatus('ALL');
+  }, []);
+
+
   return (
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
@@ -101,18 +134,18 @@ function VeterinarianBookingPageDetails() {
             </Typography>
           </Button>
 
-          <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: BLUE_COLOR, borderRadius: '10px', color: '#fff', gap: 1 }}>
-            <AddIcon sx={{ fontSize: '14px' }} />
-            <Typography sx={{ fontSize: '14px' }}>
-              Add
-            </Typography>
-          </Button>
+          
         </Box>
       </Box>
-
+      {/* Booking Nav Bar  */}
+      <Box display="flex" flexDirection="row" gap={2} marginTop={3}>
+        <TableNavBar content={'ALL'} navBarStatus={navBarStatus} />
+        <TableNavBar content={'CONFIRMED'} navBarStatus={navBarStatus} />
+        <TableNavBar content={'COMPLETED'} navBarStatus={navBarStatus} />
+      </Box>
       {/* Table */}
       <Box sx={{ mt: 3, mb: 3 }}>
-        <DynamicDataGrid data={rows} />
+        <DynamicDataGrid rowData={rowData} />
       </Box>
     </Box>
   )
