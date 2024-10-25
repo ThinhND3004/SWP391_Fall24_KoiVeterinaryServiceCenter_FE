@@ -87,7 +87,7 @@ function Profile() {
   }, [])
 
   return (
-    <div style={{ left: '250px', position: 'relative' }}>
+    <div style={{ position: 'relative' }}>
       <Breadcrumbs aria-label="breadcrumb">
         <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
           {userInfo.firstName} {userInfo.lastName}

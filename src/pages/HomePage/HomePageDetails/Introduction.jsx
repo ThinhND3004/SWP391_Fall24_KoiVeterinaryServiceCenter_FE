@@ -9,16 +9,17 @@ function Introduction() {
     <div>
       <Box
         sx={{
+          mt: 2,
           backgroundImage: 'url("src/assets/images/bg.png")', // Replace with your image URL
-          backgroundSize: '90%',
+          backgroundSize: '100%',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          minHeight: '70vh',
+          minHeight: '75vh',
           padding: '20px'
         }}
       >
         <Box sx={{ textAlign: 'center' }}>
-          <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 80, color: BLUE_COLOR }}>
+          <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: '95px', color: BLUE_COLOR }}>
             Your <span style={{ color: ORANGE_COLOR }}>koi's</span> best
           </Typography>
           <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 80, color: ORANGE_COLOR, marginTop: '-30px' }}>
@@ -26,7 +27,7 @@ function Introduction() {
           </Typography>
         </Box>
 
-        <Typography sx={{ textAlign: 'center', fontSize: 14, marginTop: '10px' }}>
+        <Typography sx={{ textAlign: 'center', fontSize: 15, marginTop: '10px' }}>
           Welcome to Koi Veterinary Service, where we specialize in the health and well-being of your aquatic companions.<br /> Our expert team is dedicated to providing top-notch care for koi, ensuring they thrive in their aquatic environments.
         </Typography>
 

@@ -5,7 +5,7 @@ import PasswordPageDetails from './PasswordPageDetails'
 function StaffPasswordPage() {
   return (
     <div>
-      <Box display={'flex'} flexDirection={'column'} gap={'100px'} px={'30px'}>
+      <Box display={'flex'} flexDirection={'column'}>
         <PasswordPageDetails />
       </Box>
     </div>

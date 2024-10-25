@@ -2,9 +2,11 @@ import React from 'react'
 import { DataGrid } from '@mui/x-data-grid'
 import PropTypes from 'prop-types'
 import { styled } from '@mui/material/styles'
-import { Box } from '@mui/material'
-import { BG_COLOR } from '~/theme'
-import { BorderStyle } from '@mui/icons-material'
+import { Box, Button } from '@mui/material'
+import { BG_COLOR, ORANGE_COLOR } from '~/theme'
+import BookingDialog from './BookingDialog'
+import { useNavigate } from 'react-router-dom'
+
 
 const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   '.MuiDataGrid-columnSeparator': {
@@ -46,13 +48,13 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   }
 }))
 
-const DynamicDataGrid = ({ data, pageSize = 5 }) => {
-  if (!data || !data.length) {
+const DynamicDataGrid = ({ rowData, pageSize = 5 }) => {
+  if (!rowData || !rowData.length) {
     return <div>No data available</div>
   }
 
   // Automatically generate columns based on the keys of the first row
-  const columns = Object.keys(data[0]).map((key) => ({
+  const columns = Object.keys(rowData[0]).map((key) => ({
     field: key,
     headerName: key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
     flex: 1,
@@ -60,8 +62,57 @@ const DynamicDataGrid = ({ data, pageSize = 5 }) => {
     cellClassName: (params) => key === 'status' ? `MuiDataGrid-cell--text${params.value}` : ''
   }))
 
+
+  //Remove rowData.details column
+  columns.pop();
+
+  // Add Report button
+  columns.push({
+    field: "report",
+    headerName: "Report",
+    sortable: false,
+    flex: 1,
+    renderCell: (params) => {
+      const booking = params.row.details;
+      const navigate = useNavigate();
+      if (booking.statusEnum === 'CONFIRMED') {
+        const handleClickOpen = () => {
+          navigate("/veterian/create-report", { state: { booking } }); // Truyền state qua route
+        };
+        return (
+          <Button variant="contained" onClick={handleClickOpen}
+            sx={{
+              margin: '5px 0px',
+              border: '1px solid',
+              borderColor: ORANGE_COLOR,
+              color: ORANGE_COLOR,
+              borderRadius: '10px'
+            }}>
+            Create
+          </Button>
+        )
+      }
+      return <span>View</span>
+
+    }
+  })
+  // Action View Booking Details
+  columns.push({
+    field: "action",
+    headerName: "Action",
+    sortable: false,
+    flex: 1,
+    renderCell: (params) => {
+      const booking = params.row.details;
+
+      return (
+        <BookingDialog booking={booking} />
+      )
+    }
+  })
+
   // Rows are filled directly from the data prop
-  const rows = data.map((item, index) => ({ id: index, ...item }))
+  const rows = rowData.map((item, index) => ({ id: index, ...item }))
 
   return (
     <Box sx={{
@@ -77,6 +128,9 @@ const DynamicDataGrid = ({ data, pageSize = 5 }) => {
         pageSize={pageSize}
         rowsPerPageOptions={[5, 10, 20]}
         disableSelectionOnClick
+
+        //  getRowSpacing={getRowSpacing}
+        // rowSpacingType="border"
         sx={{ '&, [class^=MuiDataGrid]': { border: 'none' } }}
 
       />

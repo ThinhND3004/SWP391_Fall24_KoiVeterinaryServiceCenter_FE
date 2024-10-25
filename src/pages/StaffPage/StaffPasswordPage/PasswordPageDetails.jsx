@@ -11,7 +11,7 @@ function handleClick(event) {
 
 function PasswordPageDetails() {
   return (
-    <div style={{ left: '250px', position: 'relative' }}>
+    <div style={{ position: 'relative' }}>
       <Breadcrumbs aria-label="breadcrumb">
         <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
           Staff
@@ -21,7 +21,7 @@ function PasswordPageDetails() {
         </Typography>
       </Breadcrumbs>
 
-      <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-around', gap: 10 }}>
+      <Box sx={{ display: 'flex', marginTop: '40px', gap: 10 }}>
         <Box>
           <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Enter your old password</Typography>
           <TextField
@@ -50,7 +50,7 @@ function PasswordPageDetails() {
         </Box>
       </Box>
 
-      <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-around', gap: 10 }}>
+      <Box sx={{ display: 'flex', marginTop: '40px', gap: 10 }}>
         <Box>
           <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Enter your new password</Typography>
           <TextField
@@ -79,7 +79,7 @@ function PasswordPageDetails() {
         </Box>
       </Box>
 
-      <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-around', gap: 10 }}>
+      <Box sx={{ display: 'flex', marginTop: '40px', gap: 10 }}>
         <Box>
           <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Comfirm your new password</Typography>
           <TextField

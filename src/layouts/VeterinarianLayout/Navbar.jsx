@@ -9,6 +9,8 @@ import ArticleIcon from '@mui/icons-material/Article'
 import LoginIcon from '@mui/icons-material/Login'
 import { ORANGE_COLOR } from '~/theme'
 import { useState } from 'react'
+import Badge from '@mui/material/Badge'
+import NotificationsIcon from '@mui/icons-material/Notifications'
 
 const menus = [
   {
@@ -54,7 +56,6 @@ function Navbar() {
   return (
     <Box
       sx={{
-        // padding: '20px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'start',
@@ -100,9 +101,26 @@ function Navbar() {
           )
         })}
 
-
         <Divider sx={{ paddingTop: '50px' }} />
-        <Box sx={{ display: 'flex', alignItems: 'center', color: ORANGE_COLOR, paddingTop: '10px' }}>
+        <Box onClick={() => navigate('/veterian/notifications')} sx={{ display: 'flex', alignItems: 'center', color: ORANGE_COLOR, paddingTop: '10px', ml: 2 }}>
+          <Badge badgeContent={4} color="ORANGE COLOR">
+            <NotificationsIcon color="action" sx={{ color: ORANGE_COLOR }} />
+          </Badge>
+          <ListItem button component={Link} to="#" sx={{ color: ORANGE_COLOR, paddingTop: '10px' }}>
+            <ListItemText
+              primary="Notification"
+              primaryTypographyProps={{
+                sx: {
+                  fontSize: '18px',
+                  color: ORANGE_COLOR,
+                  fontWeight: 500
+                }
+              }}
+            />
+          </ListItem>
+        </Box>
+
+        <Box sx={{ display: 'flex', alignItems: 'center', color: ORANGE_COLOR, paddingTop: '10px', ml: 2 }}>
           <LoginIcon />
           <ListItem button component={Link} to="#" sx={{ color: ORANGE_COLOR, paddingTop: '10px' }}>
             <ListItemText
@@ -117,8 +135,8 @@ function Navbar() {
             />
           </ListItem>
         </Box>
-      </List>
-    </Box>
+      </List >
+    </Box >
   )
 }
 

@@ -4,11 +4,11 @@ import ProfilePageDetails from '~/pages/VeterinarianHomePage/Profile/ProfilePage
 
 function ProfilePage() {
   return (
-    <div>
-      <Box display={'flex'} flexDirection={'column'} gap={'100px'} px={'30px'}>
+    <Box display={'flex'} flexDirection={'column'} gap={'50px'} px={'30px'}>
+      <Box sx={{ display: 'flex' }}>
         <ProfilePageDetails />
       </Box>
-    </div>
+    </Box>
   )
 }
 

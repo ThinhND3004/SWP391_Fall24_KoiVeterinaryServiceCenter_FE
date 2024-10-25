@@ -12,17 +12,17 @@ function AdminLayout() {
 
   const navigate = useNavigate();
 
-//auth
-useEffect(() => {
-  const checkUserRole = async () => {
-    const hasPermission = await ManagementApi.permitFor(["ADMIN"]);
-    if (!hasPermission) {
-      navigate("/403");
-    }
-  };
+  //auth
+  useEffect(() => {
+    const checkUserRole = async () => {
+      const hasPermission = await ManagementApi.permitFor(["ADMIN"]);
+      if (!hasPermission) {
+        navigate("/403");
+      }
+    };
 
-  checkUserRole();
-}, [navigate]);
+    checkUserRole();
+  }, [navigate]);
 
   return (
     <Grid2
@@ -32,15 +32,19 @@ useEffect(() => {
       height={'100%'}
       sx={{ m: 0, p: 0, bgcolor: BG_COLOR }}
     >
-      <Container maxWidth={'xl'}>
+      <Container maxWidth={'xl'} container>
         <AdminHeader />
-        <Box display={'flex'} gap={'50px'} px={'30px'}>
-          <Navbar />
-          <Outlet />
+        <Box display={'flex'} justifyContent={'space-around'} gap={'50px'} px={'30px'}>
+          <Box maxWidth={'200px'} width={'100%'}>
+            <Navbar />
+          </Box>
+          <Box maxWidth={'1170px'} width={'100%'}>
+            <Outlet />
+          </Box>
         </Box>
         <AdminFooter />
       </Container>
-    </Grid2>
+    </Grid2 >
   )
 }
 

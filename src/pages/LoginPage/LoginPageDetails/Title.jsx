@@ -7,7 +7,8 @@ import { useNavigate } from 'react-router-dom'
 import api from '~/config/axios'
 import ErrorIcon from '@mui/icons-material/Error'
 import { toast } from 'react-toastify'
-
+import { useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios'
 
 function Title() {
   const navigate = useNavigate()
@@ -20,6 +21,38 @@ function Title() {
   const setTokenWithExpiry = (token) => {
     localStorage.setItem('token', token)
   }
+
+
+  const login = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+        // Log the token response to inspect available fields
+        console.log("Token Response: ", tokenResponse);
+        setLoginMess('')
+        // Use `access_token` to call the backend API
+        const response = await api.get(`/auth/login-google?credential=${tokenResponse.access_token}`);
+        console.log(response.data); // Handle the response from backend
+        setTokenWithExpiry(response.data.data.token);
+        const { data, status, message, err } = response.data
+
+
+      if (status === 200) {
+        localStorage.setItem('token', data.token)
+        setTokenWithExpiry(data.token)
+        navigate('/home')
+        toast.success(message)
+      } else {
+        setLoginMess(err[0])
+        toast.error(err[0] || response?.error?.message)
+      }
+      } catch (error) {
+        console.error("Login failed:", error);
+      }
+    },
+    onError: (error) => console.error("Google Login Failed:", error),
+  });
+  
+
 
   useEffect(() => {
     const isLoginned = localStorage.getItem('token') != null
@@ -91,7 +124,7 @@ function Title() {
 
 
     <div>
-{/* 
+      {/* 
       {loginMess && (
         <Alert
           severity='error'
@@ -117,16 +150,18 @@ function Title() {
 
             {/* Login using Google */}
             <Box sx={{ marginTop: '30px', display: 'flex', justifyContent: 'center' }}>
-              <Button variant="contained" sx={{
-                borderRadius: '15px',
-                bgcolor: INPUT_FIELD_COLOR,
-                height: '60px',
-                width: '560px',
-                fontWeight: 600,
-                fontSize: 16,
-                boxShadow: 'none',
-                gap: 2
-              }}>
+              <Button
+                onClick={() => login()}
+                variant="contained" sx={{
+                  borderRadius: '15px',
+                  bgcolor: INPUT_FIELD_COLOR,
+                  height: '60px',
+                  width: '560px',
+                  fontWeight: 600,
+                  fontSize: 16,
+                  boxShadow: 'none',
+                  gap: 2
+                }}>
                 <img src='src\assets\images\LoginGoogle.png' style={{ width: '20px' }} />
                 Continue with Google
               </Button>

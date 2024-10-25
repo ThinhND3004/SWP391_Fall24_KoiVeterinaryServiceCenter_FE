@@ -54,6 +54,8 @@ import Profile from '~/pages/AdminPage/AdminPageDetails/Profile'
 import UserLayout from '~/layouts/UserLayout/user.layout'
 import SelectVeterinarianByAnyDateTimeComponent from '~/pages/SelectVeterinarianByAnyDateTimePage/SelectByVeterinarianByAnyDateTime.component'
 import AdditionalInfoBookingComponent from '~/pages/AdditionalInfoBookingPage/AdditionalInfoBooking.component'
+import CreateReportPageComponent from '~/pages/VeterinarianHomePage/VeterianCreateReportPage/CreateReportPage.component'
+
 
 const RouteComponent = () => {
   return (
@@ -98,7 +100,7 @@ const RouteComponent = () => {
         {/* <Route path='/dashboard' element={<DashboardPage />} /> */}
         <Route path='/bookings_dashboard' element={<DashboardBookingPage />} />
         <Route path='/veterinarians_dashboard' element={<DashboardVeterinariansPage />} />
-        
+
         <Route path='/admin_password' element={<PasswordPage />} />
         <Route path='/admin_staff' element={<StaffPage />} />
         <Route path='/admin_service' element={<StaffServicePage />} />
@@ -112,8 +114,6 @@ const RouteComponent = () => {
       <Route element={<UserLayout />}>
         <Route path='/profile' element={<AdminHomePage />} />
       </Route>
-    
-
 
       <Route element={<StaffLayout />}>
         <Route path='/staff' element={<StaffHomePage />} />
@@ -132,7 +132,7 @@ const RouteComponent = () => {
         <Route path='/veterinarian_medical_report' element={<VeterinarianMedicalReportPage />} />
         <Route path='/veterinarian_medicine' element={<VeterinarianMedicinePage />} />
         <Route path='/veterian/notifications' element={<VeterianNotificationPage />} />
-
+        <Route path='/veterian/create-report' element={<CreateReportPageComponent />} />
       </Route>
 
       <Route path='/' element={
