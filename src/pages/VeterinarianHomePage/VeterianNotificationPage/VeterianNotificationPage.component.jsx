@@ -1,5 +1,7 @@
-import { Box, Typography } from "@mui/material";
-import NotificationItem from "./VeterianNotification";
+/* eslint-disable indent */
+import { Box, Breadcrumbs, Typography } from "@mui/material"
+import NotificationItem from "./VeterianNotification"
+
 const notifications = [
     {
         id: 1,
@@ -30,11 +32,18 @@ function VeterianNotificationPage() {
 
     return (
         <Box sx={{
-            display: 'flex', flexDirection: 'column', width: '80%', marginLeft: '250px',
+            display: 'flex', flexDirection: 'column'
         }}>
-            <Typography variant="h4" gutterBottom>
-                Notifications
-            </Typography>
+            <Box sx={{ mb: 2 }}>
+                <Breadcrumbs aria-label="breadcrumb">
+                    <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
+                        Admin
+                    </Typography>
+                    <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
+                        Password Management
+                    </Typography>
+                </Breadcrumbs>
+            </Box>
             {notifications.map((notification) => (
                 <NotificationItem
                     key={notification.id}

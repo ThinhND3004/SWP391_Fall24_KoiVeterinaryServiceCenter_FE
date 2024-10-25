@@ -105,7 +105,7 @@ function WhyUs() {
             </Box>
           </Box>
         </Box>
-        <img src="https://img.freepik.com/premium-photo/painting-koi-fish-bowl-with-flowers_961875-254698.jpg" style={{ objectFit: 'contain', width: '400px', borderRadius: '26px' }} />
+        <img src="https://www.businessinsider.in/photo/84116862/Master.jpg" style={{ objectFit: 'contain', width: '600px', borderRadius: '26px' }} />
 
       </Box>
     </div>

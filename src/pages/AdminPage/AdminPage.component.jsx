@@ -8,11 +8,11 @@ function AdminPage() {
   return (
     <div>
       <Box display={'flex'} flexDirection={'column'} gap={'50px'} px={'30px'}>
-      <Box display={'flex'} gap={'50px'} px={'30px'}>
+        <Box sx={{ display: 'flex' }}>
           <Profile />
         </Box>
       </Box>
-    </div>
+    </div >
   )
 }
 

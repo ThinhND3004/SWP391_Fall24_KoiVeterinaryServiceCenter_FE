@@ -16,20 +16,20 @@ function handleClick(event) {
 
 
 function ProfilePageDetails() {
-  const [accountData, setAccountData] = useState(null);
+  const [accountData, setAccountData] = useState(null)
 
   const getCurrentAccount = async () => {
-    const account = await ManagementApi.getCurrentAccount();
-    setAccountData(account);
+    const account = await ManagementApi.getCurrentAccount()
+    setAccountData(account)
     console.log(account)
-  };
+  }
 
   useEffect(() => {
-    getCurrentAccount();
+    getCurrentAccount()
   }, [])
 
   return (
-    <div style={{ left: '250px', position: 'relative' }}>
+    <div style={{ position: 'relative' }}>
       <Breadcrumbs aria-label="breadcrumb">
         <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
           Staff
@@ -72,7 +72,7 @@ function ProfilePageDetails() {
               height: '60px',
               marginTop: '15px',
               padding: '20px 0px',
-              fontSize: '16px',
+              fontSize: '16px'
             }}
           >
             {accountData ? accountData.email : 'Loading...'}
@@ -207,7 +207,7 @@ function ProfilePageDetails() {
               <DatePicker
                 placeholder="Select your date"
                 label=''
-                value={accountData ? dayjs(accountData.dob) : null} 
+                value={accountData ? dayjs(accountData.dob) : null}
                 sx={{
                   backgroundColor: INPUT_FIELD_COLOR,
                   width: '600px',
