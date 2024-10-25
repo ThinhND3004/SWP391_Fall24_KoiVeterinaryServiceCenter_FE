@@ -20,8 +20,8 @@ const SelectVeterinarianByAnyDateTimeComponent = () => {
 
   const navigate = useNavigate();
 
-  console.log(service.id);
-  console.log(serviceAddress);
+  // console.log(service.id);
+  // console.log(serviceAddress);
 
   // State management
   const [veterinarians, setVeterinarians] = useState([]);

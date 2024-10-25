@@ -6,10 +6,7 @@ import { useEffect, useState } from 'react';
 import api from '~/config/axios';
 import { set } from 'date-fns';
 
-const ServiceChooseConPageComponent = () => {
-    // const location = useLocation(); // Nhận dữ liệu từ state
-    // const { service } = location.state || {};
-    // console.log("SERVICE STATE: ", service)
+const   ServiceChooseConPageComponent = () => {   
     const [veterians, setVeterians] = useState([]);
 
     const handleGetVet = async () => {

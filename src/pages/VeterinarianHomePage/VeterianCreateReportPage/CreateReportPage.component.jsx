@@ -17,7 +17,7 @@ function CreateReportPageComponent() {
 
 
     return (
-        <Box marginLeft={'250px'} display={'flex'} flexDirection={'column'} gap={'100px'} px={'30px'} position={'relative'}>
+        <Box display={'flex'} flexDirection={'column'} gap={'100px'} px={'30px'} position={'relative'}>
             <Box sx={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
                 <Breadcrumbs aria-label="breadcrumb">
 
