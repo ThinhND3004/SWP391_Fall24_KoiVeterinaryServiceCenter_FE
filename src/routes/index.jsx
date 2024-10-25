@@ -52,6 +52,7 @@ import VeterianNotificationPage from '~/pages/VeterinarianHomePage/VeterianNotif
 import ForbiddenPageDetail from '~/pages/AdditionalPages/ForbiddenPageDetail'
 import Profile from '~/pages/AdminPage/AdminPageDetails/Profile'
 import UserLayout from '~/layouts/UserLayout/user.layout'
+import CreateReportPageComponent from '~/pages/VeterinarianHomePage/VeterianCreateReportPage/CreateReportPage.component'
 
 const RouteComponent = () => {
   return (
@@ -125,7 +126,7 @@ const RouteComponent = () => {
         <Route path='/veterinarian_medical_report' element={<VeterinarianMedicalReportPage />} />
         <Route path='/veterinarian_medicine' element={<VeterinarianMedicinePage />} />
         <Route path='/veterian/notifications' element={<VeterianNotificationPage />} />
-
+        <Route path='/veterian/create-report' element={<CreateReportPageComponent />} />
       </Route>
 
       <Route path='/' element={
