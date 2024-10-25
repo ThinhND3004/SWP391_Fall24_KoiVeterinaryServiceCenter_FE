@@ -91,7 +91,7 @@ const RouteComponent = () => {
         {/* <Route path='/dashboard' element={<DashboardPage />} /> */}
         <Route path='/bookings_dashboard' element={<DashboardBookingPage />} />
         <Route path='/veterinarians_dashboard' element={<DashboardVeterinariansPage />} />
-        
+
         <Route path='/admin_password' element={<PasswordPage />} />
         <Route path='/admin_staff' element={<StaffPage />} />
         <Route path='/admin_service' element={<StaffServicePage />} />
@@ -105,8 +105,6 @@ const RouteComponent = () => {
       <Route element={<UserLayout />}>
         <Route path='/profile' element={<AdminHomePage />} />
       </Route>
-    
-
 
       <Route element={<StaffLayout />}>
         <Route path='/staff' element={<StaffHomePage />} />

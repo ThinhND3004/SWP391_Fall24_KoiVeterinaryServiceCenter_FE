@@ -21,7 +21,7 @@ function veterinarian() {
         navigate("/403");
       }
     };
-  
+
     checkUserRole();
   }, [navigate]);
 
@@ -33,11 +33,15 @@ function veterinarian() {
       height={'100%'}
       sx={{ m: 0, p: 0, bgcolor: BG_COLOR }}
     >
-      <Container maxWidth={'xl'}>
+      <Container maxWidth={'xl'} container>
         <VeterinarianHeader />
-        <Box display={'flex'} gap={'50px'} px={'30px'}>
-          <Navbar />
-          <Outlet />
+        <Box display={'flex'} justifyContent={'space-around'} gap={'50px'} px={'30px'}>
+          <Box maxWidth={'200px'} width={'100%'}>
+            <Navbar />
+          </Box>
+          <Box maxWidth={'1170px'} width={'100%'}>
+            <Outlet />
+          </Box>
         </Box>
         <AdminFooter />
       </Container>

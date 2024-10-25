@@ -11,7 +11,7 @@ import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
 import { useDispatch, useSelector } from 'react-redux'
 import { setNavbarId } from '~/redux/globalConfigSlice'
-import { GRAY_COLOR, ORANGE_COLOR, BLUE_COLOR } from '~/theme'
+import { GRAY_COLOR, ORANGE_COLOR, BLUE_COLOR, INPUT_FIELD_COLOR } from '~/theme'
 import { Divider } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import api from '~/config/axios'
@@ -43,11 +43,11 @@ const Profile = ({ accInfo, anchorEl, handleMenuClick, handleClose, handleProfil
         py: '20px',
         color: GRAY_COLOR,
         display: 'block',
-        fontWeight: 600,
+        fontWeight: 600
       }}
     >Hi, {accInfo.firstName} {accInfo.lastName}
-
     </Typography>
+
     <IconButton onClick={handleMenuClick} color="inherit">
       <Avatar alt='hello' src='src\assets\images\avtDemo.jpg' />
     </IconButton>
@@ -58,12 +58,13 @@ const Profile = ({ accInfo, anchorEl, handleMenuClick, handleClose, handleProfil
       onClose={handleClose}
       anchorOrigin={{
         vertical: 'top',
-        horizontal: 'right',
+        horizontal: 'right'
       }}
       transformOrigin={{
         vertical: 'top',
-        horizontal: 'right',
+        horizontal: 'right'
       }}
+    // sx={{ bgcolor: '#000' }}
     >
       <MenuItem onClick={handleProfile}>Profile</MenuItem>
       <MenuItem onClick={handleLogout}>Logout</MenuItem>
@@ -343,7 +344,7 @@ function Header() {
         </Toolbar>
       </Container>
       <Divider />
-    </AppBar>
+    </AppBar >
   )
 }
 export default Header

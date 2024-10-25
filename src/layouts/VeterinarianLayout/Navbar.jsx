@@ -56,7 +56,6 @@ function Navbar() {
   return (
     <Box
       sx={{
-        // padding: '20px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'start',
@@ -103,7 +102,7 @@ function Navbar() {
         })}
 
         <Divider sx={{ paddingTop: '50px' }} />
-        <Box sx={{ display: 'flex', alignItems: 'center', color: ORANGE_COLOR, paddingTop: '10px', ml: 2 }}>
+        <Box onClick={() => navigate('/veterian/notifications')} sx={{ display: 'flex', alignItems: 'center', color: ORANGE_COLOR, paddingTop: '10px', ml: 2 }}>
           <Badge badgeContent={4} color="ORANGE COLOR">
             <NotificationsIcon color="action" sx={{ color: ORANGE_COLOR }} />
           </Badge>
@@ -136,8 +135,8 @@ function Navbar() {
             />
           </ListItem>
         </Box>
-      </List>
-    </Box>
+      </List >
+    </Box >
   )
 }
 

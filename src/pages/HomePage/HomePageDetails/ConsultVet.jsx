@@ -10,7 +10,7 @@ function ConsultVet() {
     <div>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box>
-          <img src="src\assets\images\vet.jpg" style={{ objectFit: 'contain', width: '400px', borderRadius: '26px' }} />
+          <img src="https://cafishvet.com/wp-content/uploads/2023/01/fish-veterinarians-aquarium-1024x684.jpg" style={{ objectFit: 'contain', width: '600px', borderRadius: '26px' }} />
         </Box>
         <Box sx={{ width: '650px', borderRadius: '26px', padding: '0px 50px 0px 50px' }}>
           <Typography
