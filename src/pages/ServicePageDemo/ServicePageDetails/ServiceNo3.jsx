@@ -80,9 +80,10 @@ import { useNavigate } from "react-router-dom";
 
 function ServiceNo3({ service }) {
   const navigate = useNavigate();
+  const serviceAddress = "Long Thanh My Ward, Thủ Đức, 71216, Vietnam";
 
   const handlePondInspectDetails = () => {
-    navigate("/pond-inspect", { state: { service } }); // Truyền state qua route
+    navigate("/pond-inspect", { state: { service, serviceAddress } }); // Truyền state qua route
   };
   return (
     <div>

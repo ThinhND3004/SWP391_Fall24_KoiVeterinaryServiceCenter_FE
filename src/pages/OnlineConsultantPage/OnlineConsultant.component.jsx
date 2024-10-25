@@ -7,18 +7,19 @@ import { useLocation } from 'react-router-dom';
 
 const OnlineConsultantComponent = () => {
   const location = useLocation(); // Nhận dữ liệu từ state
-  const { service } = location.state || {};
+  const { service, serviceAddress } = location.state || {};
   console.log(service)
+  console.log(serviceAddress);
 
   return (
     <div>
       <Box display={'flex'} flexDirection={'column'} gap={'100px'} px={'30px'}>
         {/* INTRODUCTION */}
-        <Introduction service={service}/>
+        <Introduction service={service} serviceAddress={serviceAddress}/>
         {/* CONTENT  */}
         <Content service={service}/>
         {/* CHOOSE OPTION  */}
-        <ChooseOption service={service}/>
+        <ChooseOption service={service} serviceAddress={serviceAddress}/>
         
       </Box>
     </div>

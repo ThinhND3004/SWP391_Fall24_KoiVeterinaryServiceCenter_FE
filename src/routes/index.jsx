@@ -52,7 +52,10 @@ import VeterianNotificationPage from '~/pages/VeterinarianHomePage/VeterianNotif
 import ForbiddenPageDetail from '~/pages/AdditionalPages/ForbiddenPageDetail'
 import Profile from '~/pages/AdminPage/AdminPageDetails/Profile'
 import UserLayout from '~/layouts/UserLayout/user.layout'
+import SelectVeterinarianByAnyDateTimeComponent from '~/pages/SelectVeterinarianByAnyDateTimePage/SelectByVeterinarianByAnyDateTime.component'
+import AdditionalInfoBookingComponent from '~/pages/AdditionalInfoBookingPage/AdditionalInfoBooking.component'
 import CreateReportPageComponent from '~/pages/VeterinarianHomePage/VeterianCreateReportPage/CreateReportPage.component'
+
 
 const RouteComponent = () => {
   return (
@@ -77,9 +80,14 @@ const RouteComponent = () => {
         <Route path='/booking-flexible-schedule' element={< BookingFlexibleScheduleComponent />} />
         <Route path='/select-veterian' element={< SelectVeterinarianByAvailableSlotTimeComponent />} />
         <Route path='/confirm-booking' element={< ConfirmBookingComponent />} />
+        <Route path='/select-veterian-by-any-time' element={<  SelectVeterinarianByAnyDateTimeComponent/>} />
+
 
 
         <Route path="/veterinarian-information" element={<VeterinarianInformation />} />
+
+        <Route path="/additional-info-booking" element={<AdditionalInfoBookingComponent />} />
+
 
         <Route path='/koihealth' element={<KoiHealthComponent />} />
         <Route path='/veterian' element={<Timetable />} />

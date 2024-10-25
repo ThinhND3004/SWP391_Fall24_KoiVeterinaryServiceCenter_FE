@@ -16,7 +16,7 @@ const Content = ({ service }) => {
             {service.description}
           </Typography>
 
-          <Typography>
+          {/* <Typography>
             <strong>Price:</strong> ${service.price}
           </Typography>
 
@@ -26,7 +26,7 @@ const Content = ({ service }) => {
 
           <Typography>
             <strong>Address:</strong> {service.address || 'N/A'}
-          </Typography>
+          </Typography> */}
 
           {service.isDisable && (
             <Typography sx={{ color: 'red' }}>
