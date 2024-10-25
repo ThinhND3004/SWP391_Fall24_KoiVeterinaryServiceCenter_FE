@@ -1,20 +1,16 @@
-import React from 'react'
-import Button from '@mui/material/Button'
-import { Box, TextField, Typography } from '@mui/material'
-import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme'
+import { Box, Breadcrumbs, Button, TextField, Typography } from '@mui/material'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import Breadcrumbs from '@mui/material/Breadcrumbs'
-import Link from '@mui/material/Link'
-import Timetable from '~/pages/Management/Verterian/Timetable'
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
+import React from 'react'
+import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme'
 
-function ProfilePageDetails() {
+function CustomerProfileDetails() {
   return (
     <div style={{ position: 'relative' }}>
       <Breadcrumbs aria-label="breadcrumb">
         <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-          Veterinarian
+          Customer
         </Typography>
         <Typography sx={{
           fontWeight: 600, fontSize: '20px'
@@ -246,11 +242,6 @@ function ProfilePageDetails() {
         />
       </Box>
 
-      {/* When2meet */}
-      <Box sx={{}}>
-        <Timetable />
-      </Box>
-
       {/* Submit button */}
       <Box
         sx={{
@@ -291,4 +282,4 @@ function ProfilePageDetails() {
   )
 }
 
-export default ProfilePageDetails
+export default CustomerProfileDetails

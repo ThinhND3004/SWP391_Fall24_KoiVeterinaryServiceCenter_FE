@@ -40,7 +40,7 @@ function VeterianNotificationPage() {
                         Admin
                     </Typography>
                     <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-                        Password Management
+                        Notifications
                     </Typography>
                 </Breadcrumbs>
             </Box>

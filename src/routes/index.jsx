@@ -52,6 +52,9 @@ import VeterianNotificationPage from '~/pages/VeterinarianHomePage/VeterianNotif
 import ForbiddenPageDetail from '~/pages/AdditionalPages/ForbiddenPageDetail'
 import Profile from '~/pages/AdminPage/AdminPageDetails/Profile'
 import UserLayout from '~/layouts/UserLayout/user.layout'
+import CustomerLayout from '~/layouts/CustomerLayout/customer.layout'
+import CustomerPage from '~/pages/CustomerPage/CustomerProfilePage/CustomerProfile.component'
+import CustomerBookingPage from '~/pages/CustomerPage/CustomerBookingPage/CustomerBookingPage.component'
 
 const RouteComponent = () => {
   return (
@@ -123,7 +126,11 @@ const RouteComponent = () => {
         <Route path='/veterinarian_medical_report' element={<VeterinarianMedicalReportPage />} />
         <Route path='/veterinarian_medicine' element={<VeterinarianMedicinePage />} />
         <Route path='/veterian/notifications' element={<VeterianNotificationPage />} />
+      </Route>
 
+      <Route element={<CustomerLayout />}>
+        <Route path='/customer' element={<CustomerPage />} />
+        <Route path='/customer_booking' element={<CustomerBookingPage />} />
       </Route>
 
       <Route path='/' element={
@@ -140,6 +147,10 @@ const RouteComponent = () => {
 
       <Route path='/' element={
         <Navigate to='/veterinarian' relative={true} />
+      } />
+
+      <Route path='/' element={
+        <Navigate to='/customer' relative={true} />
       } />
     </Routes >
   )
