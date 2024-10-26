@@ -85,7 +85,7 @@ export default class ManagementApi {
   }
 
   // BOOKING
-  static async getBookings({status, veterianEmail, page, unitPerPage}) {
+  static async getBookings({ status, veterianEmail, page, unitPerPage }) {
     try {
       const response = await api.get('/bookings', {
         params: { page, unitPerPage, veterianEmail, status }
@@ -113,8 +113,19 @@ export default class ManagementApi {
 
   }
 
+  static async assignVeterianToBooking({ bookingId, veterianEmail }) {
+    try {
+      const response = await api.post(`/bookings/assign-veterian/${bookingId}/${veterianEmail}`);
+      if (response.data.data) return response.data.data;
+    }
+    catch (err) {
+      console.error('Cannot assign Veterian. ' + err.message)
+    }
+    return null;
+  }
+
   // KOI SPECIES
-  static async getKoiSpecies(page, unitPerPage ) {
+  static async getKoiSpecies(page, unitPerPage) {
     try {
       const response = await api.get('/koi-species', {
         page, unitPerPage
@@ -128,7 +139,7 @@ export default class ManagementApi {
   }
 
   // MEDICINES
-  static async getMedicine(page, unitPerPage ) {
+  static async getMedicine(page, unitPerPage) {
     try {
       const response = await api.get('/medicines', {
         page, unitPerPage
@@ -142,9 +153,9 @@ export default class ManagementApi {
   }
 
   // REPORTS
-  static async createReport(requestBody ) {
+  static async createReport(requestBody) {
     try {
-      const response = await api.post('/reports',requestBody);
+      const response = await api.post('/reports', requestBody);
       if (response.data) return true;
     }
     catch (err) {
