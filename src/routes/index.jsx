@@ -57,6 +57,8 @@ import CustomerPage from '~/pages/CustomerPage/CustomerProfilePage/CustomerProfi
 import CustomerBookingPage from '~/pages/CustomerPage/CustomerBookingPage/CustomerBookingPage.component'
 import SelectVeterinarianByAnyDateTimeComponent from '~/pages/SelectVeterinarianByAnyDateTimePage/SelectByVeterinarianByAnyDateTime.component'
 import AdditionalInfoBookingComponent from '~/pages/AdditionalInfoBookingPage/AdditionalInfoBooking.component'
+import PaymentResult from '~/pages/ConfirmBookingPage/PaymentResult'
+import AppointmentComponent from '~/pages/AppointmentListPage/AppointmentList.component'
 
 const RouteComponent = () => {
   return (
@@ -83,7 +85,10 @@ const RouteComponent = () => {
         <Route path='/confirm-booking' element={< ConfirmBookingComponent />} />
         <Route path='/select-veterian-by-any-time' element={<  SelectVeterinarianByAnyDateTimeComponent />} />
 
+        <Route path='/payment-result' element={<  PaymentResult />} />
 
+
+        <Route path='/appointments' element={<  AppointmentComponent />} />
 
         <Route path="/veterinarian-information" element={<VeterinarianInformation />} />
 

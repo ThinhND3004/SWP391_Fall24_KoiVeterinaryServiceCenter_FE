@@ -86,14 +86,14 @@ function Introduction({ service, serviceAddress, veterinarian }) {
               </Typography>
             </Box>
 
-            <Box sx={{ display: "flex", alignItems: "center" }}>
+            {/* <Box sx={{ display: "flex", alignItems: "center" }}>
               <Typography variant="subtitle1" fontWeight="bold">
                 Veterinarian:
               </Typography>
               <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
                 {veterinarian ? veterinarian.fullName : "is not assigned"}
               </Typography>
-            </Box>
+            </Box> */}
           </Box>
         </Box>
 

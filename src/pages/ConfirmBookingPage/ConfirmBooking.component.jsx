@@ -12,82 +12,25 @@ import dayjs from "dayjs";
 
 const ConfirmBookingComponent = () => {
   const location = useLocation(); // Nhận dữ liệu từ state
-  const { createBookingDTO, serviceEntity, veterinarianEntity } =
-    location.state;
+  const { createBookingDTO, serviceEntity, veterinarianEntity } = location.state;
   console.log(createBookingDTO);
-  // console.log(veterinarianEntity.fullName)
 
   const totalPrice =
     createBookingDTO.servicePrice +
     createBookingDTO.travelPrice * createBookingDTO.distanceMeters;
 
-  //sẽ sửa chức năng này sau
 
-  // const handleBooking = async (createBookingDTO) => {
-  //   console.log(createBookingDTO);
-
-  //   try {
-  //     const token = localStorage.getItem("token"); // Lấy token từ localStorage
-  //     console.log(token);
-
-  //     const response = await fetch("http://localhost:8080/bookings", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${token}`, // Thêm Authorization header
-  //       },
-  //       body: JSON.stringify(createBookingDTO), // gửi bookingData lên API
-  //     });
-
-  //     const result = await response.json(); // Lấy dữ liệu phản hồi từ server
-  //     if (!response.ok) {
-  //       throw new Error(result.message || "Failed to create booking");
-  //     }
-  //     console.log(result);
-
-  //     alert("Booking confirmed!");
-  //     // Bạn có thể thêm logic chuyển hướng hoặc cập nhật trạng thái khác tại đây
-  //   } catch (error) {
-  //     console.error("Error creating booking: ", error);
-  //     alert(`Error creating booking: ${error.message}`);
-  //   }
-  // };
-
-  const handleBooking = async (createBookingDTO) => {
-    console.log(createBookingDTO.startAt);
-
+  /**
+   *
+   * @param {*} orderId
+   */
+  const handlePayment = async (createBookingDTO) => {
     try {
-      const token = localStorage.getItem("token"); // Lấy token từ localStorage
-      console.log(token);
+      console.log(createBookingDTO.startAt);
 
-      const response = await fetch("http://localhost:8080/bookings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Thêm Authorization header
-        },
-        body: JSON.stringify(createBookingDTO), // Gửi dữ liệu booking lên API
-      });
+      // Lưu createBookingDTO vào localStorage
+      localStorage.setItem("createBookingDTO", JSON.stringify(createBookingDTO));
 
-      const result = await response.json(); // Lấy dữ liệu phản hồi từ server
-      if (!response.ok) {
-        throw new Error(result.message || "Failed to create booking");
-      }
-
-      console.log(result);
-
-      // if booking is successful, direct to payment
-      const orderId = result.data.id; // get Booking ID
-      console.log("Order ID: " + orderId);
-      handlePayment(orderId); //Handle payment method
-    } catch (error) {
-      console.error("Error creating booking: ", error);
-      alert(`Error creating booking: ${error.message}`);
-    }
-  };
-
-  const handlePayment = async (orderId) => {
-    try {
       const token = localStorage.getItem("token"); // get token from localStorage
 
       //transaction.paymentMethod
@@ -99,7 +42,7 @@ const ConfirmBookingComponent = () => {
       };
 
       const response = await fetch(
-        `http://localhost:8080/vnpay/create-payment/${orderId}`,
+        `http://localhost:8080/vnpay/create-payment`,
         {
           method: "POST",
           headers: {
@@ -261,7 +204,7 @@ const ConfirmBookingComponent = () => {
           <Button
             variant="contained"
             color="secondary"
-            onClick={() => handleBooking(createBookingDTO)}
+            onClick={() => handlePayment(createBookingDTO)}
           >
             Confirm Booking
           </Button>
