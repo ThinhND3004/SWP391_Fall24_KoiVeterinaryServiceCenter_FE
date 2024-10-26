@@ -38,57 +38,68 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     }
 }))
 
-const InfoCard = ({ veterian }) => {
-    return (
-        <Box
-            sx={{
-                border: '1px solid #ccc',
-                borderRadius: '8px',
-                padding: '16px',
-                display: 'flex',
-                alignItems: 'center',
-                maxWidth: '600px',
-                margin: '0 auto',
-            }}
-        >
-            {/* Picture on the left */}
+function VeterianChooseDialog({bookingId, serviceId, startedAt }) {
+
+    const InfoCard = ({ veterian }) => {
+        const handleSend = async () => {
+            console.log(veterian);
+            const data = await ManagementApi.assignVeterianToBooking({
+                bookingId,
+                veterianEmail: veterian.email
+            })
+            if(data != null) window.location.reload();
+        }
+
+        return (
             <Box
-                component="img"
-                src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
-                alt="Profile Picture"
                 sx={{
-                    width: '150px',
-                    height: '150px',
+                    border: '1px solid #ccc',
                     borderRadius: '8px',
-                    objectFit: 'cover',
-                    marginRight: '16px'
+                    padding: '16px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    maxWidth: '600px',
+                    margin: '0 auto',
                 }}
-            />
-
-            {/* Name and Info on the right */}
-            <Box>
-                <Typography variant="h5" component="h2">
-                    {veterian.fullName}
-                </Typography>
-                <Typography variant="body1" color="textSecondary">Certification: {veterian.certification || 'Empty certification'}</Typography>
-                <Typography variant="body1" color="textSecondary">Year Of Experience: {veterian.yearOfExperience || 'Empty Year Of Experience'}</Typography>
-                <Typography variant="body1" color="textSecondary">Education: {veterian.education || 'Empty education  '}</Typography>
-                <Button variant="contained"
+            >
+                {/* Picture on the left */}
+                <Box
+                    component="img"
+                    src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+                    alt="Profile Picture"
                     sx={{
-                        margin: '5px 0px',
-                        backgroundColor: ORANGE_COLOR,
-                        color: 'whitesmoke',
-                        borderRadius: '10px'
-                    }}>
-                    Send invitation
-                </Button>
+                        width: '150px',
+                        height: '150px',
+                        borderRadius: '8px',
+                        objectFit: 'cover',
+                        marginRight: '16px'
+                    }}
+                />
+
+                {/* Name and Info on the right */}
+                <Box>
+                    <Typography variant="h5" component="h2">
+                        {veterian.fullName}
+                    </Typography>
+                    <Typography variant="body1" color="textSecondary">Certification: {veterian.certification || 'Empty certification'}</Typography>
+                    <Typography variant="body1" color="textSecondary">Year Of Experience: {veterian.yearOfExperience || 'Empty Year Of Experience'}</Typography>
+                    <Typography variant="body1" color="textSecondary">Education: {veterian.education || 'Empty education  '}</Typography>
+                    <Button variant="contained"
+                        onClick={() => handleSend()}
+                        sx={{
+                            margin: '5px 0px',
+                            backgroundColor: ORANGE_COLOR,
+                            color: 'whitesmoke',
+                            borderRadius: '10px'
+                        }}>
+                        Send invitation
+                    </Button>
+                </Box>
             </Box>
-        </Box>
-    );
-};
+        );
+    };
 
 
-function VeterianChooseDialog({ serviceId, startedAt }) {
     const [open, setOpen] = useState(false);
     const [idleVeterian, setIdleVeterian] = useState([]);
     const [tempVeterian, setTempVeterian] = useState([]);
@@ -114,7 +125,7 @@ function VeterianChooseDialog({ serviceId, startedAt }) {
                 return data.fullName.toLowerCase().includes(searchValue.toLowerCase());
             });
         }
-        
+
         setSearchValue(searchValue);
         setTempVeterian(returnData.length > 0 ? returnData : []);
     }
@@ -133,7 +144,7 @@ function VeterianChooseDialog({ serviceId, startedAt }) {
             <Dialog open={open} onClose={handleClose} aria-labelledby="booking-dialog-title"
                 PaperProps={{
                     sx: {
-                        width: '50%', 
+                        width: '50%',
                     }
                 }}
             >
