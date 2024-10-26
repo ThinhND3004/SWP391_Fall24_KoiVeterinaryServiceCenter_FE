@@ -6,7 +6,7 @@ function Quality() {
   return (
     <div>
       <Box sx={{ display: 'flex', height: '500px' }}>
-        <Box sx={{ position: 'relative', background: `url(${koiAboutImg}) no-repeat 50% 50%`, width: '740px', height: '710px', top: '-100px' }} />
+        <Box sx={{ position: 'relative', background: `url(${koiAboutImg}) no-repeat 50% 50%`, width: '740px', height: '710px', top: '-130px' }} />
         <Box sx={{ width: '800px', position: 'relative', top: 100 }}>
           <Typography
             sx={{

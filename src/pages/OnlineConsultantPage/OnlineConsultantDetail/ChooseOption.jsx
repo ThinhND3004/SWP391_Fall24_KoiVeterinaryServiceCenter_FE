@@ -12,7 +12,7 @@ function ChooseOption({ service, serviceAddress }) {
   };
 
   const handleSelectVeterianClick = () => {
-    navigate('/service-choose-consultant', { state: { service, serviceAddress } }); 
+    navigate('/service-choose-consultant', { state: { service, serviceAddress } });
   }
 
   return (
@@ -27,7 +27,7 @@ function ChooseOption({ service, serviceAddress }) {
               <Typography variant="body1" sx={{ marginBottom: '10px', fontWeight: 500 }}>
                 Choose a specific doctor based on availability.
               </Typography>
-              <Button sx={{ borderRadius: '14px' }}
+              <Button sx={{ borderRadius: '40px', height: '60px', width: '200px' }}
                 variant="contained"
                 color="secondary"
                 onClick={() => window.location.href = '/service-choose-consultant'}
@@ -44,7 +44,7 @@ function ChooseOption({ service, serviceAddress }) {
               <Typography variant="body1" sx={{ marginBottom: '10px', fontWeight: 500 }}>
                 Let us assign a doctor for you at a flexible time.
               </Typography>
-              <Button sx={{ borderRadius: '14px' }}
+              <Button sx={{ borderRadius: '40px', height: '60px', width: '200px' }}
                 variant="contained"
                 color="secondary"
                 onClick={handleFlexibleScheduleClick}

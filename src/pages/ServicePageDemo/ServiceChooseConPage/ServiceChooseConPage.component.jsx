@@ -1,13 +1,14 @@
 /* eslint-disable indent */
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import Introduction from './Introduction'
 import SerivceChooseCon from './serviceChooseConPageDetail'
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import api from '~/config/axios';
 import { set } from 'date-fns';
+import { ORANGE_COLOR } from '~/theme';
 
-const   ServiceChooseConPageComponent = () => {   
+const ServiceChooseConPageComponent = () => {
     const [veterians, setVeterians] = useState([]);
 
     const handleGetVet = async () => {
@@ -45,7 +46,10 @@ const   ServiceChooseConPageComponent = () => {
                         <SerivceChooseCon key={veterian.email} veterian={veterian} />
                     ))
                 ) : (
-                    <p>No veterinarians available</p> // Fallback if no vets are available
+                    <Typography sx={{ fontWeight: 600, fontSize: '20px', mb: 5, mt: 5, color: ORANGE_COLOR }}>
+                        {/* <p>No veterinarians available</p> // Fallback if no vets are available */}
+                        No veterinarians available
+                    </Typography>
                 )}
 
             </Box>

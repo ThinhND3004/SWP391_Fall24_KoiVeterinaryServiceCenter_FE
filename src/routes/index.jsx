@@ -55,6 +55,8 @@ import UserLayout from '~/layouts/UserLayout/user.layout'
 import CustomerLayout from '~/layouts/CustomerLayout/customer.layout'
 import CustomerPage from '~/pages/CustomerPage/CustomerProfilePage/CustomerProfile.component'
 import CustomerBookingPage from '~/pages/CustomerPage/CustomerBookingPage/CustomerBookingPage.component'
+import SelectVeterinarianByAnyDateTimeComponent from '~/pages/SelectVeterinarianByAnyDateTimePage/SelectByVeterinarianByAnyDateTime.component'
+import AdditionalInfoBookingComponent from '~/pages/AdditionalInfoBookingPage/AdditionalInfoBooking.component'
 
 const RouteComponent = () => {
   return (
@@ -79,7 +81,7 @@ const RouteComponent = () => {
         <Route path='/booking-flexible-schedule' element={< BookingFlexibleScheduleComponent />} />
         <Route path='/select-veterian' element={< SelectVeterinarianByAvailableSlotTimeComponent />} />
         <Route path='/confirm-booking' element={< ConfirmBookingComponent />} />
-        <Route path='/select-veterian-by-any-time' element={<  SelectVeterinarianByAnyDateTimeComponent/>} />
+        <Route path='/select-veterian-by-any-time' element={<  SelectVeterinarianByAnyDateTimeComponent />} />
 
 
 

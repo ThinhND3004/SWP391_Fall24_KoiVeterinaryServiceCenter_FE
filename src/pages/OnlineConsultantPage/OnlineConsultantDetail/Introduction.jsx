@@ -14,9 +14,8 @@ function Introduction({ service, serviceAddress }) {
           <Typography
             sx={{
               fontFamily: "SVN-Konga Pro",
-              fontSize: "45px",
+              fontSize: "48px",
               color: BLUE_COLOR,
-              // mb: 2, // margin bottom
             }}
           >
             {service.name}
@@ -30,16 +29,16 @@ function Introduction({ service, serviceAddress }) {
 
           <Box sx={{ marginTop: 2 }}>
             <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-              <Typography variant="subtitle1" fontWeight="bold">
+              <Typography sx={{ fontWeight: 700 }}>
                 Price:
               </Typography>
-              <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
+              <Typography sx={{ fontWeight: 700 }}>
                 ${service.price}
               </Typography>
             </Box>
 
             <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-              <Typography variant="subtitle1" fontWeight="bold">
+              <Typography sx={{ fontWeight: 700 }}>
                 Estimated Time:
               </Typography>
               <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>

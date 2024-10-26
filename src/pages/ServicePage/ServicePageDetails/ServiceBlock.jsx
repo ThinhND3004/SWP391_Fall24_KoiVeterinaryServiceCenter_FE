@@ -45,7 +45,9 @@ function ServiceBlock({ service }) {
               marginTop: "20px",
               backgroundColor: BLUE_COLOR,
               color: "white",
-              borderRadius: '14px'
+              borderRadius: '40px',
+              width: '150px',
+              height: '50px'
             }}
           >
             Learn more
