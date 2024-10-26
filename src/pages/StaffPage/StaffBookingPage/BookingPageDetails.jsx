@@ -55,7 +55,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function BookingPageDetails() {
   const [rowData, setRowData] = useState([]);
-  const [navBarStatus, setNavBarStatus] = useState("ALL")
+  const [navBarStatus, setNavBarStatus] = useState('ALL')
 
   function formatDate(dateString) {
     const date = new Date(dateString);
@@ -67,7 +67,7 @@ function BookingPageDetails() {
 
   const fetchDataByStatus = async (status) => {
     let data = [];
-    if(status === 'ALL') data = await ManagementApi.getBookings();
+    if(status === 'ALL') data = await ManagementApi.getBookings({});
     else data = await ManagementApi.getBookings({status: status});
 
     const row = data.map((data) => {

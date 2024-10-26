@@ -4,12 +4,16 @@ import { Box, Typography, Button, Grid } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
 
 
-function ChooseOption({ service }) {
+function ChooseOption({ service, serviceAddress }) {
   const navigate = useNavigate(); // Hook từ React Router
 
   const handleFlexibleScheduleClick = () => {
-    navigate('/booking-flexible-schedule', { state: { service } }); // Truyền state qua route
+    navigate('/select-veterian-by-any-time', { state: { service, serviceAddress } }); // Truyền state qua route
   };
+
+  const handleSelectVeterianClick = () => {
+    navigate('/service-choose-consultant', { state: { service, serviceAddress } }); 
+  }
 
   return (
     <div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { BLUE_COLOR, ONLINE_BUTTON } from '~/theme';
 
-function Introduction({ service }) {
+function Introduction({ service, serviceAddress }) {
   return (
     <div>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -49,7 +49,7 @@ function Introduction({ service }) {
           </Typography>
 
           <Typography>
-            <strong>Address:</strong> {service.address || "N/A"}
+            <strong>Address:</strong> {serviceAddress || "N/A"}
           </Typography>
         </Box>
         <img

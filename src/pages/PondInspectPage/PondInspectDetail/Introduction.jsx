@@ -2,7 +2,8 @@ import React from "react";
 import { BLUE_COLOR, ORANGE_COLOR, OFFLINE_BUTTON } from "~/theme";
 import { Box, Typography } from "@mui/material";
 
-function Introduction({ service }) {
+function Introduction({ service, serviceAddress }) {
+  console.log(serviceAddress);
   console.log(service);
   return (
     <div>
@@ -63,7 +64,7 @@ function Introduction({ service }) {
                 Address:
               </Typography>
               <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
-                {service.address || "N/A"}
+                {serviceAddress || "N/A"}
               </Typography>
             </Box>
           </Box>

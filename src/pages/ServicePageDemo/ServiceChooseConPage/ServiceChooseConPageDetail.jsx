@@ -10,18 +10,21 @@ import Grid from '@mui/material/Grid2';
 import { size } from 'lodash'
 import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const ServiceChooseCon = ({ veterian }) => {
-    console.log("VETERIAN:", veterian.timeSlot[0].date)
-
+    const location = useLocation(); // Nhận dữ liệu từ state
+    const { service, serviceAddress } = location.state || {};
     const [date, setDate] = useState(veterian.timeSlot[0].date);
     const [dateAvai, setDateAvai] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (date) {
             console.log("DATE", date);
             setDateAvai(date);
         }
+        console.log("SERVICEEEEE", service)
     }, [date])
 
     const handleDateChange = (event) => {
@@ -29,6 +32,21 @@ const ServiceChooseCon = ({ veterian }) => {
         setDateAvai(date);
 
     };
+
+    const handleClickTimeSlot = (slotEntity) => {
+        
+        const date = new Date(`${dateAvai}T${slotEntity.startTime}`); // :00 for seconds
+        console.log("DATE SUBMIT",date.toISOString());
+
+        navigate("/additional-info-booking", {
+            state: {
+                service,
+                serviceAddress,
+                veterinarian: veterian,
+                selectedDateTime: date.toISOString()
+            },
+        });
+    }
 
     return (
         <div>
@@ -127,7 +145,7 @@ const ServiceChooseCon = ({ veterian }) => {
                                                 }}
                                                 variant="contained"
                                                 fullWidth
-                                                onClick={() => alert(`You selected ${slotEntity.startTime} - ${slotEntity.endTime}`)}
+                                                onClick={() => handleClickTimeSlot(slotEntity)}
                                             >
                                                 {slotEntity.startTime} - {slotEntity.endTime}
                                             </Button>

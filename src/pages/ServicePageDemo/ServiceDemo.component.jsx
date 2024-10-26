@@ -74,9 +74,28 @@ const SerivceComponent = () => {
             <Introduction />
             {/* Duyệt qua danh sách dịch vụ và truyền vào các component tương ứng */}
 
-            {services.map((service, index) => {
+            {/* {services.map((service, index) => {
                 return <ServiceNo1 service={service} key={index}/>
-            })}
+            })} */}
+
+            {/* Duyệt qua danh sách dịch vụ và truyền vào các component tương ứng */}
+            {services.length > 0 && (
+                <>
+                    {services.map((service, index) => {
+                        if (service.name === 'Online Consultant') {
+                            return <ServiceNo1 service={service} key={index} />;
+                        } else if (service.name === 'Koi Treatment at center') {
+                            return <ServiceNo2_1 service={service} key={index} />;
+                        } else if (service.name === 'Koi Treatment at home') {
+                            return <ServiceNo2_2 service={service} key={index} />;
+                        } else if (service.name === 'Pond Quality') {
+                            return <ServiceNo3 service={service} key={index} />;
+                        }
+                        return null;
+                    })}
+                </>
+            )}
+
                 {/* {services.length > 0 && (
                         <>
                             <ServiceNo2_1 service={services.find(service => service.name === 'Koi Treatment at center')} />

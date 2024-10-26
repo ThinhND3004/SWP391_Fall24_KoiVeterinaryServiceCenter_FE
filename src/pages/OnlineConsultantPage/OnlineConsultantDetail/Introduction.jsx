@@ -6,7 +6,7 @@ import {
 } from "~/theme";
 import MeetingMethodTagHolder from "~/pages/ServicePage/ServicePageDetails/MethodMeetingTag";
 
-function Introduction({ service }) {
+function Introduction({ service, serviceAddress }) {
   return (
     <Box>
       <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
@@ -44,6 +44,15 @@ function Introduction({ service }) {
               </Typography>
               <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
                 {service.estimatedTime || "N/A"}
+              </Typography>
+            </Box>
+
+            <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+              <Typography variant="subtitle1" fontWeight="bold">
+                Address:
+              </Typography>
+              <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
+                {serviceAddress || "N/A"}
               </Typography>
             </Box>
 

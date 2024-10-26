@@ -79,9 +79,14 @@ const RouteComponent = () => {
         <Route path='/booking-flexible-schedule' element={< BookingFlexibleScheduleComponent />} />
         <Route path='/select-veterian' element={< SelectVeterinarianByAvailableSlotTimeComponent />} />
         <Route path='/confirm-booking' element={< ConfirmBookingComponent />} />
+        <Route path='/select-veterian-by-any-time' element={<  SelectVeterinarianByAnyDateTimeComponent/>} />
+
 
 
         <Route path="/veterinarian-information" element={<VeterinarianInformation />} />
+
+        <Route path="/additional-info-booking" element={<AdditionalInfoBookingComponent />} />
+
 
         <Route path='/koihealth' element={<KoiHealthComponent />} />
         <Route path='/veterian' element={<Timetable />} />
