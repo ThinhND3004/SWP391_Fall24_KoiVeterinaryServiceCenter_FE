@@ -14,7 +14,7 @@ function ServiceNo2() {
           <Typography
             sx={{
               fontFamily: 'SVN-Konga Pro',
-              fontSize: '45px',
+              fontSize: '44px',
               color: BLUE_COLOR,
               display: 'flex',
               justifyContent: 'start'

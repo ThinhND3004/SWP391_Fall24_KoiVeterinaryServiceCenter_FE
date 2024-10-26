@@ -37,8 +37,8 @@ function Introduction({ service }) {
             textAlign: "center",
             backgroundColor: ONLINE_BUTTON,
             color: "white",
-            width: 100,
-            borderRadius: "10px",
+            width: 150,
+            borderRadius: "14px",
             height: "30px",
             marginBottom: 2, // Margin bottom for spacing
             display: "flex",
@@ -91,7 +91,7 @@ function Introduction({ service }) {
         src="https://cdn.shopify.com/s/files/1/1083/2612/files/koi2_480x480.jpg?v=1719301650"
         sx={{
           objectFit: "contain",
-          width: "500px",
+          width: "600px",
           borderRadius: "26px",
           marginLeft: 2, // Margin left for spacing
         }}

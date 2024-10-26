@@ -13,42 +13,44 @@ function ChooseOption({ service }) {
 
   return (
     <div>
-      {/* Grid to display options with images and descriptions */}
-      <Grid container spacing={2}>
-        {/* Select Doctor option */}
-        <Grid item xs={6}>
-          <Box textAlign="center">
-            <img src="/images/select-doctor.png" alt="Select Doctor" style={{ width: '80px', marginBottom: '10px' }} />
-            <Typography variant="body1" sx={{ marginBottom: '10px' }}>
-              Choose a specific doctor based on availability.
-            </Typography>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => window.location.href = '/service-choose-consultant'}
-            >
-              Select Veterinarian
-            </Button>
-          </Box>
-        </Grid>
+      <Box sx={{ mb: 5 }}>
+        {/* Grid to display options with images and descriptions */}
+        <Grid container spacing={2}>
+          {/* Select Doctor option */}
+          <Grid item xs={6}>
+            <Box textAlign="center">
+              <img src="/images/select-doctor.png" alt="Select Doctor" style={{ width: '80px', marginBottom: '10px' }} />
+              <Typography variant="body1" sx={{ marginBottom: '10px', fontWeight: 500 }}>
+                Choose a specific doctor based on availability.
+              </Typography>
+              <Button sx={{ borderRadius: '14px' }}
+                variant="contained"
+                color="secondary"
+                onClick={() => window.location.href = '/service-choose-consultant'}
+              >
+                Select Veterinarian
+              </Button>
+            </Box>
+          </Grid>
 
-        {/* Flexible Schedule option */}
-        <Grid item xs={6}>
-          <Box textAlign="center">
-            <img src="/images/flexible-schedule.png" alt="Flexible Schedule" style={{ width: '80px', marginBottom: '10px' }} />
-            <Typography variant="body1" sx={{ marginBottom: '10px' }}>
-              Let us assign a doctor for you at a flexible time.
-            </Typography>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={handleFlexibleScheduleClick}
-            >
-              Flexible Schedule
-            </Button>
-          </Box>
+          {/* Flexible Schedule option */}
+          <Grid item xs={6}>
+            <Box textAlign="center">
+              <img src="/images/flexible-schedule.png" alt="Flexible Schedule" style={{ width: '80px', marginBottom: '10px' }} />
+              <Typography variant="body1" sx={{ marginBottom: '10px', fontWeight: 500 }}>
+                Let us assign a doctor for you at a flexible time.
+              </Typography>
+              <Button sx={{ borderRadius: '14px' }}
+                variant="contained"
+                color="secondary"
+                onClick={handleFlexibleScheduleClick}
+              >
+                Flexible Schedule
+              </Button>
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
+      </Box>
     </div>
   )
 }

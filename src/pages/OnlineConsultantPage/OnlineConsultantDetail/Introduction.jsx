@@ -16,7 +16,7 @@ function Introduction({ service }) {
               fontFamily: "SVN-Konga Pro",
               fontSize: "45px",
               color: BLUE_COLOR,
-              mb: 2, // margin bottom
+              // mb: 2, // margin bottom
             }}
           >
             {service.name}
@@ -24,7 +24,7 @@ function Introduction({ service }) {
 
           <MeetingMethodTagHolder meetingMethod={service.meetingMethod} serviceType={service.type} />
 
-          <Typography sx={{ fontWeight: 400, fontSize: 16, lineHeight: 2 }}>
+          <Typography sx={{ fontWeight: 400, fontSize: 16, lineHeight: 2, mt: 4 }}>
             {service.overview}
           </Typography>
 
@@ -55,7 +55,7 @@ function Introduction({ service }) {
           src="https://cdn.shopify.com/s/files/1/1083/2612/files/koi2_480x480.jpg?v=1719301650"
           sx={{
             objectFit: "contain",
-            width: "500px",
+            width: "600px",
             borderRadius: "26px",
             ml: 2, // margin left
           }}

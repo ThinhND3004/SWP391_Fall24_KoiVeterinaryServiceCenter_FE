@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { Box } from '@mui/material'
 import Introduction from './Introduction'
 import SerivceChooseCon from './serviceChooseConPageDetail'
@@ -13,16 +14,16 @@ const ServiceChooseConPageComponent = () => {
     const [veterians, setVeterians] = useState([]);
 
     const handleGetVet = async () => {
-        const serviceId = localStorage.getItem("serviceId");
+        const serviceId = localStorage.getItem('serviceId');
         try {
             const response = await api.get(`/accounts/veterian-with-time-slot/${serviceId}`);
             if (response.data && Array.isArray(response.data.data)) {
                 setVeterians(response.data.data); // Đảm bảo dữ liệu trả về là mảng
             } else {
-                console.log("Unexpected data format: ", response.data);
+                console.log('Unexpected data format: ', response.data);
             }
         } catch (err) {
-            console.log("ERROR GET VET: ", err);
+            console.log('ERROR GET VET: ', err);
         }
     };
     // Optional: useEffect to log the updated state
