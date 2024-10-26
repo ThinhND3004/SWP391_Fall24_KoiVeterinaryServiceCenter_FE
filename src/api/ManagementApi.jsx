@@ -1,18 +1,11 @@
 import api from "~/config/axios";
-
-function formatDate(dateString) {
-  const date = new Date(dateString);
-  const day = String(date.getMonth() + 1).padStart(2, '0');
-  const month = String(date.getDate()).padStart(2, '0');
-  const year = date.getFullYear();
-  return `${month}/${day}/${year}`;
-}
+import TimeUtils from "~/utils/TimeUtils";
 
 function setAccountData(data) {
   return {
     fullName: data.firstName + ' ' + data.lastName,
-    dob: formatDate(data.dob),
-    createdAt: formatDate(data.createAt),
+    dob: TimeUtils.formatDate(data.dob),
+    createdAt: TimeUtils.formatDateTime(data.createAt),
     email: data.email,
     phoneNumber: data.phone,
     status: data.disable ? 'Suspended' : 'Active',
@@ -26,7 +19,7 @@ function setBookingData(data) {
     veterian: data.veterinarianFullName,
     service: data.serviceName,
     totalPrice: data.totalPrice,
-    createdAt: formatDate(data.createdAt),
+    createdAt: TimeUtils.formatDateTime(data.createdAt),
     status: data.statusEnum
   }
 }
@@ -43,7 +36,7 @@ export default class ManagementApi {
       firstName: data.firstName,
       lastName: data.lastName,
       phoneNumber: data.phone,
-      dob: formatDate(data.dob),
+      dob: TimeUtils.formatDate(data.dob),
       address: data.address
     };;
   }
@@ -92,10 +85,10 @@ export default class ManagementApi {
   }
 
   // BOOKING
-  static async getBookings(status, page, unitPerPage) {
+  static async getBookings({status, veterianEmail, page, unitPerPage}) {
     try {
       const response = await api.get('/bookings', {
-        params: { page, unitPerPage, status }
+        params: { page, unitPerPage, veterianEmail, status }
       });
       console.log("RESPONSE DATA: ", response.data.data);
       if (response.data.data) return response.data.data;
@@ -120,4 +113,43 @@ export default class ManagementApi {
 
   }
 
+  // KOI SPECIES
+  static async getKoiSpecies(page, unitPerPage ) {
+    try {
+      const response = await api.get('/koi-species', {
+        page, unitPerPage
+      });
+      if (response.data.data) return response.data.data;
+    }
+    catch (err) {
+      console.error('Cannot get Koi species: ' + err.message)
+    }
+    return [];
+  }
+
+  // MEDICINES
+  static async getMedicine(page, unitPerPage ) {
+    try {
+      const response = await api.get('/medicines', {
+        page, unitPerPage
+      });
+      if (response.data.data) return response.data.data;
+    }
+    catch (err) {
+      console.error('Cannot get Medicines: ' + err.message)
+    }
+    return [];
+  }
+
+  // REPORTS
+  static async createReport(requestBody ) {
+    try {
+      const response = await api.post('/reports',requestBody);
+      if (response.data) return true;
+    }
+    catch (err) {
+      console.error('Cannot get Medicines: ' + err.message)
+    }
+    return false;
+  }
 }
