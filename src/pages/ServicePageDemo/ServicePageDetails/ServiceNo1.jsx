@@ -175,7 +175,7 @@ function ServiceNo1({ service }) {
               marginTop: "20px",
               backgroundColor: BLUE_COLOR,
               color: "white",
-              borderRadius: '14px',
+              borderRadius: '14px'
             }}
           >
             Learn more

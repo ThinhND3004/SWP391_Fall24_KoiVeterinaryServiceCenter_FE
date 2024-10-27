@@ -48,11 +48,11 @@ function OurService() {
                             <img
                                 width='100'
                                 height="100"
-                                src="src\assets\images\medicine.png"
+                                src="src\assets\images\pond.png"
                                 alt="Koi care"
                             />
                             <Typography gutterBottom variant="h6" sx={{ fontWeight: 600, color: BLUE_COLOR }}>
-                                Koi Care
+                                Pond Quality
                             </Typography>
                         </Box>
                     </Box>
@@ -64,11 +64,11 @@ function OurService() {
                             <img
                                 width='100'
                                 height="100"
-                                src="src\assets\images\doctor.png"
+                                src="src\assets\images\onlineConsultation.png"
                                 alt="Koi care"
                             />
                             <Typography gutterBottom variant="h6" sx={{ fontWeight: 600, color: BLUE_COLOR }}>
-                                Veterinary
+                                Online Consult
                             </Typography>
                         </Box>
                     </Box>
@@ -79,11 +79,11 @@ function OurService() {
                             <img
                                 width='100'
                                 height="100"
-                                src="src\assets\images\vaccination.png"
+                                src="src\assets\images\housing.png"
                                 alt="Koi care"
                             />
                             <Typography gutterBottom variant="h6" sx={{ fontWeight: 600, color: BLUE_COLOR }}>
-                                Vaccination
+                                Home Treatment
                             </Typography>
                         </Box>
                     </Box>
@@ -95,11 +95,11 @@ function OurService() {
                             <img
                                 width='100'
                                 height="100"
-                                src="src\assets\images\gloves.png"
+                                src="src\assets\images\animal-care.png"
                                 alt="Koi care"
                             />
                             <Typography gutterBottom variant="h6" sx={{ fontWeight: 600, color: BLUE_COLOR }}>
-                                Cleaning
+                                Center Treatment
                             </Typography>
                         </Box>
                     </Box>
