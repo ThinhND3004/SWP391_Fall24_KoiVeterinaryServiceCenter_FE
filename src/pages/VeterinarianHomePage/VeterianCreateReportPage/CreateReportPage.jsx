@@ -82,42 +82,46 @@ function CreateReportPage({ booking }) {
     return (
         <Box component="form" gap={10}>
             {/* KOI SPECIES */}
-            <Box sx={{ display: 'flex' }} >
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 {/* <Label label='Koi Species' /> */}
-                <Typography sx={{ fontSize: 20, fontWeight: 500, pr: 10 }}>Koi Species:</Typography>
-                <Box display={'flex'} gap={5}>
-                    {addKoiSpecies.map((item, index) => {
-                        return (
-                            <Box key={item.id} display={'flex'} gap={1} justifyContent="center" alignItems="left">
-                                <Typography sx={{ fontWeight: 400, fontSize: 20 }}>{item.name}</Typography>
-                                <Button color={'black'} onClick={() => handleRemoveItem(index)}>
-                                    <ClearIcon />
-                                </Button>
-                            </Box>
-                        )
-                    })}
+                <Typography sx={{ fontSize: 16, fontWeight: 500, pr: 10 }}>Koi Species:</Typography>
+
+                <Box display="flex" gap={5} alignItems="center">
+                    {addKoiSpecies.map((item, index) => (
+                        <Box
+                            key={item.id}
+                            display="flex"
+                            gap={1}
+                            alignItems="center"
+                        >
+                            <Typography sx={{ fontWeight: 400, fontSize: 16 }}>{item.name}</Typography>
+                            <Button color="black" onClick={() => handleRemoveItem(index)}>
+                                <ClearIcon />
+                            </Button>
+                        </Box>
+                    ))}
                     <KoiSpeciesDialog addKoiSpecies={addKoiSpecies} onAddClick={handleAddClick} />
                 </Box>
             </Box>
 
             {/* POND */}
             <Box display={'flex'} mt={5}>
-                <Typography sx={{ fontSize: 20, fontWeight: 500, pr: 10 }}>Pond:</Typography>
+                <Typography sx={{ fontSize: 16, fontWeight: 500, pr: 10 }}>Pond:</Typography>
                 <Box display={'block'} gap={1}>
                     {pond ?
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, ml: 8 }}>
                             {/* <Typography variant="body1"><strong>Pond Name:</strong> {pond.name}</Typography> */}
-                            <Typography variant="body1" sx={{ fontSize: 20 }}><strong>Pond Name:</strong> {pond.name}</Typography>
-                            <Typography variant="body1" sx={{ fontSize: 20 }}><strong>Size (m²):</strong> {pond.sizeSquareMeters}</Typography>
-                            <Typography variant="body1" sx={{ fontSize: 20 }}><strong>Depth (m):</strong> {pond.depthMeters}</Typography>
-                            <Typography variant="body1" sx={{ fontSize: 20 }}><strong>Water Type:</strong> {pond.waterType}</Typography>
-                            <Typography variant="body1" sx={{ fontSize: 20 }}><strong>Temperature (°C):</strong> {pond.temperatureCelsius}</Typography>
-                            <Typography variant="body1" sx={{ fontSize: 20 }}><strong>pH Level:</strong> {pond.pHLevel}</Typography>
-                            <Typography variant="body1" sx={{ fontSize: 20 }}><strong>Last Maintenance:</strong> {pond.lastMaintenanceDate}</Typography>
+                            <Typography variant="body1" sx={{ fontSize: 16 }}>Pond Name: {pond.name}</Typography>
+                            <Typography variant="body1" sx={{ fontSize: 16 }}>Size (m²): {pond.sizeSquareMeters}</Typography>
+                            <Typography variant="body1" sx={{ fontSize: 16 }}>Depth (m): {pond.depthMeters}</Typography>
+                            <Typography variant="body1" sx={{ fontSize: 16 }}>Water Type: {pond.waterType}</Typography>
+                            <Typography variant="body1" sx={{ fontSize: 16 }}>Temperature (°C): {pond.temperatureCelsius}</Typography>
+                            <Typography variant="body1" sx={{ fontSize: 16 }}>pH Level: {pond.pHLevel}</Typography>
+                            <Typography variant="body1" sx={{ fontSize: 16 }}>Last Maintenance: {pond.lastMaintenanceDate}</Typography>
 
                             <Box sx={{ display: 'flex', gap: 3 }}>
                                 <CreatePondDialog setPond={setPond} edit={true} />
-                                <Button variant="contained" sx={{ padding: '6px', minWidth: 'auto', boxShadow: 'none', bgcolor: ORANGE_COLOR, borderRadius: '10px', color: '#fff', width: '100px' }}
+                                <Button variant="contained" sx={{ padding: '6px', minWidth: 'auto', boxShadow: 'none', bgcolor: ORANGE_COLOR, borderRadius: '14px', color: '#fff', width: '100px' }}
                                     onClick={() => setPond(null)}>
                                     Cancel
                                 </Button>
@@ -132,20 +136,20 @@ function CreateReportPage({ booking }) {
 
             {/* DIAGNOSIS */}
             <Box display={'flex'} mt={5}>
-                <Typography sx={{ fontSize: 20, fontWeight: 500, pr: 10 }}>Diagnosis:</Typography>
+                <Typography sx={{ fontSize: 16, fontWeight: 500, pr: 10 }}>Diagnosis:</Typography>
                 {/* <Label label={'Diagnosis'} /> */}
                 <TextAreaComponent value={diagnosis} setValue={setDiagnosis} />
             </Box>
 
             {/* NOTES */}
             <Box display={'flex'} mt={5}>
-                <Typography sx={{ fontSize: 20, fontWeight: 500, pr: 15 }}>Notes:</Typography>
+                <Typography sx={{ fontSize: 16, fontWeight: 500, pr: 14 }}>Notes:</Typography>
                 <TextAreaComponent value={notes} setValue={setNotes} />
             </Box>
 
             {/* PRESCRIPTION */}
             <Box display={'flex'} mt={5}>
-                <Typography sx={{ fontSize: 20, fontWeight: 500, pr: 10 }}>Prescription:</Typography>
+                <Typography sx={{ fontSize: 16, fontWeight: 500, pr: 10 }}>Prescription:</Typography>
                 <Box display={'flex'} gap={1}>
                     {medicines.map((item, index) => {
                         return (
@@ -153,10 +157,10 @@ function CreateReportPage({ booking }) {
                                 key={index}
                                 display="flex"
                                 gap={2}
-                                justifyContent="center"
-                                alignItems="center"
+                            // justifyContent="center"
+                            // alignItems="center"
                             >
-                                <Typography sx={{ fontWeight: 400, fontSize: 20 }}>{item.name}</Typography>
+                                <Typography sx={{ fontWeight: 400, fontSize: 16 }}>{item.name}</Typography>
                                 <NumberInput value={item.quantity} setValue={(e) => handleQuantityChange(e, index)} />
                                 <Button color="black" onClick={() => handleMedicineRemove(index)}>
                                     <ClearIcon />
@@ -165,7 +169,7 @@ function CreateReportPage({ booking }) {
 
                         )
                     })}
-                    <Box sx={{ mt: 3 }}>
+                    <Box>
                         <PrescriptionsDialog addMedicines={medicines} handleMedicineAdd={handleMedicineAdd} />
                     </Box>
                 </Box>

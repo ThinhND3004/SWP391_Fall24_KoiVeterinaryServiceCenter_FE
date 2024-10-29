@@ -137,7 +137,7 @@ function KoiSpeciesDialog({ addKoiSpecies, onAddClick }) {
 
     return (
         <Box>
-            <Button variant="contained" sx={{ padding: '6px', minWidth: 'auto', boxShadow: 'none', bgcolor: INPUT_FIELD_COLOR, borderRadius: '10px', color: '#000' }}
+            <Button variant="contained" sx={{ padding: '6px', minWidth: 'auto', boxShadow: 'none', bgcolor: BLUE_COLOR, borderRadius: '14px', color: '#fff', width: '150px', height: '40px' }}
                 onClick={handleClickOpen}
             >
                 {/* <AddIcon sx={{ fontSize: '14px' }} /> */}

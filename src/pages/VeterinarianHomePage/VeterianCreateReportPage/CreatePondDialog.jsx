@@ -52,7 +52,7 @@ function CreatePondDialog({ setPond, edit }) {
     return (
         <Box>
 
-            <Button variant="contained" sx={{ padding: '6px', minWidth: 'auto', boxShadow: 'none', bgcolor: BLUE_COLOR, borderRadius: '10px', color: '#fff', width: '100px' }}
+            <Button variant="contained" sx={{ padding: '6px', minWidth: 'auto', boxShadow: 'none', bgcolor: BLUE_COLOR, borderRadius: '14px', color: '#fff', width: '150px', height: '40px' }}
                 onClick={handleClickOpen}
             >
                 {edit ? 'Edit' :
