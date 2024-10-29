@@ -57,6 +57,7 @@ import CustomerPage from '~/pages/CustomerPage/CustomerProfilePage/CustomerProfi
 import CustomerBookingPage from '~/pages/CustomerPage/CustomerBookingPage/CustomerBookingPage.component'
 import SelectVeterinarianByAnyDateTimeComponent from '~/pages/SelectVeterinarianByAnyDateTimePage/SelectByVeterinarianByAnyDateTime.component'
 import AdditionalInfoBookingComponent from '~/pages/AdditionalInfoBookingPage/AdditionalInfoBooking.component'
+import LoginPageAdmin from '~/pages/LoginPageAdmin/LoginPageAdmin.component'
 
 const RouteComponent = () => {
   return (
@@ -95,6 +96,9 @@ const RouteComponent = () => {
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/requestAppointment' element={<RequestAppointment />} />
+
+        <Route path='/login/admin' element={<LoginPageAdmin />} />
+        {/* <Route path='/register/admin' element={<RegisterPageAdmin />} /> */}
       </Route>
 
       <Route element={<AdminLayout />}>
