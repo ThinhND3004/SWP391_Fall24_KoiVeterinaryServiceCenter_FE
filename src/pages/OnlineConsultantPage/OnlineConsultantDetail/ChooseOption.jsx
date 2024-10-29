@@ -30,7 +30,7 @@ function ChooseOption({ service, serviceAddress }) {
               <Button sx={{ borderRadius: '40px', height: '60px', width: '200px' }}
                 variant="contained"
                 color="secondary"
-                onClick={() => window.location.href = '/service-choose-consultant'}
+                onClick={handleSelectVeterianClick}
               >
                 Select Veterinarian
               </Button>

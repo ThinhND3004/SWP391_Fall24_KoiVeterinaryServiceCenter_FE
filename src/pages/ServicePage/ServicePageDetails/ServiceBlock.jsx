@@ -7,9 +7,10 @@ import { useNavigate } from 'react-router-dom';
 function ServiceBlock({ service }) {
   const navigate = useNavigate();
 
+  const serviceAddress = "Long Thanh My Ward, Thủ Đức, 71216, Vietnam";
   const handleOnlineConsultantDetails = () => {
     localStorage.setItem("serviceId", service.id)
-    navigate("/online-consultant", { state: { service } }); // Truyền state qua route
+    navigate("/online-consultant", { state: { service, serviceAddress } }); // Truyền state qua route
   };
 
   return (
