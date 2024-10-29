@@ -192,7 +192,7 @@ function Header() {
     handleClose();
 
     //test
-    // window.location.href = "/customer";
+    window.location.href = "/customer";
 
     console.log("Go to profile...");
     // Add your profile navigation logic here
@@ -236,13 +236,13 @@ function Header() {
     }
   };
 
-  // Handle Appointment List
-  const handleAppointments = async () => {
+  // Handle Booking List
+  const handleBookingList = async () => {
     const token = getToken();
     if (token) {
-      navigate("/appointments"); // Điều hướng đến trang lịch hẹn
+      navigate("/booking-list");
     } else {
-      navigate("/login"); // Điều hướng đến trang đăng nhập nếu chưa có token
+      navigate("/login");
     }
   };
 
@@ -370,16 +370,16 @@ function Header() {
             />
           )}
 
-          {/* Appointment Button  */}
+          {/* Booking Button  */}
           <Box
             sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end" }}
           >
             {/* Render Button Lịch hẹn */}
             <Button
-              onClick={handleAppointments}
+              onClick={handleBookingList}
               sx={{ marginLeft: 2, color: BLUE_COLOR }} // Sử dụng mã màu hoặc biến màu tùy chọn
             >
-              Appointment
+              Booking
             </Button>
           </Box>
         </Toolbar>

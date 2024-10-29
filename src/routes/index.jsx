@@ -44,7 +44,7 @@ import ConfirmBookingComponent from '~/pages/ConfirmBookingPage/ConfirmBooking.c
 import DeliveryPage from '~/pages/AdminPage/DeliveryPage/DeliveryPage.component'
 import AdminMedicinePage from '~/pages/AdminPage/MedicinePage/AdminMedicinePage.component'
 import SelectVeterinarianByAvailableSlotTimeComponent from '~/pages/SelectVeterinarianByAvailableSlotTimePage/SelectVeterinarianByAvailableSlotTimePage.component'
-import VeterinarianInformation from '~/pages/SelectVeterinarianByAvailableSlotTimePage/VeterinarianInfomation/VeterinarianInformation'
+import VeterinarianInformation from '~/pages/VeterinarianInfomation/VeterinarianInformation'
 import DashboardBookingPage from '~/pages/AdminPage/DashboardPage/DashboardBookingsPage/DashboardBookingsPage.component'
 import DashboardVeterinariansPage from '~/pages/AdminPage/DashboardPage/DashboardVeterinarianPage/DashboardVeterinariansPage.component'
 import ServiceChooseConPageComponent from '~/pages/ServicePageDemo/ServiceChooseConPage/ServiceChooseConPage.component'
@@ -58,8 +58,8 @@ import CustomerBookingPage from '~/pages/CustomerPage/CustomerBookingPage/Custom
 import SelectVeterinarianByAnyDateTimeComponent from '~/pages/SelectVeterinarianByAnyDateTimePage/SelectByVeterinarianByAnyDateTime.component'
 import AdditionalInfoBookingComponent from '~/pages/AdditionalInfoBookingPage/AdditionalInfoBooking.component'
 import PaymentResult from '~/pages/ConfirmBookingPage/PaymentResult'
-import AppointmentComponent from '~/pages/AppointmentListPage/AppointmentList.component'
 import CustomerPasswordComponent from '~/pages/CustomerPage/CustomerPasswordPage/CustomerPassword.component'
+import BookingListComponent from '~/pages/BookingListPage/BookingList.component'
 
 const RouteComponent = () => {
   return (
@@ -85,14 +85,8 @@ const RouteComponent = () => {
         <Route path='/select-veterian' element={< SelectVeterinarianByAvailableSlotTimeComponent />} />
         <Route path='/confirm-booking' element={< ConfirmBookingComponent />} />
         <Route path='/select-veterian-by-any-time' element={<  SelectVeterinarianByAnyDateTimeComponent />} />
-
         <Route path='/payment-result' element={<  PaymentResult />} />
-
-
-        <Route path='/appointments' element={<  AppointmentComponent />} />
-
         <Route path="/veterinarian-information" element={<VeterinarianInformation />} />
-
         <Route path="/additional-info-booking" element={<AdditionalInfoBookingComponent />} />
 
 
@@ -101,6 +95,7 @@ const RouteComponent = () => {
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/requestAppointment' element={<RequestAppointment />} />
+        <Route path='/booking-list' element={<  BookingListComponent />} />
       </Route>
 
       <Route element={<AdminLayout />}>
@@ -143,8 +138,8 @@ const RouteComponent = () => {
 
       <Route element={<CustomerLayout />}>
         <Route path='/customer' element={<CustomerPage />} />
-        <Route path='/customer_booking' element={<CustomerBookingPage />} />
-        <Route path='/customer_password' element={<CustomerPasswordComponent />} />
+        {/* <Route path='/customer_booking' element={<CustomerBookingPage />} />
+        <Route path='/customer_password' element={<CustomerPasswordComponent />} /> */}
 
       </Route>
 
