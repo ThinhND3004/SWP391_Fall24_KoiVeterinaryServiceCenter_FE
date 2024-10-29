@@ -62,7 +62,7 @@ const BookingListDetails = () => {
   return (
     <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
       <h2 style={{ textAlign: "center", color: "#4A4A4A", fontSize: "24px" }}>
-        Appointments
+        Bookings
       </h2>
 
       {/* Dropdown chọn tiêu chí sắp xếp */}
