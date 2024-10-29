@@ -1,14 +1,17 @@
+/* eslint-disable indent */
+/* eslint-disable semi */
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button, Typography, Box, styled, InputBase, alpha } from '@mui/material';
 import { useEffect, useState } from "react";
-import { GRAY_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme';
+import { BLUE_COLOR, GRAY_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme';
 import SearchIcon from '@mui/icons-material/Search'
 import ManagementApi from '~/api/ManagementApi';
 import AddIcon from '@mui/icons-material/Add';
+import { BlurLinear } from '@mui/icons-material';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    backgroundColor: INPUT_FIELD_COLOR,
     '&:hover': {
         backgroundColor: INPUT_FIELD_COLOR
     },
@@ -48,44 +51,44 @@ function KoiSpeciesDialog({ addKoiSpecies, onAddClick }) {
         return (
             <Box
                 sx={{
-                    border: '1px solid #ccc',
-                    borderRadius: '8px',
                     padding: '16px',
                     display: 'flex',
                     alignItems: 'center',
-                    maxWidth: '600px',
-                    margin: '0 auto',
+                    width: '100%'
                 }}
             >
                 {/* Picture on the left */}
                 <Box
                     component="img"
-                    src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+                    src="https://cdn11.bigcommerce.com/s-upcqwyrrdy/product_images/uploaded_images/koi-closeup-front-view.jpg"
                     alt="Profile Picture"
                     sx={{
                         width: '150px',
                         height: '150px',
-                        borderRadius: '8px',
+                        borderRadius: '14px',
                         objectFit: 'cover',
-                        marginRight: '16px'
+                        marginRight: '30px'
                     }}
                 />
 
                 {/* Name and Info on the right */}
                 <Box>
-                    <Typography variant="h5" component="h2">
+                    <Typography sx={{ fontWeight: 500, fontSize: 30, fontFamily: 'SVN-Konga Pro', color: BLUE_COLOR }}>
                         {koiSpecies.name}
                     </Typography>
-                    <Typography variant="body1" color="textSecondary">
+                    <Typography sx={{ fontWeight: 400, fontSize: '17px', mt: 1 }}>
                         {koiSpecies.description || 'Empty description'}
                     </Typography>
                     <Button variant="contained"
                         onClick={handleAdd}
                         sx={{
-                            margin: '5px 0px',
+                            // margin: '5px 0px',
                             backgroundColor: ORANGE_COLOR,
                             color: 'whitesmoke',
-                            borderRadius: '10px'
+                            borderRadius: '14px',
+                            mt: 1,
+                            boxShadow: 'none',
+                            width: '60px'
                         }}>
                         Add
                     </Button>
@@ -134,34 +137,51 @@ function KoiSpeciesDialog({ addKoiSpecies, onAddClick }) {
 
     return (
         <Box>
-            <Button variant="contained" sx={{ padding: '6px', minWidth: 'auto', boxShadow: 'none', bgcolor: ORANGE_COLOR, borderRadius: '10px', color: '#fff' }}
+            <Button variant="contained" sx={{ padding: '6px', minWidth: 'auto', boxShadow: 'none', bgcolor: INPUT_FIELD_COLOR, borderRadius: '10px', color: '#000' }}
                 onClick={handleClickOpen}
             >
-                <AddIcon sx={{ fontSize: '14px' }} />
+                {/* <AddIcon sx={{ fontSize: '14px' }} /> */}
+                <Typography sx={{}}>
+                    Select koi fish
+                </Typography>
             </Button>
 
-            <Dialog open={open} onClose={handleClose} aria-labelledby="booking-dialog-title"
+            <Dialog open={open}
+                onClose={handleClose}
+                aria-labelledby="booking-dialog-title"
+                maxWidth="md"
+                fullWidth
                 PaperProps={{
                     sx: {
-                        width: '50%',
+                        width: '800px',
+                        maxWidth: '90%',
+                        bgcolor: INPUT_FIELD_COLOR,
+                        borderRadius: '30px'
                     }
                 }}
             >
                 <DialogTitle sx={{
-                    marginBottom: '5px',
+                    marginTop: 4,
+                    mb: 2
                 }}>
-                    Choose Koi Species
+                    <Typography sx={{ fontWeight: 600, fontSize: 30, textAlign: 'center' }}>
+                        Choose Koi Species
+                    </Typography>
                 </DialogTitle>
 
                 <DialogContent >
                     <Search sx={{
-                        borderRadius: '10px',
-                        bgcolor: INPUT_FIELD_COLOR
+                        borderRadius: '14px',
+                        bgcolor: INPUT_FIELD_COLOR,
+                        border: `1px solid ${GRAY_COLOR}`,
+                        height: '50px',
+                        display: 'flex',
+                        mb: 2
                     }}>
                         <SearchIconWrapper>
-                            <SearchIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
+                            <SearchIcon sx={{ color: GRAY_COLOR, fontSize: '16px' }} />
                         </SearchIconWrapper>
-                        <StyledInputBase sx={{ fontSize: '14px' }}
+                        <StyledInputBase sx={{ fontSize: '16px' }}
                             placeholder="Search..."
                             inputProps={{ 'aria-label': 'search' }}
                             onChange={handleSearching}
@@ -172,13 +192,14 @@ function KoiSpeciesDialog({ addKoiSpecies, onAddClick }) {
                             tempKoiSpecies.map((item) => {
                                 return <KoiSpeciesBlock koiSpecies={item} />
                             }) :
-                            <div>No data available</div>
+                            <Typography sx={{ color: ORANGE_COLOR, fontWeight: 500 }}>No data available</Typography>
+                            // <div>No data available</div>
                         }
                     </Box>
                 </DialogContent>
 
                 <DialogActions>
-                    <Button onClick={handleClose} sx={{ color: 'red' }}>
+                    <Button onClick={handleClose} sx={{ bgcolor: BLUE_COLOR, borderRadius: '14px', color: 'white', width: '100px', height: '40px', mr: 6, mb: 3 }}>
                         Close
                     </Button>
                 </DialogActions>

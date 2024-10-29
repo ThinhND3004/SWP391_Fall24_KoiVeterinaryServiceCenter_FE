@@ -4,9 +4,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CreateReportPage from './CreateReportPage';
 import BookingDetails from './BookingDetails';
+import { BLUE_COLOR } from '~/theme';
 
 function CreateReportPageComponent() {
-    const location = useLocation(); 
+    const location = useLocation();
     const navigate = useNavigate();
     const { booking } = location.state || {};
     console.log(booking)
@@ -21,20 +22,25 @@ function CreateReportPageComponent() {
             <Box sx={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
                 <Breadcrumbs aria-label="breadcrumb">
 
-                    <Button
-                        onClick={handleLinkClick}
-                        sx={{
-                            color: 'mediumblue',
-                             alignItems: 'center', 
-                             padding: '0', 
-                             '&:hover': {
-                                borderBottom: '2px solid mediumblue', 
-                            },
-                        }}
-                    >
-                        <ArrowBackIcon fontSize='small' />
-                        Back
-                    </Button>
+                    <Box sx={{ display: 'flex', textAlign: 'center', justifyContent: 'center' }}>
+                        <Button
+                            onClick={handleLinkClick}
+                            sx={{
+                                gap: 1,
+                                color: BLUE_COLOR,
+                                alignItems: 'center',
+                                padding: '0',
+                                '&:hover': {
+                                    borderBottom: `2px solid ${BLUE_COLOR}`,
+                                },
+                            }}
+                        >
+                            <ArrowBackIcon fontSize='small' />
+                            <Typography sx={{ fontSize: '20px', fontWeight: 500 }}>
+                                Back
+                            </Typography>
+                        </Button>
+                    </Box>
 
                     <Typography sx={{
                         fontWeight: 600, fontSize: '20px'
@@ -44,9 +50,10 @@ function CreateReportPageComponent() {
                     </Typography>
                 </Breadcrumbs>
             </Box>
-            < BookingDetails booking={booking}/>
+
+            < BookingDetails booking={booking} />
             < CreateReportPage booking={booking} />
         </Box>
-        )
+    )
 }
 export default CreateReportPageComponent

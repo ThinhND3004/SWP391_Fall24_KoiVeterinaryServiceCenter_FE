@@ -57,6 +57,9 @@ import CustomerPage from '~/pages/CustomerPage/CustomerProfilePage/CustomerProfi
 import CustomerBookingPage from '~/pages/CustomerPage/CustomerBookingPage/CustomerBookingPage.component'
 import SelectVeterinarianByAnyDateTimeComponent from '~/pages/SelectVeterinarianByAnyDateTimePage/SelectByVeterinarianByAnyDateTime.component'
 import AdditionalInfoBookingComponent from '~/pages/AdditionalInfoBookingPage/AdditionalInfoBooking.component'
+import PaymentResult from '~/pages/ConfirmBookingPage/PaymentResult'
+import LoginPageAdmin from '~/pages/LoginPageAdmin/LoginPageAdmin.component'
+import CreateReportPageComponent from '~/pages/VeterinarianHomePage/VeterianCreateReportPage/CreateReportPage.component'
 
 const RouteComponent = () => {
   return (
@@ -86,12 +89,12 @@ const RouteComponent = () => {
         <Route path='/payment-result' element={<  PaymentResult />} />
 
 
-        <Route path='/appointments' element={<  AppointmentComponent />} />
+        {/* <Route path='/appointments' element={<  AppointmentComponent />} /> */}
 
         <Route path="/veterinarian-information" element={<VeterinarianInformation />} />
 
         <Route path="/additional-info-booking" element={<AdditionalInfoBookingComponent />} />
-
+        <Route path='/veterian/create-report' element={<CreateReportPageComponent />} />
 
         <Route path='/koihealth' element={<KoiHealthComponent />} />
         <Route path='/veterian' element={<Timetable />} />

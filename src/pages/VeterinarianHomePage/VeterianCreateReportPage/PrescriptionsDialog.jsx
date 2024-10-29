@@ -1,6 +1,6 @@
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button, Typography, Box, styled, InputBase, alpha } from '@mui/material';
 import { useEffect, useState } from "react";
-import { GRAY_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme';
+import { BLUE_COLOR, GRAY_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme';
 import SearchIcon from '@mui/icons-material/Search'
 import ManagementApi from '~/api/ManagementApi';
 import AddIcon from '@mui/icons-material/Add';
@@ -49,7 +49,7 @@ function PrescriptionsDialog({ addMedicines, handleMedicineAdd }) {
         return (
             <Box
                 sx={{
-                    border: '1px solid #ccc',
+                    // border: '1px solid #ccc',
                     borderRadius: '8px',
                     padding: '16px',
                     display: 'flex',
@@ -81,7 +81,8 @@ function PrescriptionsDialog({ addMedicines, handleMedicineAdd }) {
                             margin: '5px 0px',
                             backgroundColor: ORANGE_COLOR,
                             color: 'whitesmoke',
-                            borderRadius: '10px'
+                            borderRadius: '10px',
+                            boxShadow: 'none'
                         }}>
                         Add
                     </Button>
@@ -129,34 +130,47 @@ function PrescriptionsDialog({ addMedicines, handleMedicineAdd }) {
 
     return (
         <Box>
-            <Button variant="contained" sx={{ padding: '6px', minWidth: 'auto', boxShadow: 'none', bgcolor: ORANGE_COLOR, borderRadius: '10px', color: '#fff' }}
+            <Button variant="contained" sx={{ padding: '6px', minWidth: 'auto', boxShadow: 'none', bgcolor: BLUE_COLOR, borderRadius: '10px', color: '#fff' }}
                 onClick={handleClickOpen}
             >
-                <AddIcon sx={{ fontSize: '14px' }} />
+                <Typography>Add Medicine</Typography>
+                {/* <AddIcon sx={{ fontSize: '14px' }} /> */}
             </Button>
 
-            <Dialog open={open} onClose={handleClose} aria-labelledby="booking-dialog-title"
+            <Dialog open={open}
+                onClose={handleClose}
+                aria-labelledby="booking-dialog-title"
+                maxWidth="md"
+                fullWidth
                 PaperProps={{
                     sx: {
-                        width: '50%',
+                        width: '700px',
+                        maxWidth: '90%',
+                        bgcolor: INPUT_FIELD_COLOR,
+                        borderRadius: '30px'
                     }
                 }}
             >
                 <DialogTitle sx={{
-                    marginBottom: '5px',
+                    marginTop: 4,
+                    mb: 2
                 }}>
-                    Choose Medicine
+                    <Typography sx={{ fontWeight: 600, fontSize: 30, textAlign: 'center' }}>Choose Medicine</Typography>
                 </DialogTitle>
 
                 <DialogContent >
                     <Search sx={{
-                        borderRadius: '10px',
-                        bgcolor: INPUT_FIELD_COLOR
+                        borderRadius: '14px',
+                        bgcolor: INPUT_FIELD_COLOR,
+                        border: `1px solid ${GRAY_COLOR}`,
+                        height: '50px',
+                        display: 'flex',
+                        mb: 2
                     }}>
                         <SearchIconWrapper>
-                            <SearchIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
+                            <SearchIcon sx={{ color: GRAY_COLOR, fontSize: '16px' }} />
                         </SearchIconWrapper>
-                        <StyledInputBase sx={{ fontSize: '14px' }}
+                        <StyledInputBase sx={{ fontSize: '16px' }}
                             placeholder="Search..."
                             inputProps={{ 'aria-label': 'search' }}
                             onChange={handleSearching}
@@ -167,13 +181,13 @@ function PrescriptionsDialog({ addMedicines, handleMedicineAdd }) {
                             tempMedicines.map((item) => {
                                 return <MedicineBlock medicine={item} />
                             }) :
-                            <div>No data available</div>
+                            <Typography sx={{ color: ORANGE_COLOR, fontWeight: 500 }}>No data available</Typography>
                         }
                     </Box>
                 </DialogContent>
 
                 <DialogActions>
-                    <Button onClick={handleClose} sx={{ color: 'red' }}>
+                    <Button onClick={handleClose} sx={{ bgcolor: BLUE_COLOR, borderRadius: '14px', color: 'white', width: '100px', height: '40px', mr: 6, mb: 3 }}>
                         Close
                     </Button>
                 </DialogActions>
