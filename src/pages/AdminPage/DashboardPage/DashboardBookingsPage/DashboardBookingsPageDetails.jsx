@@ -6,6 +6,7 @@ import { PieChart } from '@mui/x-charts/PieChart'
 import ManagementApi from '~/api/ManagementApi'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
+import { LineChart } from '@mui/x-charts/LineChart'
 
 const data = [
   {
@@ -142,83 +143,98 @@ function DashboardPageDetails() {
 
 
       <Box sx={{ display: 'flex', gap: 2, mt: 2, alignItems: 'center' }}>
-        <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <Box sx={{
-              bgcolor: INPUT_FIELD_COLOR,
-              width: '250px',
-              height: '150px',
-              borderRadius: '20px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}>
-              <Typography sx={{ fontWeight: 600, fontSize: '16px' }}>
-                Total Working Time
-              </Typography>
-              <Typography sx={{ fontWeight: 600, fontSize: '32px' }}>
-                380hrs
-              </Typography>
-            </Box>
-
-            <Box sx={{
-              bgcolor: INPUT_FIELD_COLOR,
-              width: '250px',
-              height: '150px',
-              borderRadius: '20px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}>
-              <Typography sx={{ fontWeight: 600, fontSize: '16px' }}>
-                Total Working Time
-              </Typography>
-              <Typography sx={{ fontWeight: 600, fontSize: '32px' }}>
-                380hrs
-              </Typography>
-            </Box>
-          </Box>
-
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <Box sx={{
-              bgcolor: INPUT_FIELD_COLOR,
-              width: '250px',
-              height: '150px',
-              borderRadius: '20px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}>
-              <Typography sx={{ fontWeight: 600, fontSize: '16px' }}>
-                Total Working Time
-              </Typography>
-              <Typography sx={{ fontWeight: 600, fontSize: '32px' }}>
-                380hrs
-              </Typography>
-            </Box>
-
-            <Box sx={{
-              bgcolor: INPUT_FIELD_COLOR,
-              width: '250px',
-              height: '150px',
-              borderRadius: '20px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}>
-              <Typography sx={{ fontWeight: 600, fontSize: '16px' }}>
-                Total Working Time
-              </Typography>
-              <Typography sx={{ fontWeight: 600, fontSize: '32px' }}>
-                380hrs
-              </Typography>
-            </Box>
-          </Box>
+        {/* Chart */}
+        <Box sx={{ bgcolor: INPUT_FIELD_COLOR, borderRadius: '20px', height: '320px', mt: 2 }}>
+          <LineChart
+            xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
+            series={[
+              {
+                data: [2, -5.5, 2, -7.5, 1.5, 6],
+                area: true,
+                baseline: 'min',
+              },
+            ]}
+            width={500}
+            height={300}
+          />
         </Box>
+        {/* <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <Box sx={{
+              bgcolor: INPUT_FIELD_COLOR,
+              width: '250px',
+              height: '150px',
+              borderRadius: '20px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              <Typography sx={{ fontWeight: 600, fontSize: '16px' }}>
+                Total Working Time
+              </Typography>
+              <Typography sx={{ fontWeight: 600, fontSize: '32px' }}>
+                380hrs
+              </Typography>
+            </Box>
+
+            <Box sx={{
+              bgcolor: INPUT_FIELD_COLOR,
+              width: '250px',
+              height: '150px',
+              borderRadius: '20px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              <Typography sx={{ fontWeight: 600, fontSize: '16px' }}>
+                Total Working Time
+              </Typography>
+              <Typography sx={{ fontWeight: 600, fontSize: '32px' }}>
+                380hrs
+              </Typography>
+            </Box>
+          </Box>
+
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <Box sx={{
+              bgcolor: INPUT_FIELD_COLOR,
+              width: '250px',
+              height: '150px',
+              borderRadius: '20px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              <Typography sx={{ fontWeight: 600, fontSize: '16px' }}>
+                Total Working Time
+              </Typography>
+              <Typography sx={{ fontWeight: 600, fontSize: '32px' }}>
+                380hrs
+              </Typography>
+            </Box>
+
+            <Box sx={{
+              bgcolor: INPUT_FIELD_COLOR,
+              width: '250px',
+              height: '150px',
+              borderRadius: '20px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              <Typography sx={{ fontWeight: 600, fontSize: '16px' }}>
+                Total Working Time
+              </Typography>
+              <Typography sx={{ fontWeight: 600, fontSize: '32px' }}>
+                380hrs
+              </Typography>
+            </Box>
+          </Box>
+        </Box> */}
 
         {/* Chart */}
         <Box sx={{ bgcolor: INPUT_FIELD_COLOR, borderRadius: '20px', height: '320px', mt: 2 }}>
@@ -236,11 +252,12 @@ function DashboardPageDetails() {
             series={series}
           />
         </Box>
-      </Box>
+      </Box >
 
 
       {/* Lower section */}
-      <Box sx={{ display: 'flex', gap: 2, mb: 5 }}>
+      <Box Box sx={{ display: 'flex', gap: 2, mb: 5 }
+      }>
         <Box sx={{ bgcolor: INPUT_FIELD_COLOR, borderRadius: '20px', height: '320px', mt: 2 }}>
           <BarChartPro
             sx={{ mt: 3 }}
@@ -289,8 +306,8 @@ function DashboardPageDetails() {
         </Box>
 
 
-      </Box>
-    </div>
+      </Box >
+    </div >
   )
 }
 
