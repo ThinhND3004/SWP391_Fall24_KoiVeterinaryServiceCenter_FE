@@ -8,7 +8,7 @@ function ServiceNo2() {
     <div>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box>
-          <img src="https://animals.sandiegozoo.org/sites/default/files/2016-11/Koi.jpg" style={{ objectFit: 'contain', width: '600px', borderRadius: '26px' }} />
+          <img src="https://www.mercurynews.com/wp-content/uploads/2021/03/SJM-L-FISHVET-03XX-3.jpg?w=1860" style={{ objectFit: 'contain', width: '600px', borderRadius: '26px' }} />
         </Box>
         <Box sx={{ width: '600px', borderRadius: '26px', padding: '0px 50px 0px 50px' }}>
           <Typography

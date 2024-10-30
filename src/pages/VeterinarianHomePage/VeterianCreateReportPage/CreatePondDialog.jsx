@@ -1,6 +1,8 @@
+/* eslint-disable indent */
+/* eslint-disable semi */
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button, Typography, Box } from '@mui/material';
 import { useState } from "react";
-import { GRAY_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme';
+import { BLUE_COLOR, GRAY_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme';
 import AddIcon from '@mui/icons-material/Add';
 import Label from '~/components/Label.component';
 import TextInput from '~/components/TextInput.component';
@@ -8,6 +10,7 @@ import NumberInput from '~/components/NumberInput.component';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 
 
 function CreatePondDialog({ setPond, edit }) {
@@ -48,61 +51,153 @@ function CreatePondDialog({ setPond, edit }) {
 
     return (
         <Box>
-            
-            <Button variant="contained" sx={{ padding: '6px', minWidth: 'auto', boxShadow: 'none', bgcolor: ORANGE_COLOR, borderRadius: '10px', color: '#fff' }}
+
+            <Button variant="contained" sx={{ padding: '6px', minWidth: 'auto', boxShadow: 'none', bgcolor: BLUE_COLOR, borderRadius: '14px', color: '#fff', width: '150px', height: '40px' }}
                 onClick={handleClickOpen}
             >
-                {edit ? 'Edit' : <AddIcon sx={{ fontSize: '14px' }} />}
+                {edit ? 'Edit' :
+                    <Typography>
+                        Create pond
+                    </Typography>}
             </Button>
 
-            <Dialog open={open} onClose={handleClose} aria-labelledby="booking-dialog-title"
+            <Dialog open={open}
+                onClose={handleClose}
+                aria-labelledby="booking-dialog-title"
+                maxWidth="md"
+                fullWidth
                 PaperProps={{
-                    sx: { width: '50%' }
+                    sx: {
+                        width: '800px',
+                        maxWidth: '90%',
+                        bgcolor: INPUT_FIELD_COLOR,
+                        borderRadius: '30px'
+                    }
                 }}>
-                <DialogTitle sx={{ marginBottom: '5px' }}>
-                    Create Pond
+                <DialogTitle sx={{
+                    marginTop: 4,
+                    mb: 2
+                }}>
+                    <Typography sx={{ fontWeight: 600, fontSize: 30, textAlign: 'center' }}>
+                        Create Pond
+                    </Typography>
                 </DialogTitle>
 
                 <DialogContent>
-                    <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                    <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2, padding: 3 }}>
                         {/* Labels and Inputs in the Same Column */}
-                        <Box display="flex" alignItems="center" sx={{ width: '100%', gap: 2 }}>
-                            <Label label={'Pond Name'} />
-                            <TextInput label={'Pond Name'} value={pondName} setValue={setPondName} />
+                        <Box display="flex" alignItems="center" sx={{ width: '100%', gap: 5 }}>
+                            {/* <Label label={'Pond Name'} /> */}
+                            <Typography sx={{ display: 'block', fontWeight: 500, fontSize: 20, minWidth: '100px' }}>
+                                Pond Name
+                            </Typography>
+                            <TextInput label={'Pond Name'} value={pondName} width={'500px'} setValue={setPondName} sx={{ width: '300px' }} />
                         </Box>
-                        <Box display="flex" alignItems="center" sx={{ width: '100%', gap: 2 }}>
-                            <Label label={'Size (m²)'} />
-                            <NumberInput label={'Size (m²)'} value={size} setValue={setSize} />
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            sx={{ width: '100%', gap: 5 }}
+                        >
+                            <Typography sx={{ fontWeight: 500, fontSize: 20, minWidth: '100px' }}>
+                                Size (m²)
+                            </Typography>
+                            <NumberInput
+                                label="Size (m²)"
+                                value={size}
+                                width="100%"
+                                setValue={setSize}
+                                sx={{ maxWidth: '500px' }}
+                            />
                         </Box>
-                        <Box display="flex" alignItems="center" sx={{ width: '100%', gap: 2 }}>
-                            <Label label={'Depth (m)'} />
-                            <NumberInput label={'Depth (m)'} value={depth} setValue={setDepth} />
+
+                        <Box display="flex" alignItems="center" sx={{ width: '100%', gap: 5 }}>
+                            {/* <Label label={'Depth (m)'} /> */}
+                            <Typography sx={{ fontWeight: 500, fontSize: 20, minWidth: '100px' }}>
+                                Depth (m)
+                            </Typography>
+                            <NumberInput label={'Depth (m)'} value={depth} width={'500px'} setValue={setDepth} />
                         </Box>
-                        <Box display="flex" alignItems="center" sx={{ width: '100%', gap: 2 }}>
-                            <Label label={'Water Type'} />
+                        <Box display="flex" alignItems="center" sx={{ width: '100%', gap: 5 }}>
+                            {/* <Label label={'Water Type'} /> */}
+                            <Typography sx={{ fontWeight: 500, fontSize: 20 }}>
+                                Water Type
+                            </Typography>
                             <TextInput label={'Water Type'} value={waterType} setValue={setWaterType} />
                         </Box>
-                        <Box display="flex" alignItems="center" sx={{ width: '100%', gap: 2 }}>
-                            <Label label={'Temperature (°C)'} />
+                        <Box display="flex" alignItems="center" sx={{ width: '100%', gap: 5 }}>
+                            {/* <Label label={'Temperature (°C)'} /> */}
+                            <Typography sx={{ fontWeight: 500, fontSize: 20 }}>
+                                Temperature (°C)
+                            </Typography>
                             <NumberInput label={'Temperature (°C)'} value={temperature} setValue={setTemperature} />
                         </Box>
-                        <Box display="flex" alignItems="center" sx={{ width: '100%', gap: 2 }}>
-                            <Label label={'pH Level'} />
+                        <Box display="flex" alignItems="center" sx={{ width: '100%', gap: 5 }}>
+                            {/* <Label label={'pH Level'} /> */}
+                            <Typography sx={{ fontWeight: 500, fontSize: 20 }}>
+                                pH Level
+                            </Typography>
                             <NumberInput label={'pH Level'} value={pHLevel} setValue={setPHLevel} />
                         </Box>
-                        <Box display="flex" alignItems="center" sx={{ width: '100%', gap: 2 }}>
-                            <Label label={'Last Maintenance'} />
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DatePicker label='Date' defaultValue={lastMaintenanceDate} onChange={setLastMaintenanceDate} />
+                        <Box display="flex" alignItems="center" sx={{ width: '100%', gap: 5 }}>
+                            {/* <Label label={'Last Maintenance'} /> */}
+                            <Typography sx={{ fontWeight: 500, fontSize: 20 }}>
+                                Last Maintenance
+                            </Typography>
+                            <LocalizationProvider dateAdapter={AdapterDayjs} >
+                                <DemoContainer
+                                    components={['DatePicker']}
+                                    variant='outlined'
+                                    sx={{
+                                        overflow: 'hidden',
+                                        width: '500px',
+                                        '& .MuiOutlinedInput-root': {
+                                            borderRadius: '15px',
+                                            borderColor: BLUE_COLOR,
+                                            height: '60px',
+                                            '&.Mui-focused fieldset': {
+                                                borderColor: BLUE_COLOR
+                                            }
+                                        },
+                                        '& input': {
+                                            backgroundColor: INPUT_FIELD_COLOR,
+                                            padding: '20px 15px',
+                                            fontSize: '16px',
+                                            borderRadius: '15px'
+                                        }
+                                    }}>
+                                    <DatePicker label='Date' defaultValue={lastMaintenanceDate} onChange={setLastMaintenanceDate} sx={{
+                                        marginTop: '15px',
+                                        backgroundColor: INPUT_FIELD_COLOR,
+                                        width: '400px',
+                                        borderRadius: '15px'
+                                    }} />
+                                </DemoContainer>
                             </LocalizationProvider>
                         </Box>
                         {/* Submit Button */}
-                        <Button type="submit" variant="contained" color="primary">Submit</Button>
+                        <Box display="flex" justifyContent="flex-end">
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                sx={{
+                                    bgcolor: BLUE_COLOR,
+                                    borderRadius: '14px',
+                                    color: 'white',
+                                    width: '100px',
+                                    height: '40px',
+                                    mr: 6,
+                                    mt: 5
+                                }}
+                            >
+                                Submit
+                            </Button>
+                        </Box>
+
                     </Box>
                 </DialogContent>
 
                 <DialogActions>
-                  
+                    {/* <Button type="submit" variant="contained" sx={{ bgcolor: BLUE_COLOR, borderRadius: '14px', color: 'white', width: '100px', height: '40px', mr: 6, mb: 3 }}>Submit</Button> */}
                 </DialogActions>
             </Dialog >
         </Box >

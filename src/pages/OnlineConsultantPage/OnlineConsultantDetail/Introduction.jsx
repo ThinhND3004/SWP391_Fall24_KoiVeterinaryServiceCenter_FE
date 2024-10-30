@@ -9,8 +9,9 @@ import MeetingMethodTagHolder from "~/pages/ServicePage/ServicePageDetails/Metho
 function Introduction({ service, serviceAddress }) {
   return (
     <Box>
-      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-        <Box sx={{ width: "600px", borderRadius: "26px", padding: 2 }}>
+      <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 120, textAlign: 'center', color: BLUE_COLOR }}>Our Medical Services</Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 5 }}>
+        <Box sx={{ width: '600px' }}>
           <Typography
             sx={{
               fontFamily: "SVN-Konga Pro",

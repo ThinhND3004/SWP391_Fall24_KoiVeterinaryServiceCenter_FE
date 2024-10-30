@@ -4,8 +4,6 @@ import { BG_COLOR, BLUE_COLOR, GRAY_COLOR, OFFLINE_BUTTON, ONLINE_BUTTON, ORANGE
 import MeetingMethodTagHolder from './MethodMeetingTag';
 import { useNavigate } from 'react-router-dom';
 
-
-
 function ServiceBlock({ service }) {
   const navigate = useNavigate();
 

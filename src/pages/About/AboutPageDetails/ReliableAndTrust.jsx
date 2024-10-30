@@ -28,7 +28,7 @@ function ReliableAndTrust() {
         </Box>
         <Box
           component="img"
-          src="https://img.freepik.com/premium-photo/beautiful-painting-three-colorful-koi-fish-are-swimming-pet-generative-ai-illustration_132416-8965.jpg"
+          src="https://i.pinimg.com/originals/0f/09/7d/0f097d536f05aad276df69c2e1b9b255.jpg"
           alt="Koi Fish Image"
           sx={{
             objectFit: 'contain',

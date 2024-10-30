@@ -1,6 +1,7 @@
+/* eslint-disable indent */
 import { Box, Button, Typography } from '@mui/material'
 import BookingDetails from './BookingDetails';
-import { BLUE_COLOR, ORANGE_COLOR } from '~/theme';
+import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme';
 import KoiSpeciesDialog from './KoiSpeciesDialog';
 import { useState } from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -52,7 +53,7 @@ function CreateReportPage({ booking }) {
         const requestBody = {
             "bookingId": booking.id,
             "koiSpeciesIdList": addKoiSpecies.length > 0 ? addKoiSpecies.map((item) => item.id) : null,
-            "createPondDto": pond ? { 
+            "createPondDto": pond ? {
                 "customer_id": booking.customerId,
                 "name": pond.name,
                 "size_square_meters": pond.sizeSquareMeters,
@@ -73,7 +74,7 @@ function CreateReportPage({ booking }) {
         }
 
         const result = await ManagementApi.createReport(requestBody);
-        if(result) navigate(-1);
+        if (result) navigate(-1);
 
     }
 
@@ -81,43 +82,50 @@ function CreateReportPage({ booking }) {
     return (
         <Box component="form" gap={10}>
             {/* KOI SPECIES */}
-            <Box display={'flex'} >
-                <Label label='Koi Species' />
-                <Box display={'block'} gap={1}>
-                    {addKoiSpecies.map((item, index) => {
-                        return (
-                            <Box key={item.id} display={'flex'} gap={1} justifyContent="center" alignItems="center">
-                                <Typography>{item.name}</Typography>
-                                <Button color={'black'} onClick={() => handleRemoveItem(index)}>
-                                    <ClearIcon />
-                                </Button>
-                            </Box>
-                        )
-                    })}
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                {/* <Label label='Koi Species' /> */}
+                <Typography sx={{ fontSize: 16, fontWeight: 500, pr: 10 }}>Koi Species:</Typography>
+
+                <Box display="flex" gap={5} alignItems="center">
+                    {addKoiSpecies.map((item, index) => (
+                        <Box
+                            key={item.id}
+                            display="flex"
+                            gap={1}
+                            alignItems="center"
+                        >
+                            <Typography sx={{ fontWeight: 400, fontSize: 16 }}>{item.name}</Typography>
+                            <Button color="black" onClick={() => handleRemoveItem(index)}>
+                                <ClearIcon />
+                            </Button>
+                        </Box>
+                    ))}
                     <KoiSpeciesDialog addKoiSpecies={addKoiSpecies} onAddClick={handleAddClick} />
                 </Box>
             </Box>
 
             {/* POND */}
-            <Box display={'flex'} >
-                <Typography marginRight={'5px'} sx={{ fontWeight: 600, fontSize: 18 }}>Pond: </Typography>
-
+            <Box display={'flex'} mt={5}>
+                <Typography sx={{ fontSize: 16, fontWeight: 500, pr: 10 }}>Pond:</Typography>
                 <Box display={'block'} gap={1}>
                     {pond ?
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, border: '1px solid black', padding: '10px' }}>
-                            <Typography variant="body1"><strong>Pond Name:</strong> {pond.name}</Typography>
-                            <Typography variant="body1"><strong>Size (m²):</strong> {pond.sizeSquareMeters}</Typography>
-                            <Typography variant="body1"><strong>Depth (m):</strong> {pond.depthMeters}</Typography>
-                            <Typography variant="body1"><strong>Water Type:</strong> {pond.waterType}</Typography>
-                            <Typography variant="body1"><strong>Temperature (°C):</strong> {pond.temperatureCelsius}</Typography>
-                            <Typography variant="body1"><strong>pH Level:</strong> {pond.pHLevel}</Typography>
-                            <Typography variant="body1"><strong>Last Maintenance:</strong> {pond.lastMaintenanceDate}</Typography>
-                            <CreatePondDialog setPond={setPond} edit={true} />
-                            <Button variant="contained" sx={{ padding: '6px', minWidth: 'auto', boxShadow: 'none', bgcolor: ORANGE_COLOR, borderRadius: '10px', color: '#fff' }}
-                                onClick={() => setPond(null)}
-                            >
-                                Cancel
-                            </Button>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, ml: 8 }}>
+                            {/* <Typography variant="body1"><strong>Pond Name:</strong> {pond.name}</Typography> */}
+                            <Typography variant="body1" sx={{ fontSize: 16 }}>Pond Name: {pond.name}</Typography>
+                            <Typography variant="body1" sx={{ fontSize: 16 }}>Size (m²): {pond.sizeSquareMeters}</Typography>
+                            <Typography variant="body1" sx={{ fontSize: 16 }}>Depth (m): {pond.depthMeters}</Typography>
+                            <Typography variant="body1" sx={{ fontSize: 16 }}>Water Type: {pond.waterType}</Typography>
+                            <Typography variant="body1" sx={{ fontSize: 16 }}>Temperature (°C): {pond.temperatureCelsius}</Typography>
+                            <Typography variant="body1" sx={{ fontSize: 16 }}>pH Level: {pond.pHLevel}</Typography>
+                            <Typography variant="body1" sx={{ fontSize: 16 }}>Last Maintenance: {pond.lastMaintenanceDate}</Typography>
+
+                            <Box sx={{ display: 'flex', gap: 3 }}>
+                                <CreatePondDialog setPond={setPond} edit={true} />
+                                <Button variant="contained" sx={{ padding: '6px', minWidth: 'auto', boxShadow: 'none', bgcolor: ORANGE_COLOR, borderRadius: '14px', color: '#fff', width: '100px' }}
+                                    onClick={() => setPond(null)}>
+                                    Cancel
+                                </Button>
+                            </Box>
                         </Box>
                         :
                         <CreatePondDialog setPond={setPond} />
@@ -127,40 +135,52 @@ function CreateReportPage({ booking }) {
             </Box>
 
             {/* DIAGNOSIS */}
-            <Box display={'flex'}>
-                <Label label={'Diagnosis'} />
+            <Box display={'flex'} mt={5}>
+                <Typography sx={{ fontSize: 16, fontWeight: 500, pr: 10 }}>Diagnosis:</Typography>
+                {/* <Label label={'Diagnosis'} /> */}
                 <TextAreaComponent value={diagnosis} setValue={setDiagnosis} />
             </Box>
 
             {/* NOTES */}
-            <Box display={'flex'}>
-                <Label label={'Notes'} />
+            <Box display={'flex'} mt={5}>
+                <Typography sx={{ fontSize: 16, fontWeight: 500, pr: 14 }}>Notes:</Typography>
                 <TextAreaComponent value={notes} setValue={setNotes} />
             </Box>
 
             {/* PRESCRIPTION */}
-            <Box display={'flex'}>
-                <Label label={'Prescriptions'} />
-                <Box display={'block'} gap={1}>
+            <Box display={'flex'} mt={5}>
+                <Typography sx={{ fontSize: 16, fontWeight: 500, pr: 10 }}>Prescription:</Typography>
+                <Box display={'flex'} gap={1}>
                     {medicines.map((item, index) => {
                         return (
-                            <Box key={index} display={'flex'} gap={1} justifyContent="center" alignItems="center">
-                                <Typography>{item.name}</Typography>
+                            <Box
+                                key={index}
+                                display="flex"
+                                gap={2}
+                            // justifyContent="center"
+                            // alignItems="center"
+                            >
+                                <Typography sx={{ fontWeight: 400, fontSize: 16 }}>{item.name}</Typography>
                                 <NumberInput value={item.quantity} setValue={(e) => handleQuantityChange(e, index)} />
-                                <Button color={'black'} onClick={() => handleMedicineRemove(index)}>
+                                <Button color="black" onClick={() => handleMedicineRemove(index)}>
                                     <ClearIcon />
                                 </Button>
                             </Box>
+
                         )
                     })}
-                    <PrescriptionsDialog addMedicines={medicines} handleMedicineAdd={handleMedicineAdd} />
+                    <Box>
+                        <PrescriptionsDialog addMedicines={medicines} handleMedicineAdd={handleMedicineAdd} />
+                    </Box>
                 </Box>
             </Box>
-            <Button variant="contained" sx={{ padding: '6px', minWidth: 'auto', boxShadow: 'none', bgcolor: ORANGE_COLOR, borderRadius: '10px', color: '#fff' }}
-                onClick={handleSave}
-            >
-                Save
-            </Button>
+
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 10, mb: 6 }}>
+                <Button variant="contained" sx={{ padding: '10px', minWidth: 'auto', boxShadow: 'none', bgcolor: BLUE_COLOR, borderRadius: '30px', color: '#fff', width: '200px', height: '60px' }}
+                    onClick={handleSave}>
+                    Save
+                </Button>
+            </Box>
         </Box>
     )
 }

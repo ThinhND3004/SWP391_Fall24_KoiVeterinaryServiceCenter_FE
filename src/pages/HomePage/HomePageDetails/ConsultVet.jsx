@@ -84,7 +84,7 @@ function ConsultVet() {
                   fontFamily: 'Poppins'
                 }}
               >
-                <Typography onClick={() => navigate('/requestAppointment')} component={'a'}>
+                <Typography onClick={() => navigate('/service')} component={'a'}>
                   Request Appointment
                 </Typography>
               </Box>
