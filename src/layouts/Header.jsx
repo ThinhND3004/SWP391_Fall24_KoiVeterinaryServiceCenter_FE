@@ -16,6 +16,8 @@ import { Divider } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import api from '~/config/axios'
 import Avatar from '@mui/material/Avatar'
+import axios from 'axios'
+import ManagementApi from '~/api/ManagementApi'
 
 
 
@@ -36,7 +38,25 @@ const LoginButton = ({ navigate }) => {
   </Box>
 }
 
+
+
 const Profile = ({ accInfo, anchorEl, handleMenuClick, handleClose, handleProfile, handleLogout }) => {
+
+  const [avatarUrl, setAvatarUrl] = useState(null);
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      try {
+        var imageUrl = await ManagementApi.getImage(accInfo.imageEntityId);
+        setAvatarUrl(imageUrl);
+      } catch (error) {
+        console.error("Error fetching image:", error);
+      }
+    };
+    fetchImage();
+  }, []);
+
+  
   return <>
     <Typography
       sx={{
@@ -49,7 +69,7 @@ const Profile = ({ accInfo, anchorEl, handleMenuClick, handleClose, handleProfil
     </Typography>
 
     <IconButton onClick={handleMenuClick} color="inherit">
-      <Avatar alt='hello' src='src\assets\images\avtDemo.jpg' />
+      <Avatar src={avatarUrl} />
     </IconButton>
 
     <Menu
@@ -124,8 +144,6 @@ function Header() {
       try {
 
         console.log('TOKEN: ', token)
-        // const response = await api.get(`accounts/current`);
-        // const response = await api.get(`accounts/getLoginAccInfo?token=${token}`);
         const response = await api.get('accounts/current')
         console.log('INFO: ', response.data.data)
 
@@ -149,9 +167,8 @@ function Header() {
     // } else {
     //   handleGetAccInfo();
     // }
-    const token = getToken()
-    console.log('EFFECT TOKEN: ', token)
-    handleGetAccInfo()
+    
+    handleGetAccInfo();
 
 
   }, [])
@@ -177,7 +194,8 @@ function Header() {
   // Handle profile
   const handleProfile = () => {
     handleClose()
-    console.log('Go to profile...')
+    console.log('Go to profile...');
+    navigate("/profile");
     // Add your profile navigation logic here
   }
 
