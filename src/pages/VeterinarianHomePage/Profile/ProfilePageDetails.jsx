@@ -9,12 +9,6 @@ import Breadcrumbs from '@mui/material/Breadcrumbs'
 import Link from '@mui/material/Link'
 import Timetable from '~/pages/Management/Verterian/Timetable'
 
-function handleClick(event) {
-  event.preventDefault()
-  console.info('You clicked a breadcrumb.')
-}
-
-
 function ProfilePageDetails() {
   return (
     <div style={{ position: 'relative' }}>

@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import api, { geoapifyApi } from "~/config/axios";
 import dayjs from 'dayjs';
 import 'leaflet/dist/leaflet.css';
+import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from "~/theme";
 
 // Marker's icon
 delete L.Icon.Default.prototype._getIconUrl;
@@ -65,7 +66,7 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
     setUserAddress(suggestion.properties.formatted);
     setSuggestions([]);
     setStatusMessage("Địa chỉ đã được chọn!");
-    
+
     const coords = await fetchCoordinates(suggestion.properties.formatted);
     setUserPosition([coords.lat, coords.lon]); // Cập nhật vị trí của người dùng
     fetchDistance(suggestion.properties.formatted); // Tính toán khoảng cách sau khi chọn
@@ -132,15 +133,15 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
     const bookingData = {
       serviceId: service.id,
       veterinarianId: veterinarian && veterinarian.id ? veterinarian.id : null, // Kiểm tra veterinarian có null không
-      additionalInformation: additionalInfo || "", 
+      additionalInformation: additionalInfo || "",
       servicePrice: service.price || 0,
       distanceMeters: distance || 0,
-      userAddress: userAddress || "", 
+      userAddress: userAddress || "",
       meetingMethod: service.meetingMethod || "online",
-      startAt: dateTime ? dateTime.toISOString() : new Date().toISOString(), 
+      startAt: dateTime ? dateTime.toISOString() : new Date().toISOString(),
       travelPrice: service.travelPricePerMeter || 0,
     };
-    
+
 
     // Chuyển hướng người dùng sang trang xác nhận
     navigate("/confirm-booking", {
@@ -159,11 +160,28 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
           Selected Date and Time
         </Typography>
         <TextField
-          label={dateTime ? dateTime.format('YYYY-MM-DD HH:mm') : ""}
+          // label={dateTime ? dateTime.format('YYYY-MM-DD HH:mm') : ""}
           value={dateTime ? dateTime.format('YYYY-MM-DD HH:mm') : ""}
           disabled
           fullWidth
-          sx={{ marginBottom: "20px" }}
+          sx={{
+            // width: '600px',
+            '& .MuiOutlinedInput-root': {
+              borderRadius: '15px',
+              borderColor: BLUE_COLOR,
+              height: '60px',
+              marginTop: '15px',
+              '&.Mui-focused fieldset': {
+                borderColor: BLUE_COLOR
+              }
+            },
+            '& input': {
+              backgroundColor: INPUT_FIELD_COLOR,
+              padding: '20px 15px',
+              fontSize: '16px',
+              borderRadius: '15px'
+            }
+          }}
         />
       </div>
 
@@ -172,11 +190,29 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
           <div>
             <Typography variant="h6">Address: </Typography>
             <TextField
-              label="Address"
+              placeholder="Enter your address"
               variant="outlined"
               fullWidth
               value={userAddress}
               onChange={handleAddressChange}
+              sx={{
+                // width: '600px',
+                '& .MuiOutlinedInput-root': {
+                  borderRadius: '15px',
+                  borderColor: BLUE_COLOR,
+                  height: '60px',
+                  marginTop: '15px',
+                  '&.Mui-focused fieldset': {
+                    borderColor: BLUE_COLOR
+                  }
+                },
+                '& input': {
+                  backgroundColor: INPUT_FIELD_COLOR,
+                  padding: '20px 15px',
+                  fontSize: '16px',
+                  borderRadius: '15px'
+                }
+              }}
             />
             {suggestions.length > 0 && (
               <List>
@@ -206,7 +242,26 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
           Additional Information
         </Typography>
         <TextField
-          label="Additional Information"
+          sx={{
+            // width: '600px',
+            '& .MuiOutlinedInput-root': {
+              borderRadius: '15px',
+              borderColor: BLUE_COLOR,
+              height: '250px',
+              marginTop: '15px',
+              '&.Mui-focused fieldset': {
+                borderColor: BLUE_COLOR
+              }
+            },
+            '& input': {
+              backgroundColor: INPUT_FIELD_COLOR,
+              // padding: '20px 15px',
+              height: '220px',
+              fontSize: '16px',
+              borderRadius: '15px'
+            }
+          }}
+          placeholder="Additional Information"
           variant="outlined"
           fullWidth
           value={additionalInfo}
@@ -246,9 +301,22 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
         </MapContainer>
       </Box>
 
-      <Button variant="contained" onClick={handleSubmit}>
-        Submit Booking
-      </Button>
+      <Box variant="contained" onClick={handleSubmit} sx={{
+        display: 'flex',
+        width: '100%',
+        height: '60px',
+        backgroundColor: BLUE_COLOR,
+        borderRadius: '40px',
+        justifyContent: 'center',
+        alignItems: 'center',
+        border: 'none',
+        mb: 10,
+        cursor: 'pointer'
+      }}>
+        <Typography sx={{ textAlign: 'center', color: "white" }}>
+          Submit Booking
+        </Typography>
+      </Box>
 
       <Snackbar open={!!successMessage} autoHideDuration={6000} onClose={() => setSuccessMessage("")}>
         <Alert onClose={() => setSuccessMessage("")} severity="success">

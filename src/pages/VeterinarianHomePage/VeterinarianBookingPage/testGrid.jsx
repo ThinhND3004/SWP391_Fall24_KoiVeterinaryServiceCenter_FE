@@ -86,7 +86,8 @@ const DynamicDataGrid = ({ rowData, pageSize = 5 }) => {
               border: '1px solid',
               borderColor: ORANGE_COLOR,
               color: ORANGE_COLOR,
-              borderRadius: '10px'
+              borderRadius: '10px',
+              boxShadow: 'none'
             }}>
             Create
           </Button>

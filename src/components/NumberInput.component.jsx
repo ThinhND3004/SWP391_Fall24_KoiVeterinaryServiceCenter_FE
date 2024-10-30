@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { Box, Typography, TextField } from "@mui/material";
 import { BLUE_COLOR, INPUT_FIELD_COLOR } from "~/theme";
 
@@ -5,7 +6,7 @@ export default function NumberInput({ value, setValue }) {
     const handleChange = (event) => {
         setValue(event.target.value)
     }
-    
+
     return (
         <TextField
             id="outlined-basic"
@@ -15,7 +16,7 @@ export default function NumberInput({ value, setValue }) {
             value={value}
             onChange={handleChange}
             sx={{
-                width: 100,
+                width: 60,
                 '& .MuiOutlinedInput-root': {
                     borderRadius: '15px',
                     borderColor: BLUE_COLOR,

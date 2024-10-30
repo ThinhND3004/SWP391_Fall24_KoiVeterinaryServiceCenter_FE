@@ -19,24 +19,28 @@ import Avatar from '@mui/material/Avatar'
 import axios from 'axios'
 import ManagementApi from '~/api/ManagementApi'
 
-
-
-const pages = ['Home', 'About us', 'Service', 'Koi Health', 'Contact Us']
+const pages = ["Home", "About us", "Service", "Koi Health", "Contact Us"];
 
 const LoginButton = ({ navigate }) => {
-  return <Box minWidth={300} display={'flex'} justifyContent={'center'}>
-    <Button variant="outlined" onClick={() => navigate('/login')} sx={{
-      border: `1px ${BLUE_COLOR} solid`,
-      borderRadius: '30px',
-      color: BLUE_COLOR,
-      fontWeight: 600,
-      p: '10px 38px',
-      boxShadow: '0px 3px 1px rgba(0, 0, 0, 0.2)'
-    }}>
-      Login
-    </Button>
-  </Box>
-}
+  return (
+    <Box minWidth={300} display={"flex"} justifyContent={"center"}>
+      <Button
+        variant="outlined"
+        onClick={() => navigate("/login")}
+        sx={{
+          border: `1px ${BLUE_COLOR} solid`,
+          borderRadius: "30px",
+          color: BLUE_COLOR,
+          fontWeight: 600,
+          p: "10px 38px",
+          boxShadow: "0px 3px 1px rgba(0, 0, 0, 0.2)",
+        }}
+      >
+        Login
+      </Button>
+    </Box>
+  );
+};
 
 
 
@@ -72,51 +76,48 @@ const Profile = ({ accInfo, anchorEl, handleMenuClick, handleClose, handleProfil
       <Avatar src={avatarUrl} />
     </IconButton>
 
-    <Menu
-      anchorEl={anchorEl}
-      open={Boolean(anchorEl)}
-      onClose={handleClose}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right'
-      }}
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right'
-      }}
-    // sx={{ bgcolor: '#000' }}
-    >
-      <MenuItem onClick={handleProfile}>Profile</MenuItem>
-      <MenuItem onClick={handleLogout}>Logout</MenuItem>
-    </Menu>
-  </>
-}
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        // sx={{ bgcolor: '#000' }}
+      >
+        <MenuItem onClick={handleProfile}>Profile</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      </Menu>
+    </>
+};
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
 function Header() {
   // lay state tu redux (currentState)
   // Dat state la navbarId
-  const navbarId = useSelector(state => state.globalConfig.navbarId)
+  const navbarId = useSelector((state) => state.globalConfig.navbarId);
 
   // doc mess
-  const dispatch = useDispatch()
-  const [anchorElNav, setAnchorElNav] = useState(null)
-  const [anchorElUser, setAnchorElUser] = useState(null)
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const navigate = useNavigate();
 
-  const [accInfo, setAccInfo] = useState(null)
-  const [anchorEl, setAnchorEl] = useState(null)
+  const [accInfo, setAccInfo] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   // const [token, setToken] = useState(localStorage.getItem('token'))
 
-
-
   const setTokenWithExpiry = (token) => {
-    localStorage.setItem('token', token)
-  }
-
+    localStorage.setItem("token", token);
+  };
 
   const getToken = () => {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem("token");
 
     // if (!tokenData)
     //   return null;
@@ -133,13 +134,11 @@ function Header() {
     //   return null;
     // }
 
-    return token
-
-  }
-
+    return token;
+  };
 
   const handleGetAccInfo = async () => {
-    const token = getToken()
+    const token = getToken();
     if (token) {
       try {
 
@@ -148,17 +147,19 @@ function Header() {
         console.log('INFO: ', response.data.data)
 
         if (response) {
-          setAccInfo(response.data.data)
-          localStorage.setItem('accountInfo', JSON.stringify(response.data.data))
+          setAccInfo(response.data.data);
+          localStorage.setItem(
+            "accountInfo",
+            JSON.stringify(response.data.data)
+          );
         }
       } catch {
-        console.log('ERROR GET INFO')
+        console.log("ERROR GET INFO");
       }
     }
-  }
+  };
 
   useEffect(() => {
-
     // const loginedAccInfo = localStorage.getItem('accountInfo');
     // console.log("JSON: ", JSON.parse(loginedAccInfo));
     // if (loginedAccInfo) {
@@ -174,22 +175,22 @@ function Header() {
   }, [])
 
   const handleMenuClick = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
+    setAnchorEl(event.currentTarget);
+  };
 
   // Close dropdown menu
   const handleClose = () => {
-    setAnchorEl(null)
-  }
+    setAnchorEl(null);
+  };
 
   // Handle logout
   const handleLogout = () => {
-    handleClose()
-    localStorage.removeItem('accountInfo')
-    localStorage.removeItem('token')
+    handleClose();
+    localStorage.removeItem("accountInfo");
+    localStorage.removeItem("token");
     // navigate("/home");
-    window.location.href = '/home'
-  }
+    window.location.href = "/home";
+  };
 
   // Handle profile
   const handleProfile = () => {
@@ -199,47 +200,63 @@ function Header() {
     // Add your profile navigation logic here
   }
 
+    //test
+    window.location.href = "/customer";
+
+    console.log("Go to profile...");
+    // Add your profile navigation logic here
+  };
 
   // d biet
   const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget)
-  }
+    setAnchorElNav(event.currentTarget);
+  };
   const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget)
-  }
+    setAnchorElUser(event.currentTarget);
+  };
 
   const handleCloseNavMenu = () => {
-    setAnchorElNav(null)
-  }
+    setAnchorElNav(null);
+  };
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null)
-  }
+    setAnchorElUser(null);
+  };
 
   const handleNavClick = (id) => {
     switch (id) {
       case 0:
-        navigate('/home')
-        break
+        navigate("/home");
+        break;
       case 1:
-        navigate('/about')
-        break
+        navigate("/about");
+        break;
       case 2:
-        navigate('/service')
-        break
+        navigate("/service");
+        break;
       case 3:
-        navigate('/koihealth')
-        break
+        navigate("/koihealth");
+        break;
       case 4:
-        navigate('/contact')
-        break
+        navigate("/contact");
+        break;
       default:
-        navigate('/home')
+        navigate("/home");
     }
-  }
+  };
+
+  // Handle Booking List
+  const handleBookingList = async () => {
+    const token = getToken();
+    if (token) {
+      navigate("/booking-list");
+    } else {
+      navigate("/login");
+    }
+  };
 
   return (
-    <AppBar position="static" color='transparent' sx={{ minHeight: '85px' }}>
+    <AppBar position="static" color="transparent" sx={{ minHeight: "85px" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -249,18 +266,18 @@ function Header() {
             href="/home"
             sx={{
               mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'SVN-Konga Pro',
+              display: { xs: "none", md: "flex" },
+              fontFamily: "SVN-Konga Pro",
               fontWeight: 700,
               fontSize: 32,
               color: ORANGE_COLOR,
-              textDecoration: 'none'
+              textDecoration: "none",
             }}
           >
             Koi Care Clinic
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -275,21 +292,21 @@ function Header() {
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left'
+                vertical: "bottom",
+                horizontal: "left",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left'
+                vertical: "top",
+                horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
-              sx={{ display: { xs: 'block', md: 'none' } }}
+              sx={{ display: { xs: "block", md: "none" } }}
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
+                  <Typography sx={{ textAlign: "center" }}>{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -302,40 +319,43 @@ function Header() {
             href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
-              display: { xs: 'flex', md: 'none' },
+              display: { xs: "flex", md: "none" },
               flexGrow: 1,
-              fontFamily: 'SVN-Konga Pro',
+              fontFamily: "SVN-Konga Pro",
               fontWeight: 700,
               color: ORANGE_COLOR,
               fontSize: 32,
-              textDecoration: 'none'
+              textDecoration: "none",
             }}
           >
             Koi Care Clinic
           </Typography>
-          <Box sx={{
-            flexGrow: 1,
-            display: {
-              xs: 'none',
-              md: 'flex'
-            },
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: 5
-          }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: {
+                xs: "none",
+                md: "flex",
+              },
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 5,
+            }}
+          >
             {pages.map((page, idx) => (
               <Button
                 disableRipple
                 key={page}
                 onClick={() => {
-                  handleNavClick(idx)
-                  dispatch(setNavbarId(idx))
+                  handleNavClick(idx);
+                  dispatch(setNavbarId(idx));
                 }}
                 sx={{
-                  py: '20px',
+                  py: "20px",
                   color: navbarId === idx ? BLUE_COLOR : GRAY_COLOR,
-                  borderBottom: navbarId === idx ? `3px ${ORANGE_COLOR} solid` : '',
-                  display: 'block',
+                  borderBottom:
+                    navbarId === idx ? `3px ${ORANGE_COLOR} solid` : "",
+                  display: "block",
                   fontWeight: 600,
                 }}
               >
@@ -346,10 +366,9 @@ function Header() {
 
           {/* login button */}
 
-          {!accInfo
-            ?
+          {!accInfo ? (
             <LoginButton navigate={navigate} />
-            :
+          ) : (
             <Profile
               accInfo={accInfo}
               anchorEl={anchorEl}
@@ -357,12 +376,25 @@ function Header() {
               handleClose={handleClose}
               handleProfile={handleProfile}
               handleLogout={handleLogout}
-            />}
+            />
+          )}
 
+          {/* Booking Button  */}
+          <Box
+            sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end" }}
+          >
+            {/* Render Button Lịch hẹn */}
+            <Button
+              onClick={handleBookingList}
+              sx={{ marginLeft: 2, color: BLUE_COLOR }} // Sử dụng mã màu hoặc biến màu tùy chọn
+            >
+              Booking
+            </Button>
+          </Box>
         </Toolbar>
       </Container>
       <Divider />
-    </AppBar >
-  )
-}
-export default Header
+    </AppBar>
+  );
+
+export default Header;
