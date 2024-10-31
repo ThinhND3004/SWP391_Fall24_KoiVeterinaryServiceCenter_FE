@@ -10,7 +10,71 @@ import { useLocation } from "react-router-dom";
 import dayjs from "dayjs";
 // import { cwd } from "process";
 
-const ConfirmBookingComponent = () => {
+const ConfirmBookingDetails = () => {
+  const location = useLocation(); // Nhận dữ liệu từ state
+  const { createBookingDTO, serviceEntity, veterinarianEntity } =
+    location.state;
+  console.log(createBookingDTO);
+
+  const totalPrice =
+    createBookingDTO.servicePrice +
+    createBookingDTO.travelPrice * createBookingDTO.distanceMeters;
+
+  /**
+   *
+   * @param {*} orderId
+   */
+  const handlePayment = async (createBookingDTO) => {
+    try {
+      console.log(createBookingDTO.veterianId);
+
+      // Lưu createBookingDTO vào localStorage
+      localStorage.setItem(
+        "createBookingDTO",
+        JSON.stringify(createBookingDTO)
+      );
+
+      const token = localStorage.getItem("token"); // get token from localStorage
+
+      //transaction.paymentMethod
+      const paymentType = "BOOKING"; // Thay đổi theo giá trị của enum bạn đang sử dụng
+
+      const paymentDto = {
+        payment: paymentType, // Loại thanh toán
+        totalPrice: totalPrice, // Giả sử bạn đã tính toán totalPrice ở đâu đó trong mã
+      };
+
+      const response = await fetch(
+        `http://localhost:8080/vnpay/create-payment`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Thêm Authorization header
+          },
+          body: JSON.stringify(paymentDto), // Gửi dữ liệu thanh toán lên API
+        }
+      );
+
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to create payment");
+      }
+
+      console.log(result);
+
+      // Redirect người dùng tới URL thanh toán VNPay
+      if (result.data) {
+        window.location.href = result.data; // result.data sẽ là URL thanh toán VNPay trả về từ backend
+      } else {
+        throw new Error("Payment URL not found in response.");
+      }
+    } catch (error) {
+      console.error("Error creating payment: ", error);
+      alert(`Error creating payment: ${error.message}`);
+    }
+  };
+
   return (
     <Box
       display="flex"
@@ -106,9 +170,13 @@ const ConfirmBookingComponent = () => {
                   Travel Cost:
                 </Typography>
                 <Typography>
-                  $
-                  {createBookingDTO.travelPrice *
-                    createBookingDTO.distanceMeters}
+                  {new Intl.NumberFormat("vi-VN").format(
+                    createBookingDTO.travelPrice *
+                      createBookingDTO.distanceMeters
+                  )}{" "}
+                  VND
+                  {/* {createBookingDTO.travelPrice *
+                    createBookingDTO.distanceMeters} */}
                 </Typography>
               </Box>
             )}
@@ -117,11 +185,17 @@ const ConfirmBookingComponent = () => {
             <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
               Service Price:
             </Typography>
-            <Typography>${createBookingDTO.servicePrice}</Typography>
+            <Typography>
+              {new Intl.NumberFormat("vi-VN").format(
+                createBookingDTO.servicePrice
+              )}{" "}
+              VND
+            </Typography>
           </Box>
 
           <Typography fontWeight="bold" variant="h5" textAlign="center">
-            TOTAL PRICE: ${totalPrice}
+            TOTAL PRICE:
+            {new Intl.NumberFormat("vi-VN").format(totalPrice)} VND
           </Typography>
 
           <Divider sx={{ my: 2 }} />
@@ -137,7 +211,9 @@ const ConfirmBookingComponent = () => {
             <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
               Amount:
             </Typography>
-            <Typography>${totalPrice}</Typography>
+            <Typography>
+              {new Intl.NumberFormat("vi-VN").format(totalPrice)} VND
+            </Typography>
           </Box>
 
           <Button
@@ -153,4 +229,4 @@ const ConfirmBookingComponent = () => {
   );
 };
 
-export default ConfirmBookingComponent;
+export default ConfirmBookingDetails;

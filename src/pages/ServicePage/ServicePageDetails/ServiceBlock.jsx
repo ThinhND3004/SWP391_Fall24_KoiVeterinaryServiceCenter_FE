@@ -53,7 +53,7 @@ function ServiceBlock({ service }) {
           </Button>
 
         </Box>
-        <img src="https://cdn.shopify.com/s/files/1/1083/2612/files/koi2_480x480.jpg?v=1719301650" style={{ objectFit: 'contain', width: '500px', borderRadius: '26px' }} />
+        <img src="https://d.newsweek.com/en/full/2466991/feeding-koi-fish.jpg?w=1200&f=c585a5744246a338fadb145a12b2849a" style={{ objectFit: 'contain', width: '500px', borderRadius: '26px' }} />
 
       </Box>
     </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button'
-import { Box, TextField, Typography } from '@mui/material'
+import { Avatar, Box, TextField, Typography } from '@mui/material'
 import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
@@ -10,6 +10,7 @@ import Link from '@mui/material/Link'
 import dayjs from 'dayjs';
 import api from '~/config/axios'
 import axios, { Axios } from 'axios'
+import ManagementApi from '~/api/ManagementApi'
 
 function handleClick(event) {
   event.preventDefault()
@@ -19,6 +20,32 @@ function handleClick(event) {
 
 function Profile() {
   const [userInfo, setUserInfo] = useState({});
+  const [avt, setAvt] = useState();
+
+  const [accInfo, setAccInfo] = useState({});
+
+  useEffect(() => {
+    const getAccount = async () => {
+      const res = await ManagementApi.getCurrentAccount();
+      if (res) setAccInfo(res);
+    }
+
+    getAccount();
+
+  }, [])
+
+  useEffect(() => {
+    
+    const getAvt = async () => {
+      const res = await ManagementApi.getImage(accInfo.imageId);
+      if (res) setAvt(res);
+    }
+
+    getAvt();
+
+  }, [accInfo])
+
+  
 
   const handleChangeInfo = (field, value) => {
     setUserInfo(previuos => ({
@@ -35,6 +62,24 @@ function Profile() {
   //     }));
   //   }
   // }, [])
+
+  const handleSetImg = async (event) => {
+    const file = event.target.files[0];
+
+    if (file && file.size <= 500 + 1024)
+    {
+      try {
+      const response = await axios.post(`http://localhost:8080/image/upload`, file);
+    } catch (err) {
+      console.log('SET IMG ERR: ', err)
+    }
+    } else console.log("FILE TO LARGE");
+    
+  }
+
+  const handleClickChangeImgBtn = () => {
+    document.getElementById("file-input").click();
+  }
 
 
   const handleClickSaveChange = async () => {
@@ -90,7 +135,7 @@ function Profile() {
     <div style={{ position: 'relative' }}>
       <Breadcrumbs aria-label="breadcrumb">
         <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-          {userInfo.firstName} {userInfo.lastName}
+          {accInfo.firstName} {accInfo.lastName}
         </Typography>
         <Typography sx={{
           fontWeight: 600, fontSize: '20px'
@@ -101,13 +146,30 @@ function Profile() {
       </Breadcrumbs>
 
       <Box sx={{ display: 'flex', alignItems: 'center', mt: 3 }}>
-        <img
-          src="https://scontent.fsgn5-6.fna.fbcdn.net/v/t39.30808-6/462711740_18005468618659508_2399165263118220467_n.jpg?_nc_cat=1&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGgpYmZozIN8KHUTZoNLzjGU-vZdd6xRrVT69l13rFGtantx4zkHnpDZHBJOis87DDVjUIpZvcdv5zvbhPL48IS&_nc_ohc=uqKFgbi2lTEQ7kNvgEQtt6i&_nc_ht=scontent.fsgn5-6.fna&_nc_gid=ABnDpDsis1fk5uA5uWyXpqV&oh=00_AYDLmxD5gdEYkVp0AOoNzOs0kQZ41mHFTEBBGrLbFeJKvQ&oe=670F28A5"
+        <Avatar
+          src={avt}
           style={{ width: '90px', height: '90px', borderRadius: '50%', marginRight: '20px' }}
         />
         <Box>
           <Box sx={{ display: 'flex', width: '400px', height: '30px', gap: 2 }}>
-            <Button variant="contained" sx={{ boxShadow: 'none', fontSize: '16px', bgcolor: INPUT_FIELD_COLOR, borderRadius: '10px', height: '40px' }}>
+            <input
+              id="file-input"
+              type="file"
+              accept="image/*"
+              style={{ display: 'none' }}
+              onChange={handleSetImg}
+            />
+            <Button
+              variant="contained"
+              sx={{
+                boxShadow: 'none',
+                fontSize: '16px',
+                bgcolor: 'INPUT_FIELD_COLOR',
+                borderRadius: '10px',
+                height: '40px',
+              }}
+              onClick={handleClickChangeImgBtn}
+            >
               Upload new picture
             </Button>
 
@@ -152,7 +214,7 @@ function Profile() {
             id="outlined-basic"
             placeholder='Enter your first name'
             variant="outlined"
-            value={userInfo.email}
+            value={accInfo.email}
             disabled
             sx={{
               width: '500px',
@@ -182,7 +244,7 @@ function Profile() {
             id="outlined-basic"
             placeholder='Enter your first name'
             variant="outlined"
-            value={userInfo.firstName}
+            value={accInfo.firstName}
             onChange={(e) => { handleChangeInfo('firstName', e.target.value) }}
             sx={{
               width: '500px',
@@ -210,7 +272,7 @@ function Profile() {
             id="outlined-basic"
             placeholder='Enter your last name'
             variant="outlined"
-            value={userInfo.lastName}
+            value={accInfo.lastName}
             onChange={(e) => { handleChangeInfo('lastName', e.target.value) }}
             sx={{
               width: '500px',
@@ -240,7 +302,7 @@ function Profile() {
             id="outlined-basic"
             placeholder='Enter your phone number'
             variant="outlined"
-            value={userInfo.phone}
+            value={accInfo.phone}
             onChange={(e) => { handleChangeInfo('phone', e.target.value) }}
             sx={{
               width: '500px',
@@ -291,7 +353,7 @@ function Profile() {
               <DatePicker
                 placeholder="Select your date"
                 label=''
-                value={dayjs(userInfo.dob)}
+                value={dayjs(accInfo.dob)}
                 onChange={(e) => { handleChangeInfo('dob', e.target.value) }}
                 sx={{
                   backgroundColor: INPUT_FIELD_COLOR,
@@ -312,7 +374,7 @@ function Profile() {
           variant="outlined"
           type='text'
           onChange={(e) => { handleChangeInfo('add', e.target.value) }}
-          value={userInfo.address}
+          value={accInfo.address}
           sx={{
             width: '1090px',
             '& .MuiOutlinedInput-root': {
