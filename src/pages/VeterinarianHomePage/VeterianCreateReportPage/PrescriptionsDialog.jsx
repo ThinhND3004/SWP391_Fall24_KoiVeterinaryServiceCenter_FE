@@ -130,7 +130,7 @@ function PrescriptionsDialog({ addMedicines, handleMedicineAdd }) {
 
     return (
         <Box>
-            <Button variant="contained" sx={{ padding: '6px', minWidth: 'auto', boxShadow: 'none', bgcolor: BLUE_COLOR, borderRadius: '10px', color: '#fff', width: '150px', height: '40px' }}
+            <Button variant="contained" sx={{ padding: '6px', minWidth: 'auto', boxShadow: 'none', bgcolor: BLUE_COLOR, borderRadius: '10px', color: '#fff', width: '150px', height: '40px', position: 'relative', top: 5 }}
                 onClick={handleClickOpen}
             >
                 <Typography>Add Medicine</Typography>

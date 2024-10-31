@@ -16,6 +16,9 @@ export default function NumberInput({ value, setValue }) {
             value={value}
             onChange={handleChange}
             sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
                 width: 60,
                 '& .MuiOutlinedInput-root': {
                     borderRadius: '15px',

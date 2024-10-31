@@ -149,8 +149,8 @@ function CreateReportPage({ booking }) {
 
             {/* PRESCRIPTION */}
             <Box display={'flex'} mt={5}>
-                <Typography sx={{ fontSize: 16, fontWeight: 500, pr: 10 }}>Prescription:</Typography>
-                <Box display={'flex'} gap={1}>
+                <Typography sx={{ fontSize: 16, fontWeight: 500, pr: 10, position: 'relative', top: 30 }}>Prescription:</Typography>
+                <Box display={'flex'} gap={1} justifyContent={'center'} alignItems={'center'}>
                     {medicines.map((item, index) => {
                         return (
                             <Box
@@ -160,7 +160,7 @@ function CreateReportPage({ booking }) {
                             // justifyContent="center"
                             // alignItems="center"
                             >
-                                <Typography sx={{ fontWeight: 400, fontSize: 16 }}>{item.name}</Typography>
+                                <Typography sx={{ fontWeight: 400, fontSize: 16, position: 'relative', top: 30 }}>{item.name}</Typography>
                                 <NumberInput value={item.quantity} setValue={(e) => handleQuantityChange(e, index)} />
                                 <Button color="black" onClick={() => handleMedicineRemove(index)}>
                                     <ClearIcon />

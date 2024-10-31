@@ -16,18 +16,20 @@ function TextAreaComponent({ value, setValue }) {
             value={value}
             onChange={handleChange}
             placeholder="Type here..."
-            multiline
-            minRows={4} // Controls the width of the textarea
+            minRows={4}
             style={{
                 backgroundColor: INPUT_FIELD_COLOR,
-                width: '100%', // Full width styling
+                width: '100%',
                 padding: '10px',
                 fontSize: '16px',
                 borderRadius: '14px',
                 border: `1px solid ${GRAY_COLOR}`,
-                resize: 'both' // Allows resizing   
+                resize: 'both',
+                fontFamily: 'Poppins', // Font family for text input
             }}
+            className="custom-textarea"
         />
+
         // eslint-disable-next-line indent
     );
 }
