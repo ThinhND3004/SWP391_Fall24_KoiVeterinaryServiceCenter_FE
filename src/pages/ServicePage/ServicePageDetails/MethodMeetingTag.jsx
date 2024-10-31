@@ -63,12 +63,9 @@ function MeetingMethodTagHolder({ meetingMethod, serviceType }) {
             :
             <MeetingMethodTag meetingMethod={serviceType} backgroundColor={ORANGE_COLOR} />
         </Box>
-<<<<<<< HEAD
 
         
-=======
         // eslint-disable-next-line indent
->>>>>>> 37407085a4eb035a4da1709101d8ca7f4903c87c
     )
 }
 

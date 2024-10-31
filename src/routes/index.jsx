@@ -44,7 +44,7 @@ import ConfirmBookingComponent from '~/pages/ConfirmBookingPage/ConfirmBooking.c
 import DeliveryPage from '~/pages/AdminPage/DeliveryPage/DeliveryPage.component'
 import AdminMedicinePage from '~/pages/AdminPage/MedicinePage/AdminMedicinePage.component'
 import SelectVeterinarianByAvailableSlotTimeComponent from '~/pages/SelectVeterinarianByAvailableSlotTimePage/SelectVeterinarianByAvailableSlotTimePage.component'
-import VeterinarianInformation from '~/pages/VeterinarianInfomation/VeterinarianInformation'
+
 import DashboardBookingPage from '~/pages/AdminPage/DashboardPage/DashboardBookingsPage/DashboardBookingsPage.component'
 import DashboardVeterinariansPage from '~/pages/AdminPage/DashboardPage/DashboardVeterinarianPage/DashboardVeterinariansPage.component'
 import ServiceChooseConPageComponent from '~/pages/ServicePageDemo/ServiceChooseConPage/ServiceChooseConPage.component'
@@ -57,11 +57,13 @@ import CustomerPage from '~/pages/CustomerPage/CustomerProfilePage/CustomerProfi
 import CustomerBookingPage from '~/pages/CustomerPage/CustomerBookingPage/CustomerBookingPage.component'
 import SelectVeterinarianByAnyDateTimeComponent from '~/pages/SelectVeterinarianByAnyDateTimePage/SelectByVeterinarianByAnyDateTime.component'
 import AdditionalInfoBookingComponent from '~/pages/AdditionalInfoBookingPage/AdditionalInfoBooking.component'
-import PaymentResult from '~/pages/ConfirmBookingPage/PaymentResult'
-import CustomerPasswordComponent from '~/pages/CustomerPage/CustomerPasswordPage/CustomerPassword.component'
+
+
 import BookingListComponent from '~/pages/BookingListPage/BookingList.component'
 import LoginPageAdmin from '~/pages/LoginPageAdmin/LoginPageAdmin.component'
 import CreateReportPageComponent from '~/pages/VeterinarianHomePage/VeterianCreateReportPage/CreateReportPage.component'
+import VeterinarianInformation from '~/pages/SelectVeterinarianByAvailableSlotTimePage/VeterinarianInfomation/VeterinarianInformation'
+import PaymentResult from '~/pages/ConfirmBookingPage/PaymentResult/PaymentResult'
 
 const RouteComponent = () => {
   return (

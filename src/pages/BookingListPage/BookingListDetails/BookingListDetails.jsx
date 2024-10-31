@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   FaCalendarAlt,
-  FaDollarSign,
-  FaRedo,
-  FaTimes,
-  FaInfoCircle,
+  FaDollarSign
 } from "react-icons/fa";
 import { format } from "date-fns";
 

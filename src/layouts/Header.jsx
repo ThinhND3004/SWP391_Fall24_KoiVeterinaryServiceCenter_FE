@@ -200,13 +200,6 @@ function Header() {
     // Add your profile navigation logic here
   }
 
-    //test
-    window.location.href = "/customer";
-
-    console.log("Go to profile...");
-    // Add your profile navigation logic here
-  };
-
   // d biet
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -396,5 +389,6 @@ function Header() {
       <Divider />
     </AppBar>
   );
+}
 
 export default Header;
