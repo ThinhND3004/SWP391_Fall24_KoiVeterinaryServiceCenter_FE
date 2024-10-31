@@ -1,24 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react'
 import {
   Box,
   CircularProgress,
   Button,
   Typography,
-  Divider,
-} from "@mui/material";
-import { useLocation } from "react-router-dom";
-import dayjs from "dayjs";
+  Divider
+} from '@mui/material'
+import { useLocation } from 'react-router-dom'
+import dayjs from 'dayjs'
+import { BLUE_COLOR } from '~/theme'
 // import { cwd } from "process";
 
 const ConfirmBookingDetails = () => {
-  const location = useLocation(); // Nhận dữ liệu từ state
+  const location = useLocation() // Nhận dữ liệu từ state
   const { createBookingDTO, serviceEntity, veterinarianEntity } =
-    location.state;
-  console.log(createBookingDTO);
+    location.state
+  console.log(createBookingDTO)
 
   const totalPrice =
     createBookingDTO.servicePrice +
-    createBookingDTO.travelPrice * createBookingDTO.distanceMeters;
+    createBookingDTO.travelPrice * createBookingDTO.distanceMeters
 
   /**
    *
@@ -26,54 +27,54 @@ const ConfirmBookingDetails = () => {
    */
   const handlePayment = async (createBookingDTO) => {
     try {
-      console.log(createBookingDTO.veterianId);
+      console.log(createBookingDTO.veterianId)
 
       // Lưu createBookingDTO vào localStorage
       localStorage.setItem(
-        "createBookingDTO",
+        'createBookingDTO',
         JSON.stringify(createBookingDTO)
-      );
+      )
 
-      const token = localStorage.getItem("token"); // get token from localStorage
+      const token = localStorage.getItem('token') // get token from localStorage
 
       //transaction.paymentMethod
-      const paymentType = "BOOKING"; // Thay đổi theo giá trị của enum bạn đang sử dụng
+      const paymentType = 'BOOKING' // Thay đổi theo giá trị của enum bạn đang sử dụng
 
       const paymentDto = {
         payment: paymentType, // Loại thanh toán
-        totalPrice: totalPrice, // Giả sử bạn đã tính toán totalPrice ở đâu đó trong mã
-      };
-
-      const response = await fetch(
-        `http://localhost:8080/vnpay/create-payment`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Thêm Authorization header
-          },
-          body: JSON.stringify(paymentDto), // Gửi dữ liệu thanh toán lên API
-        }
-      );
-
-      const result = await response.json();
-      if (!response.ok) {
-        throw new Error(result.message || "Failed to create payment");
+        totalPrice: totalPrice // Giả sử bạn đã tính toán totalPrice ở đâu đó trong mã
       }
 
-      console.log(result);
+      const response = await fetch(
+        'http://localhost:8080/vnpay/create-payment',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}` // Thêm Authorization header
+          },
+          body: JSON.stringify(paymentDto) // Gửi dữ liệu thanh toán lên API
+        }
+      )
+
+      const result = await response.json()
+      if (!response.ok) {
+        throw new Error(result.message || 'Failed to create payment')
+      }
+
+      console.log(result)
 
       // Redirect người dùng tới URL thanh toán VNPay
       if (result.data) {
-        window.location.href = result.data; // result.data sẽ là URL thanh toán VNPay trả về từ backend
+        window.location.href = result.data // result.data sẽ là URL thanh toán VNPay trả về từ backend
       } else {
-        throw new Error("Payment URL not found in response.");
+        throw new Error('Payment URL not found in response.')
       }
     } catch (error) {
-      console.error("Error creating payment: ", error);
-      alert(`Error creating payment: ${error.message}`);
+      console.error('Error creating payment: ', error)
+      alert(`Error creating payment: ${error.message}`)
     }
-  };
+  }
 
   return (
     <Box
@@ -89,91 +90,90 @@ const ConfirmBookingDetails = () => {
           gap="20px" // Khoảng cách giữa các phần tử
           px="30px"
         >
-          <Typography variant="h4" fontWeight="bold" textAlign="center">
+          <Typography sx={{ fontFamily: 'SVN-Konga Pro', color: BLUE_COLOR, fontSize: 50 }}>
             Booking Summary
           </Typography>
-
           <Box display="flex" alignItems="center">
-            <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
+            <Typography fontWeight="bold" style={{ marginRight: '8px' }}>
               Service:
             </Typography>
             <Typography>{serviceEntity.name}</Typography>
           </Box>
 
           <Box display="flex" alignItems="center">
-            <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
+            <Typography fontWeight="bold" style={{ marginRight: '8px' }}>
               Veterinarian:
             </Typography>
             <Typography>
-              {veterinarianEntity?.fullName || "is not assigned"}
+              {veterinarianEntity?.fullName || 'is not assigned'}
             </Typography>
           </Box>
 
           <Box display="flex" alignItems="center">
-            <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
+            <Typography fontWeight="bold" style={{ marginRight: '8px' }}>
               Type:
             </Typography>
             <Typography>{serviceEntity.type}</Typography>
           </Box>
 
           <Box display="flex" alignItems="center">
-            <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
+            <Typography fontWeight="bold" style={{ marginRight: '8px' }}>
               Meeting method:
             </Typography>
             <Typography>{createBookingDTO.meetingMethod}</Typography>
           </Box>
 
           <Box display="flex" alignItems="center">
-            <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
+            <Typography fontWeight="bold" style={{ marginRight: '8px' }}>
               Start At:
             </Typography>
             <Typography>
-              {dayjs(createBookingDTO.startAt).format("DD/MM/YYYY HH:mm")}
+              {dayjs(createBookingDTO.startAt).format('DD/MM/YYYY HH:mm')}
             </Typography>
           </Box>
 
           <Box display="flex" alignItems="center">
-            <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
+            <Typography fontWeight="bold" style={{ marginRight: '8px' }}>
               Additional Information:
             </Typography>
             <Typography>
               {createBookingDTO.additionalInformation
                 ? createBookingDTO.additionalInformation
-                : "nothing"}
+                : 'nothing'}
             </Typography>
           </Box>
 
-          {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
-            createBookingDTO.meetingMethod !== "ONLINE" && (
+          {createBookingDTO.meetingMethod !== 'OFFLINE_CENTER' &&
+            createBookingDTO.meetingMethod !== 'ONLINE' && (
               <Box display="flex" alignItems="center">
-                <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
+                <Typography fontWeight="bold" style={{ marginRight: '8px' }}>
                   Address:
                 </Typography>
                 <Typography>{createBookingDTO.userAddress}</Typography>
               </Box>
             )}
 
-          {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
-            createBookingDTO.meetingMethod !== "ONLINE" && (
+          {createBookingDTO.meetingMethod !== 'OFFLINE_CENTER' &&
+            createBookingDTO.meetingMethod !== 'ONLINE' && (
               <Box display="flex" alignItems="center">
-                <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
+                <Typography fontWeight="bold" style={{ marginRight: '8px' }}>
                   Distance:
                 </Typography>
                 <Typography>{createBookingDTO.distanceMeters} km</Typography>
               </Box>
             )}
 
-          {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
-            createBookingDTO.meetingMethod !== "ONLINE" && (
+          {createBookingDTO.meetingMethod !== 'OFFLINE_CENTER' &&
+            createBookingDTO.meetingMethod !== 'ONLINE' && (
               <Box display="flex" alignItems="center">
-                <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
+                <Typography fontWeight="bold" style={{ marginRight: '8px' }}>
                   Travel Cost:
                 </Typography>
                 <Typography>
-                  {new Intl.NumberFormat("vi-VN").format(
+                  {new Intl.NumberFormat('vi-VN').format(
                     createBookingDTO.travelPrice *
-                      createBookingDTO.distanceMeters
-                  )}{" "}
+                    createBookingDTO.distanceMeters
+                  )}{' '}
                   VND
                   {/* {createBookingDTO.travelPrice *
                     createBookingDTO.distanceMeters} */}
@@ -182,37 +182,37 @@ const ConfirmBookingDetails = () => {
             )}
 
           <Box display="flex" alignItems="center">
-            <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
+            <Typography fontWeight="bold" style={{ marginRight: '8px' }}>
               Service Price:
             </Typography>
             <Typography>
-              {new Intl.NumberFormat("vi-VN").format(
+              {new Intl.NumberFormat('vi-VN').format(
                 createBookingDTO.servicePrice
-              )}{" "}
+              )}{' '}
               VND
             </Typography>
           </Box>
 
           <Typography fontWeight="bold" variant="h5" textAlign="center">
             TOTAL PRICE:
-            {new Intl.NumberFormat("vi-VN").format(totalPrice)} VND
+            {new Intl.NumberFormat('vi-VN').format(totalPrice)} VND
           </Typography>
 
           <Divider sx={{ my: 2 }} />
 
           <Box display="flex" alignItems="center">
-            <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
+            <Typography fontWeight="bold" style={{ marginRight: '8px' }}>
               Payment Method:
             </Typography>
             <Typography>VNPay</Typography>
           </Box>
 
           <Box display="flex" alignItems="center">
-            <Typography fontWeight="bold" style={{ marginRight: "8px" }}>
+            <Typography fontWeight="bold" style={{ marginRight: '8px' }}>
               Amount:
             </Typography>
             <Typography>
-              {new Intl.NumberFormat("vi-VN").format(totalPrice)} VND
+              {new Intl.NumberFormat('vi-VN').format(totalPrice)} VND
             </Typography>
           </Box>
 
@@ -226,7 +226,7 @@ const ConfirmBookingDetails = () => {
         </Box>
       </div>
     </Box>
-  );
-};
+  )
+}
 
-export default ConfirmBookingDetails;
+export default ConfirmBookingDetails

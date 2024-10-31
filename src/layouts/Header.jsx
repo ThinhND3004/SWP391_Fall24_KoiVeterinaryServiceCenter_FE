@@ -60,7 +60,7 @@ const Profile = ({ accInfo, anchorEl, handleMenuClick, handleClose, handleProfil
     fetchImage();
   }, []);
 
-  
+
   return <>
     <Typography
       sx={{
@@ -76,24 +76,24 @@ const Profile = ({ accInfo, anchorEl, handleMenuClick, handleClose, handleProfil
       <Avatar src={avatarUrl} />
     </IconButton>
 
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        // sx={{ bgcolor: '#000' }}
-      >
-        <MenuItem onClick={handleProfile}>Profile</MenuItem>
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
-      </Menu>
-    </>
+    <Menu
+      anchorEl={anchorEl}
+      open={Boolean(anchorEl)}
+      onClose={handleClose}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+    // sx={{ bgcolor: '#000' }}
+    >
+      <MenuItem onClick={handleProfile}>Profile</MenuItem>
+      <MenuItem onClick={handleLogout}>Logout</MenuItem>
+    </Menu>
+  </>
 };
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
@@ -168,7 +168,7 @@ function Header() {
     // } else {
     //   handleGetAccInfo();
     // }
-    
+
     handleGetAccInfo();
 
 
