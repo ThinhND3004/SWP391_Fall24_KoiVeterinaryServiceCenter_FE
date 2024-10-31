@@ -89,6 +89,7 @@ const ConfirmBookingDetails = () => {
         <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 50, color: BLUE_COLOR }}>Booking Summary</Typography>
         <img src='src\assets\images\Koi 3.png' style={{ width: '100px' }} />
       </Box>
+      <Typography>Almost there! Check your booking summary below.</Typography>
       <div>
         <Box
           display="flex"
@@ -97,6 +98,7 @@ const ConfirmBookingDetails = () => {
           // px="30px"
           justifyContent={'space-between'}
           mb={5}
+          mt={5}
         >
 
           {/* Box cot ben trai */}
@@ -338,9 +340,8 @@ const ConfirmBookingDetails = () => {
               </Box>
             )}
 
-
           <Box sx={{ width: 600, mt: 20 }}>
-            <Box>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
               <Typography sx={{ marginRight: "8px", fontWeight: 500, fontSize: 16 }}>
                 Service Price:
               </Typography>
@@ -376,27 +377,31 @@ const ConfirmBookingDetails = () => {
               </Typography>
             </Box>
 
-            <Box sx={{ mt: 5 }}>
-              <Typography sx={{ fontWeight: 600, color: ORANGE_COLOR, fontSize: 20 }}>
-                TOTAL PRICE:
-                {new Intl.NumberFormat("vi-VN").format(totalPrice)} VND
-              </Typography>
-            </Box>
-
-            <Divider sx={{ my: 2 }} />
-
-            <Box display="flex" alignItems="center" justifyContent={'space-between'}>
-              <Typography sx={{ marginRight: "8px", fontWeight: 500, fontSize: 16 }}>
-                Payment Method:
-              </Typography>
-              <Typography>VNPay</Typography>
-            </Box>
-
-            <Box display="flex" alignItems="center" justifyContent={'space-between'}>
+            <Box display="flex" alignItems="center" justifyContent={'space-between'} mt={2}>
               <Typography sx={{ marginRight: "8px", fontWeight: 500, fontSize: 16 }}>
                 Amount:
               </Typography>
               <Typography>
+                {new Intl.NumberFormat("vi-VN").format(totalPrice)} VND
+              </Typography>
+            </Box>
+
+            <Box display="flex" alignItems="center" justifyContent={'space-between'} mt={2}>
+              <Typography sx={{ marginRight: "8px", fontWeight: 500, fontSize: 16 }}>
+                Payment Method:
+              </Typography>
+              <img
+                src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-VNPAY-QR.png"
+                alt="VNPAY Logo"
+                style={{ width: '80px' }}
+              />
+              {/* <Typography>VNPay</Typography> */}
+            </Box>
+
+            <Divider sx={{ my: 2, mt: 5 }} />
+            <Box sx={{ mt: 5 }}>
+              <Typography sx={{ fontWeight: 600, color: ORANGE_COLOR, fontSize: 20 }}>
+                TOTAL PRICE:
                 {new Intl.NumberFormat("vi-VN").format(totalPrice)} VND
               </Typography>
             </Box>
