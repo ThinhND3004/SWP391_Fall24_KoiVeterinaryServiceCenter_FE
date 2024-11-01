@@ -1,23 +1,28 @@
-import { useState, useEffect } from 'react'
-import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import Menu from '@mui/material/Menu'
-import MenuIcon from '@mui/icons-material/Menu'
-import Container from '@mui/material/Container'
-import Button from '@mui/material/Button'
-import MenuItem from '@mui/material/MenuItem'
-import { useDispatch, useSelector } from 'react-redux'
-import { setNavbarId } from '~/redux/globalConfigSlice'
-import { GRAY_COLOR, ORANGE_COLOR, BLUE_COLOR, INPUT_FIELD_COLOR } from '~/theme'
-import { Divider } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
-import api from '~/config/axios'
-import Avatar from '@mui/material/Avatar'
-import axios from 'axios'
-import ManagementApi from '~/api/ManagementApi'
+import { useState, useEffect } from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
+import MenuItem from "@mui/material/MenuItem";
+import { useDispatch, useSelector } from "react-redux";
+import { setNavbarId } from "~/redux/globalConfigSlice";
+import {
+  GRAY_COLOR,
+  ORANGE_COLOR,
+  BLUE_COLOR,
+  INPUT_FIELD_COLOR,
+} from "~/theme";
+import { Divider } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import api from "~/config/axios";
+import Avatar from "@mui/material/Avatar";
+import axios from "axios";
+import ManagementApi from "~/api/ManagementApi";
 
 const pages = ["Home", "About us", "Service", "Koi Health", "Contact Us"];
 
@@ -42,10 +47,15 @@ const LoginButton = ({ navigate }) => {
   );
 };
 
-
-
-const Profile = ({ accInfo, anchorEl, handleMenuClick, handleClose, handleProfile, handleLogout }) => {
-
+const Profile = ({
+  accInfo,
+  anchorEl,
+  handleMenuClick,
+  handleClose,
+  handleProfile,
+  handleLogout,
+  handleBookingList,
+}) => {
   const [avatarUrl, setAvatarUrl] = useState(null);
 
   useEffect(() => {
@@ -60,40 +70,46 @@ const Profile = ({ accInfo, anchorEl, handleMenuClick, handleClose, handleProfil
     fetchImage();
   }, []);
 
+  return (
+    <>
+      <Typography
+        sx={{
+          py: "20px",
+          color: GRAY_COLOR,
+          display: "block",
+          fontWeight: 600,
+        }}
+      >
+        Hi, {accInfo.firstName} {accInfo.lastName}
+      </Typography>
 
-  return <>
-    <Typography
-      sx={{
-        py: '20px',
-        color: GRAY_COLOR,
-        display: 'block',
-        fontWeight: 600
-      }}
-    >Hi, {accInfo.firstName} {accInfo.lastName}
-    </Typography>
+      <IconButton onClick={handleMenuClick} color="inherit">
+        <Avatar src={avatarUrl} />
+      </IconButton>
 
-    <IconButton onClick={handleMenuClick} color="inherit">
-      <Avatar src={avatarUrl} />
-    </IconButton>
-
-    <Menu
-      anchorEl={anchorEl}
-      open={Boolean(anchorEl)}
-      onClose={handleClose}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-    // sx={{ bgcolor: '#000' }}
-    >
-      <MenuItem onClick={handleProfile}>Profile</MenuItem>
-      <MenuItem onClick={handleLogout}>Logout</MenuItem>
-    </Menu>
-  </>
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        // sx={{ bgcolor: '#000' }}
+      >
+        <MenuItem onClick={handleProfile}>Profile</MenuItem>
+        {/* only render Booking List if role is CUSTOMER */}
+        {accInfo?.role === "CUSTOMER" && (
+          <MenuItem onClick={handleBookingList}>Booking</MenuItem>
+        )}
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      </Menu>
+    </>
+  );
 };
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
@@ -141,10 +157,9 @@ function Header() {
     const token = getToken();
     if (token) {
       try {
-
-        console.log('TOKEN: ', token)
-        const response = await api.get('accounts/current')
-        console.log('INFO: ', response.data.data)
+        console.log("TOKEN: ", token);
+        const response = await api.get("accounts/current");
+        console.log("INFO: ", response.data.data);
 
         if (response) {
           setAccInfo(response.data.data);
@@ -170,9 +185,7 @@ function Header() {
     // }
 
     handleGetAccInfo();
-
-
-  }, [])
+  }, []);
 
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -194,11 +207,11 @@ function Header() {
 
   // Handle profile
   const handleProfile = () => {
-    handleClose()
-    console.log('Go to profile...');
+    handleClose();
+    console.log("Go to profile...");
     navigate("/profile");
     // Add your profile navigation logic here
-  }
+  };
 
   // d biet
   const handleOpenNavMenu = (event) => {
@@ -368,6 +381,7 @@ function Header() {
               handleMenuClick={handleMenuClick}
               handleClose={handleClose}
               handleProfile={handleProfile}
+              handleBookingList={handleBookingList}
               handleLogout={handleLogout}
             />
           )}
@@ -377,12 +391,12 @@ function Header() {
             sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end" }}
           >
             {/* Render Button Lịch hẹn */}
-            <Button
+            {/* <Button
               onClick={handleBookingList}
               sx={{ marginLeft: 2, color: BLUE_COLOR }} // Sử dụng mã màu hoặc biến màu tùy chọn
             >
               Booking
-            </Button>
+            </Button> */}
           </Box>
         </Toolbar>
       </Container>
