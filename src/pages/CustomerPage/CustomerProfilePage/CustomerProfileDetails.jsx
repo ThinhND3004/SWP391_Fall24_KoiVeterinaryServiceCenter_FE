@@ -32,7 +32,10 @@ function CustomerProfileDetails() {
         body: JSON.stringify({ email: userInfo.email, password }),
     });
 
-    if (response.ok) {
+    const data = await response.json();
+    console.log(data)
+
+    if (data.status === 200) {
         setShowPasswordOverlay(false); // Ẩn overlay
         await updateUserProfile(); // Gọi hàm cập nhật nếu mật khẩu đúng
     } else {
@@ -457,7 +460,10 @@ function CustomerProfileDetails() {
               fullWidth
               sx={{ mt: 2, mb: 2 }}
             />
-            <Button variant="contained" onClick={verifyPasswordAndSave}>
+            {/* <Button variant="contained" color="primary" >
+              Exit
+            </Button> */}
+            <Button variant="contained" color="secondary" onClick={verifyPasswordAndSave}>
               Confirm
             </Button>
           </div>

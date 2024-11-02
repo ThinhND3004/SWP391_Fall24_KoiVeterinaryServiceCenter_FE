@@ -16,8 +16,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from "~/theme";
 import { toast } from "react-toastify"; // Thêm thư viện react-toastify nếu dùng
 
-
-const SelectVeterinarianByAnyDateTimeComponent = () => {
+const SelectVeterinarianByAnyDateTimeDetails = () => {
   const location = useLocation(); // Nhận dữ liệu từ state
   const { service, serviceAddress } = location.state || {};
 
@@ -57,12 +56,14 @@ const SelectVeterinarianByAnyDateTimeComponent = () => {
       const data = await response.json();
       setVeterinarians(data.data || []); // Set veterinarians if data exists
       if (data.data.length === 0) {
-        setNoVeterinarianMessage(
-          "We are unable to assign veterinarians during the hours when veterinarians are not available."
-        );
-      } else {
-        setNoVeterinarianMessage(""); // Clear message if veterinarians are found
-      }
+        // setNoVeterinarianMessage(
+        //   "Chúng tôi không thể chỉ định bác sĩ trong khung giờ các bác sĩ không hoạt động."
+        // );
+        toast.error("Chúng tôi không thể chỉ định bác sĩ trong khung giờ các bác sĩ không hoạt động");
+      } 
+    //   else {
+    //     setNoVeterinarianMessage(""); // Clear message if veterinarians are found
+    //   }
     } catch (err) {
       setError(err.message);
     } finally {
@@ -167,7 +168,7 @@ const SelectVeterinarianByAnyDateTimeComponent = () => {
               fullWidth
               onClick={() => {
                 if (veterinarians.length === 0) {
-                  toast.error(noVeterinarianMessage);
+                  alert(noVeterinarianMessage);
                 } else {
                   navigate("/additional-info-booking", {
                     state: {
@@ -312,4 +313,4 @@ const SelectVeterinarianByAnyDateTimeComponent = () => {
   );
 };
 
-export default SelectVeterinarianByAnyDateTimeComponent;
+export default SelectVeterinarianByAnyDateTimeDetails;
