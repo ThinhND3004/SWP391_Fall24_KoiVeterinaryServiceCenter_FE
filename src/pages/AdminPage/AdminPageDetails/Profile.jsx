@@ -6,10 +6,8 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import Breadcrumbs from '@mui/material/Breadcrumbs'
-import Link from '@mui/material/Link'
-import dayjs from 'dayjs';
-import api from '~/config/axios'
-import axios, { Axios } from 'axios'
+import dayjs from 'dayjs'
+import axios from 'axios'
 import ManagementApi from '~/api/ManagementApi'
 
 function handleClick(event) {
@@ -19,33 +17,37 @@ function handleClick(event) {
 
 
 function Profile() {
-  const [userInfo, setUserInfo] = useState({});
-  const [avt, setAvt] = useState();
+  const [userInfo, setUserInfo] = useState({})
+  const [avt, setAvt] = useState()
 
-  const [accInfo, setAccInfo] = useState({});
+  const [accInfo, setAccInfo] = useState({})
 
   useEffect(() => {
     const getAccount = async () => {
-      const res = await ManagementApi.getCurrentAccount();
-      if (res) setAccInfo(res);
+      const res = await ManagementApi.getCurrentAccount()
+      if (res) setAccInfo(res)
     }
 
-    getAccount();
+    getAccount()
 
   }, [])
 
   useEffect(() => {
-    
+
     const getAvt = async () => {
-      const res = await ManagementApi.getImage(accInfo.imageId);
-      if (res) setAvt(res);
+      const res = await ManagementApi.getImage(accInfo.imageId)
+      if (res) {
+        setAvt(res)
+        console.log(res);
+
+      }
     }
 
-    getAvt();
+    getAvt()
 
   }, [accInfo])
 
-  
+
 
   const handleChangeInfo = (field, value) => {
     setUserInfo(previuos => ({
@@ -64,27 +66,26 @@ function Profile() {
   // }, [])
 
   const handleSetImg = async (event) => {
-    const file = event.target.files[0];
+    const file = event.target.files[0]
 
-    if (file && file.size <= 500 + 1024)
-    {
+    if (file && file.size <= 500 + 1024) {
       try {
-      const response = await axios.post(`http://localhost:8080/image/upload`, file);
-    } catch (err) {
-      console.log('SET IMG ERR: ', err)
-    }
-    } else console.log("FILE TO LARGE");
-    
+        const response = await axios.post(`http://localhost:8080/image/upload`, file)
+      } catch (err) {
+        console.log('SET IMG ERR: ', err)
+      }
+    } else console.log("FILE TO LARGE")
+
   }
 
   const handleClickChangeImgBtn = () => {
-    document.getElementById("file-input").click();
+    document.getElementById("file-input").click()
   }
 
 
   const handleClickSaveChange = async () => {
     const accInfo = JSON.parse(localStorage.getItem('accountInfo'))
-    console.log("UPDATE DATA: ", userInfo);
+    console.log("UPDATE DATA: ", userInfo)
     try {
       // const response = await api.put(`accounts/${accInfo.id}`, {
       //   firstName: userInfo.firstName,
@@ -94,26 +95,26 @@ function Profile() {
       //   address: userInfo.add
       // });
 
-      const response = await axios.put(`http://localhost:8080/accounts/${accInfo.id}`, userInfo);
+      const response = await axios.put(`http://localhost:8080/accounts/${accInfo.id}`, userInfo)
 
-      console.log("UPDATE RESULT: ", response.data);
+      console.log("UPDATE RESULT: ", response.data)
     } catch {
-      console.log("ERROR UPDATE OCCUR!!!");
+      console.log("ERROR UPDATE OCCUR!!!")
     }
   }
 
   const handleGetUserInfo = () => {
-    const accInfo = localStorage.getItem('accountInfo');
+    const accInfo = localStorage.getItem('accountInfo')
     console.log('ACCOUNT: ', JSON.parse(accInfo))
     if (accInfo) {
-      const info = JSON.parse(accInfo);
+      const info = JSON.parse(accInfo)
 
-      const firstName = info.firstName;
-      const lastName = info.lastName;
-      const email = info.email;
-      const phone = info.phone;
-      const dob = info.dob;
-      const address = info.address;
+      const firstName = info.firstName
+      const lastName = info.lastName
+      const email = info.email
+      const phone = info.phone
+      const dob = info.dob
+      const address = info.address
 
 
       setUserInfo({
@@ -128,7 +129,7 @@ function Profile() {
   }
 
   useEffect(() => {
-    handleGetUserInfo();
+    handleGetUserInfo()
   }, [])
 
   return (

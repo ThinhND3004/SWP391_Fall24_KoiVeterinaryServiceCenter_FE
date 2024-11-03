@@ -162,7 +162,7 @@ function Introduction() {
           <Box
             sx={{
               display: 'flex',
-              justifyContent: 'start',
+              justifyContent: 'flex-end',
               marginTop: '40px',
               marginBottom: '60px'
             }}

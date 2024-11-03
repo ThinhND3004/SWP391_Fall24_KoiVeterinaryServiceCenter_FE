@@ -1,22 +1,19 @@
 import { styled, alpha } from '@mui/material/styles'
-import Box from '@mui/material/Box'
-import InputBase from '@mui/material/InputBase'
+import {
+  Box, Button, Dialog, DialogActions, DialogContent, DialogTitle,
+  Typography, InputBase, TextField, Menu, MenuItem
+} from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
-import { BG_COLOR, BLUE_COLOR, GRAY_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme'
-import Button from '@mui/material/Button'
-import FilterListIcon from '@mui/icons-material/FilterList'
 import AddIcon from '@mui/icons-material/Add'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
-import { Breadcrumbs, Typography } from '@mui/material'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
+import React, { useEffect, useState } from 'react'
 import DynamicDataGrid from './testGrid'
+import { BG_COLOR, BLUE_COLOR, GRAY_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme'
+import api from '~/config/axios'
+import BackdropComponent from '~/components/Backdrop.component'
+import useFetchOnce from '~/hooks/useFetchOnce'
 
+// Styled Components
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -58,70 +55,178 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   }
 }))
 
-function createData(name, dob, fullName, startDate, email, phoneNumber, status) {
-  return { name, dob, fullName, startDate, email, phoneNumber, status }
-}
+const StyledTextField = styled(TextField)(({ theme }) => ({
+  width: '600px',
+  '& .MuiOutlinedInput-root': {
+    borderRadius: '15px',
+    borderColor: BLUE_COLOR,
+    height: '60px',
+    marginTop: '15px',
+    '&.Mui-focused fieldset': {
+      borderColor: BLUE_COLOR
+    }
+  },
+  '& input': {
+    backgroundColor: INPUT_FIELD_COLOR,
+    padding: '20px 15px',
+    fontSize: '16px',
+    borderRadius: '15px'
+  }
+}))
 
-const rows = [
-  createData('Hedwig F. Nguyen', '01/01/2000', 'Arcu Vel Foundation', '03/27/2017', 'nunc.ullamcorper@metusvitae.com', '070 8206 9605', 'Suspended'),
-  createData('Genevieve U. Watts', '01/01/2000', 'Eget Incorporated', '07/18/2017', 'Nullam.vitae@egestas.edu', '0800 025698', 'Closed'),
-  createData('Kyra S. Baldwin', '01/01/2000', 'Lorem Vitae Limited', '04/14/2016', 'in@elita.org', '0800 237 8846', 'Suspended'),
-  createData('Stephen V. Hill', '01/01/2000', 'Eget Mollis Institute', '03/03/2016', 'eu@vel.com', '0800 682 4591', 'Active'),
-  createData('Vielka Q. Chapman', '01/01/2000', 'Eu Ltd', '06/25/2017', 'orci.Donec.nibh@mauriseratget.edu', '0800 181 5795', 'Suspended'),
-  createData('Ocean W. Curtis', '01/01/2000', 'Eu Ltd', '08/24/2017', 'cursus.et@cursus.edu', '(016977) 9585', 'Active'),
-  createData('Kato F. Tucker', '01/01/2000', 'Vel Lectus Limited', '11/06/2017', 'Duis@Lorem.edu', '070 0981 8503', 'Active'),
-  createData('Robin J. Wise', '01/01/2000', 'Curabitur Dictum PC', '02/09/2017', 'blandit@montesnascetur.edu', '0800 259158', 'Active'),
-  createData('Uriel H. Guerrero', '01/01/2000', 'Mauris Inc.', '02/11/2018', 'vitae@linnecorci.net', '0500 948772', 'Active'),
-  createData('Yasir W. Benson', '01/01/2000', 'At Incorporated', '01/13/2017', 'ornare.elit.elit@atortor.edu', '0391 916 3600', 'Active')
-]
+const BookingPageDetails = () => {
+  const [openDialog, setOpenDialog] = useState(false)
+  const [anchorEl, setAnchorEl] = useState(null)
+  const [serviceDatas, setServiceDatas] = useState([])
+  const { data, loading, error } = useFetchOnce('services/getAllService')
+  const isMenuOpen = Boolean(anchorEl)
+
+  const handleDialogOpen = () => setOpenDialog(true)
+  const handleDialogClose = () => setOpenDialog(false)
+
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleMenuClose = () => {
+    setAnchorEl(null)
+  }
+
+  useEffect(() => {
+    if (!data) return
+
+    const fetchData = []
+    const services = data.map(dt => {
+      const {
+        name,
+        type,
+        description,
+        meetingMethod,
+        price,
+        travelPricePerMeter,
+        estimatedTime,
+        createdAt
+      } = dt
+
+      return {
+        name,
+        type,
+        description,
+        meetingMethod,
+        price,
+        travelPricePerMeter,
+        estimatedTime,
+        createdAt
+      }
+    })
+
+    setServiceDatas(services)
+  }, [data])
 
 
-function BookingPageDetails() {
   return (
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
-        <Box sx={{ display: 'flex', gap: 2 }}>
-          <Search sx={{
-            borderRadius: '10px',
-            bgcolor: INPUT_FIELD_COLOR
-          }}>
-            <SearchIconWrapper>
-              <SearchIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
-            </SearchIconWrapper>
-            <StyledInputBase sx={{ fontSize: '14px' }}
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
+        <Search sx={{ borderRadius: '10px', bgcolor: INPUT_FIELD_COLOR }}>
+          <SearchIconWrapper>
+            <SearchIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
+          </SearchIconWrapper>
+          <StyledInputBase
+            sx={{ fontSize: '14px' }}
+            placeholder="Search…"
+            inputProps={{ 'aria-label': 'search' }}
+          />
+        </Search>
 
-          {/* <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: INPUT_FIELD_COLOR, borderRadius: '10px', gap: 1 }}>
-            <FilterListIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
-            <Typography sx={{ color: GRAY_COLOR, fontWeight: 500, fontSize: '14px' }}>
-              Filter
-            </Typography>
-          </Button> */}
+        <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: INPUT_FIELD_COLOR, borderRadius: '10px', gap: 1 }}>
+          <FileDownloadIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
+          <Typography sx={{ color: GRAY_COLOR, fontWeight: 500, fontSize: '14px' }}>Import</Typography>
+        </Button>
 
-          <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: INPUT_FIELD_COLOR, borderRadius: '10px', gap: 1 }}>
-            <FileDownloadIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
-            <Typography sx={{ color: GRAY_COLOR, fontWeight: 500, fontSize: '14px' }}>
-              Import
-            </Typography>
-          </Button>
+        <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: BLUE_COLOR, borderRadius: '10px', color: '#fff', gap: 1 }} onClick={handleDialogOpen}>
+          <AddIcon sx={{ fontSize: '14px' }} />
+          <Typography sx={{ fontSize: '14px' }}>Add</Typography>
+        </Button>
 
-          <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: BLUE_COLOR, borderRadius: '10px', color: '#fff', gap: 1 }}>
-            <AddIcon sx={{ fontSize: '14px' }} />
-            <Typography sx={{ fontSize: '14px' }}>
-              Add
-            </Typography>
-          </Button>
-        </Box>
-      </Box>
+        <Dialog open={openDialog} onClose={handleDialogClose} PaperProps={{
+          sx: {
+            width: '700px',
+            maxWidth: '90%',
+            bgcolor: INPUT_FIELD_COLOR,
+            borderRadius: '30px',
+          }
+        }}>
+          <DialogTitle sx={{ marginTop: 4 }}>
+            <Typography sx={{ fontWeight: 600, fontSize: 30, textAlign: 'center' }}>Add Services</Typography>
+          </DialogTitle>
 
-      {/* Table */}
+          <DialogContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            {['Enter name', 'Enter date of birth', 'Enter full name', 'Enter start date', 'Enter email', 'Enter phone number'].map((label) => (
+              <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', mt: 5 }} key={label}>
+                <Typography sx={{ fontWeight: 600, fontSize: 18 }}>{label}</Typography>
+                <StyledTextField placeholder={label} variant="outlined" />
+              </Box>
+            ))}
+
+            {/* Set Status */}
+            <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', mt: 5 }}>
+              <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Set status</Typography>
+              <Button
+                id="status-button"
+                aria-controls={isMenuOpen ? 'basic-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={isMenuOpen ? 'true' : undefined}
+                onClick={handleMenuClick}
+                sx={{
+                  boxShadow: 'none',
+                  bgcolor: INPUT_FIELD_COLOR,
+                  borderRadius: '14px',
+                  gap: 1,
+                  border: '1px solid rgb(165 180 179)',
+                  color: 'rgb(165 180 179)',
+                  width: '600px',
+                  height: '55px',
+                  mt: 2
+                }}
+              >
+                Set status
+              </Button>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={isMenuOpen}
+                onClose={handleMenuClose}
+                MenuListProps={{
+                  'aria-labelledby': 'basic-button',
+                }}
+                PaperProps={{
+                  sx: {
+                    borderRadius: '12px',            // Rounded corners
+                    boxShadow: 'none',  // Subtle shadow for depth
+                    minWidth: '600px',                // Minimum width
+                    bgcolor: 'background.paper',      // Background color from theme
+                  },
+                }}
+              >
+                <MenuItem onClick={handleMenuClose} >Suspended</MenuItem>
+                <MenuItem onClick={handleMenuClose}>Active</MenuItem>
+                <MenuItem onClick={handleMenuClose}>In active</MenuItem>
+              </Menu>
+            </Box>
+          </DialogContent>
+
+          <DialogActions>
+            <Button onClick={handleDialogClose} sx={{ bgcolor: BLUE_COLOR, borderRadius: '14px', color: 'white', width: '100px', height: '40px', mr: 6, mb: 3 }}>
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog >
+      </Box >
+
       <Box sx={{ mt: 3, mb: 3 }}>
-        <DynamicDataGrid data={rows} />
+        <DynamicDataGrid data={serviceDatas} />
       </Box>
-    </Box>
+      <BackdropComponent open={loading} />
+    </Box >
   )
 }
 

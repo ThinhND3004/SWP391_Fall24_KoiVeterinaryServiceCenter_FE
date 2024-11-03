@@ -2,6 +2,7 @@ import { BrowserRouter } from "react-router-dom"
 import RouteComponent from "./routes"
 import NotificationHandler from "./components/NotificationHandler"
 import { GoogleOAuthProvider } from "@react-oauth/google"
+import BackdropComponent from "./components/Backdrop.component"
 
 function App() {
 
@@ -14,7 +15,7 @@ function App() {
         <BrowserRouter>
           <RouteComponent />
         </BrowserRouter>
-    </GoogleOAuthProvider >
+      </GoogleOAuthProvider >
     </>
   )
 }
