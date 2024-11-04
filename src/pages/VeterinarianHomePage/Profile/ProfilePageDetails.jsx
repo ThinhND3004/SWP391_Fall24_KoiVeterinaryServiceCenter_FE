@@ -10,6 +10,7 @@ import Link from '@mui/material/Link'
 import Timetable from '~/pages/Management/Verterian/Timetable'
 import ManagementApi from '~/api/ManagementApi'
 import dayjs from 'dayjs'
+import VerterianProfile from './VeterianProfile'
 
 function handleClick(event) {
   event.preventDefault()
@@ -286,6 +287,8 @@ function ProfilePageDetails() {
         </Box>
 
       </Box>
+      {/* VETERIAN PROFILE */}
+      <VerterianProfile/>
       {/* When2meet */}
       <Box sx={{}}>
           <Timetable />

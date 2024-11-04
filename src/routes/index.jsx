@@ -147,9 +147,6 @@ const RouteComponent = () => {
         <Navigate to='/staff' relative={true} />
       } />
 
-      <Route path='/' element={
-        <Navigate to='/veterinarian' relative={true} />
-      } />
     </Routes >
   )
 }

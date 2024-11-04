@@ -57,15 +57,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 function VeterinarianBookingPageDetails() {
   const [rowData, setRowData] = useState([]);
   const [navBarStatus, setNavBarStatus] = useState("ALL")
-  
+
 
   const fetchDataByStatus = async (status) => {
     let data = [];
     const accountInfo = JSON.parse(localStorage.getItem('accountInfo'));
     const email = accountInfo.email;
-    
-    if(status === 'ALL') data = await ManagementApi.getBookings({veterianEmail: email});
-    else data = await ManagementApi.getBookings({status: status, veterianEmail: email});
+
+    if (status === 'ALL') data = await ManagementApi.getVeterianBookings({});
+    else data = await ManagementApi.getVeterianBookings({status: status});
 
     const row = data.map((data) => {
       return {
@@ -88,10 +88,10 @@ function VeterinarianBookingPageDetails() {
         color: navBarStatus === content ? 'white' : '',
         borderRadius: '10px'
       }}
-      onClick={()=> {
-        fetchDataByStatus(content);
-        setNavBarStatus(content);
-      }}
+        onClick={() => {
+          fetchDataByStatus(content);
+          setNavBarStatus(content);
+        }}
       >
         {content}
       </Button>
@@ -134,7 +134,7 @@ function VeterinarianBookingPageDetails() {
             </Typography>
           </Button>
 
-          
+
         </Box>
       </Box>
       {/* Booking Nav Bar  */}
