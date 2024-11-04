@@ -1,10 +1,25 @@
 import { Typography, Box } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import TableGrid from './TableGrid'
+import ManagementApi from '~/api/ManagementApi'
 
-const dayArr = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-const timeArr = ['9', '10', '11', '12', '13', '14', '15', '16', '17']
-const text = 'rgb(22, 21, 21)'
+const dayArr = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const timeArr = ['9', '10', '11', '12', '13', '14', '15', '16', '17'];
+const timeBlockArr = [];
+
+dayArr.forEach((day) => {
+  timeArr.slice(0, timeArr.length - 1).forEach((time) => {
+    timeBlockArr.push(`${day.toUpperCase()} ${time}:00`); // Push hour time blocks
+    timeBlockArr.push(`${day.toUpperCase()} ${time}:30`); // Push half-hour time blocks
+  });
+});
+
+function turn_string_to_date(day_string) {
+  let [hours, minute] = day_string.split(":").map(Number);
+  let time = new Date();
+  time.setHours(hours, minute, 0, 0);
+  return time;
+}
 
 function TableTime() {
   return (
@@ -35,7 +50,44 @@ function TableDay() {
   )
 }
 
+
 function Schedule() {
+  const [selectedTimeBlocks, setSelectedTimeBlocks] = useState([]);
+
+  const fetchTimetables = async () => {
+    const data = await ManagementApi.getTimetables();
+    if (data) {
+      const selectedBlocks = [];
+
+      data.forEach((timetable) => {
+        const timetableDay = timetable.dayOfWeek;
+        const timetableStartTime = turn_string_to_date(timetable.startTime);
+        const timetableEndTime = turn_string_to_date(timetable.endTime);
+        // console.log("Timetable start time", timetableStartTime)
+
+        timeBlockArr.forEach((timeBlock) => {
+          const day = timeBlock.split(" ")[0];
+          const startTime = turn_string_to_date(timeBlock.split(" ")[1]);
+
+          if (
+            timetableDay === day && 
+            timetableStartTime.getTime() <= startTime.getTime() &&
+            timetableEndTime.getTime() > startTime.getTime())
+            {
+              selectedBlocks.push(timeBlock);
+              
+            }
+        })
+      })
+      setSelectedTimeBlocks(selectedBlocks);
+    }
+  }
+
+  useEffect(() => {
+    fetchTimetables();
+
+  },[]);
+
   return (
     <Box
       sx={{
@@ -49,7 +101,7 @@ function Schedule() {
       <TableTime />
       <Box>
         <TableDay />
-        <TableGrid />
+        <TableGrid selectedTimeBlocks={selectedTimeBlocks} timeBlockArr={timeBlockArr} timeArr={timeArr} />
       </Box>
     </Box>
   )

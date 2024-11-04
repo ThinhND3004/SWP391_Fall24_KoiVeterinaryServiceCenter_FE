@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button'
 import { Box, TextField, Typography } from '@mui/material'
 import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme'
@@ -8,6 +8,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import Breadcrumbs from '@mui/material/Breadcrumbs'
 import Link from '@mui/material/Link'
 import Timetable from '~/pages/Management/Verterian/Timetable'
+import ManagementApi from '~/api/ManagementApi'
+import dayjs from 'dayjs'
 
 function handleClick(event) {
   event.preventDefault()
@@ -16,11 +18,22 @@ function handleClick(event) {
 
 
 function ProfilePageDetails() {
+  const [account, setAccount] = useState(null);
+
+  const fetchAccount = async () => {
+    const accountData = await ManagementApi.getCurrentAccount();
+    setAccount(accountData)
+  }
+
+  useEffect(() => {
+    fetchAccount();
+  }, []);
+
   return (
     <div style={{ position: 'relative' }}>
       <Breadcrumbs aria-label="breadcrumb">
         <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-          Veterinarian
+          Staff
         </Typography>
         <Typography sx={{
           fontWeight: 600, fontSize: '20px'
@@ -32,7 +45,7 @@ function ProfilePageDetails() {
 
       <Box sx={{ display: 'flex', alignItems: 'center', mt: 3 }}>
         <img
-          src="https://scontent.fsgn5-13.fna.fbcdn.net/v/t39.30808-6/444483357_1023869129097783_5298444339195279755_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeEooEKZIeiFTMc89kJ4sqbqX53yHN6hg2dfnfIc3qGDZ2tUCAB2vw0vTUjD6_lAaMtugbk-POIJZV6-86KGV_Wu&_nc_ohc=DZqmzg7KWQUQ7kNvgGjN7Hv&_nc_zt=23&_nc_ht=scontent.fsgn5-13.fna&_nc_gid=A0KQYsspStC_2WKaChv3_Io&oh=00_AYBXO6-A5KhMlEEUDtT8gXIbOw4Nv-qbgRBpmuZ09xihSw&oe=67145963"
+          src="https://scontent.fsgn5-6.fna.fbcdn.net/v/t39.30808-6/462711740_18005468618659508_2399165263118220467_n.jpg?_nc_cat=1&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGgpYmZozIN8KHUTZoNLzjGU-vZdd6xRrVT69l13rFGtantx4zkHnpDZHBJOis87DDVjUIpZvcdv5zvbhPL48IS&_nc_ohc=uqKFgbi2lTEQ7kNvgEQtt6i&_nc_ht=scontent.fsgn5-6.fna&_nc_gid=ABnDpDsis1fk5uA5uWyXpqV&oh=00_AYDLmxD5gdEYkVp0AOoNzOs0kQZ41mHFTEBBGrLbFeJKvQ&oe=670F28A5"
           style={{ width: '90px', height: '90px', borderRadius: '50%', marginRight: '20px' }}
         />
         <Box>
@@ -45,63 +58,42 @@ function ProfilePageDetails() {
               Delete picture
             </Button>
           </Box>
-
         </Box>
       </Box>
 
       {/* Input */}
       <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-around', gap: 10 }}>
-        <Box>
-          <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Profile name</Typography>
-          <TextField
-            id="outlined-basic"
-            placeholder='Enter your first name'
-            variant="outlined"
-            sx={{
-              width: '500px',
-              '& .MuiOutlinedInput-root': {
-                borderRadius: '15px',
-                borderColor: BLUE_COLOR,
-                height: '60px',
-                marginTop: '15px',
-                '&.Mui-focused fieldset': {
-                  borderColor: BLUE_COLOR
-                }
-              },
-              '& input': {
-                backgroundColor: INPUT_FIELD_COLOR,
-                padding: '20px 15px',
-                fontSize: '16px',
-                borderRadius: '15px'
-              }
-            }}
-          />
-        </Box>
+
         <Box>
           <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Email</Typography>
-          <TextField
-            id="outlined-basic"
-            placeholder='Enter your first name'
-            variant="outlined"
+          <Typography
             sx={{
               width: '500px',
-              '& .MuiOutlinedInput-root': {
-                borderRadius: '15px',
-                borderColor: BLUE_COLOR,
-                height: '60px',
-                marginTop: '15px',
-                '&.Mui-focused fieldset': {
-                  borderColor: BLUE_COLOR
-                }
-              },
-              '& input': {
-                backgroundColor: INPUT_FIELD_COLOR,
-                padding: '20px 15px',
-                fontSize: '16px',
-                borderRadius: '15px'
-              }
+              borderRadius: '15px',
+              height: '60px',
+              marginTop: '15px',
+              padding: '20px 0px',
+              fontSize: '16px'
             }}
-          />
+          >
+            {account ? account.email : 'Loading...'}
+          </Typography>
+        </Box>
+
+        <Box>
+          <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Role</Typography>
+          <Typography
+            sx={{
+              width: '500px',
+              borderRadius: '15px',
+              height: '60px',
+              marginTop: '15px',
+              padding: '20px 0px',
+              fontSize: '16px',
+            }}
+          >
+            {account ? account.role : 'Loading...'}
+          </Typography>
         </Box>
       </Box>
       <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-around', gap: 10 }}>
@@ -110,6 +102,7 @@ function ProfilePageDetails() {
           <TextField
             id="outlined-basic"
             placeholder='Enter your first name'
+            value={account ? account.firstName : 'Loading...'}
             variant="outlined"
             sx={{
               width: '500px',
@@ -136,6 +129,7 @@ function ProfilePageDetails() {
           <TextField
             id="outlined-basic"
             placeholder='Enter your last name'
+            value={account ? account.lastName : 'Loading...'}
             variant="outlined"
             sx={{
               width: '500px',
@@ -155,7 +149,7 @@ function ProfilePageDetails() {
                 borderRadius: '15px'
               }
             }}
-          />
+          ></TextField>
         </Box>
       </Box>
       <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-around', gap: 10 }}>
@@ -164,6 +158,7 @@ function ProfilePageDetails() {
           <TextField
             id="outlined-basic"
             placeholder='Enter your phone number'
+            value={account ? account.phoneNumber : 'Loading...'}
             variant="outlined"
             sx={{
               width: '500px',
@@ -213,6 +208,7 @@ function ProfilePageDetails() {
               <DatePicker
                 placeholder="Select your date"
                 label=''
+                value={account ? dayjs(account.dob) : null}
                 sx={{
                   backgroundColor: INPUT_FIELD_COLOR,
                   width: '600px',
@@ -229,6 +225,7 @@ function ProfilePageDetails() {
         <TextField
           id="outlined-basic"
           placeholder='Enter your address'
+          value={account ? account.address : 'Loading...'}
           variant="outlined"
           type='text'
           sx={{
@@ -250,11 +247,6 @@ function ProfilePageDetails() {
             }
           }}
         />
-      </Box>
-
-      {/* When2meet */}
-      <Box sx={{}}>
-        <Timetable />
       </Box>
 
       {/* Submit button */}
@@ -292,8 +284,13 @@ function ProfilePageDetails() {
             Save changes
           </Box>
         </Box>
+
       </Box>
-    </div>
+      {/* When2meet */}
+      <Box sx={{}}>
+          <Timetable />
+        </Box>
+    </div >
   )
 }
 

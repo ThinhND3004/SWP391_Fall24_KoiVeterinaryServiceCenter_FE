@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
+import { Alert, Box, Snackbar } from '@mui/material';
 
 const NotificationHandler = () => {
     const [notifications, setNotifications] = useState([]);
@@ -59,35 +60,73 @@ const NotificationHandler = () => {
         }
     };
 
-    return (
-        <div>
-            <h2>Send Notification</h2>
-            <input
-                type="text"
-                value={accountId}
-                onChange={(e) => setAccountId(e.target.value)}
-                placeholder="Enter account ID"
-            />
-            <input
-                type="text"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Enter notification message"
-            />
-            <button onClick={sendNotification}>Send Notification</button>
+    const handleClose = (
+        event,
+        reason,
+    ) => {
+        if (reason === 'clickaway') {
+            return;
+        }
 
-            <h2>Received Notifications</h2>
-            <ul>
-                {notifications.map((notification, index) => (
-                    <li key={index}>
-                        {/* <strong>Account ID:</strong> {notification.account.id} <br /> //receiver// */} 
-                        <strong>Description:</strong> {notification.description} <br />
-                        <strong>Created At:</strong> {new Date(notification.createdAt).toLocaleString()}
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
+        setOpen(false);
+    };
+
+    return (
+        <Box>
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                <Alert
+                    onClose={handleClose}
+                    severity="success"
+                    variant="filled"
+                    sx={{ width: '100%' }}
+                >
+                    This is a success Alert inside a Snackbar!
+                </Alert>
+            </Snackbar>
+
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                <Alert
+                    onClose={handleClose}
+                    severity="success"
+                    variant="filled"
+                    sx={{ width: '100%' }}
+                >
+                    This is a success Alert inside a Snackbar!
+                </Alert>
+            </Snackbar>
+        </Box>
+
+    )
+
+    // return (
+    //     <div>
+    //         <h2>Send Notification</h2>
+    //         <input
+    //             type="text"
+    //             value={accountId}
+    //             onChange={(e) => setAccountId(e.target.value)}
+    //             placeholder="Enter account ID"
+    //         />
+    //         <input
+    //             type="text"
+    //             value={description}
+    //             onChange={(e) => setDescription(e.target.value)}
+    //             placeholder="Enter notification message"
+    //         />
+    //         <button onClick={sendNotification}>Send Notification</button>
+
+    //         <h2>Received Notifications</h2>
+    //         <ul>
+    //             {notifications.map((notification, index) => (
+    //                 <li key={index}>
+    //                     {/* <strong>Account ID:</strong> {notification.account.id} <br /> //receiver// */} 
+    //                     <strong>Description:</strong> {notification.description} <br />
+    //                     <strong>Created At:</strong> {new Date(notification.createdAt).toLocaleString()}
+    //                 </li>
+    //             ))}
+    //         </ul>
+    //     </div>
+    // );
 };
 
 export default NotificationHandler;

@@ -84,6 +84,19 @@ export default class ManagementApi {
     return response.data.data;
   }
 
+  // TIMETABLES
+  static async getTimetables() {
+    try {
+      const response = await api.get('/timetables');
+      if (response.data.data) return response.data.data;
+    }
+    catch (err) {
+      console.error('Cannot get timetables: ' + err.message)
+    }
+    return [];
+  }
+
+
   // BOOKING
   static async getBookings({ status, veterianEmail, page, unitPerPage }) {
     try {

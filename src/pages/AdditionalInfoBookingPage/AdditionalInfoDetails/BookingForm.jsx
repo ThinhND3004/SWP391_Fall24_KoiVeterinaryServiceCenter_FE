@@ -253,7 +253,7 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
       <Snackbar open={!!successMessage} autoHideDuration={6000} onClose={() => setSuccessMessage("")}>
         <Alert onClose={() => setSuccessMessage("")} severity="success">
           {successMessage}
-        </Alert>
+        </Alert>Snack
       </Snackbar>
       <Snackbar open={!!errorMessage} autoHideDuration={6000} onClose={() => setErrorMessage("")}>
         <Alert onClose={() => setErrorMessage("")} severity="error">

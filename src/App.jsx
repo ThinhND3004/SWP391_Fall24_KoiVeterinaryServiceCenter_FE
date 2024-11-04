@@ -7,9 +7,9 @@ function App() {
 
   return (
     <>
-      {/* <div>
+      <div>
       <NotificationHandler />
-    </div> */}
+    </div>
       <GoogleOAuthProvider clientId="510907958584-4eatd4rjtntoiokfc352dds2q9ad7av0.apps.googleusercontent.com">
         <BrowserRouter>
           <RouteComponent />
