@@ -85,17 +85,14 @@ export default class ManagementApi {
     return response.data.data;
   }
 
-  // BOOKING
-  static async getBookings({ status, veterianEmail, page, unitPerPage }) {
+  // TIMETABLES
+  static async getTimetables() {
     try {
-      const response = await api.get('/bookings', {
-        params: { page, unitPerPage, veterianEmail, status }
-      });
-      console.log("RESPONSE DATA: ", response.data.data);
+      const response = await api.get('/timetables');
       if (response.data.data) return response.data.data;
     }
     catch (err) {
-      console.error('Cannot get idle account: ' + err.message)
+      console.error('Cannot get timetables: ' + err.message)
     }
     return [];
   }
@@ -111,7 +108,33 @@ export default class ManagementApi {
       }
     }
     return result;
+  }
 
+  // BOOKING
+  static async getBookings({ status, page, unitPerPage }) {
+    try {
+      const response = await api.get('/bookings', {
+        params: { page, unitPerPage, status }
+      });
+      if (response.data.data) return response.data.data;
+    }
+    catch (err) {
+      console.error('Cannot get bookings: ' + err.message)
+    }
+    return [];
+  }
+
+  static async getVeterianBookings({ status, page, unitPerPage }) {
+    try {
+      const response = await api.get('/bookings/by-veterian',{
+        params: { page, unitPerPage, status }
+      });
+      if (response.data.data) return response.data.data;
+    }
+    catch (err) {
+      console.error('Cannot get veterian booking: ' + err.message)
+    }
+    return [];
   }
 
   static async assignVeterianToBooking({ bookingId, veterianEmail }) {
