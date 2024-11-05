@@ -61,7 +61,7 @@ function DashboardPageDetails() {
         {/* Chart */}
         <Box sx={{ bgcolor: INPUT_FIELD_COLOR, borderRadius: '20px', height: '320px', mt: 2 }}>
           <Typography sx={{ fontWeight: 600, fontSize: '16px' }}>
-            Start Time
+            Start Time Daily
           </Typography>
           <LineChart
             xAxis={[
@@ -83,7 +83,7 @@ function DashboardPageDetails() {
         </Box>
         <Box sx={{ bgcolor: INPUT_FIELD_COLOR, borderRadius: '20px', height: '320px', mt: 2 }}>
           <Typography sx={{ fontWeight: 600, fontSize: '16px' }}>
-            Start Time
+            Start Time Weekly
           </Typography>
           <LineChart
             xAxis={[
