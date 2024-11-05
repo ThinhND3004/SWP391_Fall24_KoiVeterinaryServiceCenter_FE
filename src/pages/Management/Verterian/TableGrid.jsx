@@ -1,28 +1,22 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import TimeBlock from "./TimeBlock";
 import { Box } from "@mui/material";
 
-const text = 'rgb(22, 21, 21)';
-const dayArr = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-const timeArr = ['9', '10', '11', '12', '13', '14', '15', '16', '17'];
-const timeBlockArr = [];
+const text = 'rgb(22, 21, 21)'
 
-// Assuming timeArr and dayArr are defined
-dayArr.forEach((day) => {
-  timeArr.slice(0, timeArr.length - 1).forEach((time) => {
-    timeBlockArr.push(`${day} ${time}:00`); // Push hour time blocks
-    timeBlockArr.push(`${day} ${time}:30`); // Push half-hour time blocks
-  });
-});
-
-
-const TableGrid = () => {
+const TableGrid = ({ selectedTimeBlocks, timeBlockArr, timeArr }) => {
   const [isSelecting, setIsSelecting] = useState(false);
   const [isBoxSelected, setIsBoxSelected] = useState();
   const [selectionBox, setSelectionBox] = useState();
-  const [selectedBoxes, setSelectedBoxes] = useState([]);
+  const [selectedBoxes, setSelectedBoxes] = useState(selectedTimeBlocks);
   const selectionRef = useRef(null);
   const containerRef = useRef(null);
+
+    // Use useEffect to update selectedBoxes whenever selectedTimeBlocks changes
+    useEffect(() => {
+      setSelectedBoxes(selectedTimeBlocks);
+    }, [selectedTimeBlocks]);
+  
 
   const startSelecting = (e) => {
     if (!containerRef.current) return;
@@ -137,7 +131,7 @@ const TableGrid = () => {
       <Box
         style={{
           display: 'inline-grid',
-          gridTemplateRows: `repeat(${(timeArr.length-1) * 2}, 1fr)`, // Define rows instead of columns
+          gridTemplateRows: `repeat(${(timeArr.length - 1) * 2}, 1fr)`, // Define rows instead of columns
           gridAutoFlow: 'column', // Set auto flow to fill columns first
           width: '100%',
           borderTop: `1px solid ${text}`,
