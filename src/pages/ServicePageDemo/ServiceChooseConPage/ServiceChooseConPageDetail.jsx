@@ -1,3 +1,5 @@
+/* eslint-disable indent */
+/* eslint-disable semi */
 import { Box, FormControl, InputLabel, ListItem, ListItemText, MenuItem, Select, Typography } from '@mui/material'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
@@ -83,7 +85,7 @@ const ServiceChooseCon = ({ veterian }) => {
                             display: 'flex',
                             justifyContent: 'center', // Centers content horizontally
                             alignItems: 'center',
-                            padding: '0px 9px'  // Smooth background color transition
+                            padding: '0px 9px' // Smooth background color transition
                         }}>
                         Detail
                     </Button>
@@ -117,7 +119,7 @@ const ServiceChooseCon = ({ veterian }) => {
                             marginTop: '10px',
                             // width: '700px',
                             padding: '20px',
-                            overflowY: 'auto',  // Enable vertical scrollbar when content overflows
+                            overflowY: 'auto', // Enable vertical scrollbar when content overflows
                             border: '1px solid #ccc', // Optional: Add a border to define the scrollable area
                             borderRadius: '8px', // Optional: Round the corners of the container
                         }}

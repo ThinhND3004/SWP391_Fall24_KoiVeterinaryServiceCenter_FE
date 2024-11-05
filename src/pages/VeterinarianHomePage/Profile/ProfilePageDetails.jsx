@@ -12,12 +12,6 @@ import ManagementApi from '~/api/ManagementApi'
 import dayjs from 'dayjs'
 import VerterianProfile from './VeterianProfile'
 
-function handleClick(event) {
-  event.preventDefault()
-  console.info('You clicked a breadcrumb.')
-}
-
-
 function ProfilePageDetails() {
   const [account, setAccount] = useState(null);
 

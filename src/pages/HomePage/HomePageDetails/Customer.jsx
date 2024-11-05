@@ -9,7 +9,7 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 
 // Import required modules
-import { Pagination } from 'swiper/modules'
+import { Autoplay, Pagination } from 'swiper/modules'
 
 function Customer() {
   const feedbacks = [
@@ -33,6 +33,20 @@ function Customer() {
       role: 'Biologist',
       rating: 5.0,
       image: 'https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
+    },
+    {
+      text: 'The level of care and attention at this clinic is simply outstanding. From the moment we walked in, we felt welcomed and reassured. The staff took the time to explain every part of the treatment process for my fish, Bella, and even provided a detailed follow-up plan. The facility is well-equipped, and the veterinarians genuinely care about every animal. Bella is now in great health, and I couldn’t be more thankful for the team here. Highly recommended to any koi fish lover!',
+      name: 'David Martin',
+      role: 'Officer',
+      rating: 4.7,
+      image: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
+    },
+    {
+      text: 'My experience at this clinic was nothing short of exceptional. I brought in my aquarium fish, which had developed a fin infection, and the specialists here handled it with a level of care I didn’t know existed for fish. They offered a range of treatments, educated me on water quality management, and provided specific dietary advice. It’s clear they have in-depth knowledge and a passion for all animals, no matter the size. My fish is thriving now, and I’m incredibly grateful.',
+      name: 'Michael Anderson',
+      role: 'Worker',
+      rating: 5.0,
+      image: 'https://images.pexels.com/photos/3827812/pexels-photo-3827812.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
     }
   ]
   const [index, setIndex] = useState(0)
@@ -77,7 +91,11 @@ function Customer() {
           pagination={{
             dynamicBullets: true
           }}
-          modules={[Pagination]}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false
+          }}
+          modules={[Pagination, Autoplay]}
           className="mySwiper"
           style={{ width: '90%', maxWidth: 'auto' }}
         >

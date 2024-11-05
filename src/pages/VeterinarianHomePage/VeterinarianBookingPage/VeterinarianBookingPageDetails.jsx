@@ -86,7 +86,8 @@ function VeterinarianBookingPageDetails() {
       <Button variant="contained" color="primary" sx={{
         backgroundColor: navBarStatus === content ? ORANGE_COLOR : '',
         color: navBarStatus === content ? 'white' : '',
-        borderRadius: '10px'
+        borderRadius: '10px',
+        boxShadow: 'none'
       }}
         onClick={() => {
           fetchDataByStatus(content);

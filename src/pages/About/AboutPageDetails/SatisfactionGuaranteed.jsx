@@ -8,13 +8,13 @@ function SatisfactionGuaranteed() {
       <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: '50px' }}>
         <Box
           component="img"
-          src="https://img.freepik.com/premium-photo/beautiful-painting-three-colorful-koi-fish-are-swimming-pet-generative-ai-illustration_132416-8965.jpg"
+          src="https://i.ytimg.com/vi/n38almzkg5U/maxresdefault.jpg"
           alt="Koi Fish Image"
           sx={{
             objectFit: 'contain',
             width: '600px',
             borderRadius: '26px',
-            
+
           }}
         />
         <Box sx={{ width: '600px', borderRadius: '26px' }}>

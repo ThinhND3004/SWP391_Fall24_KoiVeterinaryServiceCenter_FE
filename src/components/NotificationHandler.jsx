@@ -71,32 +71,32 @@ const NotificationHandler = () => {
         setOpen(false);
     };
 
-    return (
-        <Box>
-            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                <Alert
-                    onClose={handleClose}
-                    severity="success"
-                    variant="filled"
-                    sx={{ width: '100%' }}
-                >
-                    This is a success Alert inside a Snackbar!
-                </Alert>
-            </Snackbar>
+    // return (
+    //     <Box>
+    //         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+    //             <Alert
+    //                 onClose={handleClose}
+    //                 severity="success"
+    //                 variant="filled"
+    //                 sx={{ width: '100%' }}
+    //             >
+    //                 This is a success Alert inside a Snackbar!
+    //             </Alert>
+    //         </Snackbar>
 
-            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                <Alert
-                    onClose={handleClose}
-                    severity="success"
-                    variant="filled"
-                    sx={{ width: '100%' }}
-                >
-                    This is a success Alert inside a Snackbar!
-                </Alert>
-            </Snackbar>
-        </Box>
+    //         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+    //             <Alert
+    //                 onClose={handleClose}
+    //                 severity="success"
+    //                 variant="filled"
+    //                 sx={{ width: '100%' }}
+    //             >
+    //                 This is a success Alert inside a Snackbar!
+    //             </Alert>
+    //         </Snackbar>
+    //     </Box>
 
-    )
+    // )
 
     // return (
     //     <div>

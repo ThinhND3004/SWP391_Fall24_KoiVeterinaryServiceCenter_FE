@@ -4,14 +4,13 @@ import { BG_COLOR, BLUE_COLOR, GRAY_COLOR, OFFLINE_BUTTON, ONLINE_BUTTON, ORANGE
 import MeetingMethodTagHolder from './MethodMeetingTag';
 import { useNavigate } from 'react-router-dom';
 
-
-
 function ServiceBlock({ service }) {
   const navigate = useNavigate();
 
+  const serviceAddress = "Long Thanh My Ward, Thủ Đức, 71216, Vietnam";
   const handleOnlineConsultantDetails = () => {
     localStorage.setItem("serviceId", service.id)
-    navigate("/online-consultant", { state: { service } }); // Truyền state qua route
+    navigate("/online-consultant", { state: { service, serviceAddress } }); // Truyền state qua route
   };
 
   return (
@@ -45,13 +44,16 @@ function ServiceBlock({ service }) {
               marginTop: "20px",
               backgroundColor: BLUE_COLOR,
               color: "white",
+              borderRadius: '40px',
+              width: '150px',
+              height: '50px'
             }}
           >
             Learn more
           </Button>
 
         </Box>
-        <img src="https://cdn.shopify.com/s/files/1/1083/2612/files/koi2_480x480.jpg?v=1719301650" style={{ objectFit: 'contain', width: '500px', borderRadius: '26px' }} />
+        <img src="https://d.newsweek.com/en/full/2466991/feeding-koi-fish.jpg?w=1200&f=c585a5744246a338fadb145a12b2849a" style={{ objectFit: 'contain', width: '500px', borderRadius: '26px' }} />
 
       </Box>
     </div>

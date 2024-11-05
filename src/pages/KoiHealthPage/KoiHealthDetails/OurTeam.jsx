@@ -61,10 +61,10 @@ function OurTeam() {
           </Box>
           <Box sx={{ marginTop: '40px', width: '300px', color: BLUE_COLOR }}>
             <Typography sx={{ fontWeight: 600, fontSize: 22 }}>
-              Care Providers
+              Clinical Support
             </Typography>
             <Typography sx={{ fontSize: 12, paddingTop: '8px' }}>
-              Best-in-class integrative care from providers you can trust. Our Care Providers deliver quality medicine tailored to you and your needs.
+              Our clinical support team ensures your care is smooth and seamless, from bloodwork to ultrasounds in-house, we make your care smooth and seamless.
             </Typography>
           </Box>
 
@@ -82,10 +82,10 @@ function OurTeam() {
           </Box>
           <Box sx={{ marginTop: '40px', width: '300px', color: BLUE_COLOR }}>
             <Typography sx={{ fontWeight: 600, fontSize: 22 }}>
-              Care Providers
+              Care Coordinators
             </Typography>
             <Typography sx={{ fontSize: 12, paddingTop: '8px' }}>
-              Best-in-class integrative care from providers you can trust. Our Care Providers deliver quality medicine tailored to you and your needs.
+              Your Care Coordinator is here to quarterback your health.
             </Typography>
           </Box>
         </Box>

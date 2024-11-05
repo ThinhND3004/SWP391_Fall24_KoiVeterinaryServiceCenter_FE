@@ -11,6 +11,10 @@ function ChooseOption({ service, serviceAddress }) {
     navigate('/select-veterian-by-any-time', { state: { service, serviceAddress } }); // Truyền state qua route
   };
 
+  const handleSelectVeterianClick = () => {
+    navigate('/service-choose-consultant', { state: { service, serviceAddress } });
+  }
+
   return (
     <div>
       {/* Grid to display options with images and descriptions */}
@@ -25,7 +29,7 @@ function ChooseOption({ service, serviceAddress }) {
             <Button
               variant="contained"
               color="secondary"
-              onClick={() => window.location.href = '/service-choose-consultant'}
+              onClick={handleSelectVeterianClick}
             >
               Select Veterinarian
             </Button>

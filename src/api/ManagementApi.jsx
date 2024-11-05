@@ -35,9 +35,10 @@ export default class ManagementApi {
       role: data.role,
       firstName: data.firstName,
       lastName: data.lastName,
-      phoneNumber: data.phone,
-      dob: TimeUtils.formatDate(data.dob),
-      address: data.address
+      phone: data.phone,
+      dob: data.dob,
+      address: data.address,
+      imageId: data.imageEntityId
     };;
   }
 
@@ -185,5 +186,20 @@ export default class ManagementApi {
       console.error('Cannot get Medicines: ' + err.message)
     }
     return false;
+  }
+
+  static async getImage(imageId)
+  {
+    let result = null;
+    try {
+      const response = await api.get(`http://localhost:8080/images/picture/${imageId}`, {
+        responseType: 'blob',
+      });
+      result = URL.createObjectURL(response.data);
+    } catch (err)
+    {
+      console.log("ERROR GET IMG API MANAGE: ", err)
+    }
+    return result;
   }
 }
