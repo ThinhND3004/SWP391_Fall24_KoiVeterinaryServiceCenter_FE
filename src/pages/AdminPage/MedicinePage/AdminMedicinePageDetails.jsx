@@ -1,4 +1,5 @@
 import { styled, alpha } from '@mui/material/styles'
+import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
 import InputBase from '@mui/material/InputBase'
 import SearchIcon from '@mui/icons-material/Search'
@@ -9,6 +10,9 @@ import AddIcon from '@mui/icons-material/Add'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import { Typography } from '@mui/material'
 import DynamicDataGrid from './testGrid'
+import BackdropComponent from '~/components/Backdrop.component'
+import useFetchOnce from '~/hooks/useFetchOnce'
+import api from '~/config/axios'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -69,6 +73,38 @@ const rows = [
 ]
 
 function AdminMedicinePageDetails() {
+  const [serviceDatas, setServiceDatas] = useState([])
+  const { data, loading, error } = useFetchOnce('medicines')
+
+  useEffect(() => {
+    if (!data) return
+    const fetchData = []
+    const services = data.map(dt => {
+      const {
+        id,
+        name,
+        description,
+        manufacturer,
+        price,
+        createdAt,
+        prescriptionEntities
+      } = dt
+      return {
+        id,
+        name,
+        description,
+        manufacturer,
+        price,
+        createdAt,
+        prescriptionEntities
+      }
+    })
+    setServiceDatas(services)
+  }, [data])
+
+
+
+
   return (
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
@@ -111,8 +147,9 @@ function AdminMedicinePageDetails() {
 
       {/* Table */}
       <Box sx={{ mt: 3, mb: 3 }}>
-        <DynamicDataGrid data={rows} />
+        <DynamicDataGrid data={serviceDatas} />
       </Box>
+      <BackdropComponent open={loading} />
     </Box>
   )
 }
