@@ -61,8 +61,6 @@ function VeterinarianBookingPageDetails() {
 
   const fetchDataByStatus = async (status) => {
     let data = [];
-    const accountInfo = JSON.parse(localStorage.getItem('accountInfo'));
-    const email = accountInfo.email;
 
     if (status === 'ALL') data = await ManagementApi.getVeterianBookings({});
     else data = await ManagementApi.getVeterianBookings({status: status});
