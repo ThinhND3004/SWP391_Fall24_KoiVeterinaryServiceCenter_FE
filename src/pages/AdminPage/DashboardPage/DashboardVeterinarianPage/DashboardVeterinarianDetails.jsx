@@ -85,7 +85,7 @@ function DashboardVeterinarianDetails() {
             series={[
               {
                 label: 'totalWorkTimePerMonth',
-                data: data.totalWorkTimePerMonth ? Object.values(data.totalWorkTimePerMonth).map((v) => data.totalWorkTimePerMonth[v].count) : []
+                data: data.totalWorkTimePerMonth ? Object.keys(data.totalWorkTimePerMonth).map((v) => data.totalWorkTimePerMonth[v].count) : []
               }
             ]}
           />
@@ -106,7 +106,7 @@ function DashboardVeterinarianDetails() {
             series={[
               {
                 label: 'averageWorkTime',
-                data: data.averageWorkTime ? Object.values(data.averageWorkTime).map((v) => data.averageWorkTime[v].average) : []
+                data: data.averageWorkTime ? Object.keys(data.averageWorkTime).map((v) => data.averageWorkTime[v].average) : []
               }
             ]}
           />
