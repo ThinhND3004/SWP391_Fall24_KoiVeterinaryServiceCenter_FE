@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import {
   styled, alpha, Box, Breadcrumbs, Typography, Button, Modal,
@@ -17,6 +17,10 @@ import {
   BG_COLOR, BLUE_COLOR, GRAY_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR
 } from '~/theme'
 import DynamicDataGrid from './testGrid'
+import useFetchOnce from '~/hooks/useFetchOnce'
+import api from '~/config/axios'
+import BackdropComponent from '~/components/Backdrop.component'
+
 
 // Search Component Styles
 const Search = styled('div')(({ theme }) => ({
@@ -258,17 +262,41 @@ SimpleDialog.propTypes = {
 
 // Main PrescriptionPageDetails Component
 function PrescriptionPageDetails() {
-  const [open, setOpen] = useState(false)
-  const [selectedValue, setSelectedValue] = useState(emails[0])
+  // const [open, setOpen] = useState(false)
+  // const [selectedValue, setSelectedValue] = useState(emails[0])
 
-  const handleClickOpen = () => {
-    setOpen(true)
-  }
+  // const handleClickOpen = () => {
+  //   setOpen(true)
+  // }
 
-  const handleClose = (value) => {
-    setOpen(false)
-    setSelectedValue(value)
-  }
+  // const handleClose = (value) => {
+  //   setOpen(false)
+  //   setSelectedValue(value)
+  // }
+
+  const [serviceDatas, setServiceDatas] = useState([])
+  const { data, loading, error } = useFetchOnce('koi-species')
+
+  useEffect(() => {
+    if (!data) return
+    const fetchData = []
+    const services = data.map(dt => {
+      const {
+        id,
+        name,
+        description,
+        createdAt
+      } = dt
+
+      return {
+        id,
+        name,
+        description,
+        createdAt
+      }
+    })
+    setServiceDatas(services)
+  }, [data])
 
 
   return (
@@ -313,8 +341,9 @@ function PrescriptionPageDetails() {
 
       {/* Table */}
       <Box sx={{ mt: 3, mb: 3 }}>
-        <DynamicDataGrid data={rows} />
+        <DynamicDataGrid data={serviceDatas} />
       </Box>
+      <BackdropComponent open={loading} />
     </Box>
   )
 }
