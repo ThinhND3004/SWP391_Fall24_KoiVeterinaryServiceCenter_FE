@@ -66,7 +66,13 @@ function DashboardPageDetails() {
           <LineChart
             xAxis={[
               {
-                data: data.startTimeDaily ? Object.keys(data.startTimeDaily) : [],
+                data: data.startTimeDaily ? Object.keys(data.startTimeDaily).map((v) => {
+
+                  const [hours, minutes] = v.split('_').map(num => num.padStart(2, '0'));
+
+                   return `${hours}:${minutes}`;
+
+                  }) : [],
                 scaleType: 'band'
               }
             ]}
