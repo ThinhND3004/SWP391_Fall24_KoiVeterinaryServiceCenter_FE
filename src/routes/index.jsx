@@ -66,6 +66,7 @@ import CreateReportPageComponent from '~/pages/VeterinarianHomePage/VeterianCrea
 import PaymentResult from '~/pages/ConfirmBookingPage/PaymentResult/PaymentResult'
 import CustomerPasswordComponent from '~/pages/CustomerPage/CustomerPasswordPage/CustomerPassword.component'
 import VeterinarianInformation from '~/pages/VeterinarianInformation/VeterinarianInformation'
+import StaffNotificationPage from '~/pages/StaffPage/StaffNotificationPage/StaffNotificationPage.component'
 
 const RouteComponent = () => {
   return (
@@ -139,7 +140,7 @@ const RouteComponent = () => {
         <Route path='/staff_booking' element={<StaffBookingPage />} />
         <Route path='/staff_veterinarian_management' element={<StaffVeterinarianPage />} />
         <Route path='/staff_prescription' element={<StaffPrescriptionPage />} />
-        <Route path='/staff/notification' element={<StaffPrescriptionPage />} />
+        <Route path='/staff/notification' element={<StaffNotificationPage />} />
       </Route>
 
       <Route element={<VeterinarianLayout />}>

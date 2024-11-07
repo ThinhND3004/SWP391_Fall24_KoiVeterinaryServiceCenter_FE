@@ -106,7 +106,7 @@ function Navbar() {
 
 
           <Divider sx={{ paddingTop: '50px' }} />
-          <Box sx={{ display: 'flex', alignItems: 'center', color: ORANGE_COLOR, paddingTop: '10px', ml: 2 }}>
+          <Box onClick={() => navigate('/staff/notification')}  sx={{ display: 'flex', alignItems: 'center', color: ORANGE_COLOR, paddingTop: '10px', ml: 2 }}>
             <Badge badgeContent={4} color="ORANGE COLOR">
               <NotificationsIcon color="action" sx={{ color: ORANGE_COLOR }} />
             </Badge>
