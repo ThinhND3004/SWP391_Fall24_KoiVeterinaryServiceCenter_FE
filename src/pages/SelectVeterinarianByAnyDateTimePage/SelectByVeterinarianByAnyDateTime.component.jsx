@@ -15,7 +15,9 @@ import dayjs from "dayjs";
 import { useNavigate, useLocation } from "react-router-dom";
 import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from "~/theme";
 import { toast } from "react-toastify"; // Thêm thư viện react-toastify nếu dùng
+import 'dayjs/locale/en-gb'; // Đảm bảo import locale "vi"
 
+// dayjs.locale('de');
 
 const SelectVeterinarianByAnyDateTimeComponent = () => {
   const location = useLocation(); // Nhận dữ liệu từ state
@@ -51,7 +53,7 @@ const SelectVeterinarianByAnyDateTimeComponent = () => {
       );
 
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        throw new Error("Something went wrong in finding veterinarian");
       }
 
       const data = await response.json();
@@ -73,7 +75,7 @@ const SelectVeterinarianByAnyDateTimeComponent = () => {
   // Fetch data when selectedDateTime changes
   useEffect(() => {
     if (selectedDateTime) {
-      const formattedDateTime = selectedDateTime.format("YYYY-MM-DDTHH:mm:ss");
+      const formattedDateTime = selectedDateTime.format("YYYY-MM-DDTHH:mm");
       fetchVeterinarianWithStartDateTime(formattedDateTime);
     }
   }, [selectedDateTime]);
@@ -85,6 +87,7 @@ const SelectVeterinarianByAnyDateTimeComponent = () => {
     }
   };
 
+  
   return (
     <Box>
       <Box p={2}>
@@ -117,7 +120,7 @@ const SelectVeterinarianByAnyDateTimeComponent = () => {
             <Typography sx={{ fontWeight: 600, fontSize: 16, mb: 2 }}>
               Select start time
             </Typography>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
               <DateTimePicker
                 sx={{
                   overflow: "hidden",
@@ -140,6 +143,7 @@ const SelectVeterinarianByAnyDateTimeComponent = () => {
                 placeholder="Select the start time."
                 value={selectedDateTime}
                 onChange={handleDateTimeChange} // Update selected date and time
+                // inputFormat="DD/MM/YYYY HH:mm"
                 renderInput={(params) => (
                   <TextField {...params} fullWidth error={false} />
                 )}
@@ -147,6 +151,7 @@ const SelectVeterinarianByAnyDateTimeComponent = () => {
                 maxDate={dayjs().endOf("week").add(1, "day")} // Giới hạn ngày kết thúc vào Chủ Nhật
                 minTime={dayjs().set("hour", 7).set("minute", 0)} // Giới hạn bắt đầu từ 7:00
                 maxTime={dayjs().set("hour", 15).set("minute", 0)} // Giới hạn kết thúc vào 15:00
+                format=""
                 ampm={false} // Đặt để sử dụng định dạng 24 giờ
               />
             </LocalizationProvider>
@@ -175,7 +180,7 @@ const SelectVeterinarianByAnyDateTimeComponent = () => {
                       serviceAddress,
                       veterinarian: null,
                       selectedDateTime: selectedDateTime.format(
-                        "YYYY-MM-DDTHH:mm:ss"
+                        "YYYY-MM-DDTHH:mm"
                       ),
                     },
                   });

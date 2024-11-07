@@ -34,11 +34,15 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
   const [userPosition, setUserPosition] = React.useState([0, 0]);
   const [vetPosition, setVetPosition] = React.useState([10.845, 106.772]); // Default for Thủ Đức
 
-  React.useEffect(() => {
-    if (selectedDateTime) {
-      setDateTime(dayjs(selectedDateTime));  // Đảm bảo selectedDateTime được chuyển thành Day.js
-    }
-  }, [selectedDateTime]);
+  console.log(selectedDateTime);
+
+  // React.useEffect(() => {
+  //   if (selectedDateTime) {
+  //     setDateTime(dayjs(selectedDateTime));  // Đảm bảo selectedDateTime được chuyển thành Day.js
+  //   }
+  // }, [selectedDateTime]);
+
+
 
   const fetchAddressSuggestions = React.useCallback(
     debounce(async (input) => {
@@ -138,7 +142,7 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
       distanceMeters: distance || 0,
       userAddress: userAddress || "",
       meetingMethod: service.meetingMethod || "online",
-      startAt: dateTime ? dateTime.toISOString() : new Date().toISOString(),
+      startAt: selectedDateTime,
       travelPrice: service.travelPricePerMeter || 0,
     };
 
@@ -161,7 +165,7 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
         </Typography>
         <TextField
           // label={dateTime ? dateTime.format('YYYY-MM-DD HH:mm') : ""}
-          value={dateTime ? dateTime.format('YYYY-MM-DD HH:mm') : ""}
+          value={dayjs(selectedDateTime).format("DD/MM/YYYY HH:mm")}
           disabled
           fullWidth
           sx={{

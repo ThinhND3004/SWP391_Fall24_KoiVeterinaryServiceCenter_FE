@@ -17,6 +17,8 @@ const ConfirmBookingDetails = () => {
   const { createBookingDTO, serviceEntity, veterinarianEntity } =
     location.state;
   console.log(createBookingDTO);
+  console.log(createBookingDTO.startAt);
+  console.log(veterinarianEntity);
 
   const totalPrice =
     createBookingDTO.servicePrice +
@@ -143,7 +145,7 @@ const ConfirmBookingDetails = () => {
                 id="outlined-basic"
                 placeholder='Enter your first name'
                 variant="outlined"
-                value={veterinarianEntity?.fullName || "is not assigned"}
+                value={veterinarianEntity?.fullName || "will be available soon"}
                 sx={{
                   width: '600px',
                   '& .MuiOutlinedInput-root': {
