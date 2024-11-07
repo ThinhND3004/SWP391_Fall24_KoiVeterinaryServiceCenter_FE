@@ -183,7 +183,29 @@ export default class ManagementApi {
       if (response.data) return true;
     }
     catch (err) {
-      console.error('Cannot get Medicines: ' + err.message)
+      console.error('Cannot create Report: ' + err.message)
+    }
+    return false;
+  }
+  // NOTIFICATIONS
+  static async getCurrentNotifications(){
+    try {
+      const response = await api.get('/notifications/current');
+      if (response.data) return response.data.data;
+    }
+    catch (err) {
+      console.error('Cannot get Notifications: ' + err.message)
+    }
+    return [];
+  }
+
+  static async deleteNotificationById(id){
+    try {
+      const response = await api.delete('/notifications/'+id);
+      if (response.data) return true;
+    }
+    catch (err) {
+      console.error('Cannot delete Notifications with id' +id +': ' + err.message)
     }
     return false;
   }

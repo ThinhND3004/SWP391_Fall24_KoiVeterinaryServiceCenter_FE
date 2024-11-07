@@ -8,6 +8,8 @@ import { BG_COLOR } from '~/theme'
 import StaffHeader from './StaffHeader'
 import { useEffect } from 'react'
 import ManagementApi from '~/api/ManagementApi'
+import NotificationHandler from '~/components/NotificationHandler'
+import { SnackbarProvider } from 'notistack'
 
 function StaffLayout() {
 
@@ -46,6 +48,10 @@ function StaffLayout() {
         </Box>
         <AdminFooter />
       </Container>
+
+      <SnackbarProvider maxSnack={3}>
+        <NotificationHandler />
+      </SnackbarProvider>
     </Grid2>
   )
 }

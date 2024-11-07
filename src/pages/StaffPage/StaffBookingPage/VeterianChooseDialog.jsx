@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { GRAY_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme';
 import SearchIcon from '@mui/icons-material/Search'
 import ManagementApi from '~/api/ManagementApi';
+import { sendNotification } from '~/utils/WebSocketUtils';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -38,16 +39,23 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     }
 }))
 
-function VeterianChooseDialog({bookingId, serviceId, startedAt }) {
+function VeterianChooseDialog({bookingId, serviceId, startedAt, clientRef }) {
+    
 
     const InfoCard = ({ veterian }) => {
+
         const handleSend = async () => {
-            console.log(veterian);
-            const data = await ManagementApi.assignVeterianToBooking({
-                bookingId,
-                veterianEmail: veterian.email
+            console.log(veterian.email);
+
+            sendNotification({
+                accountEmail: veterian.email,
+                title: 'Invitation',
+                description: 'You received a booking invitation!',
+                type: 'YESNO'
             })
-            if(data != null) window.location.reload();
+
+            setOpen(false)
+            // if(data != null) window.location.reload();
         }
 
         return (
@@ -61,6 +69,7 @@ function VeterianChooseDialog({bookingId, serviceId, startedAt }) {
                     maxWidth: '600px',
                     margin: '0 auto',
                 }}
+                key={veterian.email}
             >
                 {/* Picture on the left */}
                 <Box
