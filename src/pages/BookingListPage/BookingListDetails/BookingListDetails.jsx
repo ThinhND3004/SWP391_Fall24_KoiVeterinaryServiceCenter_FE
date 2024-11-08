@@ -1,3 +1,4 @@
+/* eslint-disable semi */
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaCalendarAlt, FaDollarSign } from "react-icons/fa";
@@ -20,29 +21,16 @@ import {
   INPUT_FIELD_COLOR,
   ORANGE_COLOR
 } from "~/theme";
+import GradeIcon from '@mui/icons-material/Grade'
 
-const labels = {
-  0.5: 'Useless',
-  1: 'Useless+',
-  1.5: 'Poor',
-  2: 'Poor+',
-  2.5: 'Ok',
-  3: 'Ok+',
-  3.5: 'Good',
-  4: 'Good+',
-  4.5: 'Excellent',
-  5: 'Excellent+',
-};
 
-function getLabelText(value) {
-  return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
-}
 
 export default function BookingListDetails() {
   const [appointments, setAppointments] = useState([]);
   const [sortBy, setSortBy] = useState("all"); // Default to showing all services
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const [RateValue, setRateValue] = React.useState(2);
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -209,7 +197,7 @@ export default function BookingListDetails() {
                 }}
                 onClick={handleClickOpen}
               >
-                Feedback
+                View Feedbacks
               </button>
 
               <Dialog
@@ -225,31 +213,33 @@ export default function BookingListDetails() {
                 }}
               >
                 <DialogTitle sx={{ marginTop: 4 }}>
-                  <Typography sx={{ fontWeight: 600, fontSize: 30, textAlign: 'center' }}>Feedback</Typography>
+                  <Typography sx={{ fontWeight: 600, fontSize: 20, textAlign: 'center' }}>View Feedbacks</Typography>
                 </DialogTitle>
                 <DialogContent>
                   <DialogContentText sx={{ fontWeight: 600, fontSize: 14, textAlign: 'center' }}>
                     Your feedback helps us improve—please take a moment to rate our service!
                   </DialogContentText>
                   {/* Additional Rating Component can be added here */}
-                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 3 }}>
-                    <Rating
-                      name="hover-feedback"
-                      value={value}
-                      precision={0.5}
-                      getLabelText={getLabelText}
-                      onChange={(event, newValue) => {
-                        setValue(newValue);
-                      }}
-                      onChangeActive={(event, newHover) => {
-                        setHover(newHover);
-                      }}
-                      emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-                    />
-                    {value !== null && (
-                      <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
-                    )}
+                  {/* <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 3 }}>
+                    <Rating name="read-only" value={value} readOnly sx={{ fontSize: 40 }} />
+                  </Box> */}
+
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 1 }}>
+                    {/* <Box> */}
+                    <Box sx={{ display: 'flex', gap: 5, mt: 2 }}>
+                      <Typography sx={{ fontWeight: 500 }}>
+                        Fullname
+                      </Typography>
+                      <Rating name="read-only" value={value} readOnly sx={{ fontSize: 20 }} />
+
+                    </Box>
+                    <Typography sx={{ fontSize: 14 }}>
+                      I had a fantastic experience at Koi Care Clinic! The staff was friendly and knowledgeable, and they explained every step of my koi’s treatment clearly. The follow-up care really showed how much they care about their clients. My only suggestion would be to offer weekend appointments for added convenience. Highly recommend this clinic for any koi care!
+                    </Typography>
+                    {/* </Box> */}
+
                   </Box>
+
                 </DialogContent>
                 <DialogActions>
                   <Button
@@ -264,7 +254,7 @@ export default function BookingListDetails() {
                       mb: 3
                     }}
                   >
-                    Submit
+                    Close
                   </Button>
                 </DialogActions>
               </Dialog>
@@ -272,9 +262,11 @@ export default function BookingListDetails() {
           </div>
         ))
       ) : (
-        <p style={{ textAlign: "center", color: ORANGE_COLOR, fontSize: "16px", fontWeight: 600 }}>
-          No appointments available
-        </p>
+        <Box sx={{ mb: 5, mt: 5 }}>
+          <p style={{ textAlign: "center", color: ORANGE_COLOR, fontSize: "16px", fontWeight: 600 }}>
+            No appointments available
+          </p>
+        </Box>
       )}
     </div>
   );

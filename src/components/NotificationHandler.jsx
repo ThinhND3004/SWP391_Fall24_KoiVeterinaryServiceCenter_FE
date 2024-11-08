@@ -1,38 +1,31 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Client } from '@stomp/stompjs';
-import SockJS from 'sockjs-client';
-import { Alert, Box, Snackbar } from '@mui/material';
+import { SnackbarProvider, useSnackbar } from 'notistack';
+import { initializeWebSocket } from '~/utils/WebSocketUtils';
 
 const NotificationHandler = () => {
     const [notifications, setNotifications] = useState([]);
-    const [accountId, setAccountId] = useState('');
-    const [description, setDescription] = useState('');
+    // const [accountId, setAccountId] = useState('');
+    // const [description, setDescription] = useState('');
     const clientRef = useRef(null);
+    const { enqueueSnackbar } = useSnackbar();
+
+    const handleOnConnect = (client) => {
+        client.subscribe('/topic/notifications', (message) => {
+            const notification = JSON.parse(message.body);
+            console.log("Received notification: ", notification.data);
+
+            const { accountEmail, title, description, type } = notification.data;
+            setNotifications((prev) => [
+                ...prev,
+                { accountEmail, title, description, type }
+            ]);
+            enqueueSnackbar(description, { variant: 'success' });
+        })
+    }
 
     useEffect(() => {
-        const socket = new SockJS('http://localhost:8080/ws');
-        const client = new Client({
-            webSocketFactory: () => socket,
-            debug: (str) => console.log(str),
-            onConnect: () => {
-                console.log('Connected to WebSocket');
-                client.subscribe('/topic/notifications', (message) => {
-                    const notification = JSON.parse(message.body);
-                    console.log("Received notification: ", notification.data);
-
-                    const { account, description, createdAt } = notification.data;
-                    setNotifications((prev) => [
-                        ...prev,
-                        { account, description, createdAt }
-                    ]);
-                });
-            },
-            onDisconnect: () => console.log('Disconnected from WebSocket'),
-            onStompError: (frame) => console.error('Broker error: ' + frame.headers['message']),
-        });
-
+        const client = initializeWebSocket({ handleConnect: handleOnConnect })
         clientRef.current = client;
-        client.activate();
 
         return () => {
             if (clientRef.current) {
@@ -40,25 +33,6 @@ const NotificationHandler = () => {
             }
         };
     }, []);
-
-    const sendNotification = async () => {
-        const client = clientRef.current;
-        if (client && client.connected) {
-            try {
-                client.publish({
-                    destination: '/app/send',
-                    body: JSON.stringify({ accountId, description }),
-                });
-
-                setAccountId('');
-                setDescription('');
-            } catch (error) {
-                console.error('Error sending notification:', error);
-            }
-        } else {
-            console.error('Client not connected');
-        }
-    };
 
     const handleClose = (
         event,
@@ -71,32 +45,7 @@ const NotificationHandler = () => {
         setOpen(false);
     };
 
-    // return (
-    //     <Box>
-    //         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-    //             <Alert
-    //                 onClose={handleClose}
-    //                 severity="success"
-    //                 variant="filled"
-    //                 sx={{ width: '100%' }}
-    //             >
-    //                 This is a success Alert inside a Snackbar!
-    //             </Alert>
-    //         </Snackbar>
-
-    //         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-    //             <Alert
-    //                 onClose={handleClose}
-    //                 severity="success"
-    //                 variant="filled"
-    //                 sx={{ width: '100%' }}
-    //             >
-    //                 This is a success Alert inside a Snackbar!
-    //             </Alert>
-    //         </Snackbar>
-    //     </Box>
-
-    // )
+    // npm
 
     // return (
     //     <div>
@@ -115,6 +64,8 @@ const NotificationHandler = () => {
     //         />
     //         <button onClick={sendNotification}>Send Notification</button>
 
+    // return(
+    //     <div>
     //         <h2>Received Notifications</h2>
     //         <ul>
     //             {notifications.map((notification, index) => (
