@@ -81,6 +81,9 @@ function VeterianChooseDialog({bookingId, serviceId, startedAt }) {
                     <Typography variant="h5" component="h2">
                         {veterian.fullName}
                     </Typography>
+                    <Typography variant="h5" component="h2">
+                        {veterian.email}
+                    </Typography>
                     <Typography variant="body1" color="textSecondary">Certification: {veterian.certification || 'Empty certification'}</Typography>
                     <Typography variant="body1" color="textSecondary">Year Of Experience: {veterian.yearOfExperience || 'Empty Year Of Experience'}</Typography>
                     <Typography variant="body1" color="textSecondary">Education: {veterian.education || 'Empty education  '}</Typography>
