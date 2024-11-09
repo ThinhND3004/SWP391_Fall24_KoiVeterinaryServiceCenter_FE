@@ -33,7 +33,7 @@ const SelectVeterinarianByAnyDateTimeComponent = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedDateTime, setSelectedDateTime] = useState(
-    dayjs().add(1, "day").set("hour", 7).set("minute", 0)
+    dayjs().add(1, "day").set("hour", 9).set("minute", 0)
   );
 
   const [noVeterinarianMessage, setNoVeterinarianMessage] = useState("");
@@ -83,10 +83,12 @@ const SelectVeterinarianByAnyDateTimeComponent = () => {
   // Handle date/time change
   const handleDateTimeChange = (newDateTime) => {
     if (newDateTime) {
-      setSelectedDateTime(newDateTime);
+      const updatedDateTime = newDateTime
+        .set("second", 0)      // Set seconds to 0
+        .set("millisecond", 0); // Set milliseconds to 0
+      setSelectedDateTime(updatedDateTime);
     }
   };
-
   
   return (
     <Box>
@@ -149,7 +151,7 @@ const SelectVeterinarianByAnyDateTimeComponent = () => {
                 )}
                 minDate={dayjs().add(1, "day")} // Chặn chọn ngày hôm nay
                 maxDate={dayjs().endOf("week").add(1, "day")} // Giới hạn ngày kết thúc vào Chủ Nhật
-                minTime={dayjs().set("hour", 7).set("minute", 0)} // Giới hạn bắt đầu từ 7:00
+                minTime={dayjs().set("hour", 9).set("minute", 0)} // Giới hạn bắt đầu từ 7:00
                 maxTime={dayjs().set("hour", 15).set("minute", 0)} // Giới hạn kết thúc vào 15:00
                 format=""
                 ampm={false} // Đặt để sử dụng định dạng 24 giờ
