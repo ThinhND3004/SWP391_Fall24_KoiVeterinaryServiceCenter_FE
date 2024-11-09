@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { GRAY_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme';
 import SearchIcon from '@mui/icons-material/Search'
 import ManagementApi from '~/api/ManagementApi';
-import { sendNotification } from '~/utils/WebSocketUtils';
+import { sendNotification, sendNotificationOnEmail } from '~/utils/WebSocketUtils';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -39,23 +39,50 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     }
 }))
 
-function VeterianChooseDialog({bookingId, serviceId, startedAt, clientRef }) {
-    
+function VeterianChooseDialog({ bookingId, serviceName, serviceId, serviceMethod, startedAt, userAddress }) {
+
 
     const InfoCard = ({ veterian }) => {
 
         const handleSend = async () => {
-            console.log(veterian.email);
-
-            sendNotification({
+            // Send Notification
+            sendNotificationOnEmail({
+                bookingId: bookingId,
                 accountEmail: veterian.email,
                 title: 'Invitation',
                 description: 'You received a booking invitation!',
                 type: 'YESNO'
             })
+            const date = new Date(startedAt);
+
+            const day = String(date.getDate()).padStart(2, '0');        
+            const month = String(date.getMonth() + 1).padStart(2, '0'); 
+            const year = date.getFullYear(); 
+            const hours = date.getHours().toString().padStart(2, '0');
+            const minutes = date.getMinutes().toString().padStart(2, '0');
+
+            const time = `${hours}:${minutes}`;
+            const formattedDate = `${day}/${month}/${year}`;
+
+            // Send Email
+            const sendEmailResp = await ManagementApi.sendInvitationEmail({
+                to: veterian.email,
+                recipientName: veterian.fullName,
+                serviceName: serviceName,
+                serviceMethod: serviceMethod,
+                date: formattedDate,
+                time: time,
+                location: userAddress ? userAddress : 'At Center',
+                referenceNumber: '0123456789',
+                companyName: 'Company XXX',
+                companyWebsite: 'http://localhost:5173/veterian/notifications'
+            })
+
+            if(sendEmailResp) {
+                console.log("SEND EMAIL SUCCESSFUL")
+            }
 
             setOpen(false)
-            // if(data != null) window.location.reload();
         }
 
         return (
@@ -89,6 +116,9 @@ function VeterianChooseDialog({bookingId, serviceId, startedAt, clientRef }) {
                 <Box>
                     <Typography variant="h5" component="h2">
                         {veterian.fullName}
+                    </Typography>
+                    <Typography variant="h5" component="h2">
+                        {veterian.email}
                     </Typography>
                     <Typography variant="body1" color="textSecondary">Certification: {veterian.certification || 'Empty certification'}</Typography>
                     <Typography variant="body1" color="textSecondary">Year Of Experience: {veterian.yearOfExperience || 'Empty Year Of Experience'}</Typography>

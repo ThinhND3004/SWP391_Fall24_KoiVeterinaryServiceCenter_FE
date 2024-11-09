@@ -1,17 +1,38 @@
 import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
-import {
-  BLUE_COLOR,
-  ONLINE_BUTTON,
-} from "~/theme";
+import { BLUE_COLOR, ONLINE_BUTTON } from "~/theme";
 import MeetingMethodTagHolder from "~/pages/ServicePage/ServicePageDetails/MethodMeetingTag";
 
 function Introduction({ service, serviceAddress }) {
+
+  const formatEstimatedTime = (timeString) => {
+    if (!timeString) return "N/A";
+  
+    const [hours, minutes] = timeString.split(':').map(Number);
+  
+    if (hours > 0) {
+      return `${hours} hour${hours > 1 ? 's' : ''}`;
+    } else if (minutes > 0) {
+      return `${minutes} minute${minutes > 1 ? 's' : ''}`;
+    }
+    
+    return "N/A"; // In case of 00:00:00
+  };
+
   return (
     <Box>
-      <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 120, textAlign: 'center', color: BLUE_COLOR }}>Our Medical Services</Typography>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 5 }}>
-        <Box sx={{ width: '600px' }}>
+      <Typography
+        sx={{
+          fontFamily: "SVN-Konga Pro",
+          fontSize: 120,
+          textAlign: "center",
+          color: BLUE_COLOR,
+        }}
+      >
+        Our Medical Services
+      </Typography>
+      <Box sx={{ display: "flex", justifyContent: "space-between", mt: 5 }}>
+        <Box sx={{ width: "600px" }}>
           <Typography
             sx={{
               fontFamily: "SVN-Konga Pro",
@@ -22,28 +43,32 @@ function Introduction({ service, serviceAddress }) {
             {service.name}
           </Typography>
 
-          <MeetingMethodTagHolder meetingMethod={service.meetingMethod} serviceType={service.type} />
+          <MeetingMethodTagHolder
+            meetingMethod={service.meetingMethod}
+            serviceType={service.type}
+          />
 
-          <Typography sx={{ fontWeight: 400, fontSize: 16, lineHeight: 2, mt: 4 }}>
+          <Typography
+            sx={{ fontWeight: 400, fontSize: 16, lineHeight: 2, mt: 4 }}
+          >
             {service.overview}
           </Typography>
 
           <Box sx={{ marginTop: 2 }}>
             <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+              <Typography sx={{ fontWeight: 700 }}>Price:</Typography>
               <Typography sx={{ fontWeight: 700 }}>
-                Price:
-              </Typography>
-              <Typography sx={{ fontWeight: 700 }}>
-                ${service.price}
+                {new Intl.NumberFormat("vi-VN", {
+                  minimumFractionDigits: 0,
+                }).format(service.price)}{" "}
+                VND
               </Typography>
             </Box>
 
             <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-              <Typography sx={{ fontWeight: 700 }}>
-                Estimated Time:
-              </Typography>
+              <Typography sx={{ fontWeight: 700 }}>Estimated Time:</Typography>
               <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
-                {service.estimatedTime || "N/A"}
+                {formatEstimatedTime(service.estimatedTime)}
               </Typography>
             </Box>
 
@@ -55,7 +80,6 @@ function Introduction({ service, serviceAddress }) {
                 {serviceAddress || "N/A"}
               </Typography>
             </Box>
-
           </Box>
         </Box>
 
