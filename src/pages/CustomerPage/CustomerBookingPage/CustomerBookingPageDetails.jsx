@@ -69,7 +69,7 @@ useEffect(() => {
       try {
         const page = 1;
         const unitPerPage = 10;
-        const status = "PENDING";
+        const status = "COMPLETED";
 
         const response = await fetch(
           `http://localhost:8089/bookings?page=${page}&unitPerPage=${unitPerPage}&status=${status}`,

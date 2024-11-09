@@ -279,7 +279,7 @@ const SelectVeterinarianByAnyDateTimeComponent = () => {
                               serviceAddress,
                               veterinarian: vet, // Pass the selected veterinarian
                               selectedDateTime: selectedDateTime.format(
-                                "YYYY-MM-DDTHH:mm:ss"
+                                "YYYY-MM-DDTHH:mm"
                               ),
                             },
                           });
