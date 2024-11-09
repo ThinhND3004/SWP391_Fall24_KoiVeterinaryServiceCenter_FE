@@ -24,7 +24,7 @@ function CustomerProfileDetails() {
   const [password, setPassword] = useState("");
 
   const verifyPasswordAndSave = async () => {
-    const response = await fetch("http://localhost:8080/accounts/verify-password", {
+    const response = await fetch("http://localhost:8089/accounts/verify-password", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -65,7 +65,7 @@ function CustomerProfileDetails() {
       const accInfo = JSON.parse(localStorage.getItem("accountInfo"));
 
       const response = await fetch(
-        `http://localhost:8080/accounts/update-by-email/${accInfo.email}`,
+        `http://localhost:8089/accounts/update-by-email/${accInfo.email}`,
         {
           method: "PUT",
           headers: {
