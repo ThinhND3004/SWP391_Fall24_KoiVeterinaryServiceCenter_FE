@@ -40,7 +40,7 @@ function ChooseOption({ service, serviceAddress }) {
           {/* Flexible Schedule option */}
           <Grid item xs={6}>
             <Box textAlign="center">
-              <img src="/images/flexible-schedule.png" alt="Flexible Schedule" style={{ width: '80px', marginBottom: '10px' }} />
+              <img src="../src/assets/images/vaccination.png" alt="Flexible Schedule" style={{ width: '80px', marginBottom: '10px' }} />
               <Typography variant="body1" sx={{ marginBottom: '10px', fontWeight: 500 }}>
                 Let us assign a doctor for you at a flexible time.
               </Typography>

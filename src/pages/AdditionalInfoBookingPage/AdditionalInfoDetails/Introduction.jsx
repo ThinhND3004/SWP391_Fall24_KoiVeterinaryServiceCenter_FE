@@ -99,12 +99,14 @@ function Introduction({ service, serviceAddress, veterinarian }) {
 
         <Box
           component="img"
-          src="https://cdn.shopify.com/s/files/1/1083/2612/files/koi2_480x480.jpg?v=1719301650"
+          src={service.serImageId}
           sx={{
             objectFit: "contain",
             width: "500px",
             borderRadius: "26px",
             marginLeft: 2, // Margin left for spacing
+            position: 'relative',
+            top: '70px'
           }}
         />
       </Box>

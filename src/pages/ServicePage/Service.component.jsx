@@ -6,6 +6,7 @@ import ServiceNo2 from './ServicePageDetails/ServiceNo2'
 import ServiceNo3 from './ServicePageDetails/ServiceNo3'
 import { useEffect, useState } from 'react'
 import HomeApi from '~/api/HomeApi'
+import ManagementApi from '~/api/ManagementApi'
 
 const SerivceComponent = () => {
     const [services, setServices] = useState([]);
@@ -17,15 +18,27 @@ const SerivceComponent = () => {
         const data = await HomeApi.getServices();
         console.log("DATA: ", data)
         if (data) {
-            setServices(data);
+
+            const serviceWithConvertedImg = await Promise.all(
+                data.map(async service => {
+                    service.serImageId = await ManagementApi.getImage(service.serImageId);
+                    return service
+                })
+            )
+
+            setServices(serviceWithConvertedImg);
             setLoading(false);
         }
 
     };
 
+    
+
     useEffect(() => {
         fetchServices();
     }, []);
+
+
 
     // Kiểm tra trạng thái loading và error
     if (loading) {
