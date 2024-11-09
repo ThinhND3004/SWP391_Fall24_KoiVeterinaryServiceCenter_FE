@@ -6,10 +6,11 @@ const Content = ({ service }) => {
     <Box>
       {service && (
         <Box>
-          <Typography sx={{ fontWeight: 400, fontSize: 16, lineHeight: 2 }}>
-            {service.description}
-          </Typography>
-
+          <Typography sx={{ fontWeight: 400, fontSize: 16, lineHeight: 2 }} 
+            component="div" // Use "div" to ensure block-level rendering
+            dangerouslySetInnerHTML={{ __html: service.description }} // Render HTML
+          />
+          
           {service.isDisable && (
             <Typography sx={{ color: 'red', marginTop: 1 }}>
               This service is currently unavailable.
@@ -22,3 +23,4 @@ const Content = ({ service }) => {
 };
 
 export default Content;
+

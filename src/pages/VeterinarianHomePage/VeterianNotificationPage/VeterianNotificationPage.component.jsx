@@ -3,24 +3,8 @@ import { Box, Breadcrumbs, Typography } from "@mui/material"
 import NotificationItem from "./VeterianNotification"
 import { useEffect, useState } from "react";
 import ManagementApi from "~/api/ManagementApi";
+import { sendNotification } from "~/utils/WebSocketUtils";
 
-// const notifications = [
-//     {
-//         id: 1,
-//         title: "Update Available",
-//         description: "A new software update is available. Would you like to install it?",
-//     },
-//     {
-//         id: 2,
-//         title: "Subscription Expiring",
-//         description: "Your subscription is expiring soon. Would you like to renew?",
-//     },
-//     {
-//         id: 3,
-//         title: "Backup Reminder",
-//         description: "You haven't backed up your files in a while. Do you want to back them up now?",
-//     },
-// ];
 function VeterianNotificationPage() {
     const [notifications, setNotifications] = useState([]);
 
@@ -35,19 +19,39 @@ function VeterianNotificationPage() {
 
 
     const handleYes = async (notification) => {
+        console.log("BOOKING ID: ",notification)
         const result = await ManagementApi.assignVeterianToBooking({
             bookingId: notification.bookingId,
             veterianEmail: notification.accountEmail
         })
         if(result){
-            // rerender notifications
+            // remove notification
+            console.log('Remove noti')
+            setNotifications(prevNotifications =>
+                prevNotifications.filter(n => n.id !== notification.id)
+            );
+            sendNotification({
+                title: 'Accept Invitation',
+                description: `${notification.accountFullName} have accepted your invitation!`,
+                type: 'DEFAULT'
+            })
         }
     };
 
-    const handleNo = async (id) => {
-        const result = await ManagementApi.deleteNotificationById(id);
-        if(result) console.log(`No clicked for notification ID: ${id}`);
-        // Additional logic for "No"
+    const handleNo = async (notification) => {
+        const result = await ManagementApi.deleteNotificationById(notification.id);
+        if(result) {
+            console.log('Remove noti')
+            setNotifications(prevNotifications =>
+                prevNotifications.filter(n => n.id !== notification.id)
+            );
+            sendNotification({
+                title: 'Reject Invitation',
+                description: `${notification.accountFullName} had rejected your invitation!`,
+                type: 'DEFAULT'
+            })
+        }
+        
     };
 
     return (
@@ -65,13 +69,14 @@ function VeterianNotificationPage() {
                 </Breadcrumbs>
             </Box>
             {notifications.map((notification) => (
+                console.log("Notification: ", notification),
                 <NotificationItem
                     key={notification.id}
                     title={notification.title}
                     description={notification.description}
                     type={notification.type}
                     onYes={() => handleYes(notification)}
-                    onNo={() => handleNo(notification.id)}
+                    onNo={() => handleNo(notification)}
                 />
             ))}
         </Box>

@@ -67,7 +67,12 @@ const DynamicDataGrid = ({ rowData, pageSize = 5 }) => {
       if (booking.statusEnum === 'PENDING' && params.field === 'veterian')
         return <VeterianChooseDialog
           bookingId={booking.id}
-          serviceId={booking.serviceId} startedAt={booking.startedAt} />;
+          serviceId={booking.serviceId}
+          serviceName={booking.serviceName}
+          serviceMethod={booking.meetingMethod}
+          userAddress={booking.userAddress}
+          startedAt={booking.startedAt}
+        />;
 
       return <span>{params.value}</span>
     }

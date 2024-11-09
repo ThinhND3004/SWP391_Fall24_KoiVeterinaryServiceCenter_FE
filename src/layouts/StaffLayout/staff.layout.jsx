@@ -50,7 +50,7 @@ function StaffLayout() {
       </Container>
 
       <SnackbarProvider maxSnack={3}>
-        <NotificationHandler />
+        <NotificationHandler subscribeTo={'/topic/notifications'}/>
       </SnackbarProvider>
     </Grid2>
   )

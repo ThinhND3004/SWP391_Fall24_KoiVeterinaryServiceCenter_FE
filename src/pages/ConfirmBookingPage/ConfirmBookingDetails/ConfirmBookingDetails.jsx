@@ -13,10 +13,17 @@ import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from "~/theme";
 import api from "~/config/axios";
 // import { cwd } from "process";
 
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
 const ConfirmBookingDetails = () => {
   const location = useLocation(); // Nhận dữ liệu từ state
-  const { createBookingDTO, serviceEntity, veterinarianEntity } =
-    location.state;
+  const { createBookingDTO, serviceEntity, veterinarianEntity } = location.state;
+  const displayedDateTime = dayjs.utc(createBookingDTO.startAt).tz("Asia/Ho_Chi_Minh", true);
+
   console.log(createBookingDTO);
   console.log(createBookingDTO.startAt);
   console.log(veterinarianEntity);
@@ -31,7 +38,7 @@ const ConfirmBookingDetails = () => {
    */
   const handlePayment = async (createBookingDTO) => {
     try {
-      console.log(createBookingDTO.veterianId);
+      console.log(createBookingDTO.veterianEmail);
 
       // Lưu createBookingDTO vào localStorage
       localStorage.setItem(
@@ -240,7 +247,7 @@ const ConfirmBookingDetails = () => {
                 id="outlined-basic"
                 placeholder='Enter your first name'
                 variant="outlined"
-                value={dayjs(createBookingDTO.startAt).format("DD/MM/YYYY HH:mm")}
+                value={displayedDateTime.format("DD/MM/YYYY HH:mm:ss")}
                 sx={{
                   width: '600px',
                   '& .MuiOutlinedInput-root': {

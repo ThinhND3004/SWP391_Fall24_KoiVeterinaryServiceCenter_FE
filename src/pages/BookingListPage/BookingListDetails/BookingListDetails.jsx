@@ -38,7 +38,7 @@ export default function BookingListDetails() {
       if (token) {
         try {
           const response = await api.get(
-            `/bookings?page=1&unitPerPage=10&status=PENDING`,
+            `/bookings?page=1&unitPerPage=10&status=CONFIRMED`,
             {
               headers: { Authorization: `Bearer ${token}` },
             }

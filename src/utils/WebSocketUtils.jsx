@@ -22,16 +22,32 @@ export const initializeWebSocket = ({ handleConnect }) => {
     return client;
 };
 
-export const sendNotification = async ({ accountEmail, title, description, type }) => {
+export const sendNotification = async ({ accountEmail, bookingId, title, description, type }) => {
     if (client && client.connected) {
         try {
             client.publish({
                 destination: '/app/send',
-                body: JSON.stringify({ accountEmail, title, description, type }),
+                body: JSON.stringify({ accountEmail, bookingId, title, description, type }),
             });
 
         } catch (error) {
-            console.error('Error sending notification:', error);
+            console.error('Error sending notification: ', error);
+        }
+    } else {
+        console.error('Client not connected');
+    }
+};
+
+export const sendNotificationOnEmail = async ({ accountEmail, bookingId, title, description, type }) => {
+    if (client && client.connected) {
+        try {
+            client.publish({
+                destination: '/app/send-email',
+                body: JSON.stringify({ accountEmail, bookingId, title, description, type }),
+            });
+
+        } catch (error) {
+            console.error('Error sending notification: ', error);
         }
     } else {
         console.error('Client not connected');

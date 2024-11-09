@@ -225,4 +225,28 @@ export default class ManagementApi {
     }
     return result;
   }
+
+  
+  // EMAIL 
+  static async sendInvitationEmail({ to, recipientName, serviceName, serviceMethod, date, time, location, referenceNumber, companyName, companyWebsite }){
+    try {
+      const response = await api.post('/api/emails/send-invitation-for-veterinarian', {
+        to, 
+        recipientName, 
+        serviceName, 
+        serviceMethod, 
+        date, 
+        time, 
+        location, 
+        referenceNumber, 
+        companyName, 
+        companyWebsite
+      });
+      if (response.data) return response.data.data;
+    }
+    catch (err) {
+      console.error('Cannot get Notifications: ' + err.message)
+    }
+    return [];
+  }
 }
