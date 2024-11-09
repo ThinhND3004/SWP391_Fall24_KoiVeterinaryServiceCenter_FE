@@ -18,6 +18,7 @@ import Paper from '@mui/material/Paper'
 import DynamicDataGrid from './testGrid'
 import { useEffect, useState } from 'react'
 import api from '~/config/axios'
+import BackdropComponent from '~/components/Backdrop.component'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -87,7 +88,7 @@ function CustomerPageDetails() {
   const [staff, setStaff] = useState([]);
   const [page, setPage] = useState();
   const [unitPerPage, setUnitPerPage] = useState();
-
+  const [loading, setLoading] = useState(true)
 
   const handleGetUserData = async () => {
 
@@ -100,14 +101,14 @@ function CustomerPageDetails() {
 
       const response = await api.get(`/accounts?role=STAFF`)
 
-      if (response)
-      {
+      if (response) {
         console.log("GET USER DATA RESPONSE: ", response);
         setStaff(response.data.data)
       }
-    } catch (err)
-    {
+    } catch (err) {
       console.log("ERROR GET USER DATA: ", err);
+    } finally {
+      setLoading(false)
     }
 
   }
@@ -161,6 +162,7 @@ function CustomerPageDetails() {
       <Box sx={{ mt: 3, mb: 3 }}>
         <DynamicDataGrid data={staff} />
       </Box>
+      <BackdropComponent open={loading} />
     </Box>
   )
 }

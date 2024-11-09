@@ -13,6 +13,12 @@ import dayjs from 'dayjs';
 import 'leaflet/dist/leaflet.css';
 import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from "~/theme";
 
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
 // Marker's icon
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -34,11 +40,19 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
   const [userPosition, setUserPosition] = React.useState([0, 0]);
   const [vetPosition, setVetPosition] = React.useState([10.845, 106.772]); // Default for Thủ Đức
 
-  React.useEffect(() => {
-    if (selectedDateTime) {
-      setDateTime(dayjs(selectedDateTime));  // Đảm bảo selectedDateTime được chuyển thành Day.js
-    }
-  }, [selectedDateTime]);
+  const displayedDateTime = dayjs.utc(selectedDateTime).tz("Asia/Ho_Chi_Minh", true);
+
+  console.log(selectedDateTime);
+  console.log(veterinarian)
+  console.log(veterinarian.email)
+
+  // React.useEffect(() => {
+  //   if (selectedDateTime) {
+  //     setDateTime(dayjs(selectedDateTime));  // Đảm bảo selectedDateTime được chuyển thành Day.js
+  //   }
+  // }, [selectedDateTime]);
+
+
 
   const fetchAddressSuggestions = React.useCallback(
     debounce(async (input) => {
@@ -132,13 +146,13 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
 
     const bookingData = {
       serviceId: service.id,
-      veterinarianId: veterinarian && veterinarian.id ? veterinarian.id : null, // Kiểm tra veterinarian có null không
+      veterianEmail: veterinarian && veterinarian.email ? veterinarian.email : null, // Kiểm tra veterinarian có null không
       additionalInformation: additionalInfo || "",
       servicePrice: service.price || 0,
       distanceMeters: distance || 0,
       userAddress: userAddress || "",
       meetingMethod: service.meetingMethod || "online",
-      startAt: dateTime ? dateTime.toISOString() : new Date().toISOString(),
+      startAt: selectedDateTime,
       travelPrice: service.travelPricePerMeter || 0,
     };
 
@@ -161,7 +175,8 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
         </Typography>
         <TextField
           // label={dateTime ? dateTime.format('YYYY-MM-DD HH:mm') : ""}
-          value={dateTime ? dateTime.format('YYYY-MM-DD HH:mm') : ""}
+          // value={dayjs(selectedDateTime).format("DD/MM/YYYY HH:mm")}
+          value={displayedDateTime.format("DD/MM/YYYY HH:mm:ss")}
           disabled
           fullWidth
           sx={{

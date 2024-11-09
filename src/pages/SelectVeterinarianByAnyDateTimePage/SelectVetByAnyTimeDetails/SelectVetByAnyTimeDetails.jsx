@@ -15,8 +15,11 @@ import dayjs from "dayjs";
 import { useNavigate, useLocation } from "react-router-dom";
 import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from "~/theme";
 import { toast } from "react-toastify"; // Thêm thư viện react-toastify nếu dùng
+import 'dayjs/locale/en-gb'; // Đảm bảo import locale "vi"
 
-const SelectVeterinarianByAnyDateTimeDetails = () => {
+// dayjs.locale('de');
+
+const SelectVeByAnyDateTimeDetails = () => {
   const location = useLocation(); // Nhận dữ liệu từ state
   const { service, serviceAddress } = location.state || {};
 
@@ -50,20 +53,18 @@ const SelectVeterinarianByAnyDateTimeDetails = () => {
       );
 
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        throw new Error("Something went wrong in finding veterinarian");
       }
 
       const data = await response.json();
       setVeterinarians(data.data || []); // Set veterinarians if data exists
       if (data.data.length === 0) {
-        // setNoVeterinarianMessage(
-        //   "Chúng tôi không thể chỉ định bác sĩ trong khung giờ các bác sĩ không hoạt động."
-        // );
-        toast.error("Chúng tôi không thể chỉ định bác sĩ trong khung giờ các bác sĩ không hoạt động");
-      } 
-    //   else {
-    //     setNoVeterinarianMessage(""); // Clear message if veterinarians are found
-    //   }
+        setNoVeterinarianMessage(
+          "We are unable to assign veterinarians during the hours when veterinarians are not available."
+        );
+      } else {
+        setNoVeterinarianMessage(""); // Clear message if veterinarians are found
+      }
     } catch (err) {
       setError(err.message);
     } finally {
@@ -74,7 +75,7 @@ const SelectVeterinarianByAnyDateTimeDetails = () => {
   // Fetch data when selectedDateTime changes
   useEffect(() => {
     if (selectedDateTime) {
-      const formattedDateTime = selectedDateTime.format("YYYY-MM-DDTHH:mm:ss");
+      const formattedDateTime = selectedDateTime.format("YYYY-MM-DDTHH:mm");
       fetchVeterinarianWithStartDateTime(formattedDateTime);
     }
   }, [selectedDateTime]);
@@ -82,10 +83,13 @@ const SelectVeterinarianByAnyDateTimeDetails = () => {
   // Handle date/time change
   const handleDateTimeChange = (newDateTime) => {
     if (newDateTime) {
-      setSelectedDateTime(newDateTime);
+      const updatedDateTime = newDateTime
+        .set("second", 0)      // Set seconds to 0
+        .set("millisecond", 0); // Set milliseconds to 0
+      setSelectedDateTime(updatedDateTime);
     }
   };
-
+  
   return (
     <Box>
       <Box p={2}>
@@ -118,7 +122,7 @@ const SelectVeterinarianByAnyDateTimeDetails = () => {
             <Typography sx={{ fontWeight: 600, fontSize: 16, mb: 2 }}>
               Select start time
             </Typography>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
               <DateTimePicker
                 sx={{
                   overflow: "hidden",
@@ -141,6 +145,7 @@ const SelectVeterinarianByAnyDateTimeDetails = () => {
                 placeholder="Select the start time."
                 value={selectedDateTime}
                 onChange={handleDateTimeChange} // Update selected date and time
+                // inputFormat="DD/MM/YYYY HH:mm"
                 renderInput={(params) => (
                   <TextField {...params} fullWidth error={false} />
                 )}
@@ -148,6 +153,7 @@ const SelectVeterinarianByAnyDateTimeDetails = () => {
                 maxDate={dayjs().endOf("week").add(1, "day")} // Giới hạn ngày kết thúc vào Chủ Nhật
                 minTime={dayjs().set("hour", 7).set("minute", 0)} // Giới hạn bắt đầu từ 7:00
                 maxTime={dayjs().set("hour", 15).set("minute", 0)} // Giới hạn kết thúc vào 15:00
+                format=""
                 ampm={false} // Đặt để sử dụng định dạng 24 giờ
               />
             </LocalizationProvider>
@@ -168,7 +174,7 @@ const SelectVeterinarianByAnyDateTimeDetails = () => {
               fullWidth
               onClick={() => {
                 if (veterinarians.length === 0) {
-                  alert(noVeterinarianMessage);
+                  toast.error(noVeterinarianMessage);
                 } else {
                   navigate("/additional-info-booking", {
                     state: {
@@ -176,7 +182,7 @@ const SelectVeterinarianByAnyDateTimeDetails = () => {
                       serviceAddress,
                       veterinarian: null,
                       selectedDateTime: selectedDateTime.format(
-                        "YYYY-MM-DDTHH:mm:ss"
+                        "YYYY-MM-DDTHH:mm"
                       ),
                     },
                   });
@@ -313,4 +319,4 @@ const SelectVeterinarianByAnyDateTimeDetails = () => {
   );
 };
 
-export default SelectVeterinarianByAnyDateTimeDetails;
+export default SelectVeByAnyDateTimeDetails;

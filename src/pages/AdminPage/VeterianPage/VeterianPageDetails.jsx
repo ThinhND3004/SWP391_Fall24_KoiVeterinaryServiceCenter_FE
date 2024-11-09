@@ -19,6 +19,7 @@ import DynamicDataGrid from './testGrid'
 import api from '~/config/axios'
 import { set } from 'lodash'
 import { useEffect, useState } from 'react'
+import BackdropComponent from '~/components/Backdrop.component'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -81,19 +82,20 @@ const rows = [
 function VeterianPageDetails() {
 
   const [vet, setVet] = useState([]);
+  const [loading, setLoading] = useState(true)
 
   const handleGetUserData = async () => {
     try {
       const response = await api.get(`/accounts?role=${"VETERIAN"}`);
       console.log("USER DATA RESPONSE: ", response.data.data);
 
-      if (response)
-      {
+      if (response) {
         setVet(response.data.data);
       }
-    } catch (err)
-    {
+    } catch (err) {
       console.log("ERROR GET USER DATA: ", err)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -145,6 +147,7 @@ function VeterianPageDetails() {
       <Box sx={{ mt: 3, mb: 3 }}>
         <DynamicDataGrid data={vet} />
       </Box>
+      <BackdropComponent open={loading} />
     </Box>
   )
 }
