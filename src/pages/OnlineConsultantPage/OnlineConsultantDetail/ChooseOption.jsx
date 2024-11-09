@@ -23,7 +23,7 @@ function ChooseOption({ service, serviceAddress }) {
           {/* Select Doctor option */}
           <Grid item xs={6}>
             <Box textAlign="center">
-              <img src="/images/select-doctor.png" alt="Select Doctor" style={{ width: '80px', marginBottom: '10px' }} />
+              <img src="../src/assets/images/doctor.png" alt="Select Doctor" style={{ width: '80px', marginBottom: '10px' }} />
               <Typography variant="body1" sx={{ marginBottom: '10px', fontWeight: 500 }}>
                 Choose a specific doctor based on availability.
               </Typography>
@@ -40,7 +40,7 @@ function ChooseOption({ service, serviceAddress }) {
           {/* Flexible Schedule option */}
           <Grid item xs={6}>
             <Box textAlign="center">
-              <img src="/images/flexible-schedule.png" alt="Flexible Schedule" style={{ width: '80px', marginBottom: '10px' }} />
+              <img src="../src/assets/images/vaccination.png" alt="Flexible Schedule" style={{ width: '80px', marginBottom: '10px' }} />
               <Typography variant="body1" sx={{ marginBottom: '10px', fontWeight: 500 }}>
                 Let us assign a doctor for you at a flexible time.
               </Typography>

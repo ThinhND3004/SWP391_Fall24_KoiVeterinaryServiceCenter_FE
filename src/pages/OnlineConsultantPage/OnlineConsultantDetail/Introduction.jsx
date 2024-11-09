@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import {
   BLUE_COLOR,
@@ -61,7 +61,7 @@ function Introduction({ service, serviceAddress }) {
 
         <Box
           component="img"
-          src="https://cdn.shopify.com/s/files/1/1083/2612/files/koi2_480x480.jpg?v=1719301650"
+          src={service.serImageId}
           sx={{
             objectFit: "contain",
             width: "600px",
