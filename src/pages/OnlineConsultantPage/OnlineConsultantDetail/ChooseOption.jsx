@@ -23,7 +23,7 @@ function ChooseOption({ service, serviceAddress }) {
           {/* Select Doctor option */}
           <Grid item xs={6}>
             <Box textAlign="center">
-              <img src="/src/images/select_veterian.png" alt="Select Doctor" style={{ width: '80px', marginBottom: '10px' }} />
+              <img src="/src/assets/images/doctor.png" alt="Select Veterian" style={{ width: '200px', marginBottom: '10px' }} />
               <Typography variant="body1" sx={{ marginBottom: '10px', fontWeight: 500 }}>
                 Choose a specific doctor based on availability.
               </Typography>
@@ -39,17 +39,17 @@ function ChooseOption({ service, serviceAddress }) {
 
           {/* Flexible Schedule option */}
           <Grid item xs={6}>
-            <Box textAlign="center">
-              <img src="../src/assets/images/vaccination.png" alt="Flexible Schedule" style={{ width: '80px', marginBottom: '10px' }} />
-              <Typography variant="body1" sx={{ marginBottom: '10px', fontWeight: 500 }}>
-                Let us assign a doctor for you at a flexible time.
+            <Box textAlign="center" width="400px" marginLeft= '150px' >
+              <img src="../src/assets/images/schedule.png" alt="Flexible Schedule" style={{ width: '200px', marginBottom: '10px' }} />
+              <Typography variant="body1" sx={{ marginBottom: '10px', fontWeight: 500, width: '400px' }}>
+              Select a time between 9 AM and 3 PM to choose a veterinarian, or let us assign one for you.
               </Typography>
-              <Button sx={{ borderRadius: '40px', height: '60px', width: '200px' }}
+              <Button sx={{ borderRadius: '40px', height: '60px', width: '200px'}}
                 variant="contained"
                 color="secondary"
                 onClick={handleFlexibleScheduleClick}
               >
-                Flexible Schedule
+                Select Any Time
               </Button>
             </Box>
           </Grid>

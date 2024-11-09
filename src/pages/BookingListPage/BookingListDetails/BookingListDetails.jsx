@@ -38,7 +38,7 @@ export default function BookingListDetails() {
       if (token) {
         try {
           const response = await fetch(
-            `http://localhost:8089/bookings?page=1&unitPerPage=10&status=CONFIRMED`,
+            `http://localhost:8089/bookings?page=1&unitPerPage=10`,
             {
               headers: { Authorization: `Bearer ${token}` },
             }
