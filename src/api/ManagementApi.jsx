@@ -31,6 +31,7 @@ export default class ManagementApi {
     const data = response.data.data;
 
     return {
+      id: data.id,
       email: data.email,
       role: data.role,
       firstName: data.firstName,
@@ -214,7 +215,7 @@ export default class ManagementApi {
   {
     let result = null;
     try {
-      const response = await api.get(`http://localhost:8080/images/picture/${imageId}`, {
+      const response = await api.get(`http://localhost:8089/images/picture/${imageId}`, {
         responseType: 'blob',
       });
       result = URL.createObjectURL(response.data);

@@ -9,6 +9,7 @@ import Breadcrumbs from '@mui/material/Breadcrumbs'
 import dayjs from 'dayjs'
 import axios from 'axios'
 import ManagementApi from '~/api/ManagementApi'
+import { toast } from 'react-toastify'
 
 function handleClick(event) {
   event.preventDefault()
@@ -25,12 +26,13 @@ function Profile() {
   useEffect(() => {
     const getAccount = async () => {
       const res = await ManagementApi.getCurrentAccount()
-      if (res) setAccInfo(res)
-    }
+      if (res)
+        setAccInfo(res)
+    };
 
     getAccount()
 
-  }, [])
+  }, []);
 
   useEffect(() => {
 
@@ -68,9 +70,22 @@ function Profile() {
   const handleSetImg = async (event) => {
     const file = event.target.files[0]
 
-    if (file && file.size <= 500 + 1024) {
+    if (file) {
       try {
-        const response = await axios.post(`http://localhost:8080/image/upload`, file)
+        const formData = new FormData();
+        formData.append("file", file);  // Ensure "file" matches @RequestParam("file") in the backend
+        console.log("ACC ID SET AVT: ", accInfo)
+        const response = await axios.post(`http://localhost:8089/images/setAvt/${accInfo.id}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        });
+
+        console.log("SET AVT: ", response.data)
+        toast.success(response.data.message)
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       } catch (err) {
         console.log('SET IMG ERR: ', err)
       }
@@ -95,7 +110,7 @@ function Profile() {
       //   address: userInfo.add
       // });
 
-      const response = await axios.put(`http://localhost:8080/accounts/${accInfo.id}`, userInfo)
+      const response = await axios.put(`http://localhost:8089/accounts/${accInfo.id}`, userInfo)
 
       console.log("UPDATE RESULT: ", response.data)
     } catch {
@@ -165,7 +180,7 @@ function Profile() {
               sx={{
                 boxShadow: 'none',
                 fontSize: '16px',
-                bgcolor: 'INPUT_FIELD_COLOR',
+                bgcolor: '#D6EAE8',
                 borderRadius: '10px',
                 height: '40px',
               }}
