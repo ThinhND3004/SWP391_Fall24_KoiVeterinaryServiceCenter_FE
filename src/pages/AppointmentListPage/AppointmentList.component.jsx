@@ -8,6 +8,7 @@ import {
   FaInfoCircle,
 } from "react-icons/fa";
 import { format } from "date-fns";
+import api from "~/config/axios";
 
 const AppointmentComponent = () => {
   const [appointments, setAppointments] = useState([]);
@@ -23,8 +24,8 @@ const AppointmentComponent = () => {
           const unitPerPage = 10;
           const status = "PENDING";
 
-          const response = await fetch(
-            `http://localhost:8080/bookings?page=${page}&unitPerPage=${unitPerPage}&status=${status}`,
+          const response = await api.get(
+            `/bookings?page=${page}&unitPerPage=${unitPerPage}&status=${status}`,
             {
               headers: { Authorization: `Bearer ${token}` },
             }

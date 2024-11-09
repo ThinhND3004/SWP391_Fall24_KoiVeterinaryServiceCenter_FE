@@ -39,7 +39,7 @@ function Title() {
       if (status === 200) {
         localStorage.setItem('token', data.token)
         setTokenWithExpiry(data.token)
-        navigate('/home')
+        window.location.href = '/home'
         toast.success(message)
       } else {
         setLoginMess(err[0])
@@ -57,7 +57,7 @@ function Title() {
   useEffect(() => {
     const isLoginned = localStorage.getItem('token') != null
     if (isLoginned)
-      navigate('/home')
+      window.location.href = '/home'
   }, [])
 
   const handleLogin = async () => {
@@ -92,7 +92,7 @@ function Title() {
       if (status === 200) {
         localStorage.setItem('token', data.token)
         setTokenWithExpiry(data.token)
-        navigate('/home')
+        window.location.href = '/home'
         toast.success(message)
       } else {
         setLoginMess(err[0])

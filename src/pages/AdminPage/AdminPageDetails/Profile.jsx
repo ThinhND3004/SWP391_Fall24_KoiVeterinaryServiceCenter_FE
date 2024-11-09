@@ -9,6 +9,7 @@ import Breadcrumbs from '@mui/material/Breadcrumbs'
 import dayjs from 'dayjs'
 import axios from 'axios'
 import ManagementApi from '~/api/ManagementApi'
+import api from '~/config/axios'
 
 function handleClick(event) {
   event.preventDefault()
@@ -68,9 +69,9 @@ function Profile() {
   const handleSetImg = async (event) => {
     const file = event.target.files[0]
 
-    if (file && file.size <= 500 + 1024) {
+    if (file && file.size <= 500 * 1024) {
       try {
-        const response = await axios.post(`http://localhost:8080/image/upload`, file)
+        const response = await api.post(`/images/upload`, file)
       } catch (err) {
         console.log('SET IMG ERR: ', err)
       }
@@ -95,7 +96,7 @@ function Profile() {
       //   address: userInfo.add
       // });
 
-      const response = await axios.put(`http://localhost:8080/accounts/${accInfo.id}`, userInfo)
+      const response = await api.put(`/accounts/${accInfo.id}`, userInfo)
 
       console.log("UPDATE RESULT: ", response.data)
     } catch {

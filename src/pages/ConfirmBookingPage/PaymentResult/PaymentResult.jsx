@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Button, Typography, Box } from "@mui/material";
 import { useLocation } from "react-router-dom";
+import api from "~/config/axios";
 
 const PaymentResult = () => {
   const location = useLocation();
@@ -45,8 +46,7 @@ const PaymentResult = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch("http://localhost:8080/bookings", {
-        method: "POST",
+      const response = await api.post("/bookings", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,

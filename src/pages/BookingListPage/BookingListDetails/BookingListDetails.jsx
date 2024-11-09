@@ -22,7 +22,7 @@ import {
   ORANGE_COLOR
 } from "~/theme";
 import GradeIcon from '@mui/icons-material/Grade'
-
+import api from "~/config/axios";
 
 
 export default function BookingListDetails() {
@@ -37,8 +37,8 @@ export default function BookingListDetails() {
       const token = localStorage.getItem("token");
       if (token) {
         try {
-          const response = await fetch(
-            `http://localhost:8080/bookings?page=1&unitPerPage=10&status=PENDING`,
+          const response = await api.get(
+            `/bookings?page=1&unitPerPage=10&status=PENDING`,
             {
               headers: { Authorization: `Bearer ${token}` },
             }

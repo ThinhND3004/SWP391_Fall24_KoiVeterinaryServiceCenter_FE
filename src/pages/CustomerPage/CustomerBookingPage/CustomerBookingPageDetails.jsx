@@ -11,7 +11,7 @@ import { Typography } from '@mui/material'
 import DynamicDataGrid from './testGrid'
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
-
+import api from "~/config/axios";
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -71,8 +71,8 @@ useEffect(() => {
         const unitPerPage = 10;
         const status = "PENDING";
 
-        const response = await fetch(
-          `http://localhost:8080/bookings?page=${page}&unitPerPage=${unitPerPage}&status=${status}`,
+        const response = await api.get(
+          `/bookings?page=${page}&unitPerPage=${unitPerPage}&status=${status}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
