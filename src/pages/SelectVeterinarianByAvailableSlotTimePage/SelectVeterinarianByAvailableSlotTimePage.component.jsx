@@ -35,7 +35,7 @@ const SelectVeterinarianByAvailableSlotTimeComponent = () => {
     const token = localStorage.getItem("token");
     try {
       const response = await fetch(
-        `http://localhost:8080/accounts/veterian-with-time-slot/${serviceId}`,
+        `http://localhost:8089/accounts/veterian-with-time-slot/${serviceId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

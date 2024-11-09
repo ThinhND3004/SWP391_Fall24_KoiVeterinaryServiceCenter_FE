@@ -5,7 +5,7 @@ import SockJS from 'sockjs-client';
 let client;
 
 export const initializeWebSocket = ({ handleConnect }) => {
-    const socket = new SockJS('http://localhost:8080/ws');
+    const socket = new SockJS('http://localhost:8089/ws');
     client = new Client({
         webSocketFactory: () => socket,
         debug: (str) => console.log(str),
