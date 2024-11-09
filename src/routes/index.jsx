@@ -153,6 +153,8 @@ const RouteComponent = () => {
       </Route>
 
       <Route element={<CustomerLayout />}>
+
+      
         <Route path='/customer' element={<CustomerPage />} />
         <Route path='/customer_booking' element={<CustomerBookingPage />} />
         <Route path='/customer_password' element={<CustomerPasswordComponent />} />

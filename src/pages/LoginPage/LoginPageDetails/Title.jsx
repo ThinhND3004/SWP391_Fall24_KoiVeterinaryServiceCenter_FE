@@ -104,7 +104,7 @@ function Title() {
         toast.success(message)
         setTimeout(() => {
           window.location.href = "/home";
-        }, 1500);
+        }, 1000);
       } else {
         setLoginMess(err[0])
         toast.error(err[0] || response?.error?.message)
