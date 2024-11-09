@@ -32,7 +32,7 @@ function CustomerPasswordDetails() {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch("http://localhost:8080/accounts/change-password", {
+      const response = await fetch("http://localhost:8089/accounts/change-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

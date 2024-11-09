@@ -44,7 +44,7 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
 
   console.log(selectedDateTime);
   console.log(veterinarian)
-  console.log(veterinarian.email)
+  // console.log(veterinarian.email)
 
   // React.useEffect(() => {
   //   if (selectedDateTime) {

@@ -60,7 +60,7 @@ function MeetingMethodTagHolder({ meetingMethod, serviceType }) {
             gap={2}
         >
             {meetingMethodTags}
-            :
+            {/* : */}
             <MeetingMethodTag meetingMethod={serviceType} backgroundColor={ORANGE_COLOR} />
         </Box>
 
