@@ -12,9 +12,8 @@ function Content({ service }) {
               fontSize: 16,
               lineHeight: 2,
             }}
-          >
-            {service.description}
-          </Typography>
+            dangerouslySetInnerHTML={{ __html: service.description }} 
+          />
 
           {service.isDisable && (
             <Typography sx={{ color: "red" }}>

@@ -1,6 +1,6 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:8080/'
-// const baseUrl = "http://localhost:8080/api/";
+const baseUrl = 'http://localhost:8089/'
+// const baseUrl = "http://localhost:8089/api/";
 
 const config = {
   baseUrl: baseUrl
@@ -32,7 +32,7 @@ export { geoapifyApi }
 
 // import axios from "axios";
 
-// const baseUrl = "http://localhost:8080/";
+// const baseUrl = "http://localhost:8089/";
 
 // const api = axios.create({
 //   baseURL: baseUrl,

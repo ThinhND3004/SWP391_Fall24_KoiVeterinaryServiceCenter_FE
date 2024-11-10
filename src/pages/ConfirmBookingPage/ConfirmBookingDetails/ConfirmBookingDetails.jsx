@@ -56,7 +56,7 @@ const ConfirmBookingDetails = () => {
       };
 
       const response = await fetch(
-        `http://localhost:8080/vnpay/create-payment`,
+        `http://localhost:8089/vnpay/create-payment`,
         {
           method: "POST",
           headers: {

@@ -24,7 +24,7 @@ const AppointmentComponent = () => {
           const status = "PENDING";
 
           const response = await fetch(
-            `http://localhost:8080/bookings?page=${page}&unitPerPage=${unitPerPage}&status=${status}`,
+            `http://localhost:8089/bookings?page=${page}&unitPerPage=${unitPerPage}&status=${status}`,
             {
               headers: { Authorization: `Bearer ${token}` },
             }

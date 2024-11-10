@@ -8,6 +8,22 @@ import { BG_COLOR } from '~/theme'
 import Navbar from './Navbar'
 
 function CustomerLayout() {
+
+  //auth
+  const navigate = useNavigate()
+
+  //auth
+  useEffect(() => {
+    const checkUserRole = async () => {
+      const hasPermission = await ManagementApi.permitFor(['CUSTOMER'])
+      if (!hasPermission) {
+        navigate('/403')
+      }
+    }
+
+    checkUserRole()
+  }, [navigate])
+
   return (
     <Grid2
       container

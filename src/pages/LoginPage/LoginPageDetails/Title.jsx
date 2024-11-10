@@ -9,6 +9,7 @@ import ErrorIcon from '@mui/icons-material/Error'
 import { toast } from 'react-toastify'
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios'
+import ManagementApi from '~/api/ManagementApi'
 
 function Title() {
   const navigate = useNavigate()
@@ -22,6 +23,10 @@ function Title() {
     localStorage.setItem('token', token)
   }
 
+  const handleNavigate = () => {
+    navigate('/home');
+    window.location.reload();  // Force reload
+};
 
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
@@ -40,6 +45,9 @@ function Title() {
         localStorage.setItem('token', data.token)
         setTokenWithExpiry(data.token)
         navigate('/home')
+        // window.location.href = "/home";
+        
+
         toast.success(message)
       } else {
         setLoginMess(err[0])
@@ -91,9 +99,24 @@ function Title() {
 
       if (status === 200) {
         localStorage.setItem('token', data.token)
-        setTokenWithExpiry(data.token)
-        navigate('/home')
-        toast.success(message)
+        
+        const loginRes = await ManagementApi.getCurrentAccount();
+        console.log("LOGIN RES: ", loginRes.role)
+
+
+        const navUrl =
+        loginRes.role === "CUSTOMER" ? "/home" : "/login/admin"
+
+        
+        if (loginRes.role !== "CUSTOMER")
+          {
+            localStorage.removeItem('token');
+            toast.error("Your account cannot login here!!")
+          } else toast.success(message)
+            
+          setTimeout(() => {
+            window.location.href = navUrl;
+          }, 1500);
       } else {
         setLoginMess(err[0])
         toast.error(err[0] || response?.error?.message)
