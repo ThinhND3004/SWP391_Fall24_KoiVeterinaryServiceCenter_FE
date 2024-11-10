@@ -22,6 +22,77 @@ function CreateReportPage({ booking }) {
     const [medicines, setMedicines] = useState([]);
     const navigate = useNavigate();
 
+    const [error, setError] = useState({});
+
+    const [errRes, setErrRes] = useState('');
+
+    const [alertTrigger, setAlertTrigger] = useState(false);
+
+    const handleValidation = () => {
+
+        const newError = {};
+
+        if (!diagnosis) newError.diagnosis = 'Diagnosis is required!';
+        if (!notes) newError.notes = 'Notes is required!';
+        
+        setError(newError);
+
+        return Object.keys(newError).length === 0;
+    }
+
+   
+    const handleSave = async (e) => {
+        e.preventDefault();
+        try {
+            if (handleValidation()) {
+                const requestBody = {
+                    "bookingId": booking.id,
+                    "koiSpeciesIdList": addKoiSpecies.length > 0 ? addKoiSpecies.map((item) => item.id) : null,
+                    "createPondDto": pond ? {
+                        "customer_id": booking.customerId,
+                        "name": pond.name,
+                        "size_square_meters": pond.sizeSquareMeters,
+                        "depth_meters": pond.depthMeters,
+                        "water_type": pond.waterType,
+                        "temperature_celsius": pond.temperatureCelsius,
+                        "pH_level": pond.pHLevel,
+                        "last_maintenance_date": pond.lastMaintenanceDate
+                    } : null,
+                    "prescriptions": medicines.length > 0 ? medicines.map((item) => {
+                        return {
+                            "medicineId": item.id,
+                            "amount": item.quantity ? item.quantity : 1
+                        }
+                    }) : null,
+                    "diagnosis": diagnosis,
+                    "notes": notes
+                }
+        
+                const result = await ManagementApi.createReport(requestBody);
+                
+
+                const dataErr = response.err;
+
+                if (dataErr != null) {
+                    setErrRes(dataErr);
+                } else {
+                    setErrRes(null);
+                    setAlertTrigger(true);
+                    handleClearInfo();
+                }
+                setAlertTrigger(true)
+
+                console.log("REGISTER RESULT: ", response);
+                if (result) navigate(-1);
+
+            } else {
+                console.log("Validation failed. Please check your inputs.");
+            }
+        } catch (error) {
+            console.error("ERROR: ", error);
+        }
+    };
+
 
     const handleAddClick = (addItem) => {
         setAddKoiSpecies(prevKoiSpecies => [...prevKoiSpecies, addItem]);
@@ -49,38 +120,70 @@ function CreateReportPage({ booking }) {
         setMedicines(inputData)
     }
 
-    const handleSave = async () => {
-        const requestBody = {
-            "bookingId": booking.id,
-            "koiSpeciesIdList": addKoiSpecies.length > 0 ? addKoiSpecies.map((item) => item.id) : null,
-            "createPondDto": pond ? {
-                "customer_id": booking.customerId,
-                "name": pond.name,
-                "size_square_meters": pond.sizeSquareMeters,
-                "depth_meters": pond.depthMeters,
-                "water_type": pond.waterType,
-                "temperature_celsius": pond.temperatureCelsius,
-                "pH_level": pond.pHLevel,
-                "last_maintenance_date": pond.lastMaintenanceDate
-            } : null,
-            "prescriptions": medicines.length > 0 ? medicines.map((item) => {
-                return {
-                    "medicineId": item.id,
-                    "amount": item.quantity ? item.quantity : 1
-                }
-            }) : null,
-            "diagnosis": diagnosis,
-            "notes": notes
-        }
+    // const handleSave = async () => {
+    //     const requestBody = {
+    //         "bookingId": booking.id,
+    //         "koiSpeciesIdList": addKoiSpecies.length > 0 ? addKoiSpecies.map((item) => item.id) : null,
+    //         "createPondDto": pond ? {
+    //             "customer_id": booking.customerId,
+    //             "name": pond.name,
+    //             "size_square_meters": pond.sizeSquareMeters,
+    //             "depth_meters": pond.depthMeters,
+    //             "water_type": pond.waterType,
+    //             "temperature_celsius": pond.temperatureCelsius,
+    //             "pH_level": pond.pHLevel,
+    //             "last_maintenance_date": pond.lastMaintenanceDate
+    //         } : null,
+    //         "prescriptions": medicines.length > 0 ? medicines.map((item) => {
+    //             return {
+    //                 "medicineId": item.id,
+    //                 "amount": item.quantity ? item.quantity : 1
+    //             }
+    //         }) : null,
+    //         "diagnosis": diagnosis,
+    //         "notes": notes
+    //     }
 
-        const result = await ManagementApi.createReport(requestBody);
-        if (result) navigate(-1);
+    //     const result = await ManagementApi.createReport(requestBody);
+    //     if (result) navigate(-1);
 
-    }
+    // }
 
 
     return (
         <Box component="form" gap={10}>
+            {errRes && (
+                <Alert
+                    severity='error'
+                    iconMapping={{
+                        error: <ErrorIcon fontSize="inherit" />,
+                    }}
+                    sx={{
+                        mt: 2,
+                        color: 'red',
+                        bgcolor: 'rgba(255, 0, 0, 0.1)',
+                    }}
+                >
+                    {errRes}
+                </Alert>
+            )}
+
+            {!errRes && alertTrigger && (
+                <Alert
+                    severity='success'
+                    iconMapping={{
+                        success: <CheckCircleOutlineIcon fontSize="inherit" />,
+                    }}
+                    sx={{
+                        mt: 2,
+                        color: 'green',
+                        bgcolor: 'rgba(0, 255, 0, 0.1)',
+                    }}
+                >
+                    Register successfully!
+                </Alert>
+            )}
+
             {/* KOI SPECIES */}
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 {/* <Label label='Koi Species' /> */}
@@ -140,12 +243,14 @@ function CreateReportPage({ booking }) {
                 {/* <Label label={'Diagnosis'} /> */}
                 <TextAreaComponent value={diagnosis} setValue={setDiagnosis} />
             </Box>
+            {error.diagnosis && <span style={{ color: 'red' }}>{error.diagnosis}</span>}
 
             {/* NOTES */}
             <Box display={'flex'} mt={5}>
                 <Typography sx={{ fontSize: 16, fontWeight: 500, pr: 14 }}>Notes:</Typography>
                 <TextAreaComponent value={notes} setValue={setNotes} />
             </Box>
+            {error.notes && <span style={{ color: 'red' }}>{error.notes}</span>}
 
             {/* PRESCRIPTION */}
             <Box display={'flex'} mt={5}>
@@ -161,7 +266,7 @@ function CreateReportPage({ booking }) {
                             // alignItems="center"
                             >
                                 <Typography sx={{ fontWeight: 400, fontSize: 16, position: 'relative', top: 30 }}>{item.name}</Typography>
-                                <NumberInput value={item.quantity} setValue={(e) => handleQuantityChange(e, index)} />
+                                <NumberInput value={item.quantity ? item.quantity : 1} setValue={(e) => handleQuantityChange(e, index)} />
                                 <Button color="black" onClick={() => handleMedicineRemove(index)}>
                                     <ClearIcon />
                                 </Button>

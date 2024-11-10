@@ -45,7 +45,7 @@ export default function ReportDialog({ bookingId }) {
                         marginBottom: '5px',
                         mt: 2
                     }}>
-                        <Typography sx={{ fontWeight: 600, fontSize: '25px', textAlign: 'center' }}>
+                        <Typography sx={{ fontWeight: 500, fontSize: 30, fontFamily: 'SVN-Konga Pro', color: BLUE_COLOR }}>
                             Report Information
                         </Typography>
                     </DialogTitle>

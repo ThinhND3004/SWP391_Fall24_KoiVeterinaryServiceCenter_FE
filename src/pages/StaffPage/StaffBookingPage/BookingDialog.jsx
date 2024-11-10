@@ -43,9 +43,9 @@ export default function BookingDialog({ booking }) {
             <Typography variant="body1"><strong>User Address:</strong> {booking.userAddress}</Typography>
             <Typography variant="body1"><strong>Status:</strong> {booking.statusEnum}</Typography>
 
-            <Typography variant="body1"><strong>Created At:</strong> {booking.createdAt}</Typography>
-            <Typography variant="body1"><strong>Started At:</strong> {booking.startedAt}</Typography>
-            <Typography variant="body1"><strong>Ended At:</strong> {booking.endedAt}</Typography>
+            <Typography><strong>Created At:</strong> {TimeUtils.formatDateTime(booking.createdAt)}</Typography>
+            <Typography><strong>Started At:</strong> {TimeUtils.formatDateTime(booking.startedAt)}</Typography>
+            <Typography><strong>Ended At:</strong> {booking.endedAt ? TimeUtils.formatDateTime(booking.endedAt) : null}</Typography>
           </Box>
 
         </DialogContent>
