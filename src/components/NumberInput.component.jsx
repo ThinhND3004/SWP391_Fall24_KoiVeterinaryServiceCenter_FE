@@ -2,15 +2,22 @@
 import { Box, Typography, TextField } from "@mui/material";
 import { BLUE_COLOR, INPUT_FIELD_COLOR } from "~/theme";
 
-export default function NumberInput({ value, setValue }) {
+export default function NumberInput({ value, setValue, minRange, maxRange }) {
     const handleChange = (event) => {
-        setValue(event.target.value)
+        const value = event.target.value;
+        if (!minRange) minRange = 0;
+        if (value >= minRange) {
+            if( !maxRange || value <= maxRange){
+                setValue(value);
+            }
+        }
+        else setValue(minRange)
     }
 
     return (
         <TextField
             id="outlined-basic"
-            placeholder={`Enter...`}
+            placeholder={'Number'}
             variant="outlined"
             type="number"
             value={value}
@@ -19,7 +26,7 @@ export default function NumberInput({ value, setValue }) {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                width: 60,
+                width: 120,
                 '& .MuiOutlinedInput-root': {
                     borderRadius: '15px',
                     borderColor: BLUE_COLOR,

@@ -101,7 +101,6 @@ function RegisterPageDetails() {
         } else {
           setErrRes(null);
           setAlertTrigger(true);
-          handleClearInfo();
         }
         setAlertTrigger(true)
 

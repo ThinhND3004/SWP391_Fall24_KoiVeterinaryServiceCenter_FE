@@ -43,6 +43,8 @@ export default class ManagementApi {
     };;
   }
 
+
+
   static async getAccounts(role, page, unitPerPage) {
     const response = await api.get('/accounts', {
       params: { page, unitPerPage, role }
@@ -127,7 +129,7 @@ export default class ManagementApi {
 
   static async getVeterianBookings({ status, page, unitPerPage }) {
     try {
-      const response = await api.get('/bookings/by-veterian',{
+      const response = await api.get('/bookings/by-veterian', {
         params: { page, unitPerPage, status }
       });
       if (response.data.data) return response.data.data;
@@ -179,17 +181,30 @@ export default class ManagementApi {
 
   // REPORTS
   static async createReport(requestBody) {
+    let response;
     try {
-      const response = await api.post('/reports', requestBody);
-      if (response.data) return true;
+      response = await api.post('/reports', requestBody);
+      if (response.data) return response;
     }
     catch (err) {
       console.error('Cannot create Report: ' + err.message)
     }
-    return false;
+    return response;
   }
+
+  static async getReportByBookingId({ bookingId }) {
+    try {
+      const response = await api.get('/reports/by-booking-id/'+bookingId);
+      if (response.data) return response.data.data;
+    }
+    catch (err) {
+      console.error('Cannot find Report by bookingId ' + bookingId + ': ' + err.message)
+    }
+    return null;
+  }
+
   // NOTIFICATIONS
-  static async getCurrentNotifications(){
+  static async getCurrentNotifications() {
     try {
       const response = await api.get('/notifications/current');
       if (response.data) return response.data.data;
@@ -200,46 +215,44 @@ export default class ManagementApi {
     return [];
   }
 
-  static async deleteNotificationById(id){
+  static async deleteNotificationById(id) {
     try {
-      const response = await api.delete('/notifications/'+id);
+      const response = await api.delete('/notifications/' + id);
       if (response.data) return true;
     }
     catch (err) {
-      console.error('Cannot delete Notifications with id' +id +': ' + err.message)
+      console.error('Cannot delete Notifications with id' + id + ': ' + err.message)
     }
     return false;
   }
 
-  static async getImage(imageId)
-  {
+  static async getImage(imageId) {
     let result = null;
     try {
       const response = await api.get(`http://localhost:8089/images/picture/${imageId}`, {
         responseType: 'blob',
       });
       result = URL.createObjectURL(response.data);
-    } catch (err)
-    {
+    } catch (err) {
       console.log("ERROR GET IMG API MANAGE: ", err)
     }
     return result;
   }
 
-  
+
   // EMAIL 
-  static async sendInvitationEmail({ to, recipientName, serviceName, serviceMethod, date, time, location, referenceNumber, companyName, companyWebsite }){
+  static async sendInvitationEmail({ to, recipientName, serviceName, serviceMethod, date, time, location, referenceNumber, companyName, companyWebsite }) {
     try {
       const response = await api.post('/api/emails/send-invitation-for-veterinarian', {
-        to, 
-        recipientName, 
-        serviceName, 
-        serviceMethod, 
-        date, 
-        time, 
-        location, 
-        referenceNumber, 
-        companyName, 
+        to,
+        recipientName,
+        serviceName,
+        serviceMethod,
+        date,
+        time,
+        location,
+        referenceNumber,
+        companyName,
         companyWebsite
       });
       if (response.data) return response.data.data;

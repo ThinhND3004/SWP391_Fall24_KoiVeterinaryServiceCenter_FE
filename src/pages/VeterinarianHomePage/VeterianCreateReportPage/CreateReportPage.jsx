@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { Box, Button, Typography } from '@mui/material'
+import { Alert, Box, Button, Snackbar, Typography } from '@mui/material'
 import BookingDetails from './BookingDetails';
 import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme';
 import KoiSpeciesDialog from './KoiSpeciesDialog';
@@ -12,7 +12,8 @@ import PrescriptionsDialog from './PrescriptionsDialog';
 import NumberInput from '~/components/NumberInput.component';
 import ManagementApi from '~/api/ManagementApi';
 import { useNavigate } from 'react-router-dom';
-
+import ErrorIcon from '@mui/icons-material/Error';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 function CreateReportPage({ booking }) {
     const [addKoiSpecies, setAddKoiSpecies] = useState([]);
@@ -21,6 +22,80 @@ function CreateReportPage({ booking }) {
     const [notes, setNotes] = useState('');
     const [medicines, setMedicines] = useState([]);
     const navigate = useNavigate();
+
+    const [error, setError] = useState({});
+    const [openAlert, setOpenAlert] = useState(false);
+    const [errorAlert, setErrorAlert] = useState(false);
+
+    const handleCloseAlert = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenAlert(false);
+    
+        setTimeout(() => {
+            navigate(-1); 
+        }, 500);
+    };
+
+    const handleValidation = () => {
+
+        const newError = {};
+
+        if (!diagnosis) newError.diagnosis = 'Diagnosis is required!';
+        if (!notes) newError.notes = 'Notes is required!';
+
+        setError(newError);
+
+        return Object.keys(newError).length === 0;
+    }
+
+
+    const handleSave = async (e) => {
+        e.preventDefault();
+        try {
+            if (handleValidation()) {
+                const requestBody = {
+                    "bookingId": booking.id,
+                    "koiSpeciesIdList": addKoiSpecies.length > 0 ? addKoiSpecies.map((item) => item.id) : null,
+                    "createPondDto": pond ? {
+                        "customer_id": booking.customerId,
+                        "name": pond.name,
+                        "size_square_meters": pond.sizeSquareMeters,
+                        "depth_meters": pond.depthMeters,
+                        "water_type": pond.waterType,
+                        "temperature_celsius": pond.temperatureCelsius,
+                        "pH_level": pond.pHLevel,
+                        "last_maintenance_date": pond.lastMaintenanceDate
+                    } : null,
+                    "prescriptions": medicines.length > 0 ? medicines.map((item) => {
+                        return {
+                            "medicineId": item.id,
+                            "medicinePrice": item.price,
+                            "amount": item.quantity ? item.quantity : 1
+                        }
+                    }) : null,
+                    "diagnosis": diagnosis,
+                    "notes": notes
+                }
+
+                const response = await ManagementApi.createReport(requestBody);
+
+                const dataErr = response.err;
+
+                if (dataErr != null) {
+                    setErrorAlert(dataErr);
+                } else {
+                    setOpenAlert(true);
+                    navigate(-1);
+                }
+            } else {
+                console.log("Validation failed. Please check your inputs.");
+            }
+        } catch (error) {
+            console.error("ERROR: ", error);
+        }
+    };
 
 
     const handleAddClick = (addItem) => {
@@ -49,38 +124,23 @@ function CreateReportPage({ booking }) {
         setMedicines(inputData)
     }
 
-    const handleSave = async () => {
-        const requestBody = {
-            "bookingId": booking.id,
-            "koiSpeciesIdList": addKoiSpecies.length > 0 ? addKoiSpecies.map((item) => item.id) : null,
-            "createPondDto": pond ? {
-                "customer_id": booking.customerId,
-                "name": pond.name,
-                "size_square_meters": pond.sizeSquareMeters,
-                "depth_meters": pond.depthMeters,
-                "water_type": pond.waterType,
-                "temperature_celsius": pond.temperatureCelsius,
-                "pH_level": pond.pHLevel,
-                "last_maintenance_date": pond.lastMaintenanceDate
-            } : null,
-            "prescriptions": medicines.length > 0 ? medicines.map((item) => {
-                return {
-                    "medicineId": item.id,
-                    "amount": item.quantity ? item.quantity : 1
-                }
-            }) : null,
-            "diagnosis": diagnosis,
-            "notes": notes
-        }
-
-        const result = await ManagementApi.createReport(requestBody);
-        if (result) navigate(-1);
-
-    }
-
-
     return (
         <Box component="form" gap={10}>
+            <Snackbar open={openAlert} autoHideDuration={6000} onClose={handleCloseAlert}>
+                <Alert onClose={handleCloseAlert} severity="success" sx={{ width: '100%' }}>
+                    Timetable saved successfully!
+                </Alert>
+                
+            </Snackbar>
+
+            <Snackbar open={errorAlert} autoHideDuration={6000} onClose={handleCloseAlert}>
+                <Alert onClose={() => {setErrorAlert(false)}} severity="error" sx={{ width: '100%' }}>
+                    Create failed!
+                </Alert>
+                
+            </Snackbar>
+
+
             {/* KOI SPECIES */}
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 {/* <Label label='Koi Species' /> */}
@@ -140,12 +200,14 @@ function CreateReportPage({ booking }) {
                 {/* <Label label={'Diagnosis'} /> */}
                 <TextAreaComponent value={diagnosis} setValue={setDiagnosis} />
             </Box>
+            {error.diagnosis && <span style={{ color: 'red' }}>{error.diagnosis}</span>}
 
             {/* NOTES */}
             <Box display={'flex'} mt={5}>
                 <Typography sx={{ fontSize: 16, fontWeight: 500, pr: 14 }}>Notes:</Typography>
                 <TextAreaComponent value={notes} setValue={setNotes} />
             </Box>
+            {error.notes && <span style={{ color: 'red' }}>{error.notes}</span>}
 
             {/* PRESCRIPTION */}
             <Box display={'flex'} mt={5}>
@@ -161,7 +223,7 @@ function CreateReportPage({ booking }) {
                             // alignItems="center"
                             >
                                 <Typography sx={{ fontWeight: 400, fontSize: 16, position: 'relative', top: 30 }}>{item.name}</Typography>
-                                <NumberInput value={item.quantity} setValue={(e) => handleQuantityChange(e, index)} />
+                                <NumberInput value={item.quantity ? item.quantity : 1} setValue={(e) => handleQuantityChange(e, index)} />
                                 <Button color="black" onClick={() => handleMedicineRemove(index)}>
                                     <ClearIcon />
                                 </Button>

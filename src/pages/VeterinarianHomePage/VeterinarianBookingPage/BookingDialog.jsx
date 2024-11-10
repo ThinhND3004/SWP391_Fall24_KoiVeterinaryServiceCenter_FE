@@ -1,6 +1,7 @@
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button, Typography, Box } from '@mui/material';
 import { useState } from "react";
 import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme';
+import TimeUtils from '~/utils/TimeUtils';
 
 
 export default function BookingDialog({ booking }) {
@@ -38,7 +39,7 @@ export default function BookingDialog({ booking }) {
             marginBottom: '5px',
             mt: 2
           }}>
-            <Typography sx={{ fontWeight: 600, fontSize: '25px', textAlign: 'center' }}>
+            <Typography sx={{ fontWeight: 500, fontSize: 30, fontFamily: 'SVN-Konga Pro', color: BLUE_COLOR }}>
               Booking Information
             </Typography>
           </DialogTitle>
@@ -57,9 +58,9 @@ export default function BookingDialog({ booking }) {
               <Typography><strong>User Address:</strong> {booking.userAddress}</Typography>
               <Typography><strong>Status:</strong> {booking.statusEnum}</Typography>
 
-              <Typography><strong>Created At:</strong> {booking.createdAt}</Typography>
-              <Typography><strong>Started At:</strong> {booking.startedAt}</Typography>
-              <Typography><strong>Ended At:</strong> {booking.endedAt}</Typography>
+              <Typography><strong>Created At:</strong> {TimeUtils.formatDateTime(booking.createdAt)}</Typography>
+              <Typography><strong>Started At:</strong> {TimeUtils.formatDateTime(booking.startedAt)}</Typography>
+              <Typography><strong>Ended At:</strong> {booking.endedAt ? TimeUtils.formatDateTime(booking.endedAt) : null}</Typography>
             </Box>
 
           </DialogContent>

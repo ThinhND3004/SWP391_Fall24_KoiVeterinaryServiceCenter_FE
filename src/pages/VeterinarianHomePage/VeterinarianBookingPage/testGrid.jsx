@@ -6,6 +6,7 @@ import { Box, Button } from '@mui/material'
 import { BG_COLOR, ORANGE_COLOR } from '~/theme'
 import BookingDialog from './BookingDialog'
 import { useNavigate } from 'react-router-dom'
+import ReportDialog from './ReportDialog'
 
 
 const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
@@ -93,7 +94,7 @@ const DynamicDataGrid = ({ rowData, pageSize = 5 }) => {
           </Button>
         )
       }
-      return <span>View</span>
+      return <ReportDialog bookingId={booking.id}/>
 
     }
   })
