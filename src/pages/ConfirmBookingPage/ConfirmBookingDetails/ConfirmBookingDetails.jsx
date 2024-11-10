@@ -311,7 +311,7 @@ const ConfirmBookingDetails = () => {
           </Box>
 
 
-          {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
+          {/* {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
             createBookingDTO.meetingMethod !== "ONLINE" && (
               <Box display="flex" alignItems="center">
                 <Typography sx={{ marginRight: "8px", fontWeight: 500, fontSize: 16 }}>
@@ -319,9 +319,9 @@ const ConfirmBookingDetails = () => {
                 </Typography>
                 <Typography>{createBookingDTO.userAddress}</Typography>
               </Box>
-            )}
+            )} */}
 
-          {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
+          {/* {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
             createBookingDTO.meetingMethod !== "ONLINE" && (
               <Box display="flex" alignItems="center">
                 <Typography sx={{ marginRight: "8px", fontWeight: 500, fontSize: 16 }}>
@@ -342,48 +342,61 @@ const ConfirmBookingDetails = () => {
                     createBookingDTO.travelPrice *
                     createBookingDTO.distanceMeters
                   )}{" "}
-                  VND
-                  {/* {createBookingDTO.travelPrice *
+                  VND */}
+          {/* {createBookingDTO.travelPrice *
                     createBookingDTO.distanceMeters} */}
-                </Typography>
+          {/* </Typography>
               </Box>
-            )}
+            )
+          } */}
 
           <Box sx={{ width: 600, mt: 20 }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-              <Typography sx={{ marginRight: "8px", fontWeight: 500, fontSize: 16 }}>
-                Service Price:
-              </Typography>
-              {/* <TextField
-                id="outlined-basic"
-                placeholder='Enter your first name'
-                variant="outlined"
-                value={`${new Intl.NumberFormat("vi-VN").format(createBookingDTO.servicePrice)} VND`}
-                sx={{
-                  width: '600px',
-                  '& .MuiOutlinedInput-root': {
-                    borderRadius: '15px',
-                    borderColor: BLUE_COLOR,
-                    height: '60px',
-                    marginTop: '15px',
-                    '&.Mui-focused fieldset': {
-                      borderColor: BLUE_COLOR
-                    }
-                  },
-                  '& input': {
-                    backgroundColor: INPUT_FIELD_COLOR,
-                    padding: '20px 15px',
-                    fontSize: '16px',
-                    borderRadius: '15px'
-                  }
-                }}
-              /> */}
-              <Typography>
-                {new Intl.NumberFormat("vi-VN").format(
-                  createBookingDTO.servicePrice
-                )}{" "}
-                VND
-              </Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
+                  createBookingDTO.meetingMethod !== "ONLINE" && (
+                    <>
+                      <Box display="flex" alignItems="center" mt={2}>
+                        <Typography sx={{ marginRight: "8px", fontWeight: 500, fontSize: 16 }}>
+                          Address:
+                        </Typography>
+                        <Typography>{createBookingDTO.userAddress}</Typography>
+                      </Box>
+
+                      <Box display="flex" alignItems="center" mt={2}>
+                        <Typography sx={{ marginRight: "8px", fontWeight: 500, fontSize: 16 }}>
+                          Distance:
+                        </Typography>
+                        <Typography>{createBookingDTO.distanceMeters} km</Typography>
+                      </Box>
+
+                      <Box display="flex" alignItems="center" mt={2}>
+                        <Typography sx={{ marginRight: "8px", fontWeight: 500, fontSize: 16 }}>
+                          Travel Cost:
+                        </Typography>
+                        <Typography>
+                          {new Intl.NumberFormat("vi-VN").format(
+                            createBookingDTO.travelPrice * createBookingDTO.distanceMeters
+                          )}{" "}
+                          VND
+                        </Typography>
+                      </Box>
+                    </>
+                  )}
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 48, mt: 2 }}>
+                  <Typography sx={{ marginRight: "8px", fontWeight: 500, fontSize: 16 }}>
+                    Service Price:
+                  </Typography>
+                  <Typography>
+                    {new Intl.NumberFormat("vi-VN").format(
+                      createBookingDTO.servicePrice
+                    )}{" "}
+                    VND
+                  </Typography>
+                </Box>
+              </Box>
+
+
             </Box>
 
             <Box display="flex" alignItems="center" justifyContent={'space-between'} mt={2}>
@@ -432,7 +445,7 @@ const ConfirmBookingDetails = () => {
             </Box>
 
           </Box>
-        </Box>
+        </Box >
       </div >
     </Box >
   );
