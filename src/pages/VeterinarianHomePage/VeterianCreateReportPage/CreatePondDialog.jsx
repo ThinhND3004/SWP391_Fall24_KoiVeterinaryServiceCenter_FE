@@ -33,10 +33,10 @@ function CreatePondDialog({ setPond, edit }) {
         if (!pondName) newError.pondName = 'Pond name is required!';
         else if (pondName.length > 50) newError.pondName = 'Length of pond name must not exceed 50 letters';
         if (!size || size <= 0) newError.size = 'Size must be greater than 0!';
-        if (!depth || depth <= 0) newError.depth = 'Depth must be greater than 0!!';
+        if (!depth || depth <= 0) newError.depth = 'Depth must be greater than 0!';
         if (!waterType) newError.waterType = 'Water type is required!';
-        if (!temperature) newError.temperature = 'Temperature is required!';
-        if (!pHLevel) newError.pHLevel = 'pH level is required!';
+        if (!temperature && temperature != 0) newError.temperature = 'Temperature is required!';
+        if (!pHLevel && pHLevel != 0) newError.pHLevel = 'pH level is required!';
         if (!lastMaintenanceDate) newError.lastMaintenanceDate = 'Last Maintenance is required!';
 
         setError(newError);

@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { Box, Button, Typography } from '@mui/material'
+import { Alert, Box, Button, Snackbar, Typography } from '@mui/material'
 import BookingDetails from './BookingDetails';
 import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme';
 import KoiSpeciesDialog from './KoiSpeciesDialog';
@@ -12,7 +12,8 @@ import PrescriptionsDialog from './PrescriptionsDialog';
 import NumberInput from '~/components/NumberInput.component';
 import ManagementApi from '~/api/ManagementApi';
 import { useNavigate } from 'react-router-dom';
-
+import ErrorIcon from '@mui/icons-material/Error';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 function CreateReportPage({ booking }) {
     const [addKoiSpecies, setAddKoiSpecies] = useState([]);
@@ -23,10 +24,19 @@ function CreateReportPage({ booking }) {
     const navigate = useNavigate();
 
     const [error, setError] = useState({});
+    const [openAlert, setOpenAlert] = useState(false);
+    const [errorAlert, setErrorAlert] = useState(false);
 
-    const [errRes, setErrRes] = useState('');
-
-    const [alertTrigger, setAlertTrigger] = useState(false);
+    const handleCloseAlert = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenAlert(false);
+    
+        setTimeout(() => {
+            navigate(-1); 
+        }, 500);
+    };
 
     const handleValidation = () => {
 
@@ -34,13 +44,13 @@ function CreateReportPage({ booking }) {
 
         if (!diagnosis) newError.diagnosis = 'Diagnosis is required!';
         if (!notes) newError.notes = 'Notes is required!';
-        
+
         setError(newError);
 
         return Object.keys(newError).length === 0;
     }
 
-   
+
     const handleSave = async (e) => {
         e.preventDefault();
         try {
@@ -61,30 +71,24 @@ function CreateReportPage({ booking }) {
                     "prescriptions": medicines.length > 0 ? medicines.map((item) => {
                         return {
                             "medicineId": item.id,
+                            "medicinePrice": item.price,
                             "amount": item.quantity ? item.quantity : 1
                         }
                     }) : null,
                     "diagnosis": diagnosis,
                     "notes": notes
                 }
-        
-                const result = await ManagementApi.createReport(requestBody);
-                
+
+                const response = await ManagementApi.createReport(requestBody);
 
                 const dataErr = response.err;
 
                 if (dataErr != null) {
-                    setErrRes(dataErr);
+                    setErrorAlert(dataErr);
                 } else {
-                    setErrRes(null);
-                    setAlertTrigger(true);
-                    handleClearInfo();
+                    setOpenAlert(true);
+                    navigate(-1);
                 }
-                setAlertTrigger(true)
-
-                console.log("REGISTER RESULT: ", response);
-                if (result) navigate(-1);
-
             } else {
                 console.log("Validation failed. Please check your inputs.");
             }
@@ -120,69 +124,22 @@ function CreateReportPage({ booking }) {
         setMedicines(inputData)
     }
 
-    // const handleSave = async () => {
-    //     const requestBody = {
-    //         "bookingId": booking.id,
-    //         "koiSpeciesIdList": addKoiSpecies.length > 0 ? addKoiSpecies.map((item) => item.id) : null,
-    //         "createPondDto": pond ? {
-    //             "customer_id": booking.customerId,
-    //             "name": pond.name,
-    //             "size_square_meters": pond.sizeSquareMeters,
-    //             "depth_meters": pond.depthMeters,
-    //             "water_type": pond.waterType,
-    //             "temperature_celsius": pond.temperatureCelsius,
-    //             "pH_level": pond.pHLevel,
-    //             "last_maintenance_date": pond.lastMaintenanceDate
-    //         } : null,
-    //         "prescriptions": medicines.length > 0 ? medicines.map((item) => {
-    //             return {
-    //                 "medicineId": item.id,
-    //                 "amount": item.quantity ? item.quantity : 1
-    //             }
-    //         }) : null,
-    //         "diagnosis": diagnosis,
-    //         "notes": notes
-    //     }
-
-    //     const result = await ManagementApi.createReport(requestBody);
-    //     if (result) navigate(-1);
-
-    // }
-
-
     return (
         <Box component="form" gap={10}>
-            {errRes && (
-                <Alert
-                    severity='error'
-                    iconMapping={{
-                        error: <ErrorIcon fontSize="inherit" />,
-                    }}
-                    sx={{
-                        mt: 2,
-                        color: 'red',
-                        bgcolor: 'rgba(255, 0, 0, 0.1)',
-                    }}
-                >
-                    {errRes}
+            <Snackbar open={openAlert} autoHideDuration={6000} onClose={handleCloseAlert}>
+                <Alert onClose={handleCloseAlert} severity="success" sx={{ width: '100%' }}>
+                    Timetable saved successfully!
                 </Alert>
-            )}
+                
+            </Snackbar>
 
-            {!errRes && alertTrigger && (
-                <Alert
-                    severity='success'
-                    iconMapping={{
-                        success: <CheckCircleOutlineIcon fontSize="inherit" />,
-                    }}
-                    sx={{
-                        mt: 2,
-                        color: 'green',
-                        bgcolor: 'rgba(0, 255, 0, 0.1)',
-                    }}
-                >
-                    Register successfully!
+            <Snackbar open={errorAlert} autoHideDuration={6000} onClose={handleCloseAlert}>
+                <Alert onClose={() => {setErrorAlert(false)}} severity="error" sx={{ width: '100%' }}>
+                    Create failed!
                 </Alert>
-            )}
+                
+            </Snackbar>
+
 
             {/* KOI SPECIES */}
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
