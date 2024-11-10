@@ -181,14 +181,15 @@ export default class ManagementApi {
 
   // REPORTS
   static async createReport(requestBody) {
+    let response;
     try {
-      const response = await api.post('/reports', requestBody);
-      if (response.data) return true;
+      response = await api.post('/reports', requestBody);
+      if (response.data) return response;
     }
     catch (err) {
       console.error('Cannot create Report: ' + err.message)
     }
-    return false;
+    return response;
   }
 
   static async getReportByBookingId({ bookingId }) {
