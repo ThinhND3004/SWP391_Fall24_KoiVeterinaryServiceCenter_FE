@@ -78,7 +78,7 @@ const ConfirmBookingDetails = () => {
         }
       );
 
-      const result = await response.json();
+      const result = await response.data;
       if (!response.ok) {
         throw new Error(result.message || "Failed to create payment");
       }

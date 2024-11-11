@@ -37,7 +37,7 @@ function CustomerPasswordDetails() {
         changePasswordRequest
       });
 
-      const data = await response.json();
+      const data = await response.data;
       console.log(data);
 
       if (data.status === 200) {
