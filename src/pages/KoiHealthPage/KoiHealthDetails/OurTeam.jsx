@@ -3,6 +3,7 @@ import Card from '@mui/material/Card'
 import CardActionArea from '@mui/material/CardActionArea'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
+import { alignProperty } from '@mui/material/styles/cssUtils'
 import { BG_COLOR, BLUE_COLOR, ORANGE_COLOR, ORANGE_PASTEL_COLOR, PURPLE_COLOR, YELLOW_COLOR } from '~/theme'
 
 function OurTeam() {
@@ -15,7 +16,7 @@ function OurTeam() {
             fontSize: '45px',
             color: BLUE_COLOR,
             display: 'flex',
-            textAlign: 'left'
+            textAlign: 'left',
           }}
         >
           Who's on our <span style={{ color: ORANGE_COLOR, marginLeft: '8px' }}> care team?</span>

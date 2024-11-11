@@ -11,6 +11,7 @@ import { Typography } from '@mui/material'
 import DynamicDataGrid from './testGrid'
 import ManagementApi from '../../../api/ManagementApi'
 import { useEffect, useState } from "react";
+import BackdropComponent from '~/components/Backdrop.component'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -56,6 +57,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 function StaffCustomerPageDetails() {
   const [customerData, setCustomerData] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+  const [loading, setLoading] = useState(true)
 
   const fetchData = async () => {
     const data = await ManagementApi.getAccounts('CUSTOMER');
@@ -82,6 +84,7 @@ function StaffCustomerPageDetails() {
   useEffect(() => {
     fetchData()
   }, []);
+
 
   return (
     <div>
@@ -122,6 +125,7 @@ function StaffCustomerPageDetails() {
       <Box sx={{ mt: 3, mb: 3 }}>
         <DynamicDataGrid data={customerData} />
       </Box>
+      {/* <BackdropComponent open={loading} /> */}
     </div>
   )
 }

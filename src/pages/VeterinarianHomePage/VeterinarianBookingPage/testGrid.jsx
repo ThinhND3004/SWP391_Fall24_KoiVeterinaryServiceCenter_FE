@@ -94,7 +94,7 @@ const DynamicDataGrid = ({ rowData, pageSize = 5 }) => {
           </Button>
         )
       }
-      return <ReportDialog bookingId={booking.id}/>
+      return <ReportDialog bookingId={booking.id} />
 
     }
   })

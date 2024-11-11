@@ -11,6 +11,7 @@ import DynamicDataGrid from './testGrid'
 import ManagementApi from '~/api/ManagementApi'
 import { useEffect, useState } from 'react'
 import TimeUtils from '~/utils/TimeUtils'
+import BackdropComponent from '~/components/Backdrop.component'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -57,6 +58,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 function VeterinarianBookingPageDetails() {
   const [rowData, setRowData] = useState([]);
   const [navBarStatus, setNavBarStatus] = useState("ALL")
+  const [loading, setLoading] = useState(true)
 
 
   const fetchDataByStatus = async (status) => {
@@ -64,6 +66,7 @@ function VeterinarianBookingPageDetails() {
 
     if (status === 'ALL') data = await ManagementApi.getVeterianBookings({});
     else data = await ManagementApi.getVeterianBookings({ status: status });
+    setLoading(false)
 
     const row = data.map((data) => {
       return {
@@ -146,6 +149,7 @@ function VeterinarianBookingPageDetails() {
       <Box sx={{ mt: 3, mb: 3 }}>
         <DynamicDataGrid rowData={rowData} />
       </Box>
+      <BackdropComponent open={loading} />
     </Box>
   )
 }

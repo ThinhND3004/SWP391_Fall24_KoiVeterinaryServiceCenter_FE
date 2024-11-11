@@ -282,11 +282,11 @@ function ProfilePageDetails() {
 
       </Box>
       {/* VETERIAN PROFILE */}
-      <VerterianProfile/>
+      <VerterianProfile />
       {/* When2meet */}
-      <Box sx={{}}>
-          <Timetable />
-        </Box>
+      <Box sx={{ mb: 10 }}>
+        <Timetable />
+      </Box>
     </div >
   )
 }

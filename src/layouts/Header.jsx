@@ -24,7 +24,7 @@ import Avatar from "@mui/material/Avatar";
 import axios from "axios";
 import ManagementApi from "~/api/ManagementApi";
 
-const pages = ["Home", "About us", "Service", "Koi Health", "Contact Us"];
+const pages = ["Home", "About us", "Service", "Koi Health"];
 
 const LoginButton = ({ navigate }) => {
   return (
@@ -99,15 +99,43 @@ const Profile = ({
           vertical: "top",
           horizontal: "right",
         }}
-        // sx={{ bgcolor: '#000' }}
+        sx={{
+          "& .MuiPaper-root": {
+            width: '150px',
+            height: '150px',
+            backgroundColor: INPUT_FIELD_COLOR,
+            borderRadius: '14px',
+          },
+        }}
       >
-        <MenuItem onClick={handleProfile}>Profile</MenuItem>
+        <MenuItem
+          onClick={handleProfile}
+          style={{
+            marginTop: 6,
+            display: 'flex',
+            justifyContent: 'center',
+            textAlign: 'center'
+          }}
+        >
+          Profile
+        </MenuItem>
+
         {/* only render Booking List if role is CUSTOMER */}
         {accInfo?.role === "CUSTOMER" && (
-          <MenuItem onClick={handleBookingList}>Booking</MenuItem>
+          <MenuItem onClick={handleBookingList} style={{
+            marginTop: 6,
+            display: 'flex',
+            justifyContent: 'center',
+            textAlign: 'center'
+          }}>Booking</MenuItem>
         )}
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
-      </Menu>
+        <MenuItem onClick={handleLogout} style={{
+          marginTop: 6,
+          display: 'flex',
+          justifyContent: 'center',
+          textAlign: 'center'
+        }}>Logout</MenuItem>
+      </Menu >
     </>
   );
 };

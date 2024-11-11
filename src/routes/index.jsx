@@ -74,7 +74,7 @@ const RouteComponent = () => {
       <Route element={<DefaultLayout />}>
         <Route path='/home' element={<HomePageComponent />} />
         <Route path='/about' element={<AboutComponent />} />
-        <Route path='/contact' element={<ContactUs />} />
+        {/* <Route path='/contact' element={<ContactUs />} /> */}
 
         <Route path='/403' element={<ForbiddenPageDetail />} />
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Button, Typography, Box } from "@mui/material";
 import { useLocation } from "react-router-dom";
+import { BLUE_COLOR, ORANGE_COLOR } from "~/theme";
 
 const PaymentResult = () => {
   const location = useLocation();
@@ -22,7 +23,7 @@ const PaymentResult = () => {
 
   useEffect(() => {
     const savedBooking = localStorage.getItem("createBookingDTO");
-    
+
     // Lấy thông tin booking từ localStorage
     if (savedBooking && vnp_ResponseCode === "00" && !isBookingCreated && !bookingAttempted.current) {
       const bookingData = JSON.parse(savedBooking);
@@ -82,74 +83,83 @@ const PaymentResult = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        height: "45vh",
       }}
     >
-      <Typography
-        variant="h6"
-        color={vnp_ResponseCode === "00" ? "green" : "red"}
-      >
+      <Typography sx={{ fontWeight: 600, fontSize: 26, mt: 2 }}
+        color={vnp_ResponseCode === "00" ? "green" : "red"}>
         {successMessage}
       </Typography>
-      <Typography variant="body1">Order Code: {orderId}</Typography>
-      <Typography variant="body1">Total Price: {amount / 100} VND</Typography>
+      <Typography sx={{ fontWeight: 500, fontSize: 18, mt: 2 }}>Order Code: {orderId}</Typography>
+      <Typography sx={{ fontWeight: 700, fontSize: 18, color: ORANGE_COLOR, mt: 2 }}>Total Price: {amount / 100} VND</Typography>
       {/* <Typography variant="body1">Created At: {createAt}</Typography> */}
-      
-      
 
-      {vnp_ResponseCode === "00" && bookingDTO && (
-        <Box mt={2}>
-          <Typography variant="h5">Booking Details:</Typography>
-          <Typography variant="body1">
-            Customer Name: {bookingDTO.customerFullName}
-          </Typography>
-          <Typography variant="body1">
-            Service: {bookingDTO.serviceName}
-          </Typography>
-          <Typography variant="body1">
-            Meeting Method: {bookingDTO.meetingMethod}
-          </Typography>
-          <Typography variant="body1">
-            Veterinarian: {bookingDTO.veterinarianFullName}
-          </Typography>
 
-          {bookingDTO.meetingMethod !== "ONLINE" &&
-            bookingDTO.meetingMethod !== "OFFLINE_CENTER" && (
-              <Typography variant="body1">
-                Address: {bookingDTO.userAddress}
-              </Typography>
-            )}
 
-          <Typography variant="body1">
-            Start At: {bookingDTO.startedAt}
-          </Typography>
-          <Typography variant="body1">
-            Status: {bookingDTO.statusEnum}
-          </Typography>
+      {
+        vnp_ResponseCode === "00" && bookingDTO && (
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <Typography sx={{ textAlign: 'center', fontWeight: 500, fontSize: 25, mt: 2 }}>Booking Details:</Typography>
+            <Typography sx={{ fontWeight: 500, fontSize: 18 }}>
+              Customer Name: {bookingDTO.customerFullName}
+            </Typography>
+            <Typography sx={{ fontWeight: 500, fontSize: 18 }}>
+              Service: {bookingDTO.serviceName}
+            </Typography>
+            <Typography sx={{ fontWeight: 500, fontSize: 18 }}>
+              Meeting Method: {bookingDTO.meetingMethod}
+            </Typography>
+            <Typography sx={{ fontWeight: 500, fontSize: 18 }}>
+              Veterinarian: {bookingDTO.veterinarianFullName}
+            </Typography>
 
-          <Typography variant="body1">
-            Created At: {bookingDTO.createdAt}
-          </Typography>
-        </Box>
-      )}
+            {bookingDTO.meetingMethod !== "ONLINE" &&
+              bookingDTO.meetingMethod !== "OFFLINE_CENTER" && (
+                <Typography sx={{ fontWeight: 500, fontSize: 18 }}>
+                  Address: {bookingDTO.userAddress}
+                </Typography>
+              )}
 
-      {vnp_ResponseCode !== "00" && (
-        <Box mt={2}>
-          <Typography variant="body1">
-            Your payment could not be processed. Please try again.
-          </Typography>
-        </Box>
-      )}
+            <Typography sx={{ fontWeight: 500, fontSize: 18 }}>
+              Start At: {bookingDTO.startedAt}
+            </Typography>
+            <Typography sx={{ fontWeight: 500, fontSize: 18 }}>
+              Status: {bookingDTO.statusEnum}
+            </Typography>
 
-      <Button
-        variant="contained"
-        color="secondary"
-        onClick={() => (window.location.href = "/home")}
-        sx={{ marginTop: 2 }}
-      >
-        Back to Home
-      </Button>
-    </Box>
+            <Typography sx={{ fontWeight: 500, fontSize: 18 }}>
+              Created At: {bookingDTO.createdAt}
+            </Typography>
+          </Box>
+        )
+      }
+
+      {
+        vnp_ResponseCode !== "00" && (
+          <Box>
+            <Typography sx={{ fontWeight: 400 }}>
+              Your payment could not be processed. Please try again.
+            </Typography>
+          </Box>
+        )
+      }
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => (window.location.href = "/home")}
+          sx={{
+            bgcolor: BLUE_COLOR,
+            borderRadius: '30px',
+            width: '150px',
+            height: '50px',
+            mb: 5,
+            mt: 4
+          }}
+        >
+          Back to Home
+        </Button>
+      </Box>
+    </Box >
   );
 };
 

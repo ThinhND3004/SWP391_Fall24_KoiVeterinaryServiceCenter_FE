@@ -22,7 +22,8 @@ import {
   ORANGE_COLOR
 } from "~/theme";
 import GradeIcon from '@mui/icons-material/Grade'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function BookingListDetails() {
@@ -74,6 +75,7 @@ export default function BookingListDetails() {
   const handleClickOpen = () => setOpen(true);
   const [value, setValue] = React.useState(2);
   const [hover, setHover] = React.useState(-1);
+  const notify = () => toast.error("View payment info feature is under development")
 
   return (
     <div>
@@ -166,6 +168,27 @@ export default function BookingListDetails() {
                 paddingTop: "15px",
               }}
             >
+              <Box>
+                <button
+                  style={{
+                    width: '200px',
+                    height: '60px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#fff',
+                    fontFamily: 'Poppins',
+                    backgroundColor: BLUE_COLOR,
+                    borderRadius: '30px',
+                    cursor: 'pointer'
+                  }}
+                  // onClick={() => alert("View payment info feature is under development")}
+                  onClick={notify}
+                >
+                  Payment Info
+                </button>
+                <ToastContainer />
+              </Box>
               <button
                 style={{
                   width: '200px',
@@ -176,28 +199,12 @@ export default function BookingListDetails() {
                   color: '#fff',
                   fontFamily: 'Poppins',
                   backgroundColor: BLUE_COLOR,
-                  borderRadius: '30px'
-                }}
-                onClick={() => alert("View payment info feature is under development")}
-              >
-                Payment Info
-              </button>
-
-              <button
-                style={{
-                  width: '200px',
-                  height: '60px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#fff',
-                  fontFamily: 'Poppins',
-                  backgroundColor: BLUE_COLOR,
-                  borderRadius: '30px'
+                  borderRadius: '30px',
+                  cursor: 'pointer'
                 }}
                 onClick={handleClickOpen}
               >
-                View Feedbacks
+                Feedbacks
               </button>
 
               <Dialog
@@ -219,10 +226,7 @@ export default function BookingListDetails() {
                   <DialogContentText sx={{ fontWeight: 600, fontSize: 14, textAlign: 'center' }}>
                     Your feedback helps us improve—please take a moment to rate our service!
                   </DialogContentText>
-                  {/* Additional Rating Component can be added here */}
-                  {/* <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 3 }}>
-                    <Rating name="read-only" value={value} readOnly sx={{ fontSize: 40 }} />
-                  </Box> */}
+
 
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 1 }}>
                     {/* <Box> */}
