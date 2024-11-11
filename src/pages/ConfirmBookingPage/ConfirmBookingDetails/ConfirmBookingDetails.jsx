@@ -503,6 +503,17 @@ const ConfirmBookingDetails = () => {
             </Box>
 
             {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
+          {/* {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
+            createBookingDTO.meetingMethod !== "ONLINE" && (
+              <Box display="flex" alignItems="center">
+                <Typography sx={{ marginRight: "8px", fontWeight: 500, fontSize: 16 }}>
+                  Address:
+                </Typography>
+                <Typography>{createBookingDTO.userAddress}</Typography>
+              </Box>
+            )} */}
+
+          {/* {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
             createBookingDTO.meetingMethod !== "ONLINE" && (
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
               <Typography
@@ -552,8 +563,10 @@ const ConfirmBookingDetails = () => {
                   )}{" "}
                   VND
                 </Typography>
+
               </Box>
-            )}
+            )
+          } */}
 
             <Box
               display="flex"
