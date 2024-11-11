@@ -3,7 +3,7 @@ import { Box, Typography, Button, Stack } from "@mui/material";
 import { INPUT_FIELD_COLOR, ORANGE_COLOR } from "~/theme";
 
 
-function NotificationItem({ title, description, onYes, onNo }) {
+function NotificationItem({ title, description, onNo }) {
   return (
 
     <Box
@@ -26,11 +26,8 @@ function NotificationItem({ title, description, onYes, onNo }) {
         {description}
       </Typography>
       <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
-        <Button variant="contained" onClick={onYes} sx={{ bgcolor: '#49be25', borderRadius: '10px', boxShadow: 'none', width: '70px', border: 'none', color: '#fff' }}>
-          Yes
-        </Button>
         <Button variant="contained" onClick={onNo} sx={{ bgcolor: ORANGE_COLOR, borderRadius: '10px', boxShadow: 'none', width: '70px', border: 'none', color: '#fff' }}>
-          No
+          Delete
         </Button>
       </Stack>
     </Box >

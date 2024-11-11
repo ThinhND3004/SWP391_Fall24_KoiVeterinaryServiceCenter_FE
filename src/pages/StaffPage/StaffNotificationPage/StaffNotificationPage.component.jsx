@@ -1,34 +1,29 @@
 /* eslint-disable indent */
 import { Box, Breadcrumbs, Typography } from "@mui/material"
 import NotificationItem from "./StaffNotification"
+import { useEffect, useState } from "react";
+import ManagementApi from "~/api/ManagementApi";
 
-const notifications = [
-    {
-        id: 1,
-        title: "Update Available",
-        description: "A new software update is available. Would you like to install it?",
-    },
-    {
-        id: 2,
-        title: "Subscription Expiring",
-        description: "Your subscription is expiring soon. Would you like to renew?",
-    },
-    {
-        id: 3,
-        title: "Backup Reminder",
-        description: "You haven't backed up your files in a while. Do you want to back them up now?",
-    },
-];
 function StaffNotificationPage() {
+    const [notifications, setNotifications] = useState([]);
 
-    const handleYes = (id) => {
-        console.log(`Yes clicked for notification ID: ${id}`);
-        // Additional logic for "Yes"
-    };
+    const fetchNotifications = async () => {
+        const data = await ManagementApi.getCurrentNotifications();
+        setNotifications(data);
+    }
 
-    const handleNo = (id) => {
-        console.log(`No clicked for notification ID: ${id}`);
-        // Additional logic for "No"
+    useEffect(() => {
+        fetchNotifications();
+    }, [])
+    
+
+    const handleDelete = async (notification) => {
+        const result = await ManagementApi.deleteNotificationById(notification.id);
+        if (result) {
+            setNotifications(prevNotifications =>
+                prevNotifications.filter(n => n.id !== notification.id)
+            );
+        }
     };
 
     return (
@@ -50,8 +45,7 @@ function StaffNotificationPage() {
                     key={notification.id}
                     title={notification.title}
                     description={notification.description}
-                    onYes={() => handleYes(notification.id)}
-                    onNo={() => handleNo(notification.id)}
+                    onNo={() => handleDelete(notification)}
                 />
             ))}
         </Box>
