@@ -61,7 +61,7 @@ function PrescriptionsDialog({ addMedicines, handleMedicineAdd }) {
                 {/* Name and Info on the right */}
                 <Box>
                     <Box>
-                        <Typography variant="h5" component="h2">
+                    <Typography sx={{ fontWeight: 500, fontSize: 30, fontFamily: 'SVN-Konga Pro', color: BLUE_COLOR }}>
                             {medicine.name}
                         </Typography>
                         <Typography>

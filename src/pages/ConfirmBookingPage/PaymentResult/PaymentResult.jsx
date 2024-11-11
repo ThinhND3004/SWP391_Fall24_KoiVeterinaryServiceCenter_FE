@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Button, Typography, Box } from "@mui/material";
 import { useLocation } from "react-router-dom";
+import api from "~/config/axios";
 
 const PaymentResult = () => {
   const location = useLocation();
@@ -49,16 +50,11 @@ const PaymentResult = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch("http://localhost:8089/bookings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(bookingData),
+      const response = await api.post("/bookings", {
+          bookingData
       });
 
-      if (!response.ok) {
+      if (!response) {
         const result = await response.json();
         throw new Error(result.message || "Failed to create booking");
       }

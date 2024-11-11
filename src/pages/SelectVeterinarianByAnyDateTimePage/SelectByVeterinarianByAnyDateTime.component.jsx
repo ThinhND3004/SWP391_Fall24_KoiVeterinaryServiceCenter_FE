@@ -16,6 +16,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from "~/theme";
 import { toast } from "react-toastify"; // Thêm thư viện react-toastify nếu dùng
 import 'dayjs/locale/en-gb'; // Đảm bảo import locale "vi"
+import api from "~/config/axios";
 
 // dayjs.locale('de');
 
@@ -41,22 +42,16 @@ const SelectVeterinarianByAnyDateTimeComponent = () => {
   // Function to fetch data from API
   const fetchVeterinarianWithStartDateTime = async (startDateTime) => {
     setLoading(true);
-    const token = localStorage.getItem("token");
     try {
-      const response = await fetch(
-        `http://localhost:8089/accounts/idle-veterian-by-time/${service.id}/${startDateTime}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+      const response = await api.get(
+        `/accounts/idle-veterian-by-time/${service.id}/${startDateTime}`
       );
 
-      if (!response.ok) {
+      if (!response) {
         throw new Error("Something went wrong in finding veterinarian");
       }
 
-      const data = await response.json();
+      const data = response.data;
       setVeterinarians(data.data || []); // Set veterinarians if data exists
       if (data.data.length === 0) {
         setNoVeterinarianMessage(
@@ -89,7 +84,7 @@ const SelectVeterinarianByAnyDateTimeComponent = () => {
       setSelectedDateTime(updatedDateTime);
     }
   };
-  
+
   return (
     <Box>
       <Box p={2}>
@@ -213,63 +208,92 @@ const SelectVeterinarianByAnyDateTimeComponent = () => {
                   >
                     <Grid item xs={8}>
                       <Box display="flex" alignItems="center">
-                        
-                        <Box
+
+                        {/* <Box
                           display="flex"
-                          flexDirection="column"
+                          // flexDirection="column"
                           alignItems="center"
                           sx={{ marginRight: 2 }}
-                        >
+                        > */}
+
+                        {/* </Box> */}
+                        <Box sx={{ display: 'flex', gap: 10, alignItems: 'center' }}>
                           <Avatar
                             src={vet.avatarUrl}
                             alt={vet.fullName}
-                            sx={{ width: 80, height: 80, marginBottom: 1 }}
+                            sx={{ width: 100, height: 100, marginBottom: 5 }}
                           />
-                          <Button
-                            variant="contained"
-                            color="secondary"
-                            sx={{ marginTop: "10px" }}
-                            onClick={() => {
-                              navigate(`/veterinarian-information`, {
-                                state: { veterinarian: vet },
-                              });
-                            }}
-                          >
-                            View More
-                          </Button>
-                        </Box>
+                          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                            <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 10 }}>
+                              <Typography sx={{ fontWeight: 600 }}>{vet.fullName}</Typography>
+                              <Typography sx={{ fontWeight: 600 }}>{vet.email}</Typography>
+                              <Typography sx={{ fontWeight: 600 }}>
+                                Phone: {vet.phone}
+                              </Typography>
+                            </Box>
 
-                        <Box>
-                          <Typography variant="h6">{vet.fullName}</Typography>
-                          <Typography variant="body1">{vet.email}</Typography>
-                          <Typography variant="body1">
-                            Phone: {vet.phone}
-                          </Typography>
-                          {/* <Typography variant="body1">
+                            {/* <Typography variant="body1">
                             Address: {vet.address}
                           </Typography> */}
-                          {/* <Typography variant="body1">
+                            {/* <Typography variant="body1">
                             DOB: {vet.dob}
                           </Typography> */}
-                          {vet.profileDto && (
-                            <>
-                              <Typography variant="body2">
-                                Certification: {vet.profileDto.certification}
-                              </Typography>
-                              <Typography variant="body2">
-                                Education: {vet.profileDto.education}
-                              </Typography>
-                              <Typography variant="body2">
-                                Years of Experience:{" "}
-                                {vet.profileDto.yearOfExperience}
-                              </Typography>
-                            </>
-                          )}
+                            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 2 }}>
+                              {vet.profileDto && (
+                                <>
+                                  <Typography>
+                                    Certification: {vet.profileDto.certification}
+                                  </Typography>
+                                  <Typography>
+                                    Education: {vet.profileDto.education}
+                                  </Typography>
+                                  <Typography>
+                                    Years of Experience:{" "}
+                                    {vet.profileDto.yearOfExperience}
+                                  </Typography>
+                                </>
+                              )}
+                            </Box>
+                          </Box>
                         </Box>
                       </Box>
                     </Grid>
-                    <Grid item xs={4} display="flex" justifyContent="flex-end">
+                    <Grid item xs={4} display="flex" justifyContent="space-evenly">
                       <Button
+                        variant="contained"
+                        color="secondary"
+                        style={{
+                          height: "50px",
+                          width: "150px",
+                          borderRadius: "30px",
+                          backgroundColor: BLUE_COLOR,
+                          color: "white",
+                          textAlign: "center",
+                          display: "flex",
+                          justifyContent: "center", // Centers content horizontally
+                          alignItems: "center",
+                          padding: "0px 9px", // Smooth background color transition
+                        }}
+                        onClick={() => {
+                          navigate(`/veterinarian-information`, {
+                            state: { veterinarian: vet },
+                          });
+                        }}
+                      >
+                        View More
+                      </Button>
+                      <Button style={{
+                        height: "50px",
+                        width: "150px",
+                        borderRadius: "30px",
+                        backgroundColor: BLUE_COLOR,
+                        color: "white",
+                        textAlign: "center",
+                        display: "flex",
+                        justifyContent: "center", // Centers content horizontally
+                        alignItems: "center",
+                        padding: "0px 9px", // Smooth background color transition
+                      }}
                         variant="contained"
                         color="secondary"
                         onClick={() => {

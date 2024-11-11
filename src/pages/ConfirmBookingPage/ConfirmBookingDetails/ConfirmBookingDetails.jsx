@@ -10,6 +10,7 @@ import {
 import { useLocation } from "react-router-dom";
 import dayjs from "dayjs";
 import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from "~/theme";
+import api from "~/config/axios";
 // import { cwd } from "process";
 
 import utc from "dayjs/plugin/utc";
@@ -70,15 +71,10 @@ const ConfirmBookingDetails = () => {
         totalPrice: totalPrice, // Giả sử bạn đã tính toán totalPrice ở đâu đó trong mã
       };
 
-      const response = await fetch(
-        `http://localhost:8089/vnpay/create-payment`,
+      const response = await api.post(
+        `/vnpay/create-payment`,
         {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Thêm Authorization header
-          },
-          body: JSON.stringify(paymentDto), // Gửi dữ liệu thanh toán lên API
+          paymentDto, // Gửi dữ liệu thanh toán lên API
         }
       );
 
@@ -503,6 +499,17 @@ const ConfirmBookingDetails = () => {
             </Box>
 
             {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
+          {/* {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
+            createBookingDTO.meetingMethod !== "ONLINE" && (
+              <Box display="flex" alignItems="center">
+                <Typography sx={{ marginRight: "8px", fontWeight: 500, fontSize: 16 }}>
+                  Address:
+                </Typography>
+                <Typography>{createBookingDTO.userAddress}</Typography>
+              </Box>
+            )} */}
+
+          {/* {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
             createBookingDTO.meetingMethod !== "ONLINE" && (
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
               <Typography
@@ -552,8 +559,10 @@ const ConfirmBookingDetails = () => {
                   )}{" "}
                   VND
                 </Typography>
+
               </Box>
-            )}
+            )
+          } */}
 
             <Box
               display="flex"
