@@ -498,7 +498,6 @@ const ConfirmBookingDetails = () => {
               </Typography>
             </Box>
 
-            {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
           {/* {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
             createBookingDTO.meetingMethod !== "ONLINE" && (
               <Box display="flex" alignItems="center">
