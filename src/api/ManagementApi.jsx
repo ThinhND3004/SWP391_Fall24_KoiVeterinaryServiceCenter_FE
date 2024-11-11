@@ -215,6 +215,17 @@ export default class ManagementApi {
     return [];
   }
 
+  static async checkIsNotificationSent({ accountEmail, bookingId }) {
+    try {
+      const response = await api.get('/notifications/is-sent/'+accountEmail+'/'+bookingId);
+      if (response.data) return response.data.data;
+    }
+    catch (err) {
+      console.error('Cannot check is Notifications sent: ' + err.message)
+    }
+    return [];
+  }
+
   static async deleteNotificationById(id) {
     try {
       const response = await api.delete('/notifications/' + id);
@@ -226,10 +237,13 @@ export default class ManagementApi {
     return false;
   }
 
+  // IMAGE
+
   static async getImage(imageId) {
     let result = null;
     try {
-      const response = await api.get(`http://localhost:8089/images/picture/${imageId}`, {
+      if (!imageId) return result;
+      const response = await api.get(`/images/picture/${imageId}`, {
         responseType: 'blob',
       });
       result = URL.createObjectURL(response.data);
@@ -237,6 +251,30 @@ export default class ManagementApi {
       console.log("ERROR GET IMG API MANAGE: ", err)
     }
     return result;
+  }
+
+  // FEEDBACK
+  static async createFeedback({ bookingId, starRating, comment, anonymous }) {
+    try {
+      const response = await api.post('/feedbacks', 
+        { bookingId, starRating, comment, anonymous });
+      if (response.data) return response.data.data; // return boolean
+    }
+    catch (err) {
+      console.error('Cannot create feedback: ' + err.message)
+    }
+    return [];
+  }
+
+  static async checkIsFeedback({ bookingId }) {
+    try {
+      const response = await api.get('/feedbacks/is-feedback/'+bookingId );
+      if (response.data) return response.data.data; // return boolean
+    }
+    catch (err) {
+      console.error('Cannot create feedback: ' + err.message)
+    }
+    return [];
   }
 
 
@@ -258,7 +296,18 @@ export default class ManagementApi {
       if (response.data) return response.data.data;
     }
     catch (err) {
-      console.error('Cannot get Notifications: ' + err.message)
+      console.error('Cannot send Email: ' + err.message)
+    }
+    return [];
+  }
+
+  static async sendInvitationResultEmail({ to, recipientName, veterianName, bookingId, isAccepted, dateTime, companyName }) {
+    try {
+      const response = await api.post('/api/emails/send-invitation-result-for-staff', { to, recipientName, veterianName, bookingId, isAccepted, dateTime, companyName });
+      if (response.data) return response.data.data;
+    }
+    catch (err) {
+      console.error('Cannot send Email: ' + err.message)
     }
     return [];
   }

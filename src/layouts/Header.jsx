@@ -142,11 +142,8 @@ const Profile = ({
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
 function Header() {
-  // lay state tu redux (currentState)
-  // Dat state la navbarId
   const navbarId = useSelector((state) => state.globalConfig.navbarId);
 
-  // doc mess
   const dispatch = useDispatch();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -188,7 +185,10 @@ function Header() {
         console.log("TOKEN: ", token);
         const response = await api.get("accounts/current");
         console.log("INFO: ", response.data.data);
-
+        if (!response.data.data) {
+          localStorage.removeItem("token");
+          return;
+        }
         if (response) {
           setAccInfo(response.data.data);
           localStorage.setItem(
@@ -198,6 +198,7 @@ function Header() {
         }
       } catch {
         console.log("ERROR GET INFO");
+        localStorage.removeItem("token");
       }
     }
   };
@@ -244,7 +245,7 @@ function Header() {
     // Add your profile navigation logic here
   };
 
-  // d biet
+  
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };

@@ -58,12 +58,10 @@ function Title() {
         password
       })
 
-      const { data, status, message, err } = response.data
-      console.log("ADMIN LOGIN: ", response.data)
+      const { data, status, message, err } = response.data;
       if (status === 200) {
         localStorage.setItem('token', data.token)
         const loginRes = await ManagementApi.getCurrentAccount();
-        console.log("LOGIN RES: ", loginRes.role)
 
 
         const navUrl =
