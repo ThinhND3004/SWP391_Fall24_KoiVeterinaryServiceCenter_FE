@@ -76,7 +76,7 @@ function Profile() {
         const formData = new FormData();
         formData.append("file", file);  // Ensure "file" matches @RequestParam("file") in the backend
         console.log("ACC ID SET AVT: ", accInfo)
-        const response = await axios.post(`http://localhost:8089/images/setAvt/${accInfo.id}`, formData, {
+        const response = await api.post(`/images/setAvt/${accInfo.id}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data"
           }
