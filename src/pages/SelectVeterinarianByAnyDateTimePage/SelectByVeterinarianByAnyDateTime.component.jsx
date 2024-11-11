@@ -16,6 +16,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from "~/theme";
 import { toast } from "react-toastify"; // Thêm thư viện react-toastify nếu dùng
 import 'dayjs/locale/en-gb'; // Đảm bảo import locale "vi"
+import api from "~/config/axios";
 
 // dayjs.locale('de');
 
@@ -41,22 +42,16 @@ const SelectVeterinarianByAnyDateTimeComponent = () => {
   // Function to fetch data from API
   const fetchVeterinarianWithStartDateTime = async (startDateTime) => {
     setLoading(true);
-    const token = localStorage.getItem("token");
     try {
-      const response = await fetch(
-        `http://localhost:8080/accounts/idle-veterian-by-time/${service.id}/${startDateTime}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+      const response = await api.get(
+        `/accounts/idle-veterian-by-time/${service.id}/${startDateTime}`
       );
 
-      if (!response.ok) {
+      if (!response) {
         throw new Error("Something went wrong in finding veterinarian");
       }
 
-      const data = await response.json();
+      const data = response.data;
       setVeterinarians(data.data || []); // Set veterinarians if data exists
       if (data.data.length === 0) {
         setNoVeterinarianMessage(

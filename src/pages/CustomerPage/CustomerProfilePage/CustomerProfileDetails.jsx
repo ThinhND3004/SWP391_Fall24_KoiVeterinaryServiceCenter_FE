@@ -24,12 +24,8 @@ function CustomerProfileDetails() {
   const [password, setPassword] = useState("");
 
   const verifyPasswordAndSave = async () => {
-    const response = await fetch("http://localhost:8080/accounts/verify-password", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: userInfo.email, password }),
+    const response = await api.post("/accounts/verify-password", {
+        email: userInfo.email, password,
     });
 
     const data = await response.json();
@@ -64,15 +60,10 @@ function CustomerProfileDetails() {
       const token = localStorage.getItem("token");
       const accInfo = JSON.parse(localStorage.getItem("accountInfo"));
 
-      const response = await fetch(
-        `http://localhost:8080/accounts/update-by-email/${accInfo.email}`,
+      const response = await api.put(
+        `/accounts/update-by-email/${accInfo.email}`,
         {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(updateBookingDTO),
+          updateBookingDTO,
         }
       );
 

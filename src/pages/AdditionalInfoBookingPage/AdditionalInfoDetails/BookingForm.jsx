@@ -42,10 +42,6 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
 
   const displayedDateTime = dayjs.utc(selectedDateTime).tz("Asia/Ho_Chi_Minh", true);
 
-  console.log(selectedDateTime);
-  console.log(veterinarian)
-  console.log(veterinarian.email)
-
   // React.useEffect(() => {
   //   if (selectedDateTime) {
   //     setDateTime(dayjs(selectedDateTime));  // Đảm bảo selectedDateTime được chuyển thành Day.js
