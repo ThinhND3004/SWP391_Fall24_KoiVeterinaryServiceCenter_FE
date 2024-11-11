@@ -253,6 +253,30 @@ export default class ManagementApi {
     return result;
   }
 
+  // FEEDBACK
+  static async createFeedback({ bookingId, starRating, comment, anonymous }) {
+    try {
+      const response = await api.post('/feedbacks', 
+        { bookingId, starRating, comment, anonymous });
+      if (response.data) return response.data.data; // return boolean
+    }
+    catch (err) {
+      console.error('Cannot create feedback: ' + err.message)
+    }
+    return [];
+  }
+
+  static async checkIsFeedback({ bookingId }) {
+    try {
+      const response = await api.get('/feedbacks/is-feedback/'+bookingId );
+      if (response.data) return response.data.data; // return boolean
+    }
+    catch (err) {
+      console.error('Cannot create feedback: ' + err.message)
+    }
+    return [];
+  }
+
 
   // EMAIL 
   static async sendInvitationEmail({ to, recipientName, serviceName, serviceMethod, date, time, location, referenceNumber, companyName, companyWebsite }) {
