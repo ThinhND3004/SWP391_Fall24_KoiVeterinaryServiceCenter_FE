@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Button, Typography, Box } from "@mui/material";
 import { useLocation } from "react-router-dom";
+import api from "~/config/axios";
 
 const PaymentResult = () => {
   const location = useLocation();
@@ -22,9 +23,14 @@ const PaymentResult = () => {
 
   useEffect(() => {
     const savedBooking = localStorage.getItem("createBookingDTO");
-    
+
     // Lấy thông tin booking từ localStorage
-    if (savedBooking && vnp_ResponseCode === "00" && !isBookingCreated && !bookingAttempted.current) {
+    if (
+      savedBooking &&
+      vnp_ResponseCode === "00" &&
+      !isBookingCreated &&
+      !bookingAttempted.current
+    ) {
       const bookingData = JSON.parse(savedBooking);
       // setCreateBookingDTO(bookingData);
       createBooking(bookingData);
@@ -38,28 +44,21 @@ const PaymentResult = () => {
 
     // Xóa createBookingDTO khỏi localStorage
     localStorage.removeItem("createBookingDTO");
-
   }, [vnp_ResponseCode, isBookingCreated]);
 
   const createBooking = async (bookingData) => {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch("http://localhost:8089/bookings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(bookingData),
+      const response = await api.post("/bookings", {
+          bookingData
       });
 
-      if (!response.ok) {
-        const result = await response.json();
-        throw new Error(result.message || "Failed to create booking");
+      if (!response) {
+        throw new Error("Failed to create booking");
       }
 
-      const bookingResult = await response.json();
+      const bookingResult = await response.data;
 
       console.log("Booking Data from localStorage:", bookingData);
       console.log("VET ID:", bookingData.veterinarianId);
@@ -94,8 +93,6 @@ const PaymentResult = () => {
       <Typography variant="body1">Order Code: {orderId}</Typography>
       <Typography variant="body1">Total Price: {amount / 100} VND</Typography>
       {/* <Typography variant="body1">Created At: {createAt}</Typography> */}
-      
-      
 
       {vnp_ResponseCode === "00" && bookingDTO && (
         <Box mt={2}>
@@ -113,10 +110,32 @@ const PaymentResult = () => {
             Veterinarian: {bookingDTO.veterinarianFullName}
           </Typography>
 
+          <Typography variant="body1">Type: {bookingDTO.type}</Typography>
+
+          {bookingDTO.serviceName === "Pond Quality" && (
+            <Typography variant="body1">
+              Pond Size: {bookingDTO.pondSize}
+            </Typography>
+          )}
+
+          {bookingDTO.serviceName !== "Pond Quality" &&
+            bookingDTO.serviceName !== "Online Consultant" && (
+              <Typography variant="body1">
+                Quantity: {bookingDTO.koiQuantity}
+              </Typography>
+            )}
+
           {bookingDTO.meetingMethod !== "ONLINE" &&
             bookingDTO.meetingMethod !== "OFFLINE_CENTER" && (
               <Typography variant="body1">
                 Address: {bookingDTO.userAddress}
+              </Typography>
+            )}
+
+          {bookingDTO.meetingMethod !== "ONLINE" &&
+            bookingDTO.meetingMethod !== "OFFLINE_CENTER" && (
+              <Typography variant="body1">
+                Distance: {bookingDTO.distance_meters}
               </Typography>
             )}
 
@@ -125,6 +144,44 @@ const PaymentResult = () => {
           </Typography>
           <Typography variant="body1">
             Status: {bookingDTO.statusEnum}
+          </Typography>
+
+          <Typography variant="body1">
+            Service Price: {new Intl.NumberFormat("vi-VN").format(
+            bookingDTO.servicePrice
+          )}{" "} VND
+          </Typography>
+
+          {bookingDTO.serviceName === "Pond Quality" && (
+            <Typography variant="body1">
+              Pond Price: {new Intl.NumberFormat("vi-VN").format(
+              bookingDTO.pondPrice
+            )}{" "} VND
+            </Typography>
+          )}
+
+          {bookingDTO.serviceName !== "Pond Quality" &&
+            bookingDTO.serviceName !== "Online Consultant" && (
+              <Typography variant="body1">
+                Koi Price: {new Intl.NumberFormat("vi-VN").format(
+                bookingDTO.koiPrice
+            )}{" "} VND
+              </Typography>
+            )}
+
+          {bookingDTO.meetingMethod !== "ONLINE" &&
+            bookingDTO.meetingMethod !== "OFFLINE_CENTER" && (
+              <Typography variant="body1">
+                Travel Price: {new Intl.NumberFormat("vi-VN").format(
+                bookingDTO.travelPrice
+            )}{" "} VND
+              </Typography>
+            )}
+
+          <Typography variant="body1">
+            Total Price: {new Intl.NumberFormat("vi-VN").format(
+            bookingDTO.totalPrice
+          )}{" "} VND
           </Typography>
 
           <Typography variant="body1">

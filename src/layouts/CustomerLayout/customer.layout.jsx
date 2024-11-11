@@ -6,6 +6,8 @@ import AdminFooter from '../AdminFooter'
 import AdminHeader from '../AdminHeader'
 import { BG_COLOR } from '~/theme'
 import Navbar from './Navbar'
+import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 import ManagementApi from '~/api/ManagementApi'
 
 function CustomerLayout() {

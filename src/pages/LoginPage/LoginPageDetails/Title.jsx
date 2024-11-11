@@ -36,15 +36,12 @@ function Title() {
         setTokenWithExpiry(response.data.data.token);
         const { data, status, message, err } = response.data;
 
+        if (status === 200) {
+          localStorage.setItem('token', data.token)
+          setTokenWithExpiry(data.token)
+          window.location.href = '/home'
 
-      if (status === 200) {
-        localStorage.setItem('token', data.token)
-        setTokenWithExpiry(data.token)
-        navigate('/home')
-        // window.location.href = "/home";
-        
-
-        toast.success(message)
+          toast.success(message)
       } else {
         setLoginMess(err[0])
         toast.error(err[0] || response?.error?.message)
@@ -61,7 +58,7 @@ function Title() {
   useEffect(() => {
     const isLoginned = localStorage.getItem('token') != null
     if (isLoginned)
-      navigate('/home')
+      window.location.href = '/home'
   }, [])
 
   const handleLogin = async () => {
@@ -95,7 +92,7 @@ function Title() {
 
       if (status === 200) {
         localStorage.setItem('token', data.token)
-        
+
         const loginRes = await ManagementApi.getCurrentAccount();
 
 

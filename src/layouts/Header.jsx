@@ -157,7 +157,10 @@ function Header() {
         console.log("TOKEN: ", token);
         const response = await api.get("accounts/current");
         console.log("INFO: ", response.data.data);
-
+        if (!response.data.data) {
+          localStorage.removeItem("token");
+          return;
+        }
         if (response) {
           setAccInfo(response.data.data);
           localStorage.setItem(
@@ -167,6 +170,7 @@ function Header() {
         }
       } catch {
         console.log("ERROR GET INFO");
+        localStorage.removeItem("token");
       }
     }
   };
