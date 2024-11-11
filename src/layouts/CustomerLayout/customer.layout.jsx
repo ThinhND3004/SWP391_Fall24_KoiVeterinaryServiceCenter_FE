@@ -6,6 +6,7 @@ import AdminFooter from '../AdminFooter'
 import AdminHeader from '../AdminHeader'
 import { BG_COLOR } from '~/theme'
 import Navbar from './Navbar'
+import ManagementApi from '~/api/ManagementApi'
 
 function CustomerLayout() {
 

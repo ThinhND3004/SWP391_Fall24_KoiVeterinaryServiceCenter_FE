@@ -5,7 +5,7 @@ import BookingForm from './AdditionalInfoDetails/BookingForm';
 import Introduction from './AdditionalInfoDetails/Introduction';
 
 const AdditionalInfoBookingComponent = () => {
-  const location = useLocation(); // Nhận dữ liệu từ state
+  const location = useLocation();
   const { service, serviceAddress, veterinarian, selectedDateTime } = location.state || {};
   console.log("SERVICE", service)
   console.log("SERVICE ADDRESS", serviceAddress)

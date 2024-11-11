@@ -31,14 +31,10 @@ function Title() {
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
-        // Log the token response to inspect available fields
-        console.log("Token Response: ", tokenResponse);
         setLoginMess('')
-        // Use `access_token` to call the backend API
         const response = await api.get(`/auth/login-google?credential=${tokenResponse.access_token}`);
-        console.log(response.data); // Handle the response from backend
         setTokenWithExpiry(response.data.data.token);
-        const { data, status, message, err } = response.data
+        const { data, status, message, err } = response.data;
 
 
       if (status === 200) {
@@ -101,7 +97,6 @@ function Title() {
         localStorage.setItem('token', data.token)
         
         const loginRes = await ManagementApi.getCurrentAccount();
-        console.log("LOGIN RES: ", loginRes.role)
 
 
         const navUrl =
