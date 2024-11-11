@@ -66,20 +66,16 @@ const ConfirmBookingDetails = () => {
       //transaction.paymentMethod
       const paymentType = "BOOKING"; // Thay đổi theo giá trị của enum bạn đang sử dụng
 
-      const paymentDto = {
-        payment: paymentType, // Loại thanh toán
-        totalPrice: totalPrice, // Giả sử bạn đã tính toán totalPrice ở đâu đó trong mã
-      };
-
       const response = await api.post(
         `/vnpay/create-payment`,
         {
-          paymentDto, // Gửi dữ liệu thanh toán lên API
+          payment: paymentType, // Loại thanh toán
+          totalPrice: totalPrice, // Giả sử bạn đã tính toán totalPrice ở đâu đó trong mã
         }
       );
 
-      const result = await response.json();
-      if (!response.ok) {
+      const result = response.data;
+      if (!response) {
         throw new Error(result.message || "Failed to create payment");
       }
 
@@ -508,7 +504,7 @@ const ConfirmBookingDetails = () => {
               </Box>
             )} */}
 
-          {/* {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
+          {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
             createBookingDTO.meetingMethod !== "ONLINE" && (
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
               <Typography
@@ -561,7 +557,7 @@ const ConfirmBookingDetails = () => {
 
               </Box>
             )
-          } */}
+          }
 
             <Box
               display="flex"
@@ -595,7 +591,6 @@ const ConfirmBookingDetails = () => {
                 alt="VNPAY Logo"
                 style={{ width: "80px" }}
               />
-              {/* <Typography>VNPay</Typography> */}
             </Box>
 
             <Divider sx={{ my: 2, mt: 5 }} />
