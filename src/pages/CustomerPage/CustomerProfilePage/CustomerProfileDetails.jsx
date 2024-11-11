@@ -28,7 +28,7 @@ function CustomerProfileDetails() {
         email: userInfo.email, password,
     });
 
-    const data = await response.json();
+    const data = await response.data;
     console.log(data)
 
     if (data.status === 200) {
@@ -67,7 +67,7 @@ function CustomerProfileDetails() {
         }
       );
 
-      const data = await response.json();
+      const data = await response.data;
 
       if (data.status === 200) {
         toast.success("Account updated successfully!");
