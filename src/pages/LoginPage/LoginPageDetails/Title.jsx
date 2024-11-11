@@ -22,6 +22,10 @@ function Title() {
     localStorage.setItem('token', token)
   }
 
+  const handleNavigate = () => {
+    navigate('/home');
+    window.location.reload();  // Force reload
+  };
 
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
@@ -36,22 +40,26 @@ function Title() {
         const { data, status, message, err } = response.data
 
 
-      if (status === 200) {
-        localStorage.setItem('token', data.token)
-        setTokenWithExpiry(data.token)
-        window.location.href = '/home'
-        toast.success(message)
-      } else {
-        setLoginMess(err[0])
-        toast.error(err[0] || response?.error?.message)
-      }
+        if (status === 200) {
+          localStorage.setItem('token', data.token)
+          setTokenWithExpiry(data.token)
+          // window.location.href = '/home'
+
+          toast.success(message)
+          setTimeout(() => {
+            window.location.href = "/home";
+          }, 1500);
+        } else {
+          setLoginMess(err[0])
+          toast.error(err[0] || response?.error?.message)
+        }
       } catch (error) {
         console.error("Login failed:", error);
       }
     },
     onError: (error) => console.error("Google Login Failed:", error),
   });
-  
+
 
 
   useEffect(() => {
@@ -92,8 +100,11 @@ function Title() {
       if (status === 200) {
         localStorage.setItem('token', data.token)
         setTokenWithExpiry(data.token)
-        window.location.href = '/home'
+        // window.location.href = '/home'
         toast.success(message)
+        setTimeout(() => {
+          window.location.href = "/home";
+        }, 1500);
       } else {
         setLoginMess(err[0])
         toast.error(err[0] || response?.error?.message)

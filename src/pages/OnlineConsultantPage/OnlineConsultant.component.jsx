@@ -8,8 +8,8 @@ import { useLocation } from 'react-router-dom';
 const OnlineConsultantComponent = () => {
   const location = useLocation(); // Nhận dữ liệu từ state
   const { service, serviceAddress } = location.state || {};
-  console.log(service)
-  console.log(serviceAddress);
+  console.log("SER: ", service)
+  console.log("SER ADD: ", serviceAddress);
 
   return (
     <div>
