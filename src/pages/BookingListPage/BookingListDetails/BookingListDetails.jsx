@@ -21,7 +21,8 @@ import {
   INPUT_FIELD_COLOR,
   ORANGE_COLOR,
 } from "~/theme";
-import GradeIcon from "@mui/icons-material/Grade";
+import GradeIcon from '@mui/icons-material/Grade'
+import api from "~/config/axios";
 
 export default function BookingListDetails() {
   const [appointments, setAppointments] = useState([]);
@@ -38,14 +39,11 @@ export default function BookingListDetails() {
       let bookingList = null;
       if (token) {
         try {
-          const response = await fetch(
-            `http://localhost:8089/bookings?page=1&unitPerPage=10`,
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
+          const response = await api.get(
+            `/bookings?page=1&unitPerPage=10&status=CONFIRMED`
           );
 
-          if (!response.ok) throw new Error("Failed to fetch appointments");
+          if (!response) throw new Error("Failed to fetch appointments");
 
           // const data = await response.json();
           bookingList = await response.json();

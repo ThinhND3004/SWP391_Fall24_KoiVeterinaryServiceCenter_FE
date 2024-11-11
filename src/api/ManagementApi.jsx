@@ -242,7 +242,8 @@ export default class ManagementApi {
   static async getImage(imageId) {
     let result = null;
     try {
-      const response = await api.get(`http://localhost:8089/images/picture/${imageId}`, {
+      if (!imageId) return result;
+      const response = await api.get(`/images/picture/${imageId}`, {
         responseType: 'blob',
       });
       result = URL.createObjectURL(response.data);
