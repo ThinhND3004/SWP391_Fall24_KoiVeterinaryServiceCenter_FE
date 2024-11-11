@@ -43,7 +43,7 @@ export default function BookingListDetails() {
       if (token) {
         try {
           const response = await api.get(
-            '/bookings?page=1&unitPerPage=10&status=CONFIRMED'
+            '/bookings?page=1&unitPerPage=10'
           );
 
           if (!response) throw new Error('Failed to fetch appointments');
@@ -230,10 +230,163 @@ export default function BookingListDetails() {
                     cursor: 'pointer'
                   }}
                   // onClick={() => alert("View payment info feature is under development")}
-                  onClick={notify}
+                  // onClick={notify}
+                  onClick={() => handleDialogOpen(appointment.id)}
                 >
                   Payment Info
                 </button>
+
+                <Dialog
+                open={openDialogs[appointment.id] || false} // Kiểm tra trạng thái của dialog
+                onClose={() => handleDialogClose(appointment.id)} // Đóng dialog
+                PaperProps={{
+                  sx: {
+                    width: "600px",
+                    maxWidth: "90%",
+                    bgcolor: INPUT_FIELD_COLOR,
+                    borderRadius: "30px",
+                  },
+                }}
+              >
+                <DialogTitle sx={{ marginTop: 4 }}>
+                  <Typography
+                    sx={{ fontWeight: 600, fontSize: 20, textAlign: "center" }}
+                  >
+                    Payment Info
+                  </Typography>
+                </DialogTitle>
+                <DialogContent>
+
+                  <DialogContentText
+                    sx={{ fontWeight: 600, fontSize: 14, textAlign: "center" }}
+                  >
+                    {/* Payment Info */}
+                  </DialogContentText>
+                  <Box mt={2}>
+                    <Typography variant="h5">Booking Details:</Typography>
+                    <Typography variant="body1">
+                      Customer Name: {appointment.customerFullName}
+                    </Typography>
+                    <Typography variant="body1">
+                      Service: {appointment.serviceName}
+                    </Typography>
+                    <Typography variant="body1">
+                      Meeting Method: {appointment.meetingMethod}
+                    </Typography>
+                    <Typography variant="body1">
+                      Veterinarian: {appointment.veterinarianFullName}
+                    </Typography>
+
+                    <Typography variant="body1">
+                      Type: {appointment.type}
+                    </Typography>
+
+                    {appointment.serviceName === "Pond Quality" && (
+                      <Typography variant="body1">
+                        Pond Size: {appointment.pondSize}
+                      </Typography>
+                    )}
+
+                    {appointment.serviceName !== "Pond Quality" &&
+                      appointment.serviceName !== "Online Consultant" && (
+                        <Typography variant="body1">
+                          Quantity: {appointment.koiQuantity}
+                        </Typography>
+                      )}
+
+                    {appointment.meetingMethod !== "ONLINE" &&
+                      appointment.meetingMethod !== "OFFLINE_CENTER" && (
+                        <Typography variant="body1">
+                          Address: {appointment.userAddress}
+                        </Typography>
+                      )}
+
+                    {appointment.meetingMethod !== "ONLINE" &&
+                      appointment.meetingMethod !== "OFFLINE_CENTER" && (
+                        <Typography variant="body1">
+                          Distance: {appointment.distance_meters}
+                        </Typography>
+                      )}
+
+                    <Typography variant="body1">
+                      Start At: {appointment.startedAt}
+                    </Typography>
+                    <Typography variant="body1">
+                      Status: {appointment.statusEnum}
+                    </Typography>
+
+                    <Typography variant="body1">
+                      Service Price:{" "}
+                      {new Intl.NumberFormat("vi-VN").format(
+                        appointment.servicePrice
+                      )}{" "}
+                      VND
+                    </Typography>
+
+                    {appointment.serviceName === "Pond Quality" && (
+                      <Typography variant="body1">
+                        Pond Price:{" "}
+                        {new Intl.NumberFormat("vi-VN").format(
+                          appointment.pondPrice
+                        )}{" "}
+                        VND
+                      </Typography>
+                    )}
+
+                    {appointment.serviceName !== "Pond Quality" &&
+                      appointment.serviceName !== "Online Consultant" && (
+                        <Typography variant="body1">
+                          Koi Price:{" "}
+                          {new Intl.NumberFormat("vi-VN").format(
+                            appointment.koiPrice
+                          )}{" "}
+                          VND
+                        </Typography>
+                      )}
+
+                    {appointment.meetingMethod !== "ONLINE" &&
+                      appointment.meetingMethod !== "OFFLINE_CENTER" && (
+                        <Typography variant="body1">
+                          Travel Price:{" "}
+                          {new Intl.NumberFormat("vi-VN").format(
+                            appointment.travelPrice
+                          )}{" "}
+                          VND
+                        </Typography>
+                      )}
+
+                    <Typography variant="body1">
+                      Total Price:{" "}
+                      {new Intl.NumberFormat("vi-VN").format(
+                        appointment.totalPrice
+                      )}{" "}
+                      VND
+                    </Typography>
+
+                    <Typography variant="body1">
+                      Created At: {appointment.createdAt}
+                    </Typography>
+                  </Box>
+
+                </DialogContent>
+                <DialogActions>
+                  <Button
+                    onClick={() => handleDialogClose(appointment.id)} // Đóng dialog
+                    sx={{
+                      bgcolor: BLUE_COLOR,
+                      borderRadius: "14px",
+                      color: "white",
+                      width: "100px",
+                      height: "40px",
+                      mr: 6,
+                      mb: 3,
+                    }}
+                  >
+                    Close
+                  </Button>
+                </DialogActions>
+              </Dialog>
+
                 <ToastContainer />
               </Box>
               <button
