@@ -51,9 +51,9 @@ const PaymentResult = () => {
     try {
       const token = localStorage.getItem('token');
 
-      const response = await api.post('/bookings', {
+      const response = await api.post('/bookings', 
           bookingData
-      });
+      );
 
       if (!response) {
         throw new Error('Failed to create booking');
