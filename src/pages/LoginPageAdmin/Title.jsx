@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import api from '~/config/axios'
 import ErrorIcon from '@mui/icons-material/Error'
 import { toast } from 'react-toastify'
+import ManagementApi from '~/api/ManagementApi'
 
 function Title() {
   const navigate = useNavigate()
@@ -14,11 +15,94 @@ function Title() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loginMess, setLoginMess] = useState('')
+
+
+  useEffect(() => {
+    const getUserData = async () => {
+        try {
+            const userData = await ManagementApi.getCurrentAccount();
+
+            const navUrl =
+                userData.role === "ADMIN" ? "/admin" :
+                userData.role === "MANAGER" ? "/manager" :
+                "/veterinarian";
+
+            if (userData.role === "CUSTOMER") {
+                navigate('/403');
+                return; 
+            }
+
+            const isLoginned = localStorage.getItem('token') != null;
+            if (isLoginned) {
+                navigate(navUrl);
+            }
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    };
+
+    getUserData();
+}, [navigate]); // Added `navigate` as a dependency
+
+
+  const handleLogin = async () => {
+    setLoginMess('')
+    if (!email || !password) {
+      setLoginMess('Email and Password are required')
+      return
+    }
+
+    try {
+      const response = await api.post('/auth/login-password', {
+        email,
+        password
+      })
+
+      const { data, status, message, err } = response.data
+      console.log("ADMIN LOGIN: ", response.data)
+      if (status === 200) {
+        localStorage.setItem('token', data.token)
+        const loginRes = await ManagementApi.getCurrentAccount();
+        console.log("LOGIN RES: ", loginRes.role)
+
+
+        const navUrl =
+          loginRes.role === "ADMIN" ? "/admin" :
+            loginRes.role === "MANAGER" ? "/manager" :
+            loginRes.role === "STAFF" ? "/staff" :
+              loginRes.role === "CUSTOMER" ? "/login" : "/veterinarian";
+
+        // navigate('/home')
+        if (navUrl === "/login")
+        {
+          localStorage.removeItem('token');
+          toast.error("Your account cannot login here!!")
+        } else toast.success(message)
+          
+        setTimeout(() => {
+          window.location.href = navUrl;
+        }, 1500);
+      } else {
+        setLoginMess(err[0])
+        toast.error(err[0] || response?.error?.message)
+      }
+    } catch (err) {
+      const errorMessage = 'Login failed. Please try again.'
+      setLoginMess(errorMessage)
+      toast.error(errorMessage)
+    }
+  }
+
+
   return (
     <div>
       <Box display={'flex'} flexDirection={'column'} gap={'100px'} px={'30px'}>
         <Box sx={{ display: 'flex', justifyContent: 'space-around', marginBottom: '50px', marginTop: '10px' }}>
-          <img src='https://i.etsystatic.com/16221531/r/il/283513/3896651157/il_570xN.3896651157_7xfk.jpg' style={{ objectFit: 'contain', width: '400px', borderRadius: '26px' }} />
+          <img src='https://img.freepik.com/free-vector/
+          hand-drawn-clip-art-woman-customer-service-call-center-job
+          -office-worker-character_40876-3162.jpg?t=st=1731132247~exp=1
+          731135847~hmac=fd2c1b672870659b3ffbea573b5112bc52c396ec
+          c123212a0e4d9f54ea0ed520&w=740' style={{ objectFit: 'contain', width: '400px', borderRadius: '26px' }} />
           <Box sx={{ display: 'flex', flexDirection: 'column', mt: '0px', width: 600 }}>
             <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 45, textAlign: 'center', color: BLUE_COLOR }}>
               Welcome To Koi Care Clinic <span style={{ color: ORANGE_COLOR }}>Management System</span>
@@ -64,8 +148,8 @@ function Title() {
                   placeholder='Enter your email'
                   variant="outlined"
                   type='email'
-                  // value={email}
-                  // onChange={(e) => setEmail(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   sx={{
                     width: '560px',
                     '& .MuiOutlinedInput-root': {
@@ -94,8 +178,8 @@ function Title() {
                   placeholder='Enter your password'
                   variant="outlined"
                   type='password'
-                  // value={password}
-                  // onChange={(e) => setPassword(e.target.value)}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   sx={{
                     width: '560px',
                     '& .MuiOutlinedInput-root': {
@@ -128,7 +212,7 @@ function Title() {
                 gap: 2,
                 color: '#fff'
               }}
-              // onClick={handleLogin}
+                onClick={handleLogin}
               >
                 Login
               </Button>

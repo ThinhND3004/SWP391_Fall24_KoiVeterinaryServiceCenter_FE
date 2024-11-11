@@ -25,10 +25,7 @@ const AppointmentComponent = () => {
           const status = "PENDING";
 
           const response = await api.get(
-            `/bookings?page=${page}&unitPerPage=${unitPerPage}&status=${status}`,
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
+            `/bookings?page=${page}&unitPerPage=${unitPerPage}&status=${status}`
           );
 
           if (!response.ok) {

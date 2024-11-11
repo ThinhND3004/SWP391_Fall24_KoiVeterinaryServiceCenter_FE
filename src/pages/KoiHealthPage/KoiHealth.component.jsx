@@ -12,7 +12,7 @@ const KoiHealthComponent = () => {
         {/* INTRODUCTION */}
         <Introduction />
         {/* CARE CYCLE */}
-        <CareTeam />
+        {/* <CareTeam /> */}
         {/* OUR TEAM */}
         <OurTeam />
         {/* <Feedback /> */}

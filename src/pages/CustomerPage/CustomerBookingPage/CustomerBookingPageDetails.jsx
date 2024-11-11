@@ -69,16 +69,13 @@ useEffect(() => {
       try {
         const page = 1;
         const unitPerPage = 10;
-        const status = "PENDING";
+        const status = "COMPLETED";
 
         const response = await api.get(
-          `/bookings?page=${page}&unitPerPage=${unitPerPage}&status=${status}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
+          `/bookings?page=${page}&unitPerPage=${unitPerPage}&status=${status}`
         );
 
-        if (!response.ok) {
+        if (!response) {
           throw new Error("Failed to fetch appointments");
         }
 

@@ -41,8 +41,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function VeterianChooseDialog({ bookingId, serviceName, serviceId, serviceMethod, startedAt, userAddress }) {
 
-
     const InfoCard = ({ veterian }) => {
+        const [isSent, setIsSent] = useState(false);
 
         const handleSend = async () => {
             // Send Notification
@@ -55,9 +55,9 @@ function VeterianChooseDialog({ bookingId, serviceName, serviceId, serviceMethod
             })
             const date = new Date(startedAt);
 
-            const day = String(date.getDate()).padStart(2, '0');        
-            const month = String(date.getMonth() + 1).padStart(2, '0'); 
-            const year = date.getFullYear(); 
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
             const hours = date.getHours().toString().padStart(2, '0');
             const minutes = date.getMinutes().toString().padStart(2, '0');
 
@@ -78,12 +78,24 @@ function VeterianChooseDialog({ bookingId, serviceName, serviceId, serviceMethod
                 companyWebsite: 'http://localhost:5173/veterian/notifications'
             })
 
-            if(sendEmailResp) {
+            if (sendEmailResp) {
                 console.log("SEND EMAIL SUCCESSFUL")
             }
 
             setOpen(false)
         }
+
+        const fetchIsSent = async () => {
+            const result = await ManagementApi.checkIsNotificationSent({
+                accountEmail: veterian.email,
+                bookingId: bookingId
+            })
+            setIsSent(result)
+        }
+
+        useEffect(() => {
+            fetchIsSent()
+        }, [])
 
         return (
             <Box
@@ -123,16 +135,34 @@ function VeterianChooseDialog({ bookingId, serviceName, serviceId, serviceMethod
                     <Typography variant="body1" color="textSecondary">Certification: {veterian.certification || 'Empty certification'}</Typography>
                     <Typography variant="body1" color="textSecondary">Year Of Experience: {veterian.yearOfExperience || 'Empty Year Of Experience'}</Typography>
                     <Typography variant="body1" color="textSecondary">Education: {veterian.education || 'Empty education  '}</Typography>
-                    <Button variant="contained"
-                        onClick={() => handleSend()}
-                        sx={{
-                            margin: '5px 0px',
-                            backgroundColor: ORANGE_COLOR,
-                            color: 'whitesmoke',
-                            borderRadius: '10px'
-                        }}>
-                        Send invitation
-                    </Button>
+
+                    {isSent === true ?
+                        <Button variant="contained"
+                            sx={{
+                                margin: '5px 0px',
+                                border: '1px solid',
+                                backgroundColor: 'white',
+                                borderColor: ORANGE_COLOR,
+                                color: ORANGE_COLOR,
+                                borderRadius: '10px',
+                                boxShadow: 'none',
+                            }}>
+                            Is Sent
+                        </Button>
+                        :
+                        <Button variant="contained"
+                            onClick={() => handleSend()}
+                            sx={{
+                                margin: '5px 0px',
+                                backgroundColor: ORANGE_COLOR,
+                                color: 'whitesmoke',
+                                borderRadius: '10px'
+                            }}>
+                            Send invitation
+                        </Button>
+                    }
+
+
                 </Box>
             </Box>
         );

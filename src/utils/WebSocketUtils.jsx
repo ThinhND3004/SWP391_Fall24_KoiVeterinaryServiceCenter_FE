@@ -25,9 +25,11 @@ export const initializeWebSocket = ({ handleConnect }) => {
 export const sendNotification = async ({ accountEmail, bookingId, title, description, type }) => {
     if (client && client.connected) {
         try {
+            const token = localStorage.getItem('token')?.replaceAll('"', '');
+            console.log(accountEmail + " " + token)
             client.publish({
                 destination: '/app/send',
-                body: JSON.stringify({ accountEmail, bookingId, title, description, type }),
+                body: JSON.stringify({ accountEmail,token, bookingId, title, description, type }),
             });
 
         } catch (error) {
@@ -41,9 +43,10 @@ export const sendNotification = async ({ accountEmail, bookingId, title, descrip
 export const sendNotificationOnEmail = async ({ accountEmail, bookingId, title, description, type }) => {
     if (client && client.connected) {
         try {
+            const token = localStorage.getItem('token')?.replaceAll('"', '')
             client.publish({
                 destination: '/app/send-email',
-                body: JSON.stringify({ accountEmail, bookingId, title, description, type }),
+                body: JSON.stringify({ accountEmail, token, bookingId, title, description, type }),
             });
 
         } catch (error) {

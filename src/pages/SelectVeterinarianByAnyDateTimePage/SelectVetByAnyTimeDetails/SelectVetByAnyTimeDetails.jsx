@@ -44,7 +44,7 @@ const SelectVeByAnyDateTimeDetails = () => {
     setLoading(true);
     try {
       const response = await api.get(
-        `/accounts/idle-veterian-by-time/${service.id}/${startDateTime}`,
+        `/accounts/idle-veterian-by-time/${service.id}/${startDateTime}`
       );
 
       if (!response) {

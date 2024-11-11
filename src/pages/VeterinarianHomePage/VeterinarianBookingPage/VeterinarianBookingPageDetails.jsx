@@ -63,7 +63,7 @@ function VeterinarianBookingPageDetails() {
     let data = [];
 
     if (status === 'ALL') data = await ManagementApi.getVeterianBookings({});
-    else data = await ManagementApi.getVeterianBookings({status: status});
+    else data = await ManagementApi.getVeterianBookings({ status: status });
 
     const row = data.map((data) => {
       return {

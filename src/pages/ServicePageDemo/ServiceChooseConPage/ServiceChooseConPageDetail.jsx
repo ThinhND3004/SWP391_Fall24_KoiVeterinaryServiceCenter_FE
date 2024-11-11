@@ -65,15 +65,13 @@ const ServiceChooseCon = ({ veterian }) => {
   return (
     <div>
       <Box
-        alignItems={"center"}
-        display={"flex"}
-        flexDirection={"row"}
-        gap={"100px"}
-        px={"30px"}
         sx={{
-          backgroundColor: INPUT_FIELD_COLOR,
-          height: "400px",
-          width: "1400px",
+          mt: 5,
+          mb: 10,
+          display: 'flex',
+          justifyContent: 'space-between',
+          gap: 10
+
         }}
       >
         {/* avt-btn */}
@@ -85,9 +83,9 @@ const ServiceChooseCon = ({ veterian }) => {
         >
           <img
             style={{
-              height: "200px",
-              width: "200px",
-              borderRadius: "50%",
+              // height: "300px",
+              width: "500px",
+              borderRadius: "30px",
               marginBottom: "20px",
             }}
             src="https://img.freepik.com/premium-photo/beautiful-painting-three-colorful-koi-fish
@@ -121,12 +119,18 @@ const ServiceChooseCon = ({ veterian }) => {
         {/* schedule */}
 
         <Box>
-          <Typography marginBottom={3}>{veterian.fullName}</Typography>
-
-          <Typography marginBottom={3}>{veterian.email}</Typography>
-
-          <FormControl>
-            <InputLabel id="demo-simple-select-label">Date</InputLabel>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Typography marginBottom={3} sx={{ fontWeight: 700, fontSize: 25 }}>{veterian.fullName}</Typography>
+            <Typography marginBottom={3} sx={{ fontWeight: 600, fontSize: 25 }}>{veterian.email}</Typography>
+          </Box>
+          <FormControl sx={{
+            marginTop: '15px',
+            width: '100%',
+            borderRadius: '15px'
+          }}>
+            <InputLabel id="demo-simple-select-label">
+              Date
+            </InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -134,35 +138,30 @@ const ServiceChooseCon = ({ veterian }) => {
               onChange={handleDateChange}
               label="Date"
             >
-              {veterian.timeSlot.map((timeSlot) => {
-                return (
-                  <MenuItem
-                    key={timeSlot.date}
-                    value={dayjs(timeSlot.date)
-                      .add(1, "day")
-                      .format("YYYY-MM-DD")}
-                  >
-                    {dayjs(timeSlot.date).add(1, "day").format("YYYY-MM-DD")}
-                  </MenuItem>
-                );
-              })}
+              {veterian.timeSlot.map((timeSlot) => (
+                <MenuItem
+                  key={timeSlot.date}
+                  value={dayjs(timeSlot.date).add(1, "day").format("YYYY-MM-DD")}
+                >
+                  {dayjs(timeSlot.date).add(1, "day").format("YYYY-MM-DD")}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
+
 
           <Box
             sx={{
               marginTop: "10px",
-              // width: '700px',
               padding: "20px",
               overflowY: "auto", // Enable vertical scrollbar when content overflows
-              border: "1px solid #ccc", // Optional: Add a border to define the scrollable area
-              borderRadius: "8px", // Optional: Round the corners of the container
+              border: `1px solid ${BLUE_COLOR}`, // Optional: Add a border to define the scrollable area
+              borderRadius: "14px", // Optional: Round the corners of the container
             }}
           >
             <Grid container spacing={2}>
               {veterian.timeSlot.map(
                 (slot, index) =>
-                  // Check if the slot date matches the selected date (dateAvai)
                   slot.date === dateAvai && (
                     <Grid item xs={4} key={index}>
                       {slot.slots.map((slotEntity) => (
