@@ -36,7 +36,7 @@ export default function BookingListDetails() {
   useEffect(() => {
     const fetchAppointments = async () => {
       const token = localStorage.getItem("token");
-      let bookingList = null;
+      let bookingList = [];
       if (token) {
         try {
           const response = await api.get(
@@ -45,8 +45,7 @@ export default function BookingListDetails() {
 
           if (!response) throw new Error("Failed to fetch appointments");
 
-          // const data = await response.json();
-          bookingList = await response.json();
+          bookingList = await response.data;
           setAppointments(bookingList.data);
         } catch (error) {
           console.error("Failed to fetch appointments:", error);

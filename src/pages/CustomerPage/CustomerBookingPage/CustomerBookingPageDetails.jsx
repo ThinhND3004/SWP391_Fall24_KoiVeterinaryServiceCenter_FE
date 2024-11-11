@@ -79,7 +79,7 @@ useEffect(() => {
           throw new Error("Failed to fetch appointments");
         }
 
-        const data = await response.json();
+        const data = await response.data;
         setBookings(data.data);
       } catch (error) {
         console.error("Failed to fetch appointments:", error);

@@ -55,11 +55,10 @@ const PaymentResult = () => {
       });
 
       if (!response) {
-        const result = await response.json();
-        throw new Error(result.message || "Failed to create booking");
+        throw new Error("Failed to create booking");
       }
 
-      const bookingResult = await response.json();
+      const bookingResult = await response.data;
 
       console.log("Booking Data from localStorage:", bookingData);
       console.log("VET ID:", bookingData.veterinarianId);
