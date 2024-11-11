@@ -114,11 +114,8 @@ const Profile = ({
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
 function Header() {
-  // lay state tu redux (currentState)
-  // Dat state la navbarId
   const navbarId = useSelector((state) => state.globalConfig.navbarId);
 
-  // doc mess
   const dispatch = useDispatch();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -220,7 +217,7 @@ function Header() {
     // Add your profile navigation logic here
   };
 
-  // d biet
+  
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };

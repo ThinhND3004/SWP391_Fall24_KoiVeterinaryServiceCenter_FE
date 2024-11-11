@@ -22,6 +22,5 @@ const globalConfigSlice = createSlice({
   }
 })
 
-// nay d biet doc doc thay can de goi thi nem vo :)
 export const { setNavbarId } = globalConfigSlice.actions
 export default globalConfigSlice.reducer

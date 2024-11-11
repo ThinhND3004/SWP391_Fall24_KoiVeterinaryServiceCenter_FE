@@ -33,7 +33,7 @@ function DashboardPageDetails() {
         const responeData = await response.data
         if (responeData) {
           setData(responeData.data.data);
-          console.log(responeData.data)
+          // console.log(responeData.data)
         }
       } catch (error) {
         console.error('Error fetching dashboard data:', error)
