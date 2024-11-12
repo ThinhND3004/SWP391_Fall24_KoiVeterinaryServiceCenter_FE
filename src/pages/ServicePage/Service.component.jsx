@@ -32,7 +32,7 @@ const SerivceComponent = () => {
 
     };
 
-    
+
 
     useEffect(() => {
         fetchServices();
@@ -51,7 +51,7 @@ const SerivceComponent = () => {
                 <Introduction />
                 {/* Service No.1 */}
                 {services.map((service) => {
-                   return <ServiceBlock service={service} />
+                    return <ServiceBlock service={service} key={service.id} />
                 })}
                 {/* Service No.2 */}
                 <ServiceNo2 />

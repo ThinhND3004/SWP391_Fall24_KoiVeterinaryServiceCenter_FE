@@ -12,6 +12,7 @@ import api, { geoapifyApi } from "~/config/axios";
 import dayjs from 'dayjs';
 import 'leaflet/dist/leaflet.css';
 import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from "~/theme";
+import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
@@ -39,6 +40,28 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
   const [routeCoords, setRouteCoords] = React.useState(null); // To store route coordinates
   const [userPosition, setUserPosition] = React.useState([0, 0]);
   const [vetPosition, setVetPosition] = React.useState([10.845, 106.772]); // Default for Thủ Đức
+
+  const [selectedPondSize, setSelectedPondSize] = React.useState('SMALL_POND');
+
+  const [quantity, setQuantity] = React.useState(1);
+
+  // Hàm xử lý khi người dùng thay đổi lựa chọn trong dropdown
+  const handlePondSizeChange = (event) => {
+    setSelectedPondSize(event.target.value);
+  };
+
+  const pondSizes = [
+    { value: 'SMALL_POND', label: 'Small Pond' },
+    { value: 'MEDIUM_POND', label: 'Medium Pond' },
+    { value: 'LARGE_POND', label: 'Large Pond' }
+  ];
+
+  // Hàm xử lý thay đổi quantity
+  const handleQuantityChange = (event) => {
+    // Lấy giá trị nhập vào và đảm bảo nó không nhỏ hơn 1
+    const newQuantity = Math.max(1, parseInt(event.target.value, 10));
+    setQuantity(newQuantity);
+  };
 
   const displayedDateTime = dayjs.utc(selectedDateTime).tz("Asia/Ho_Chi_Minh", true);
 
@@ -145,15 +168,15 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
     event.preventDefault();
 
     const bookingData = {
-      serviceId: service.id,
       veterianEmail: veterinarian && veterinarian.email ? veterinarian.email : null, // Kiểm tra veterinarian có null không
+      serviceId: service.id,
       additionalInformation: additionalInfo || "",
-      servicePrice: service.price || 0,
+      koiQuantity: quantity || 0,
+      pondSize: selectedPondSize|| "",
       distanceMeters: distance || 0,
       userAddress: userAddress || "",
-      meetingMethod: service.meetingMethod || "online",
+      meetingMethod: service.meetingMethod,
       startAt: selectedDateTime,
-      travelPrice: service.travelPricePerMeter || 0,
     };
 
 
@@ -199,6 +222,82 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
           }}
         />
       </div>
+
+      {service.name !== "Koi Treatment at home" &&
+              service.name !== "Koi Treatment at center" &&
+              service.name !== "Online Consultant" && (
+                
+      <FormControl 
+      fullWidth 
+      sx={{
+        mt: 2, // Thêm margin-top
+        borderRadius: '15px', // Bo tròn các góc
+        '& .MuiOutlinedInput-root': {
+          borderRadius: '15px', // Bo tròn các góc cho input bên trong FormControl
+        },
+        '& .MuiInputLabel-root': {
+          fontSize: '16px', // Kích thước chữ của label
+        },
+      }}>
+        <Typography variant="h6" gutterBottom>
+          Select Pond Size:
+        </Typography>
+      <Select
+        value={selectedPondSize}
+        onChange={handlePondSizeChange}
+        sx={{
+          '& .MuiOutlinedInput-root': {
+            borderRadius: '15px',
+            borderColor: BLUE_COLOR,
+            height: '60px',
+          },
+          '& .MuiSelect-select': {
+            backgroundColor: INPUT_FIELD_COLOR,
+            padding: '20px 15px',
+            fontSize: '16px',
+            borderRadius: '15px'
+          }
+        }}
+      >
+        {pondSizes.map((pond) => (
+          <MenuItem key={pond.value} value={pond.value}>
+            {pond.label}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+  )}
+
+      {/* Hiển thị ô nhập số lượng khi là "Koi Treatment at home" hoặc "Koi Treatment at center" */}
+      {(service.name === "Koi Treatment at home" || service.name === "Koi Treatment at center") && (
+        <FormControl fullWidth sx={{ mt: 2}}>
+          <Typography variant="h6">Quantity:</Typography>
+          <TextField
+            type="number"
+            value={quantity}
+            onChange={handleQuantityChange}
+            placeholder="Enter quantity"
+            variant="outlined"
+            fullWidth
+            inputProps={{
+              min: 1, 
+            }}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                borderRadius: '15px',
+                borderColor: BLUE_COLOR, 
+                height: '60px',
+              },
+              '& input': {
+                backgroundColor: INPUT_FIELD_COLOR, 
+                padding: '20px 15px',
+                fontSize: '16px',
+                borderRadius: '15px'
+              }
+            }}
+          />
+        </FormControl>
+      )}
 
       {service.meetingMethod !== "ONLINE" &&
         service.meetingMethod !== "OFFLINE_CENTER" && (

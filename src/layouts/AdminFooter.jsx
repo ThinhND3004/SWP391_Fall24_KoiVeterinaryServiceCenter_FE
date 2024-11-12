@@ -8,7 +8,7 @@ function AdminFooter() {
   return (
     <div>
 
-      <Divider style={{
+      {/* <Divider style={{
         borderWidth: '1px',
         opacity: '100%',
         color: BLUE_COLOR
@@ -23,7 +23,7 @@ function AdminFooter() {
         }}>
           Copyright Rimel 2022. All right reserved
         </Typography>
-      </Box>
+      </Box> */}
     </div>
   )
 }

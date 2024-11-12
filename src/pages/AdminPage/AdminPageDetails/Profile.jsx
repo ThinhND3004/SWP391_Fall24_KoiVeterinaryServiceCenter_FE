@@ -10,6 +10,7 @@ import dayjs from 'dayjs'
 import axios from 'axios'
 import ManagementApi from '~/api/ManagementApi'
 import { toast } from 'react-toastify'
+import api from '~/config/axios'
 
 function handleClick(event) {
   event.preventDefault()
@@ -40,7 +41,7 @@ function Profile() {
       const res = await ManagementApi.getImage(accInfo.imageId)
       if (res) {
         setAvt(res)
-        console.log(res);
+        // console.log(res);
 
       }
     }
@@ -75,21 +76,20 @@ function Profile() {
         const formData = new FormData();
         formData.append("file", file);  // Ensure "file" matches @RequestParam("file") in the backend
         console.log("ACC ID SET AVT: ", accInfo)
-        const response = await axios.post(`http://localhost:8089/images/setAvt/${accInfo.id}`, formData, {
+        const response = await api.post(`/images/setAvt/${accInfo.id}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data"
           }
         });
 
-        console.log("SET AVT: ", response.data)
         toast.success(response.data.message)
         setTimeout(() => {
           window.location.reload();
         }, 1000);
       } catch (err) {
-        console.log('SET IMG ERR: ', err)
+        console.error('SET IMG ERR: ', err)
       }
-    } else console.log("FILE TO LARGE")
+    } 
 
   }
 
@@ -100,7 +100,7 @@ function Profile() {
 
   const handleClickSaveChange = async () => {
     const accInfo = JSON.parse(localStorage.getItem('accountInfo'))
-    console.log("UPDATE DATA: ", userInfo)
+    // console.log("UPDATE DATA: ", userInfo)
     try {
       // const response = await api.put(`accounts/${accInfo.id}`, {
       //   firstName: userInfo.firstName,
@@ -110,17 +110,17 @@ function Profile() {
       //   address: userInfo.add
       // });
 
-      const response = await axios.put(`http://localhost:8089/accounts/${accInfo.id}`, userInfo)
+      const response = await api.put(`/accounts/${accInfo.id}`, userInfo)
 
-      console.log("UPDATE RESULT: ", response.data)
+      // console.log("UPDATE RESULT: ", response.data)
     } catch {
-      console.log("ERROR UPDATE OCCUR!!!")
+      console.error("ERROR UPDATE OCCUR!!!")
     }
   }
 
   const handleGetUserInfo = () => {
     const accInfo = localStorage.getItem('accountInfo')
-    console.log('ACCOUNT: ', JSON.parse(accInfo))
+    // console.log('ACCOUNT: ', JSON.parse(accInfo))
     if (accInfo) {
       const info = JSON.parse(accInfo)
 

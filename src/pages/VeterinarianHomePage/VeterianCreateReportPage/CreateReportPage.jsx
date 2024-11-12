@@ -14,6 +14,10 @@ import ManagementApi from '~/api/ManagementApi';
 import { useNavigate } from 'react-router-dom';
 import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import BackdropComponent from '~/components/Backdrop.component';
+
+const baseUrl = import.meta.env.VITE_API_URL;
+
 
 function CreateReportPage({ booking }) {
     const [addKoiSpecies, setAddKoiSpecies] = useState([]);
@@ -26,6 +30,7 @@ function CreateReportPage({ booking }) {
     const [error, setError] = useState({});
     const [openAlert, setOpenAlert] = useState(false);
     const [errorAlert, setErrorAlert] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const handleCloseAlert = (event, reason) => {
         if (reason === 'clickaway') {
@@ -55,6 +60,8 @@ function CreateReportPage({ booking }) {
         e.preventDefault();
         try {
             if (handleValidation()) {
+                setLoading(true);
+
                 const requestBody = {
                     "bookingId": booking.id,
                     "koiSpeciesIdList": addKoiSpecies.length > 0 ? addKoiSpecies.map((item) => item.id) : null,
@@ -85,8 +92,15 @@ function CreateReportPage({ booking }) {
 
                 if (dataErr != null) {
                     setErrorAlert(dataErr);
+                    setLoading(false)
                 } else {
                     setOpenAlert(true);
+                    // SEND EMAIL
+                    await ManagementApi.sendReportEmail({
+                        bookingId: booking.id,
+                        companyWebsite: baseUrl+'booking-list',
+                        companyName: 'Koi Veterinary Service Center'
+                    })
                     navigate(-1);
                 }
             } else {
@@ -128,7 +142,7 @@ function CreateReportPage({ booking }) {
         <Box component="form" gap={10}>
             <Snackbar open={openAlert} autoHideDuration={6000} onClose={handleCloseAlert}>
                 <Alert onClose={handleCloseAlert} severity="success" sx={{ width: '100%' }}>
-                    Timetable saved successfully!
+                    Create report successfully!
                 </Alert>
                 
             </Snackbar>
@@ -243,6 +257,7 @@ function CreateReportPage({ booking }) {
                     Save
                 </Button>
             </Box>
+            <BackdropComponent open={loading} />
         </Box>
     )
 }

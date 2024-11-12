@@ -28,16 +28,16 @@ const menus = [
     icon: CalendarMonthIcon,
     url: '/veterinarian_booking'
   },
-  {
-    title: 'Report',
-    icon: LocalHospitalIcon,
-    url: '/veterinarian_medical_report'
-  },
-  {
-    title: 'Medicine',
-    icon: ArticleIcon,
-    url: '/veterinarian_medicine'
-  }
+  // {
+  //   title: 'Report',
+  //   icon: LocalHospitalIcon,
+  //   url: '/veterinarian_medical_report'
+  // },
+  // {
+  //   title: 'Medicine',
+  //   icon: ArticleIcon,
+  //   url: '/veterinarian_medicine'
+  // }
 ]
 
 function Navbar() {
@@ -53,6 +53,14 @@ function Navbar() {
     setSelectedMenu(idx) // cập nhật trạng thái selectedMenu với index của mục menu vừa đc chọn -> Giúp giao diện biết dc mục nào đang đc chọn
     navigate(menu.url) // điều hướng người dùng đến url của mục vừa nhấp
   }
+
+  const handleLogout = () => {
+    localStorage.removeItem("accountInfo");
+    localStorage.removeItem("token");
+    // navigate("/home");
+    window.location.href = "/management-login";
+  };
+
   return (
     <Box
       sx={{
@@ -122,7 +130,7 @@ function Navbar() {
 
         <Box sx={{ display: 'flex', alignItems: 'center', color: ORANGE_COLOR, paddingTop: '10px', ml: 2 }}>
           <LoginIcon />
-          <ListItem button component={Link} to="#" sx={{ color: ORANGE_COLOR, paddingTop: '10px' }}>
+          <ListItem onClick={handleLogout} button component={Link} to="#" sx={{ color: ORANGE_COLOR, paddingTop: '10px' }}>
             <ListItemText
               primary="Logout"
               primaryTypographyProps={{

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Breadcrumbs, TextField, Typography, Button } from "@mui/material";
 import { BLUE_COLOR, INPUT_FIELD_COLOR } from "~/theme";
 import { toast } from "react-toastify"; // Thêm thư viện react-toastify nếu dùng
+import api from "~/config/axios";
 
 function CustomerPasswordDetails() {
   const [accountInfo, setAccountInfo] = useState(null);
@@ -32,16 +33,11 @@ function CustomerPasswordDetails() {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch("http://localhost:8089/accounts/change-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(changePasswordRequest),
+      const response = await api.post("/accounts/change-password", {
+        changePasswordRequest
       });
 
-      const data = await response.json();
+      const data = await response.data;
       console.log(data);
 
       if (data.status === 200) {
@@ -143,6 +139,7 @@ function CustomerPasswordDetails() {
           "&:hover": {
             backgroundColor: "#0056b3",
           },
+          marginBottom: "15vh"
         }}
       >
         Save changes

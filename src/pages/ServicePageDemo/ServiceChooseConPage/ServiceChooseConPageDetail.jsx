@@ -83,7 +83,6 @@ const ServiceChooseCon = ({ veterian }) => {
         >
           <img
             style={{
-              // height: "300px",
               width: "500px",
               borderRadius: "30px",
               marginBottom: "20px",
@@ -119,9 +118,9 @@ const ServiceChooseCon = ({ veterian }) => {
         {/* schedule */}
 
         <Box>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Typography marginBottom={3} sx={{ fontWeight: 700, fontSize: 25 }}>{veterian.fullName}</Typography>
-            <Typography marginBottom={3} sx={{ fontWeight: 600, fontSize: 25 }}>{veterian.email}</Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Typography sx={{ fontWeight: 700, fontSize: 25 }}>{veterian.fullName}</Typography>
+            <Typography sx={{ fontWeight: 400, fontSize: 20, mt: 1 }}>{veterian.email}</Typography>
           </Box>
           <FormControl sx={{
             marginTop: '15px',
