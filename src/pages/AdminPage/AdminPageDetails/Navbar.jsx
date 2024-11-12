@@ -39,7 +39,7 @@ const menus = [
   {
     title: 'Account',
     icon: AccountCircleIcon,
-    url: '/profile'
+    url: '/customer'
   },
   // {
   //   title: 'Password',
@@ -82,6 +82,13 @@ function Navbar() {
   const navigate = useNavigate()
   const [selectedMenu, setSelectedMenu] = useState(null)
   const [openSubMenu, setOpenSubMenu] = useState(null)
+
+  const handleLogout = () => {
+    localStorage.removeItem("accountInfo");
+    localStorage.removeItem("token");
+    // navigate("/home");
+    window.location.href = "/management-login";
+  };
 
   const handleMenuClick = (menu, idx) => {
     setSelectedMenu(idx)
@@ -172,7 +179,7 @@ function Navbar() {
           <Divider sx={{ paddingTop: '50px' }} />
           <Box sx={{ display: 'flex', alignItems: 'center', color: ORANGE_COLOR, paddingTop: '10px' }}>
             <LoginIcon />
-            <ListItem button component={Link} to="#" sx={{ color: ORANGE_COLOR, paddingTop: '10px' }}>
+            <ListItem onClick={handleLogout} button component={Link} to="#" sx={{ color: ORANGE_COLOR, paddingTop: '10px' }}>
               <ListItemText
                 primary="Logout"
                 primaryTypographyProps={{

@@ -241,11 +241,11 @@ function Header() {
   const handleProfile = () => {
     handleClose();
     console.log("Go to profile...");
-    navigate("/profile");
+    navigate("/customer");
     // Add your profile navigation logic here
   };
 
-  
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };

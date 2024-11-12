@@ -129,12 +129,12 @@ function VeterinarianBookingPageDetails() {
             </Typography>
           </Button> */}
 
-          <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: INPUT_FIELD_COLOR, borderRadius: '10px', gap: 1 }}>
+          {/* <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: INPUT_FIELD_COLOR, borderRadius: '10px', gap: 1 }}>
             <FileDownloadIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
             <Typography sx={{ color: GRAY_COLOR, fontWeight: 500, fontSize: '14px' }}>
               Import
             </Typography>
-          </Button>
+          </Button> */}
 
 
         </Box>

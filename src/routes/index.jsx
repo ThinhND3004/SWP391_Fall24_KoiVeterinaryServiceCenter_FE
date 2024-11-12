@@ -110,9 +110,17 @@ const RouteComponent = () => {
         <Route path='/requestAppointment' element={<RequestAppointment />} />
         <Route path='/booking-list' element={<  BookingListComponent />} />
 
-        <Route path='/login/admin' element={<LoginPageAdmin />} />
+        <Route element={<CustomerLayout />}>
+          <Route path='/customer' element={<CustomerPage />} />
+          {/* <Route path='/customer_booking' element={<CustomerBookingPage />} /> */}
+          <Route path='/customer_password' element={<CustomerPasswordComponent />} />
+
+        </Route>
         {/* <Route path='/register/admin' element={<RegisterPageAdmin />} /> */}
       </Route>
+
+      {/* Log in for management page */}
+      <Route path='/management-login' element={<LoginPageAdmin />} />
 
       <Route element={<AdminLayout />}>
         {/* <Route path='/dashboard' element={<DashboardPage />} /> */}
@@ -130,7 +138,7 @@ const RouteComponent = () => {
 
       {/* profile */}
       <Route element={<UserLayout />}>
-        <Route path='/profile' element={<AdminHomePage />} />
+        <Route path='/customer' element={<AdminHomePage />} />
       </Route>
 
       <Route element={<StaffLayout />}>
@@ -152,14 +160,7 @@ const RouteComponent = () => {
         <Route path='/veterian/notifications' element={<VeterianNotificationPage />} />
       </Route>
 
-      <Route element={<CustomerLayout />}>
 
-
-        <Route path='/customer' element={<CustomerPage />} />
-        <Route path='/customer_booking' element={<CustomerBookingPage />} />
-        <Route path='/customer_password' element={<CustomerPasswordComponent />} />
-
-      </Route>
 
       <Route path='/' element={
         <Navigate to='/home' relative={true} />
