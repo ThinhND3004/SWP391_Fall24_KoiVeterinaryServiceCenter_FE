@@ -22,19 +22,11 @@ function CustomerPasswordDetails() {
   const handleSaveChanges = async (event) => {
     event.preventDefault(); // Prevent default form submission
 
-    const changePasswordRequest = {
-      email: accountInfo.email,
-      oldPassword: oldPassword,
-      newPassword: newPassword,
-    };
-
-    console.log(changePasswordRequest);
-
     try {
-      const token = localStorage.getItem("token");
-
       const response = await api.post("/accounts/change-password", {
-        changePasswordRequest
+        email: accountInfo.email,
+        oldPassword: oldPassword,
+        newPassword: newPassword
       });
 
       const data = await response.data;
