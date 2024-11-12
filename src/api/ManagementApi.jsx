@@ -240,13 +240,21 @@ export default class ManagementApi {
   // IMAGE
 
   static async getImage(imageId) {
-    let result = null;
+    let result = './src/assets/images/multiColor.avif';
     try {
       if (!imageId) return result;
       const response = await api.get(`/images/picture/${imageId}`, {
-        responseType: 'blob',
+        headers: {
+          'Content-Type': 'image/jpeg'
+        },
+        responseType: 'blob'
       });
-      result = URL.createObjectURL(response.data);
+      console.log("RES: ", response.data)
+      if (response.data.size != 0) 
+        result = URL.createObjectURL(response.data);
+      
+
+
     } catch (err) {
       console.log("ERROR GET IMG API MANAGE: ", err)
     }
