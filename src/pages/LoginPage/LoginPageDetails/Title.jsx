@@ -26,46 +26,39 @@ function Title() {
   const handleNavigate = () => {
     navigate('/home');
     window.location.reload();  // Force reload
-};
+  };
 
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
-        // Log the token response to inspect available fields
-        console.log("Token Response: ", tokenResponse);
         setLoginMess('')
-        // Use `access_token` to call the backend API
         const response = await api.get(`/auth/login-google?credential=${tokenResponse.access_token}`);
-        console.log(response.data); // Handle the response from backend
         setTokenWithExpiry(response.data.data.token);
-        const { data, status, message, err } = response.data
+        const { data, status, message, err } = response.data;
 
+        if (status === 200) {
+          localStorage.setItem('token', data.token)
+          setTokenWithExpiry(data.token)
+          window.location.href = '/home'
 
-      if (status === 200) {
-        localStorage.setItem('token', data.token)
-        setTokenWithExpiry(data.token)
-        navigate('/home')
-        // window.location.href = "/home";
-        
-
-        toast.success(message)
-      } else {
-        setLoginMess(err[0])
-        toast.error(err[0] || response?.error?.message)
-      }
+          toast.success(message)
+        } else {
+          setLoginMess(err[0])
+          toast.error(err[0] || response?.error?.message)
+        }
       } catch (error) {
         console.error("Login failed:", error);
       }
     },
     onError: (error) => console.error("Google Login Failed:", error),
   });
-  
+
 
 
   useEffect(() => {
     const isLoginned = localStorage.getItem('token') != null
     if (isLoginned)
-      navigate('/home')
+      window.location.href = '/home'
   }, [])
 
   const handleLogin = async () => {
@@ -99,24 +92,22 @@ function Title() {
 
       if (status === 200) {
         localStorage.setItem('token', data.token)
-        
+
         const loginRes = await ManagementApi.getCurrentAccount();
-        console.log("LOGIN RES: ", loginRes.role)
 
 
         const navUrl =
-        loginRes.role === "CUSTOMER" ? "/home" : "/login/admin"
+          loginRes.role === "CUSTOMER" ? "/home" : "/management-login"
 
-        
-        if (loginRes.role !== "CUSTOMER")
-          {
-            localStorage.removeItem('token');
-            toast.error("Your account cannot login here!!")
-          } else toast.success(message)
-            
-          setTimeout(() => {
-            window.location.href = navUrl;
-          }, 1500);
+
+        if (loginRes.role !== "CUSTOMER") {
+          localStorage.removeItem('token');
+          toast.error("Your account cannot login here!!")
+        } else toast.success(message)
+
+        setTimeout(() => {
+          window.location.href = navUrl;
+        }, 1500);
       } else {
         setLoginMess(err[0])
         toast.error(err[0] || response?.error?.message)

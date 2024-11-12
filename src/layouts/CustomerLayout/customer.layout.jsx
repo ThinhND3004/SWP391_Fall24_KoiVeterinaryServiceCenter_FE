@@ -6,6 +6,9 @@ import AdminFooter from '../AdminFooter'
 import AdminHeader from '../AdminHeader'
 import { BG_COLOR } from '~/theme'
 import Navbar from './Navbar'
+import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import ManagementApi from '~/api/ManagementApi'
 
 function CustomerLayout() {
 
@@ -32,8 +35,8 @@ function CustomerLayout() {
       height={'100%'}
       sx={{ m: 0, p: 0, bgcolor: BG_COLOR }}
     >
-      <Container maxWidth={'xl'} container>
-        <AdminHeader />
+      <Container maxwidth={'xl'} container="true">
+        {/* <AdminHeader /> */}
         <Box display={'flex'} justifyContent={'space-around'} gap={'50px'} px={'30px'}>
           <Box maxWidth={'200px'} width={'100%'}>
             <Navbar />

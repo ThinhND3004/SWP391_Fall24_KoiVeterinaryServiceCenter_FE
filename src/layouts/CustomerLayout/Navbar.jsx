@@ -21,16 +21,6 @@ const menus = [
     title: 'Password',
     icon: LockIcon,
     url: '/customer_password'
-  },
-  {
-    title: 'Booking',
-    icon: CalendarMonthIcon,
-    url: '/customer_booking'
-  },
-  {
-    title: 'Prescription',
-    icon: ArticleIcon,
-    url: '/customer_prescription'
   }
 ]
 
@@ -64,7 +54,7 @@ function Navbar() {
                 key={`menu-${idx}`}
                 sx={{ display: 'flex', alignItems: 'center', color: '#000' }}>
                 <ListItem
-                  button
+                  button=""
                   onClick={() => handleMenuClick(menu, idx)}
                   sx={{
                     gap: 1.5,
@@ -92,7 +82,7 @@ function Navbar() {
           })}
 
 
-          <Divider sx={{ paddingTop: '50px' }} />
+          {/* <Divider sx={{ paddingTop: '50px' }} />
           <Box sx={{ display: 'flex', alignItems: 'center', color: ORANGE_COLOR, paddingTop: '10px', ml: 2 }}>
             <Badge badgeContent={4} color="ORANGE COLOR">
               <NotificationsIcon color="action" sx={{ color: ORANGE_COLOR }} />
@@ -125,7 +115,7 @@ function Navbar() {
                 }}
               />
             </ListItem>
-          </Box>
+          </Box> */}
         </List>
       </Box>
     </div >

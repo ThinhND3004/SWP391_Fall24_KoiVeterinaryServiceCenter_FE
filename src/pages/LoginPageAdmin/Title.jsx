@@ -19,30 +19,30 @@ function Title() {
 
   useEffect(() => {
     const getUserData = async () => {
-        try {
-            const userData = await ManagementApi.getCurrentAccount();
+      try {
+        const userData = await ManagementApi.getCurrentAccount();
 
-            const navUrl =
-                userData.role === "ADMIN" ? "/admin" :
-                userData.role === "MANAGER" ? "/manager" :
-                "/veterinarian";
+        const navUrl =
+          userData.role === "ADMIN" ? "/bookings_dashboard" :
+            userData.role === "MANAGER" ? "/bookings_dashboard" :
+              "/veterinarian";
 
-            if (userData.role === "CUSTOMER") {
-                navigate('/403');
-                return; 
-            }
-
-            const isLoginned = localStorage.getItem('token') != null;
-            if (isLoginned) {
-                navigate(navUrl);
-            }
-        } catch (error) {
-            console.error("Error fetching user data:", error);
+        if (userData.role === "CUSTOMER") {
+          navigate('/403');
+          return;
         }
+
+        const isLoginned = localStorage.getItem('token') != null;
+        if (isLoginned) {
+          navigate(navUrl);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
     };
 
     getUserData();
-}, [navigate]); // Added `navigate` as a dependency
+  }, [navigate]); // Added `navigate` as a dependency
 
 
   const handleLogin = async () => {
@@ -58,27 +58,24 @@ function Title() {
         password
       })
 
-      const { data, status, message, err } = response.data
-      console.log("ADMIN LOGIN: ", response.data)
+      const { data, status, message, err } = response.data;
       if (status === 200) {
         localStorage.setItem('token', data.token)
         const loginRes = await ManagementApi.getCurrentAccount();
-        console.log("LOGIN RES: ", loginRes.role)
 
 
         const navUrl =
-          loginRes.role === "ADMIN" ? "/admin" :
-            loginRes.role === "MANAGER" ? "/manager" :
-            loginRes.role === "STAFF" ? "/staff" :
-              loginRes.role === "CUSTOMER" ? "/login" : "/veterinarian";
+          loginRes.role === "ADMIN" ? "/bookings_dashboard" :
+            loginRes.role === "MANAGER" ? "/bookings_dashboard" :
+              loginRes.role === "STAFF" ? "/staff" :
+                loginRes.role === "CUSTOMER" ? "/login" : "/veterinarian";
 
         // navigate('/home')
-        if (navUrl === "/login")
-        {
+        if (navUrl === "/login") {
           localStorage.removeItem('token');
           toast.error("Your account cannot login here!!")
         } else toast.success(message)
-          
+
         setTimeout(() => {
           window.location.href = navUrl;
         }, 1500);
@@ -96,18 +93,14 @@ function Title() {
 
   return (
     <div>
-      <Box display={'flex'} flexDirection={'column'} gap={'100px'} px={'30px'}>
+      <Box display={'flex'} flexDirection={'column'} gap={'100px'} px={'30px'} >
         <Box sx={{ display: 'flex', justifyContent: 'space-around', marginBottom: '50px', marginTop: '10px' }}>
-          <img src='https://img.freepik.com/free-vector/
-          hand-drawn-clip-art-woman-customer-service-call-center-job
-          -office-worker-character_40876-3162.jpg?t=st=1731132247~exp=1
-          731135847~hmac=fd2c1b672870659b3ffbea573b5112bc52c396ec
-          c123212a0e4d9f54ea0ed520&w=740' style={{ objectFit: 'contain', width: '400px', borderRadius: '26px' }} />
+          {/* <img src='src\assets\images\management.png' style={{ objectFit: 'contain', width: '400px', borderRadius: '26px' }} /> */}
           <Box sx={{ display: 'flex', flexDirection: 'column', mt: '0px', width: 600 }}>
-            <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 45, textAlign: 'center', color: BLUE_COLOR }}>
+            <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 40, textAlign: 'center', color: BLUE_COLOR }}>
               Welcome To Koi Care Clinic <span style={{ color: ORANGE_COLOR }}>Management System</span>
             </Typography>
-            <Typography sx={{ textAlign: 'center', fontSize: 14, marginTop: '10px' }}>
+            <Typography sx={{ textAlign: 'center', fontSize: 12, marginTop: '10px' }}>
               Welcome to the Admin Portal. Please log in with your credentials to access and manage the system’s resources.
             </Typography>
 
@@ -151,7 +144,7 @@ function Title() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   sx={{
-                    width: '560px',
+                    width: '500px',
                     '& .MuiOutlinedInput-root': {
                       borderRadius: '15px',
                       borderColor: BLUE_COLOR,
@@ -181,7 +174,7 @@ function Title() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   sx={{
-                    width: '560px',
+                    width: '500px',
                     '& .MuiOutlinedInput-root': {
                       borderRadius: '15px',
                       borderColor: BLUE_COLOR,
@@ -206,7 +199,7 @@ function Title() {
                 borderRadius: '15px',
                 bgcolor: BLUE_COLOR,
                 height: '60px',
-                width: '560px',
+                width: '500px',
                 fontSize: 16,
                 boxShadow: 'none',
                 gap: 2,

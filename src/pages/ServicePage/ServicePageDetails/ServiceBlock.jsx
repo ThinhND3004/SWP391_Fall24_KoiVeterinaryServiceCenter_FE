@@ -1,16 +1,16 @@
 import React from 'react'
 import { Box, Button, Typography } from '@mui/material'
 import { BG_COLOR, BLUE_COLOR, GRAY_COLOR, OFFLINE_BUTTON, ONLINE_BUTTON, ORANGE_COLOR } from '~/theme'
-import MeetingMethodTagHolder from './MethodMeetingTag';
-import { useNavigate } from 'react-router-dom';
+import MeetingMethodTagHolder from './MethodMeetingTag'
+import { useNavigate } from 'react-router-dom'
 
 function ServiceBlock({ service }) {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const serviceAddress = "Long Thanh My Ward, Thủ Đức, 71216, Vietnam";
+  const serviceAddress = "Long Thanh My Ward, Thủ Đức, 71216, Vietnam"
   const handleOnlineConsultantDetails = () => {
     localStorage.setItem("serviceId", service.id)
-    navigate("/online-consultant", { state: { service, serviceAddress } }); // Truyền state qua route
+    navigate("/online-consultant", { state: { service, serviceAddress } }) // Truyền state qua route
   };
 
   return (

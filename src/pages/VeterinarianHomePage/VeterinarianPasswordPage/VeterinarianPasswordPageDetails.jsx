@@ -14,7 +14,7 @@ function VeterinarianPasswordPageDetails() {
     <div style={{ position: 'relative' }}>
       <Breadcrumbs aria-label="breadcrumb">
         <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-          Pham Luu Tuan Tai
+          Veterinarian
         </Typography>
         <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
           Password Management

@@ -11,6 +11,7 @@ import DynamicDataGrid from './testGrid'
 import ManagementApi from '~/api/ManagementApi'
 import { useEffect, useState } from 'react'
 import TimeUtils from '~/utils/TimeUtils'
+import BackdropComponent from '~/components/Backdrop.component'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -57,6 +58,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 function VeterinarianBookingPageDetails() {
   const [rowData, setRowData] = useState([]);
   const [navBarStatus, setNavBarStatus] = useState("ALL")
+  const [loading, setLoading] = useState(true)
 
 
   const fetchDataByStatus = async (status) => {
@@ -64,6 +66,7 @@ function VeterinarianBookingPageDetails() {
 
     if (status === 'ALL') data = await ManagementApi.getVeterianBookings({});
     else data = await ManagementApi.getVeterianBookings({ status: status });
+    setLoading(false)
 
     const row = data.map((data) => {
       return {
@@ -126,12 +129,12 @@ function VeterinarianBookingPageDetails() {
             </Typography>
           </Button> */}
 
-          <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: INPUT_FIELD_COLOR, borderRadius: '10px', gap: 1 }}>
+          {/* <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: INPUT_FIELD_COLOR, borderRadius: '10px', gap: 1 }}>
             <FileDownloadIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
             <Typography sx={{ color: GRAY_COLOR, fontWeight: 500, fontSize: '14px' }}>
               Import
             </Typography>
-          </Button>
+          </Button> */}
 
 
         </Box>
@@ -146,6 +149,7 @@ function VeterinarianBookingPageDetails() {
       <Box sx={{ mt: 3, mb: 3 }}>
         <DynamicDataGrid rowData={rowData} />
       </Box>
+      <BackdropComponent open={loading} />
     </Box>
   )
 }

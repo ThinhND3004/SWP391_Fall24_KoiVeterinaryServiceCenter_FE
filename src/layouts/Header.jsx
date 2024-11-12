@@ -24,7 +24,7 @@ import Avatar from "@mui/material/Avatar";
 import axios from "axios";
 import ManagementApi from "~/api/ManagementApi";
 
-const pages = ["Home", "About us", "Service", "Koi Health", "Contact Us"];
+const pages = ["Home", "About us", "Service", "Koi Health"];
 
 const LoginButton = ({ navigate }) => {
   return (
@@ -99,26 +99,51 @@ const Profile = ({
           vertical: "top",
           horizontal: "right",
         }}
-        // sx={{ bgcolor: '#000' }}
+        sx={{
+          "& .MuiPaper-root": {
+            width: '150px',
+            height: '150px',
+            backgroundColor: INPUT_FIELD_COLOR,
+            borderRadius: '14px',
+          },
+        }}
       >
-        <MenuItem onClick={handleProfile}>Profile</MenuItem>
+        <MenuItem
+          onClick={handleProfile}
+          style={{
+            marginTop: 6,
+            display: 'flex',
+            justifyContent: 'center',
+            textAlign: 'center'
+          }}
+        >
+          Profile
+        </MenuItem>
+
         {/* only render Booking List if role is CUSTOMER */}
         {accInfo?.role === "CUSTOMER" && (
-          <MenuItem onClick={handleBookingList}>Booking</MenuItem>
+          <MenuItem onClick={handleBookingList} style={{
+            marginTop: 6,
+            display: 'flex',
+            justifyContent: 'center',
+            textAlign: 'center'
+          }}>Booking</MenuItem>
         )}
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
-      </Menu>
+        <MenuItem onClick={handleLogout} style={{
+          marginTop: 6,
+          display: 'flex',
+          justifyContent: 'center',
+          textAlign: 'center'
+        }}>Logout</MenuItem>
+      </Menu >
     </>
   );
 };
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
 function Header() {
-  // lay state tu redux (currentState)
-  // Dat state la navbarId
   const navbarId = useSelector((state) => state.globalConfig.navbarId);
 
-  // doc mess
   const dispatch = useDispatch();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -160,7 +185,10 @@ function Header() {
         console.log("TOKEN: ", token);
         const response = await api.get("accounts/current");
         console.log("INFO: ", response.data.data);
-
+        if (!response.data.data) {
+          localStorage.removeItem("token");
+          return;
+        }
         if (response) {
           setAccInfo(response.data.data);
           localStorage.setItem(
@@ -170,6 +198,7 @@ function Header() {
         }
       } catch {
         console.log("ERROR GET INFO");
+        localStorage.removeItem("token");
       }
     }
   };
@@ -212,11 +241,11 @@ function Header() {
   const handleProfile = () => {
     handleClose();
     console.log("Go to profile...");
-    navigate("/profile");
+    navigate("/customer");
     // Add your profile navigation logic here
   };
 
-  // d biet
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };

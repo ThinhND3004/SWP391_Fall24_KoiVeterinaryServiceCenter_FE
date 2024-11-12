@@ -11,6 +11,7 @@ import { Typography } from '@mui/material'
 import DynamicDataGrid from './testGrid'
 import ManagementApi from '../../../api/ManagementApi'
 import { useEffect, useState } from "react";
+import BackdropComponent from '~/components/Backdrop.component'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -56,6 +57,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 function StaffCustomerPageDetails() {
   const [customerData, setCustomerData] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+  const [loading, setLoading] = useState(true)
 
   const fetchData = async () => {
     const data = await ManagementApi.getAccounts('CUSTOMER');
@@ -83,6 +85,7 @@ function StaffCustomerPageDetails() {
     fetchData()
   }, []);
 
+
   return (
     <div>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
@@ -101,20 +104,6 @@ function StaffCustomerPageDetails() {
               onChange={handleSearching}
             />
           </Search>
-
-          <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: INPUT_FIELD_COLOR, borderRadius: '10px', gap: 1 }}>
-            <FileDownloadIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
-            <Typography sx={{ color: GRAY_COLOR, fontWeight: 500, fontSize: '14px' }}>
-              Import
-            </Typography>
-          </Button>
-
-          <Button variant="contained" sx={{ boxShadow: 'none', bgcolor: BLUE_COLOR, borderRadius: '10px', color: '#fff', gap: 1 }}>
-            <AddIcon sx={{ fontSize: '14px' }} />
-            <Typography sx={{ fontSize: '14px' }}>
-              Add
-            </Typography>
-          </Button>
         </Box>
       </Box>
 
@@ -122,6 +111,7 @@ function StaffCustomerPageDetails() {
       <Box sx={{ mt: 3, mb: 3 }}>
         <DynamicDataGrid data={customerData} />
       </Box>
+      {/* <BackdropComponent open={loading} /> */}
     </div>
   )
 }

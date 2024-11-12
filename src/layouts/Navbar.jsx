@@ -36,11 +36,6 @@ const menus = [
     title: 'Veterian',
     icon: LocalHospitalIcon,
     url: '/staff_veterinarian_management'
-  },
-  {
-    title: 'Prescription',
-    icon: ArticleIcon,
-    url: '/staff_prescription'
   }
 ]
 
@@ -52,6 +47,13 @@ function Navbar() {
     setSelectedMenu(idx)
     navigate(menu.url)
   }
+
+  const handleLogout = () => {
+    localStorage.removeItem("accountInfo");
+    localStorage.removeItem("token");
+    // navigate("/home");
+    window.location.href = "/management-login";
+  };
 
   return (
     <div>
@@ -106,7 +108,7 @@ function Navbar() {
 
 
           <Divider sx={{ paddingTop: '50px' }} />
-          <Box onClick={() => navigate('/staff/notification')}  sx={{ display: 'flex', alignItems: 'center', color: ORANGE_COLOR, paddingTop: '10px', ml: 2 }}>
+          <Box onClick={() => navigate('/staff/notification')} sx={{ display: 'flex', alignItems: 'center', color: ORANGE_COLOR, paddingTop: '10px', ml: 2 }}>
             <Badge badgeContent={4} color="ORANGE COLOR">
               <NotificationsIcon color="action" sx={{ color: ORANGE_COLOR }} />
             </Badge>
@@ -126,7 +128,7 @@ function Navbar() {
 
           <Box sx={{ display: 'flex', alignItems: 'center', color: ORANGE_COLOR, paddingTop: '10px', ml: 2 }}>
             <LoginIcon />
-            <ListItem button component={Link} to="#" sx={{ color: ORANGE_COLOR, paddingTop: '10px' }}>
+            <ListItem onClick={handleLogout} button component={Link} to="#" sx={{ color: ORANGE_COLOR, paddingTop: '10px' }}>
               <ListItemText
                 primary="Logout"
                 primaryTypographyProps={{

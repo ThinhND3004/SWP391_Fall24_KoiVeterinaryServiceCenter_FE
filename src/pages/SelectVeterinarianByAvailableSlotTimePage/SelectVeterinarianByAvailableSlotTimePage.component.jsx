@@ -14,6 +14,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
+import api from "~/config/axios";
 
 const SelectVeterinarianByAvailableSlotTimeComponent = () => {
   const [veterinarians, setVeterinarians] = useState([]);
@@ -32,22 +33,15 @@ const SelectVeterinarianByAvailableSlotTimeComponent = () => {
   const { startOfWeek, endOfWeek } = getStartAndEndOfWeek();
 
   const fetchVeterinarianWithTimeSlot = async () => {
-    const token = localStorage.getItem("token");
     try {
-      const response = await fetch(
-        `http://localhost:8089/accounts/veterian-with-time-slot/${serviceId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+      const response = await api.get(
+        `/accounts/veterian-with-time-slot/${serviceId}`
       );
-
-      if (!response.ok) {
+      if (!response) {
         throw new Error("Network response was not ok");
       }
 
-      const data = await response.json();
+      const data = response.data;
       setVeterinarians(data.data || []);
 
       const today = dayjs();

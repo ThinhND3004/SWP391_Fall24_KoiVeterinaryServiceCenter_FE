@@ -28,7 +28,7 @@ function ProfilePageDetails() {
     <div style={{ position: 'relative' }}>
       <Breadcrumbs aria-label="breadcrumb">
         <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-          Staff
+          Veterinarian
         </Typography>
         <Typography sx={{
           fontWeight: 600, fontSize: '20px'
@@ -153,7 +153,7 @@ function ProfilePageDetails() {
           <TextField
             id="outlined-basic"
             placeholder='Enter your phone number'
-            value={account ? account.phoneNumber : 'Loading...'}
+            value={account ? account.phone : 'Loading...'}
             variant="outlined"
             sx={{
               width: '500px',
@@ -282,11 +282,11 @@ function ProfilePageDetails() {
 
       </Box>
       {/* VETERIAN PROFILE */}
-      <VerterianProfile/>
+      <VerterianProfile />
       {/* When2meet */}
-      <Box sx={{}}>
-          <Timetable />
-        </Box>
+      <Box sx={{ mb: 10 }}>
+        <Timetable />
+      </Box>
     </div >
   )
 }

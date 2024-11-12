@@ -4,7 +4,7 @@ import CustomerPasswordDetails from "./CustomerPasswordDetails/CustomerPasswordD
 
 function CustomerPasswordComponent() {
   return (
-    <Box display={"flex"} flexDirection={"column"} gap={"50px"} px={"30px"}>
+    <Box display={"flex"} flexDirection={"column"} px={"30px"}>
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <Breadcrumbs aria-label="breadcrumb">
           <Typography sx={{ fontWeight: 600, fontSize: "20px" }}>

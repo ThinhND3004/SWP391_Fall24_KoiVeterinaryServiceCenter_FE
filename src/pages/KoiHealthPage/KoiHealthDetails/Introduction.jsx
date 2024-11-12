@@ -6,6 +6,7 @@ import { BLUE_COLOR, ORANGE_COLOR } from '~/theme'
 function Introduction() {
   return (
     <div>
+
       <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 250, textAlign: 'center', color: BLUE_COLOR }}>KOI HEALTH</Typography>
       <Typography sx={{ textAlign: 'center', fontSize: 30, marginTop: '10px', fontWeight: 700 }}>
         Quality <span style={{ color: ORANGE_COLOR }} >Koi Fish</span> Care
@@ -14,6 +15,15 @@ function Introduction() {
         <Typography sx={{ textAlign: 'center', fontSize: 14, marginTop: '10px', width: '900px' }}>
           Our specialized Koi Health Services are designed to support the wellbeing of your koi fish through expert care and preventive treatments. At Koi Care Clinic, we combine knowledge and experience to maintain your fish's health and vitality.
         </Typography>
+      </Box>
+      <Box
+        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 10 }}
+      >
+        <img
+          src='/src/assets/images/KoiServices.png'
+          alt="Koi Services"
+          width={1000}
+        />
       </Box>
     </div>
   )

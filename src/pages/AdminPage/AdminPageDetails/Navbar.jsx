@@ -39,7 +39,7 @@ const menus = [
   {
     title: 'Account',
     icon: AccountCircleIcon,
-    url: '/profile'
+    url: '/customer'
   },
   // {
   //   title: 'Password',
@@ -83,6 +83,13 @@ function Navbar() {
   const [selectedMenu, setSelectedMenu] = useState(null)
   const [openSubMenu, setOpenSubMenu] = useState(null)
 
+  const handleLogout = () => {
+    localStorage.removeItem("accountInfo");
+    localStorage.removeItem("token");
+    // navigate("/home");
+    window.location.href = "/management-login";
+  };
+
   const handleMenuClick = (menu, idx) => {
     setSelectedMenu(idx)
 
@@ -116,7 +123,7 @@ function Navbar() {
                   sx={{ display: 'flex', alignItems: 'center', color: '#000' }}
                 >
                   <ListItem
-                    button
+                    button=""
                     onClick={() => handleMenuClick(menu, idx)}
                     sx={{
                       gap: 1.5,
@@ -146,7 +153,7 @@ function Navbar() {
                     <List>
                       {menu.data.map((subMenu, subIdx) => (
                         <ListItem
-                          button
+                          button=""
                           key={`submenu-${subIdx}`}
                           onClick={() => navigate(subMenu.url)}
                           sx={{ gap: 1.5, cursor: 'pointer', mt: 1 }}
@@ -172,7 +179,7 @@ function Navbar() {
           <Divider sx={{ paddingTop: '50px' }} />
           <Box sx={{ display: 'flex', alignItems: 'center', color: ORANGE_COLOR, paddingTop: '10px' }}>
             <LoginIcon />
-            <ListItem button component={Link} to="#" sx={{ color: ORANGE_COLOR, paddingTop: '10px' }}>
+            <ListItem onClick={handleLogout} button="" component={Link} to="#" sx={{ color: ORANGE_COLOR, paddingTop: '10px' }}>
               <ListItemText
                 primary="Logout"
                 primaryTypographyProps={{
