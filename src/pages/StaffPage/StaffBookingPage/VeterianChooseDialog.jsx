@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { GRAY_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme';
 import SearchIcon from '@mui/icons-material/Search'
 import ManagementApi from '~/api/ManagementApi';
-import { sendNotification, sendNotificationOnEmail } from '~/utils/WebSocketUtils';
+import { sendNotificationOnEmail } from '~/utils/WebSocketUtils';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -45,14 +45,6 @@ function VeterianChooseDialog({ bookingId, serviceName, serviceId, serviceMethod
         const [isSent, setIsSent] = useState(false);
 
         const handleSend = async () => {
-            // Send Notification
-            sendNotificationOnEmail({
-                bookingId: bookingId,
-                accountEmail: veterian.email,
-                title: 'Invitation',
-                description: 'You received a booking invitation!',
-                type: 'YESNO'
-            })
             const date = new Date(startedAt);
 
             const day = String(date.getDate()).padStart(2, '0');
@@ -64,6 +56,17 @@ function VeterianChooseDialog({ bookingId, serviceName, serviceId, serviceMethod
             const time = `${hours}:${minutes}`;
             const formattedDate = `${day}/${month}/${year}`;
 
+            // Send Notification
+            sendNotificationOnEmail({
+                bookingId: bookingId,
+                accountEmail: veterian.email,
+                title: 'Invitation',
+                description: `You received a booking to do ${serviceName} at ${formattedDate} ${hours}:${minutes} in ${userAddress ? userAddress : ' Koi Veterinary Clinic Center'}!`,
+                type: 'YESNO',
+                message: 'You received an invitation!',
+                notiType: 'success'
+            })
+            
             // Send Email
             const sendEmailResp = await ManagementApi.sendInvitationEmail({
                 to: veterian.email,

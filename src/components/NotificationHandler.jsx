@@ -17,9 +17,9 @@ const NotificationHandler = ({ subscribeTo }) => {
             const { accountEmail, title, description, type } = notification.data;
             setNotifications((prev) => [
                 ...prev,
-                { accountEmail, title, description, type }
+                { accountEmail, title, description, type, message }
             ]);
-            enqueueSnackbar(description, { variant: 'success' });
+            enqueueSnackbar(notification.message, { variant: notification.notiType});
         })
     }
 
