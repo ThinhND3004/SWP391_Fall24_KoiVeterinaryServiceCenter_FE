@@ -244,8 +244,13 @@ export default class ManagementApi {
     try {
       if (!imageId) return result;
       const response = await api.get(`/images/picture/${imageId}`, {
-        responseType: 'blob',
+        headers: {
+          'Content-Type': 'image/jpeg'
+        },
+        responseType: 'blob'
       });
+      
+      console.log("RES: ", response)
       result = URL.createObjectURL(response.data);
     } catch (err) {
       console.log("ERROR GET IMG API MANAGE: ", err)

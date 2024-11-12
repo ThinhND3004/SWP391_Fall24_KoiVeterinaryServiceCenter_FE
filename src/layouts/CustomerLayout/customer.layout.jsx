@@ -18,7 +18,7 @@ function CustomerLayout() {
   //auth
   useEffect(() => {
     const checkUserRole = async () => {
-      const hasPermission = await ManagementApi.permitFor(['CUSTOMER'])
+      const hasPermission = await ManagementApi.permitFor(['CUSTOMER', 'ADMIN'])
       if (!hasPermission) {
         navigate('/403')
       }
