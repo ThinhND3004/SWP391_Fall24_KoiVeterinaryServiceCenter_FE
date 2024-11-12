@@ -126,7 +126,6 @@ const RouteComponent = () => {
         {/* <Route path='/dashboard' element={<DashboardPage />} /> */}
         <Route path='/bookings_dashboard' element={<DashboardBookingPage />} />
         <Route path='/veterinarians_dashboard' element={<DashboardVeterinariansPage />} />
-
         <Route path='/admin_password' element={<PasswordPage />} />
         <Route path='/admin_staff' element={<StaffPage />} />
         <Route path='/admin_service' element={<StaffServicePage />} />

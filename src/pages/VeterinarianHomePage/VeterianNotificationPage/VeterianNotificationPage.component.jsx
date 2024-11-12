@@ -36,7 +36,9 @@ function VeterianNotificationPage() {
                 bookingId: notification.bookingId,
                 title: 'Accept Invitation',
                 description: `${notification.accountFullName} have accepted your invitation!`,
-                type: 'DEFAULT'
+                type: 'DEFAULT',
+                message:  `${notification.accountFullName} have accepted your invitation!`,
+                notiType: 'success'
             })
 
             // Send email 
@@ -64,6 +66,8 @@ function VeterianNotificationPage() {
                 title: 'Reject Invitation',
                 description: `${notification.accountFullName} had rejected your invitation!`,
                 type: 'DEFAULT',
+                message:  `${notification.accountFullName} have rejected your invitation!`,
+                notiType: 'error'
             })
 
             await ManagementApi.sendInvitationResultEmail({

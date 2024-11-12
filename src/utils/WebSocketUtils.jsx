@@ -16,20 +16,19 @@ export const initializeWebSocket = ({ handleConnect }) => {
         },
         onDisconnect: () => console.log('Disconnected from WebSocket'),
         onStompError: (frame) => console.error('Broker error: ' + frame.headers['message']),
-    });
+    }); 
     client.activate();
 
     return client;
 };
 
-export const sendNotification = async ({ accountEmail, bookingId, title, description, type }) => {
+export const sendNotification = async ({ accountEmail, bookingId, title, description, type, message, notiType }) => {
     if (client && client.connected) {
         try {
             const token = localStorage.getItem('token')?.replaceAll('"', '');
-            console.log(accountEmail + " " + token)
             client.publish({
                 destination: '/app/send',
-                body: JSON.stringify({ accountEmail,token, bookingId, title, description, type }),
+                body: JSON.stringify({ accountEmail, token, bookingId, title, description, type, message, notiType }),
             });
 
         } catch (error) {
@@ -40,13 +39,13 @@ export const sendNotification = async ({ accountEmail, bookingId, title, descrip
     }
 };
 
-export const sendNotificationOnEmail = async ({ accountEmail, bookingId, title, description, type }) => {
+export const sendNotificationOnEmail = async ({ accountEmail, bookingId, title, description, type, message, notiType }) => {
     if (client && client.connected) {
         try {
             const token = localStorage.getItem('token')?.replaceAll('"', '')
             client.publish({
                 destination: '/app/send-email',
-                body: JSON.stringify({ accountEmail, token, bookingId, title, description, type }),
+                body: JSON.stringify({ accountEmail, token, bookingId, title, description, type, message, notiType }),
             });
 
         } catch (error) {
