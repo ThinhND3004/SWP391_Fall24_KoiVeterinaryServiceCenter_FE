@@ -114,14 +114,14 @@ export default function BookingListDetails() {
       let feedbackList = [];
       if (token) {
         try {
-          const response = await api.get(`/feedbacks/${id}`);
+          const response = await api.get(`/feedbacks?page=1&unitPerPage=10&bookingId=${id}`);
 
           if (!response) throw new Error('Failed to fetch appointments');
 
           feedbackList = await response.data;
           setFeedbacks(feedbackList.data);
           console.log(feedbackList);
-          
+
         } catch (error) {
           console.error('Failed to fetch appointments:', error);
         }
