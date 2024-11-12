@@ -11,16 +11,16 @@ function DashboardVeterinarianDetails() {
 
   useEffect(() => {
     const fetchData = async () => {
-     try {
-       const response = await api.get('/dashboard/veterinarian')
-       const data = await response.data
-       if (data.data) {
-        setData(data.data.data)
-       }
-       console.log(data)
-     } catch (error) {
-       console.error('Error fetching dashboard data:', error)
-     }
+      try {
+        const response = await api.get('/dashboard/veterinarian')
+        const data = await response.data
+        if (data.data) {
+          setData(data.data.data)
+        }
+        console.log(data)
+      } catch (error) {
+        console.error('Error fetching dashboard data:', error)
+      }
     }
     fetchData()
   }, [])
@@ -48,27 +48,8 @@ function DashboardVeterinarianDetails() {
             {data.totalWorkTime}hrs
           </Typography>
         </Box>
-
-        {/* <Box sx={{ bgcolor: INPUT_FIELD_COLOR, width: '500px', height: '200px', borderRadius: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-          <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-            Average Working Time
-          </Typography>
-          <Typography sx={{ fontWeight: 600, fontSize: '40px' }}>
-          {data.averageWorkingHours}hrs
-          </Typography>
-        </Box> */}
       </Box>
 
-      {/* <Box sx={{ bgcolor: INPUT_FIELD_COLOR, width: '1020px', mt: 2, height: '200px', borderRadius: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-        <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-          Average Working Time
-        </Typography>
-        <Typography sx={{ fontWeight: 600, fontSize: '40px' }}>
-          8hrs
-        </Typography>
-      </Box> */}
-
-      {/* Chart */}
       <Box sx={{ display: 'flex', gap: 2, mb: 5 }}>
         <Box sx={{ bgcolor: INPUT_FIELD_COLOR, borderRadius: '20px', height: '320px', mt: 2, width: '500px' }}>
           <BarChartPro
@@ -84,7 +65,7 @@ function DashboardVeterinarianDetails() {
             ]}
             series={[
               {
-                label: 'totalWorkTimePerMonth',
+                label: 'Total Work Time Per Month',
                 data: data.totalWorkTimePerMonth ? Object.keys(data.totalWorkTimePerMonth).map((v) => data.totalWorkTimePerMonth[v].count) : []
               }
             ]}
@@ -105,7 +86,7 @@ function DashboardVeterinarianDetails() {
             ]}
             series={[
               {
-                label: 'averageWorkTime',
+                label: 'Average Work Time',
                 data: data.averageWorkTime ? Object.keys(data.averageWorkTime).map((v) => data.averageWorkTime[v].average) : []
               }
             ]}
