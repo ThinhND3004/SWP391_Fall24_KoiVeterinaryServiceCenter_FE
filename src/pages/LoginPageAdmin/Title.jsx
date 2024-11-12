@@ -23,8 +23,8 @@ function Title() {
         const userData = await ManagementApi.getCurrentAccount();
 
         const navUrl =
-          userData.role === "ADMIN" ? "/admin" :
-            userData.role === "MANAGER" ? "/manager" :
+          userData.role === "ADMIN" ? "/bookings_dashboard" :
+            userData.role === "MANAGER" ? "/bookings_dashboard" :
               "/veterinarian";
 
         if (userData.role === "CUSTOMER") {
@@ -65,8 +65,8 @@ function Title() {
 
 
         const navUrl =
-          loginRes.role === "ADMIN" ? "/admin" :
-            loginRes.role === "MANAGER" ? "/manager" :
+          loginRes.role === "ADMIN" ? "/bookings_dashboard" :
+            loginRes.role === "MANAGER" ? "/bookings_dashboard" :
               loginRes.role === "STAFF" ? "/staff" :
                 loginRes.role === "CUSTOMER" ? "/login" : "/veterinarian";
 

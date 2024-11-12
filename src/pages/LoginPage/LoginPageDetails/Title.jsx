@@ -26,7 +26,7 @@ function Title() {
   const handleNavigate = () => {
     navigate('/home');
     window.location.reload();  // Force reload
-};
+  };
 
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
@@ -42,17 +42,17 @@ function Title() {
           window.location.href = '/home'
 
           toast.success(message)
-      } else {
-        setLoginMess(err[0])
-        toast.error(err[0] || response?.error?.message)
-      }
+        } else {
+          setLoginMess(err[0])
+          toast.error(err[0] || response?.error?.message)
+        }
       } catch (error) {
         console.error("Login failed:", error);
       }
     },
     onError: (error) => console.error("Google Login Failed:", error),
   });
-  
+
 
 
   useEffect(() => {
@@ -97,18 +97,17 @@ function Title() {
 
 
         const navUrl =
-        loginRes.role === "CUSTOMER" ? "/home" : "/login/admin"
+          loginRes.role === "CUSTOMER" ? "/home" : "/management-login"
 
-        
-        if (loginRes.role !== "CUSTOMER")
-          {
-            localStorage.removeItem('token');
-            toast.error("Your account cannot login here!!")
-          } else toast.success(message)
-            
-          setTimeout(() => {
-            window.location.href = navUrl;
-          }, 1500);
+
+        if (loginRes.role !== "CUSTOMER") {
+          localStorage.removeItem('token');
+          toast.error("Your account cannot login here!!")
+        } else toast.success(message)
+
+        setTimeout(() => {
+          window.location.href = navUrl;
+        }, 1500);
       } else {
         setLoginMess(err[0])
         toast.error(err[0] || response?.error?.message)

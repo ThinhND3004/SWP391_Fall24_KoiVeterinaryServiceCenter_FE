@@ -8,7 +8,7 @@ function VeterinarianBookingPage() {
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Breadcrumbs aria-label="breadcrumb">
           <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-            Pham Luu Tuan Tai
+            Veterinarian
           </Typography>
           <Typography sx={{
             fontWeight: 600, fontSize: '20px'

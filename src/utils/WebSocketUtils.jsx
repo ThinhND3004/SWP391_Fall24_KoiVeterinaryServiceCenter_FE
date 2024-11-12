@@ -6,7 +6,7 @@ import api from "~/config/axios";
 let client;
 
 export const initializeWebSocket = ({ handleConnect }) => {
-    const socket = new SockJS(api.defaults.baseURL + '/ws');
+    const socket = new SockJS(api.defaults.baseURL + 'ws');
     client = new Client({
         webSocketFactory: () => socket,
         debug: (str) => console.log(str),
