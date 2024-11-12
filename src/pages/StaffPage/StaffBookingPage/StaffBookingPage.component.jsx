@@ -8,7 +8,7 @@ function StaffBookingPage() {
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Breadcrumbs aria-label="breadcrumb">
           <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-            Admin
+            Staff
           </Typography>
           <Typography sx={{
             fontWeight: 600, fontSize: '20px'

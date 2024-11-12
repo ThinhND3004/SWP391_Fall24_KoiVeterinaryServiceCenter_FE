@@ -157,7 +157,7 @@ function ProfilePageDetails() {
           <TextField
             id="outlined-basic"
             placeholder='Enter your phone number'
-            value={accountData ? accountData.phoneNumber : 'Loading...'}
+            value={accountData ? accountData.phone : 'Loading...'}
             variant="outlined"
             sx={{
               width: '500px',

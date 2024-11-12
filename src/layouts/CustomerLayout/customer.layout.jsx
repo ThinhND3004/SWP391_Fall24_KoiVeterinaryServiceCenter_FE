@@ -36,7 +36,7 @@ function CustomerLayout() {
       sx={{ m: 0, p: 0, bgcolor: BG_COLOR }}
     >
       <Container maxWidth={'xl'} container>
-        <AdminHeader />
+        {/* <AdminHeader /> */}
         <Box display={'flex'} justifyContent={'space-around'} gap={'50px'} px={'30px'}>
           <Box maxWidth={'200px'} width={'100%'}>
             <Navbar />
