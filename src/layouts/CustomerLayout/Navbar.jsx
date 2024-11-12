@@ -54,7 +54,7 @@ function Navbar() {
                 key={`menu-${idx}`}
                 sx={{ display: 'flex', alignItems: 'center', color: '#000' }}>
                 <ListItem
-                  button
+                  button=""
                   onClick={() => handleMenuClick(menu, idx)}
                   sx={{
                     gap: 1.5,
