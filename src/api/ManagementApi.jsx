@@ -265,6 +265,17 @@ export default class ManagementApi {
     }
     return [];
   }
+  
+  static async getFeedbackFromTokenAndBooking({ bookingId }) {
+    try {
+      const response = await api.get(`/feedbacks/current-booking/${bookingId}`);
+      if (response.data.status === 200) return response.data.data; 
+    }
+    catch (err) {
+      console.error('Cannot create feedback: ' + err.message)
+    }
+    return null;
+  }
 
   static async checkIsFeedback({ bookingId }) {
     try {

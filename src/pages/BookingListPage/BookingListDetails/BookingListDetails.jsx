@@ -27,6 +27,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import api from '~/config/axios';
+import FeedbackDialog from './FeedbackDialog';
 
 export default function BookingListDetails() {
   const [appointments, setAppointments] = useState([]);
@@ -447,135 +448,9 @@ export default function BookingListDetails() {
 
                 <ToastContainer />
               </Box>
-              <button
-                style={{
-                  width: '200px',
-                  height: '60px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#fff',
-                  fontFamily: 'Poppins',
-                  backgroundColor: BLUE_COLOR,
-                  borderRadius: '30px',
-                  cursor: 'pointer'
-                }}
-                onClick={() => handleClickOpen(appointment.id)}
-              >
-                Feedbacks
-              </button>
+              <FeedbackDialog bookingId={appointment.id}/>
 
-              <Dialog
-                open={open}
-                onClose={handleClose}
-                PaperProps={{
-                  sx: {
-                    width: '600px',
-                    maxWidth: '90%',
-                    height: '650px',
-                    bgcolor: INPUT_FIELD_COLOR,
-                    borderRadius: '30px'
-                  }
-                }}
-              >
-                <DialogTitle sx={{ marginTop: 4 }}>
-                  <Typography
-                    sx={{ fontWeight: 600, fontSize: 20, textAlign: 'center' }}
-                  >
-                    View Feedbacks
-                  </Typography>
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText
-                    sx={{ fontWeight: 600, fontSize: 14, textAlign: 'center' }}
-                  >
-                    Your feedback helps us improve—please take a moment to rate
-                    our service!
-                  </DialogContentText>
-
-
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: 2,
-                      mt: 1
-                    }}
-                  >
-                    {/* Create */}
-                    <Box>
-                      <Typography sx={{ fontWeight: 600, fontSize: 16, mt: 5 }}>Feedback</Typography>
-                      <TextField
-                        id="outlined-basic"
-                        placeholder='Enter your feedback'
-                        variant="outlined"
-                        multiline
-                        rows={4}
-                        value={comment}
-                        onChange={(e) => setComment(e.target.value)}
-                        sx={{
-                          width: '550px',
-
-                          '& .MuiOutlinedInput-root': {
-                            borderRadius: '15px',
-                            borderColor: BLUE_COLOR,
-                            // marginTop: '15px',
-                            '&.Mui-focused fieldset': {
-                              borderColor: BLUE_COLOR
-                            }
-                          },
-                          '& input': {
-                            backgroundColor: INPUT_FIELD_COLOR,
-                            padding: '20px 15px',
-                            fontSize: '16px',
-                            borderRadius: '15px'
-                          }
-                        }}
-                      />
-                    </Box>
-                    {/* <Box> */}
-                    <Box>
-                      {feedbacks?.map((fb) => (
-                        <Box key={fb.id || fb.uniqueIdentifier} sx={{ mt: 2 }}>
-                          <Box sx={{ display: 'flex', gap: 5 }}>
-                            <Typography sx={{ fontWeight: 500 }}>Fullname</Typography>
-                            <Rating
-                              name="read-only"
-                              value={fb.starRating}
-                              readOnly
-                              sx={{ fontSize: 20 }}
-                            />
-                          </Box>
-                          <Typography sx={{ fontSize: 14, mt: 1 }}>
-                            {fb.comment}
-                          </Typography>
-                        </Box>
-                      ))}
-
-                    </Box>
-                  </Box>
-
-                </DialogContent>
-
-                <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-                  <DialogActions>
-                    <Button
-                      onClick={handleClose}
-                      sx={{
-                        bgcolor: BLUE_COLOR,
-                        borderRadius: '14px',
-                        color: 'white',
-                        width: '100px',
-                        height: '40px',
-                        mr: 6,
-                        mb: 3
-                      }}
-                    >
-                      OK
-                    </Button>
-                  </DialogActions>
-                </Box>
-              </Dialog>
+  
             </div>
           </div>
         ))
