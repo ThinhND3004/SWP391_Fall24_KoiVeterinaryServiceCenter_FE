@@ -311,4 +311,15 @@ export default class ManagementApi {
     }
     return [];
   }
+  
+  static async sendReportEmail({ bookingId, companyName, companyWebsite }) {
+    try {
+      const response = await api.post('/api/emails/send-report-mail-to-customer',{ bookingId, companyName, companyWebsite });
+      if (response.data) return response.data;
+    }
+    catch (err) {
+      console.error('Cannot send Email: ' + err.message)
+    }
+    return [];
+  }
 }
