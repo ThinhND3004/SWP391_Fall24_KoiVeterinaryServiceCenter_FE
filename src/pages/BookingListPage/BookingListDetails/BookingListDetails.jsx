@@ -448,7 +448,7 @@ export default function BookingListDetails() {
 
                 <ToastContainer />
               </Box>
-              <FeedbackDialog bookingId={appointment.id}/>
+              { appointment.statusEnum === 'COMPLETED' ? <FeedbackDialog bookingId={appointment.id}/> : null}
 
   
             </div>

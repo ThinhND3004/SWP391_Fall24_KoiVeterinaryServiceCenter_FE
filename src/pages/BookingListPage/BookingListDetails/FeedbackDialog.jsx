@@ -22,6 +22,12 @@ const FeedbackDialog = ({ bookingId }) => {
         fetchMyFeedback();
     }, []);
 
+    const handleCommentChange = (event) =>{
+        if(!myFeedback) {
+            setComment(event.target.value)
+        }
+    }
+
     const handleCreate = async () => {
         if (!myFeedback) {
             const data = await ManagementApi.createFeedback({
@@ -108,12 +114,12 @@ const FeedbackDialog = ({ bookingId }) => {
                             <Typography sx={{ fontWeight: 600, fontSize: 16, mt: 5 }}>Feedback</Typography>
                             <TextField
                                 id="outlined-basic"
-                                placeholder='Enter your feedback'
+                                placeholder= {myFeedback ? '' : 'Enter your feedback'}
                                 variant="outlined"
                                 multiline
                                 rows={4}
                                 value={comment}
-                                onChange={(e) => setComment(e.target.value)}
+                                onChange={handleCommentChange}
                                 sx={{
                                     width: '550px',
 
