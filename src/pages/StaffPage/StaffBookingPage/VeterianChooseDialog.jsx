@@ -61,7 +61,7 @@ function VeterianChooseDialog({ bookingId, serviceName, serviceId, serviceMethod
                 bookingId: bookingId,
                 accountEmail: veterian.email,
                 title: 'Invitation',
-                description: `You received a booking to do ${serviceName} at ${formattedDate} ${hours}:${minutes} in ${userAddress ? userAddress : ' Koi Veterinary Clinic Center'}!`,
+                description: `You received a booking invitation to do ${serviceName} at ${formattedDate} ${hours}:${minutes} in ${userAddress ? userAddress : ' Koi Veterinary Clinic Center'}!`,
                 type: 'YESNO',
                 message: 'You received an invitation!',
                 notiType: 'success'
