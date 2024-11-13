@@ -248,29 +248,29 @@ export default function BookingForm({ service }) {
           Additional Information (optional)
         </Typography>
         <Box sx={{ marginTop: '20px', backgroundColor: INPUT_FIELD_COLOR, borderRadius: '14px' }}>
-          <TextField sx={{
-            '& .MuiOutlinedInput-root': {
-              borderRadius: '15px',
-              borderColor: BLUE_COLOR,
-              height: '150px',
-              // marginTop: '15px',
-              '&.Mui-focused fieldset': {
-                borderColor: BLUE_COLOR
-              }
-            },
-            '& input': {
-              // padding: '20px 15px',
-              backgroundColor: INPUT_FIELD_COLOR,
-              fontSize: '16px',
-              borderRadius: '15px'
-            }
-          }}
-            // label="Additional Information (optional)"
-            placeholder='Additional Information (optional)'
+          <TextField
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                borderRadius: '15px',
+                backgroundColor: INPUT_FIELD_COLOR, // Apply background color to the entire field
+                marginTop: '15px',
+                '&:hover fieldset': {
+                  borderColor: BLUE_COLOR, // Optional: Change border color on hover
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: BLUE_COLOR, // Change border color when focused
+                },
+              },
+              '& .MuiOutlinedInput-root textarea': {
+                fontSize: '16px', // Style for textarea content
+              },
+            }}
+            placeholder="Additional Information"
             variant="outlined"
-            multiline
-            rows={4}
             fullWidth
+            multiline
+            rows={5}
+            maxRows={7}
             value={additionalInfo}
             onChange={(e) => setAdditionalInfo(e.target.value)}
           />

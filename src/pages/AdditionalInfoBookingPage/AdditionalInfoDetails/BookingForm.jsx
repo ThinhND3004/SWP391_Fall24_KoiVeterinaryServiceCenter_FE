@@ -475,6 +475,9 @@ export default function BookingForm({
           placeholder="Additional Information"
           variant="outlined"
           fullWidth
+          multiline
+          rows={5}
+          maxRows={7} 
           value={additionalInfo}
           onChange={(e) => setAdditionalInfo(e.target.value)}
         />
