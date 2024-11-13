@@ -90,7 +90,7 @@ function VeterianNotificationPage() {
             <Box sx={{ mb: 2 }}>
                 <Breadcrumbs aria-label="breadcrumb">
                     <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-                        Admin
+                        Veterinary
                     </Typography>
                     <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
                         Notifications
