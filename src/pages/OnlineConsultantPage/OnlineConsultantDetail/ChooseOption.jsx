@@ -6,12 +6,26 @@ import { useNavigate } from 'react-router-dom';
 
 function ChooseOption({ service, serviceAddress }) {
   const navigate = useNavigate(); // Hook từ React Router
+  const token = localStorage.getItem('token');
+  console.log(token);
 
   const handleFlexibleScheduleClick = () => {
+    if (!token) {
+      // Nếu không có token, chuyển hướng tới trang login
+      navigate('/login');
+      return;
+    }
+
     navigate('/select-veterian-by-any-time', { state: { service, serviceAddress } }); // Truyền state qua route
   };
 
   const handleSelectVeterianClick = () => {
+    if (!token) {
+      // Nếu không có token, chuyển hướng tới trang login
+      navigate('/login');
+      return;
+    }
+    
     navigate('/service-choose-consultant', { state: { service, serviceAddress } });
   }
 

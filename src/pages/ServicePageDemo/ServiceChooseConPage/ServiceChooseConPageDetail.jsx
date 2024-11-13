@@ -62,74 +62,113 @@ const ServiceChooseCon = ({ veterian }) => {
     });
   };
 
+  const adjustEndTime = (endTime) => {
+    // Chuyển đổi endTime thành đối tượng Date, giả sử format là HH:mm
+    const timeParts = endTime.split(":");
+    const adjustedTime = new Date();
+    
+    adjustedTime.setHours(timeParts[0], timeParts[1], 0);  // Set giờ và phút từ endTime
+  
+    // Trừ đi 1 giờ
+    adjustedTime.setHours(adjustedTime.getHours() - 1);
+  
+    // Chuyển lại thành định dạng HH:mm
+    return adjustedTime.toTimeString().slice(0, 5); // Chỉ lấy phần HH:mm
+  };
+
+  const adjustStartTime = (endTime) => {
+    // Chuyển đổi endTime thành đối tượng Date, giả sử format là HH:mm
+    const timeParts = endTime.split(":");
+    const adjustedTime = new Date();
+    
+    adjustedTime.setHours(timeParts[0], timeParts[1], 0);  // Set giờ và phút từ endTime
+  
+    // Chuyển lại thành định dạng HH:mm
+    return adjustedTime.toTimeString().slice(0, 5); // Chỉ lấy phần HH:mm
+  };
+
   return (
     <div>
       <Box
         sx={{
           mt: 5,
           mb: 10,
-          display: 'flex',
-          justifyContent: 'space-between',
-          gap: 10
-
+          display: "flex",
+          justifyContent: "space-between",
+          gap: 10,
         }}
       >
+          {/* Vet info column */}
+  <Box
+    sx={{
+      display: "flex",
+      flexDirection: "column",
+      flexGrow: 1, // Đảm bảo cột này chiếm không gian còn lại
+      maxWidth: "45%", // Giới hạn độ rộng tối đa của cột thông tin Vet
+    }}
+  >
         {/* avt-btn */}
         <Box
           display={"flex"}
-          flexDirection={"column"}
-          justifyContent={"center"}
-          alignItems={"center"}
+          flexDirection={"row"}
+          // justifyContent={"center"}
+          // alignItems={"center"}
         >
+          {/* avatar img in the left */}
           <img
             style={{
-              width: "500px",
-              borderRadius: "30px",
-              marginBottom: "20px",
+              width: "150px",
+              height: "150px",
+              borderRadius: "55%", 
+              marginRight: "20px",
             }}
-            src="https://img.freepik.com/premium-photo/beautiful-painting-three-colorful-koi-fish
-                                                -are-swimming-pet-generative-ai-illustration_132416-8965.jpg"
+            src="https://img.freepik.com/premium-photo/beautiful-painting-three-colorful-koi-fish-are-swimming-pet-generative-ai-illustration_132416-8965.jpg"
             alt="Account image"
           />
 
-          <Button
-            style={{
-              height: "50px",
-              width: "150px",
-              borderRadius: "30px",
-              backgroundColor: BLUE_COLOR,
-              color: "white",
-              textAlign: "center",
-              display: "flex",
-              justifyContent: "center", // Centers content horizontally
-              alignItems: "center",
-              padding: "0px 9px", // Smooth background color transition
-            }}
-            onClick={() => {
-              navigate(`/veterinarian-information`, {
-                state: { veterinarian: veterian },
-              });
-            }}
-          >
-            Detail
-          </Button>
+          {/* Vet info in the right */}
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Typography sx={{ fontWeight: 700, fontSize: 25 }}>
+              {veterian.fullName}
+            </Typography>
+            <Typography>
+              {veterian.email}
+            </Typography>
+            <Typography>
+              Certification: {veterian.profileDto.certification}
+            </Typography>
+            <Typography>Education: {veterian.profileDto.education}</Typography>
+            <Typography>
+              Years of Experience: {veterian.profileDto.yearOfExperience}
+            </Typography>
+          </Box>
+
+        </Box>
         </Box>
 
         {/* schedule */}
 
-        <Box>
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+  {/* Schedule column */}
+  <Box
+    sx={{
+      display: "flex",
+      flexDirection: "column",
+      flexGrow: 1, // Đảm bảo cột này chiếm không gian còn lại
+      maxWidth: "50%", // Giới hạn độ rộng tối đa của bảng thời gian
+    }}
+  >
+          {/* <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Typography sx={{ fontWeight: 700, fontSize: 25 }}>{veterian.fullName}</Typography>
             <Typography sx={{ fontWeight: 400, fontSize: 20, mt: 1 }}>{veterian.email}</Typography>
-          </Box>
-          <FormControl sx={{
-            marginTop: '15px',
-            width: '100%',
-            borderRadius: '15px'
-          }}>
-            <InputLabel id="demo-simple-select-label">
-              Date
-            </InputLabel>
+          </Box> */}
+          <FormControl
+            sx={{
+              marginTop: "15px",
+              width: "100%",
+              borderRadius: "15px",
+            }}
+          >
+            <InputLabel id="demo-simple-select-label">Date</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -140,14 +179,15 @@ const ServiceChooseCon = ({ veterian }) => {
               {veterian.timeSlot.map((timeSlot) => (
                 <MenuItem
                   key={timeSlot.date}
-                  value={dayjs(timeSlot.date).add(1, "day").format("YYYY-MM-DD")}
+                  value={dayjs(timeSlot.date)
+                    .add(1, "day")
+                    .format("YYYY-MM-DD")}
                 >
                   {dayjs(timeSlot.date).add(1, "day").format("YYYY-MM-DD")}
                 </MenuItem>
               ))}
             </Select>
           </FormControl>
-
 
           <Box
             sx={{
@@ -179,7 +219,7 @@ const ServiceChooseCon = ({ veterian }) => {
                           fullWidth
                           onClick={() => handleClickTimeSlot(slotEntity)}
                         >
-                          {slotEntity.startTime} - {slotEntity.endTime}
+                          {adjustStartTime(slotEntity.startTime)} - {adjustEndTime(slotEntity.endTime)} 
                         </Button>
                       ))}
                     </Grid>

@@ -1,8 +1,8 @@
 /* eslint-disable semi */
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaCalendarAlt, FaDollarSign } from 'react-icons/fa';
-import { format } from 'date-fns';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FaCalendarAlt, FaDollarSign } from "react-icons/fa";
+import { format } from "date-fns";
 import {
   Box,
   Dialog,
@@ -12,55 +12,52 @@ import {
   DialogTitle,
   Typography,
   Button,
-  TextField
-} from '@mui/material';
-import Rating from '@mui/material/Rating';
-import StarIcon from '@mui/icons-material/Star';
+  TextField,
+} from "@mui/material";
+import Rating from "@mui/material/Rating";
+import StarIcon from "@mui/icons-material/Star";
 import {
   BLUE_COLOR,
   GRAY_COLOR,
   INPUT_FIELD_COLOR,
-  ORANGE_COLOR
-} from '~/theme';
-import GradeIcon from '@mui/icons-material/Grade';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+  ORANGE_COLOR,
+} from "~/theme";
+import GradeIcon from "@mui/icons-material/Grade";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import api from '~/config/axios';
-import FeedbackDialog from './FeedbackDialog';
-import CustomerReportDialog from './CustomerReportDialog';
+import api from "~/config/axios";
+import FeedbackDialog from "./FeedbackDialog";
 
 export default function BookingListDetails() {
   const [appointments, setAppointments] = useState([]);
-  const [sortBy, setSortBy] = useState('all'); // Default to showing all services
+  const [sortBy, setSortBy] = useState("all"); // Default to showing all services
   const [open, setOpen] = useState(false);
   const [openPaymentInfo, setOpenPaymentInfo] = useState(false);
   const [openDialogs, setOpenDialogs] = useState({});
   const navigate = useNavigate();
   const [RateValue, setRateValue] = React.useState(2);
-  const [currAppId, setCurrAppId] = useState('')
-  const [feedbacks, setFeedbacks] = useState([])
-  const [comment, setComment] = useState('')
+  const [currAppId, setCurrAppId] = useState("");
+  const [feedbacks, setFeedbacks] = useState([]);
+  const [comment, setComment] = useState("");
 
   useEffect(() => {
     const fetchAppointments = async () => {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       let bookingList = [];
       if (token) {
         try {
-          const response = await api.get(
-            '/bookings?page=1&unitPerPage=10'
-          );
+          const response = await api.get("/bookings?page=1&unitPerPage=10");
 
-          if (!response) throw new Error('Failed to fetch appointments');
+          if (!response) throw new Error("Failed to fetch appointments");
 
           bookingList = await response.data;
           setAppointments(bookingList.data);
         } catch (error) {
-          console.error('Failed to fetch appointments:', error);
+          console.error("Failed to fetch appointments:", error);
         }
       } else {
-        navigate('/login');
+        navigate("/login");
       }
       console.log(bookingList.data);
     };
@@ -70,10 +67,10 @@ export default function BookingListDetails() {
 
   const sortedAppointments = [...appointments]
     .filter(
-      (appointment) => sortBy === 'all' || appointment.serviceName === sortBy
+      (appointment) => sortBy === "all" || appointment.serviceName === sortBy
     )
     .sort((a, b) => {
-      if (sortBy === 'startedAt') {
+      if (sortBy === "startedAt") {
         return new Date(a.startedAt) - new Date(b.startedAt);
       }
       return a.serviceName.localeCompare(b.serviceName);
@@ -82,59 +79,59 @@ export default function BookingListDetails() {
   const handleClose = () => {
     setOpen(false);
 
-    if (comment !== '') {
+    if (comment !== "") {
       const postComment = async () => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
         if (token) {
           try {
-            const response = await api.post('/feedbacks', {
+            const response = await api.post("/feedbacks", {
               bookingId: currAppId,
               starRating: value,
               comment,
-              anonymous: true
+              anonymous: true,
             });
 
-            if (!response) throw new Error('Failed to fetch appointments');
-
+            if (!response) throw new Error("Failed to fetch appointments");
           } catch (error) {
-            console.error('Failed to fetch appointments:', error);
+            console.error("Failed to fetch appointments:", error);
           }
         } else {
-          navigate('/login');
+          navigate("/login");
         }
-        setComment('')
-      }
-      postComment()
+        setComment("");
+      };
+      postComment();
     }
-  }
+  };
   const handleClickOpen = (id) => {
-    setCurrAppId(id)
+    setCurrAppId(id);
     setOpen(true);
 
     const fetchFeedbacks = async () => {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       let feedbackList = [];
       if (token) {
         try {
-          const response = await api.get(`/feedbacks?page=1&unitPerPage=10&bookingId=${id}`);
+          const response = await api.get(
+            `/feedbacks?page=1&unitPerPage=10&bookingId=${id}`
+          );
 
-          if (!response) throw new Error('Failed to fetch appointments');
+          if (!response) throw new Error("Failed to fetch appointments");
 
           feedbackList = await response.data;
           setFeedbacks(feedbackList.data);
           console.log(feedbackList);
-
         } catch (error) {
-          console.error('Failed to fetch appointments:', error);
+          console.error("Failed to fetch appointments:", error);
         }
       } else {
-        navigate('/login');
+        navigate("/login");
       }
     };
-    if (!id) return
+    if (!id) return;
 
-    fetchFeedbacks()
-  }
+    fetchFeedbacks();
+  };
   // const handleClickOpenPaymentInfo = () => setOpenPaymentInfo(true);
   // const handleClosePaymentInfo = () => setOpenPaymentInfo(false);
 
@@ -142,7 +139,7 @@ export default function BookingListDetails() {
   const handleDialogOpen = (id) => {
     setOpenDialogs((prevState) => ({
       ...prevState,
-      [id]: true
+      [id]: true,
     }));
   };
 
@@ -150,35 +147,81 @@ export default function BookingListDetails() {
   const handleDialogClose = (id) => {
     setOpenDialogs((prevState) => ({
       ...prevState,
-      [id]: false
+      [id]: false,
     }));
   };
   const [value, setValue] = React.useState(2);
   const [hover, setHover] = React.useState(-1);
-  const notify = () => toast.error('View payment info feature is under development')
+  const notify = () =>
+    toast.error("View payment info feature is under development");
 
   return (
     <div>
       <Box>
         <Typography
           sx={{
-            fontFamily: 'SVN-Konga Pro',
+            fontFamily: "SVN-Konga Pro",
             fontSize: 150,
             color: BLUE_COLOR,
-            textAlign: 'center'
+            textAlign: "center",
           }}
         >
           Bookings
         </Typography>
       </Box>
 
+      <Typography
+        sx={{
+          fontSize: 18,
+          marginTop: 2,
+          fontWeight: 700,
+        }}
+      >
+        * Important Notes:
+      </Typography>
+
+      <Typography
+        sx={{
+          fontSize: 18,
+          marginTop: 2,
+        }}
+      >
+        - If you need to cancel or change your booking details, please contact
+        us at{" "}
+        <Box component="span" sx={{ fontWeight: 700 }}>
+          0829207487
+        </Box>
+      </Typography>
+
+      <Typography
+        sx={{
+          fontSize: 18,
+          marginTop: 1,
+          marginBottom: 8,
+        }}
+      >
+        - If you need to cancel your booking, please contact us {" "}
+        <Box component="span" sx={{ fontWeight: 700 }}>
+         at least 24 hours 
+        </Box>
+        {" "}
+        in advance for processing and refund assistance. If cancellation
+        occurs 
+        {" "}
+        <Box component="span" sx={{ fontWeight: 700 }}>
+        after 24 hours
+        </Box>
+        {" "}
+        , a refund will not be issued.
+      </Typography>
+
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'center',
-          marginBottom: '20px',
-          alignItems: 'center',
-          gap: 10
+          display: "flex",
+          justifyContent: "center",
+          marginBottom: "20px",
+          alignItems: "center",
+          gap: 10,
         }}
       >
         <Typography sx={{ fontSize: 16, fontWeight: 500 }}>Sort by:</Typography>
@@ -186,12 +229,12 @@ export default function BookingListDetails() {
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
           style={{
-            width: '800px',
-            height: '40px',
-            borderRadius: '14px',
-            padding: '5px',
+            width: "800px",
+            height: "40px",
+            borderRadius: "14px",
+            padding: "5px",
             backgroundColor: INPUT_FIELD_COLOR,
-            border: '1px solid #bdbdbd'
+            border: "1px solid #bdbdbd",
           }}
         >
           <option value="all">All Services</option>
@@ -208,25 +251,25 @@ export default function BookingListDetails() {
           <div
             key={appointment.id}
             style={{
-              border: '1px solid #bdbdbd',
-              borderRadius: '14px',
-              padding: '20px',
-              marginBottom: '15px',
+              border: "1px solid #bdbdbd",
+              borderRadius: "14px",
+              padding: "20px",
+              marginBottom: "15px",
               backgroundColor: INPUT_FIELD_COLOR,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '10px'
+              display: "flex",
+              flexDirection: "column",
+              gap: "10px",
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
               <FaCalendarAlt />
-              <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 700 }}>
+              <h3 style={{ margin: 0, fontSize: "18px", fontWeight: 700 }}>
                 {appointment.serviceName}
               </h3>
             </div>
 
-            <div style={{ fontSize: '16px' }}>
-              <p style={{ display: 'flex', gap: 3 }}>
+            <div style={{ fontSize: "16px" }}>
+              <p style={{ display: "flex", gap: 3 }}>
                 <Typography sx={{ fontWeight: 600, mt: 1 }}>
                   Veterinarian:
                 </Typography>
@@ -234,7 +277,7 @@ export default function BookingListDetails() {
                   {appointment.veterinarianFullName}
                 </Typography>
               </p>
-              <p style={{ display: 'flex', gap: 3 }}>
+              <p style={{ display: "flex", gap: 3 }}>
                 <Typography sx={{ fontWeight: 600, mt: 1 }}>
                   Meeting method:
                 </Typography>
@@ -242,52 +285,52 @@ export default function BookingListDetails() {
                   {appointment.meetingMethod}
                 </Typography>
               </p>
-              <p style={{ display: 'flex', gap: 3 }}>
+              <p style={{ display: "flex", gap: 3 }}>
                 <Typography sx={{ fontWeight: 600, mt: 1 }}>
                   Start time:
                 </Typography>
                 <Typography sx={{ fontWeight: 400, mt: 1 }}>
-                  {format(new Date(appointment.startedAt), 'dd/MM/yyyy HH:mm')}
+                  {format(new Date(appointment.startedAt), "dd/MM/yyyy HH:mm")}
                 </Typography>
               </p>
-              <p style={{ display: 'flex', gap: 3 }}>
+              <p style={{ display: "flex", gap: 3 }}>
                 <Typography sx={{ fontWeight: 600, mt: 1 }}>Status:</Typography>
                 <Typography sx={{ fontWeight: 400, mt: 1 }}>
                   {appointment.statusEnum}
                 </Typography>
               </p>
-              <p style={{ display: 'flex', gap: 3 }}>
+              <p style={{ display: "flex", gap: 3 }}>
                 <Typography sx={{ fontWeight: 600, mt: 1 }}>
                   Created At:
                 </Typography>
                 <Typography sx={{ fontWeight: 400, mt: 1 }}>
-                  {format(new Date(appointment.createdAt), 'dd/MM/yyyy HH:mm')}
+                  {format(new Date(appointment.createdAt), "dd/MM/yyyy HH:mm")}
                 </Typography>
               </p>
             </div>
 
             <div
               style={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-                gap: '15px',
-                borderTop: '1px solid #E0E0E0',
-                paddingTop: '15px'
+                display: "flex",
+                justifyContent: "flex-end",
+                gap: "15px",
+                borderTop: "1px solid #E0E0E0",
+                paddingTop: "15px",
               }}
             >
               <Box>
                 <button
                   style={{
-                    width: '200px',
-                    height: '60px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#fff',
-                    fontFamily: 'Poppins',
+                    width: "200px",
+                    height: "60px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#fff",
+                    fontFamily: "Poppins",
                     backgroundColor: BLUE_COLOR,
-                    borderRadius: '30px',
-                    cursor: 'pointer'
+                    borderRadius: "30px",
+                    cursor: "pointer",
                   }}
                   // onClick={() => alert("View payment info feature is under development")}
                   // onClick={notify}
@@ -301,24 +344,31 @@ export default function BookingListDetails() {
                   onClose={() => handleDialogClose(appointment.id)} // Đóng dialog
                   PaperProps={{
                     sx: {
-                      width: '600px',
-                      maxWidth: '90%',
+                      width: "600px",
+                      maxWidth: "90%",
                       bgcolor: INPUT_FIELD_COLOR,
-                      borderRadius: '30px'
-                    }
+                      borderRadius: "30px",
+                    },
                   }}
                 >
                   <DialogTitle sx={{ marginTop: 4 }}>
                     <Typography
-                      sx={{ fontWeight: 600, fontSize: 20, textAlign: 'center' }}
+                      sx={{
+                        fontWeight: 600,
+                        fontSize: 20,
+                        textAlign: "center",
+                      }}
                     >
                       Payment Info
                     </Typography>
                   </DialogTitle>
                   <DialogContent>
-
                     <DialogContentText
-                      sx={{ fontWeight: 600, fontSize: 14, textAlign: 'center' }}
+                      sx={{
+                        fontWeight: 600,
+                        fontSize: 14,
+                        textAlign: "center",
+                      }}
                     >
                       {/* Payment Info */}
                     </DialogContentText>
@@ -341,28 +391,28 @@ export default function BookingListDetails() {
                         Type: {appointment.type}
                       </Typography>
 
-                      {appointment.serviceName === 'Pond Quality' && (
+                      {appointment.serviceName === "Pond Quality" && (
                         <Typography variant="body1">
                           Pond Size: {appointment.pondSize}
                         </Typography>
                       )}
 
-                      {appointment.serviceName !== 'Pond Quality' &&
-                        appointment.serviceName !== 'Online Consultant' && (
+                      {appointment.serviceName !== "Pond Quality" &&
+                        appointment.serviceName !== "Online Consultant" && (
                           <Typography variant="body1">
                             Quantity: {appointment.koiQuantity}
                           </Typography>
                         )}
 
-                      {appointment.meetingMethod !== 'ONLINE' &&
-                        appointment.meetingMethod !== 'OFFLINE_CENTER' && (
+                      {appointment.meetingMethod !== "ONLINE" &&
+                        appointment.meetingMethod !== "OFFLINE_CENTER" && (
                           <Typography variant="body1">
                             Address: {appointment.userAddress}
                           </Typography>
                         )}
 
-                      {appointment.meetingMethod !== 'ONLINE' &&
-                        appointment.meetingMethod !== 'OFFLINE_CENTER' && (
+                      {appointment.meetingMethod !== "ONLINE" &&
+                        appointment.meetingMethod !== "OFFLINE_CENTER" && (
                           <Typography variant="body1">
                             Distance: {appointment.distance_meters}
                           </Typography>
@@ -376,50 +426,50 @@ export default function BookingListDetails() {
                       </Typography>
 
                       <Typography variant="body1">
-                        Service Price:{' '}
-                        {new Intl.NumberFormat('vi-VN').format(
+                        Service Price:{" "}
+                        {new Intl.NumberFormat("vi-VN").format(
                           appointment.servicePrice
-                        )}{' '}
+                        )}{" "}
                         VND
                       </Typography>
 
-                      {appointment.serviceName === 'Pond Quality' && (
+                      {appointment.serviceName === "Pond Quality" && (
                         <Typography variant="body1">
-                          Pond Price:{' '}
-                          {new Intl.NumberFormat('vi-VN').format(
+                          Pond Price:{" "}
+                          {new Intl.NumberFormat("vi-VN").format(
                             appointment.pondPrice
-                          )}{' '}
+                          )}{" "}
                           VND
                         </Typography>
                       )}
 
-                      {appointment.serviceName !== 'Pond Quality' &&
-                        appointment.serviceName !== 'Online Consultant' && (
+                      {appointment.serviceName !== "Pond Quality" &&
+                        appointment.serviceName !== "Online Consultant" && (
                           <Typography variant="body1">
-                            Koi Price:{' '}
-                            {new Intl.NumberFormat('vi-VN').format(
+                            Koi Price:{" "}
+                            {new Intl.NumberFormat("vi-VN").format(
                               appointment.koiPrice
-                            )}{' '}
+                            )}{" "}
                             VND
                           </Typography>
                         )}
 
-                      {appointment.meetingMethod !== 'ONLINE' &&
-                        appointment.meetingMethod !== 'OFFLINE_CENTER' && (
+                      {appointment.meetingMethod !== "ONLINE" &&
+                        appointment.meetingMethod !== "OFFLINE_CENTER" && (
                           <Typography variant="body1">
-                            Travel Price:{' '}
-                            {new Intl.NumberFormat('vi-VN').format(
+                            Travel Price:{" "}
+                            {new Intl.NumberFormat("vi-VN").format(
                               appointment.travelPrice
-                            )}{' '}
+                            )}{" "}
                             VND
                           </Typography>
                         )}
 
                       <Typography variant="body1">
-                        Total Price:{' '}
-                        {new Intl.NumberFormat('vi-VN').format(
+                        Total Price:{" "}
+                        {new Intl.NumberFormat("vi-VN").format(
                           appointment.totalPrice
-                        )}{' '}
+                        )}{" "}
                         VND
                       </Typography>
 
@@ -427,19 +477,18 @@ export default function BookingListDetails() {
                         Created At: {appointment.createdAt}
                       </Typography>
                     </Box>
-
                   </DialogContent>
                   <DialogActions>
                     <Button
                       onClick={() => handleDialogClose(appointment.id)} // Đóng dialog
                       sx={{
                         bgcolor: BLUE_COLOR,
-                        borderRadius: '14px',
-                        color: 'white',
-                        width: '100px',
-                        height: '40px',
+                        borderRadius: "14px",
+                        color: "white",
+                        width: "100px",
+                        height: "40px",
                         mr: 6,
-                        mb: 3
+                        mb: 3,
                       }}
                     >
                       Close
@@ -449,9 +498,9 @@ export default function BookingListDetails() {
 
                 <ToastContainer />
               </Box>
-              { appointment.statusEnum === 'COMPLETED' ? <CustomerReportDialog bookingId={appointment.id}/> : null}
-              { appointment.statusEnum === 'COMPLETED' ? <FeedbackDialog bookingId={appointment.id}/> : null}
-  
+              {appointment.statusEnum === "COMPLETED" ? (
+                <FeedbackDialog bookingId={appointment.id} />
+              ) : null}
             </div>
           </div>
         ))
@@ -459,10 +508,10 @@ export default function BookingListDetails() {
         <Box sx={{ mb: 5, mt: 5 }}>
           <p
             style={{
-              textAlign: 'center',
+              textAlign: "center",
               color: ORANGE_COLOR,
-              fontSize: '16px',
-              fontWeight: 600
+              fontSize: "16px",
+              fontWeight: 600,
             }}
           >
             No appointments available
