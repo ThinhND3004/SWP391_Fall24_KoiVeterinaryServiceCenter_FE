@@ -15,7 +15,10 @@ const FeedbackDialog = ({ bookingId }) => {
     const fetchMyFeedback = async () => {
         const data = await ManagementApi.getFeedbackFromTokenAndBooking({ bookingId: bookingId });
         setMyFeedback(data);
-        if (data) setValue(data.starRating);
+        if (data) {
+            setValue(data.starRating);
+            setComment(data.comment)
+        }
     }
 
     useEffect(() => {
