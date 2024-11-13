@@ -360,34 +360,34 @@ export default function BookingForm({
       {/* Display quantity if service name is "Koi Treatment at home" or "Koi Treatment at center" */}
       {(service.name === "Koi Treatment at home" ||
         service.name === "Koi Treatment at center") && (
-        <FormControl fullWidth sx={{ mt: 2 }}>
-          <Typography variant="h6">Quantity:</Typography>
-          <TextField
-            type="number"
-            value={quantity}
-            onChange={handleQuantityChange}
-            placeholder="Enter quantity"
-            variant="outlined"
-            fullWidth
-            inputProps={{
-              min: 1,
-            }}
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                borderRadius: "15px",
-                borderColor: BLUE_COLOR,
-                height: "60px",
-              },
-              "& input": {
-                backgroundColor: INPUT_FIELD_COLOR,
-                padding: "20px 15px",
-                fontSize: "16px",
-                borderRadius: "15px",
-              },
-            }}
-          />
-        </FormControl>
-      )}
+          <FormControl fullWidth sx={{ mt: 2 }}>
+            <Typography variant="h6">Quantity:</Typography>
+            <TextField
+              type="number"
+              value={quantity}
+              onChange={handleQuantityChange}
+              placeholder="Enter quantity"
+              variant="outlined"
+              fullWidth
+              inputProps={{
+                min: 1,
+              }}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "15px",
+                  borderColor: BLUE_COLOR,
+                  height: "60px",
+                },
+                "& input": {
+                  backgroundColor: INPUT_FIELD_COLOR,
+                  padding: "20px 15px",
+                  fontSize: "16px",
+                  borderRadius: "15px",
+                },
+              }}
+            />
+          </FormControl>
+        )}
 
       {/* Address Field (if this is OFFLINE_HOME service)  */}
       {service.meetingMethod !== "ONLINE" &&
@@ -456,28 +456,27 @@ export default function BookingForm({
         </Typography>
         <TextField
           sx={{
-            "& .MuiOutlinedInput-root": {
-              borderRadius: "15px",
-              borderColor: BLUE_COLOR,
-              height: "250px",
-              marginTop: "15px",
-              "&.Mui-focused fieldset": {
-                borderColor: BLUE_COLOR,
+            '& .MuiOutlinedInput-root': {
+              borderRadius: '15px',
+              backgroundColor: INPUT_FIELD_COLOR, // Apply background color
+              marginTop: '15px',
+              '&:hover fieldset': {
+                borderColor: BLUE_COLOR, // Optional: Hover state
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: BLUE_COLOR, // Optional: Focus state
               },
             },
-            "& input": {
-              backgroundColor: INPUT_FIELD_COLOR,
-              height: "220px",
-              fontSize: "16px",
-              borderRadius: "15px",
+            '& .MuiOutlinedInput-root textarea': {
+              fontSize: '16px',
             },
           }}
           placeholder="Additional Information"
           variant="outlined"
           fullWidth
           multiline
-          rows={5}
-          maxRows={7} 
+          rows={3} // Set default number of rows
+          maxRows={5} // Optional: Limit maximum number of rows
           value={additionalInfo}
           onChange={(e) => setAdditionalInfo(e.target.value)}
         />
