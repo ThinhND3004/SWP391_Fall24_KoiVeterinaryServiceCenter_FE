@@ -29,6 +29,7 @@ import "react-toastify/dist/ReactToastify.css";
 import api from "~/config/axios";
 import FeedbackDialog from "./FeedbackDialog";
 import ManagementApi from "~/api/ManagementApi";
+import CustomerReportDialog from "./CustomerReportDialog";
 
 export default function BookingListDetails() {
   const [appointments, setAppointments] = useState([]);
@@ -501,6 +502,9 @@ export default function BookingListDetails() {
               </Box>
               {appointment.statusEnum === "COMPLETED" ? (
                 <FeedbackDialog bookingId={appointment.id} />
+              ) : null}
+              {appointment.statusEnum === "COMPLETED" ? (
+                <CustomerReportDialog bookingId={appointment.id} />
               ) : null}
             </div>
           </div>
