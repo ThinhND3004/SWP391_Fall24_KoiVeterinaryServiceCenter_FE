@@ -10,6 +10,7 @@ import { Typography } from '@mui/material'
 import DynamicDataGrid from './testGrid'
 import ManagementApi from '~/api/ManagementApi'
 import { useEffect, useState } from 'react'
+import BackdropComponent from '~/components/Backdrop.component'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -55,7 +56,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function BookingPageDetails() {
   const [rowData, setRowData] = useState([]);
-  const [navBarStatus, setNavBarStatus] = useState('ALL')
+  const [navBarStatus, setNavBarStatus] = useState('ALL');
+  const [loading, setLoading] = useState(false);
 
   function formatDate(dateString) {
     const date = new Date(dateString);
@@ -66,6 +68,7 @@ function BookingPageDetails() {
   }
 
   const fetchDataByStatus = async (status) => {
+    setLoading(true)
     let data = [];
     if(status === 'ALL') data = await ManagementApi.getBookings({});
     else data = await ManagementApi.getBookings({status: status});
@@ -82,6 +85,7 @@ function BookingPageDetails() {
       };
     })
     setRowData(row);
+    setLoading(false)
   }
 
   function TableNavBar({ content, navBarStatus }) {
@@ -137,6 +141,7 @@ function BookingPageDetails() {
       <Box sx={{ mt: 3, mb: 3 }}>
         <DynamicDataGrid rowData={rowData} />
       </Box>
+      <BackdropComponent open={loading} />
     </Box>
   )
 }

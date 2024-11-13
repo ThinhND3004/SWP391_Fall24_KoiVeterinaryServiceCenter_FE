@@ -3,16 +3,32 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import { TextField, Typography, Box, List, ListItem, ListItemText, Button, Snackbar, Alert } from "@mui/material";
-import { MapContainer, TileLayer, Marker, Polyline, Popup } from "react-leaflet";
+import {
+  TextField,
+  Typography,
+  Box,
+  List,
+  ListItem,
+  ListItemText,
+  Button,
+  Snackbar,
+  Alert,
+} from "@mui/material";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Polyline,
+  Popup,
+} from "react-leaflet";
 import L from "leaflet";
 import { debounce } from "lodash";
 import { useNavigate } from "react-router-dom";
 import api, { geoapifyApi } from "~/config/axios";
-import dayjs from 'dayjs';
-import 'leaflet/dist/leaflet.css';
+import dayjs from "dayjs";
+import "leaflet/dist/leaflet.css";
 import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from "~/theme";
-import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
@@ -23,50 +39,66 @@ dayjs.extend(timezone);
 // Marker's icon
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png",
+  iconRetinaUrl:
+    "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png",
   iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
   shadowUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png",
 });
 
-export default function BookingForm({ service, selectedDateTime, veterinarian }) {
+export default function BookingForm({
+  service,
+  selectedDateTime,
+  veterinarian,
+}) {
+  const navigate = useNavigate();
   const [dateTime, setDateTime] = React.useState(null);
-  const [userAddress, setUserAddress] = React.useState("");
   const [additionalInfo, setAdditionalInfo] = React.useState("");
   const [successMessage, setSuccessMessage] = React.useState("");
   const [errorMessage, setErrorMessage] = React.useState("");
   const [statusMessage, setStatusMessage] = React.useState("");
-  const [distance, setDistance] = React.useState(0);
   const [suggestions, setSuggestions] = React.useState([]);
   const [routeCoords, setRouteCoords] = React.useState(null); // To store route coordinates
   const [userPosition, setUserPosition] = React.useState([0, 0]);
   const [vetPosition, setVetPosition] = React.useState([10.845, 106.772]); // Default for Thủ Đức
-
-  const [selectedPondSize, setSelectedPondSize] = React.useState('SMALL_POND');
-
+  const [selectedPondSize, setSelectedPondSize] = React.useState("SMALL_POND");
   const [quantity, setQuantity] = React.useState(1);
+  const displayedDateTime = dayjs
+    .utc(selectedDateTime)
+    .tz("Asia/Ho_Chi_Minh", true);
 
-  // Hàm xử lý khi người dùng thay đổi lựa chọn trong dropdown
-  const handlePondSizeChange = (event) => {
-    setSelectedPondSize(event.target.value);
-  };
+  const [userAddress, setUserAddress] = React.useState("");
+  const [addressError, setAddressError] = React.useState(false);
+
+  const [distance, setDistance] = React.useState(0);
+  const [distanceError, setDistanceError] = React.useState(false);
 
   const pondSizes = [
-    { value: 'SMALL_POND', label: 'Small Pond' },
-    { value: 'MEDIUM_POND', label: 'Medium Pond' },
-    { value: 'LARGE_POND', label: 'Large Pond' }
+    { value: "SMALL_POND", label: "Small Pond" },
+    { value: "MEDIUM_POND", label: "Medium Pond" },
+    { value: "LARGE_POND", label: "Large Pond" },
   ];
 
-  // Hàm xử lý thay đổi quantity
+  // Quantity Function with default value is 1
+  /**
+   *
+   * @param {*} event
+   */
   const handleQuantityChange = (event) => {
-    // Lấy giá trị nhập vào và đảm bảo nó không nhỏ hơn 1
     const newQuantity = Math.max(1, parseInt(event.target.value, 10));
     setQuantity(newQuantity);
   };
 
-  const displayedDateTime = dayjs.utc(selectedDateTime).tz("Asia/Ho_Chi_Minh", true);
+  // Pond Function with default value is Small Pond
+  /**
+   *
+   * @param {*} event
+   */
+  const handlePondSizeChange = (event) => {
+    setSelectedPondSize(event.target.value);
+  };
 
-  console.log(selectedDateTime);
-  console.log(veterinarian)
+  // console.log(selectedDateTime);
+  // console.log(veterinarian);
   // console.log(veterinarian.email)
 
   // React.useEffect(() => {
@@ -75,8 +107,10 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
   //   }
   // }, [selectedDateTime]);
 
-
-
+  //Fetch Autocomplete API
+  /**
+   *
+   */
   const fetchAddressSuggestions = React.useCallback(
     debounce(async (input) => {
       if (!input) return;
@@ -93,25 +127,30 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
     [] // debounce with 300ms delay
   );
 
-  const handleAddressChange = (e) => {
-    const input = e.target.value;
-    setUserAddress(input);
-    fetchAddressSuggestions(input);
-  };
-
+  /**
+   *
+   * @param {*} suggestion
+   */
   const handleSuggestionClick = async (suggestion) => {
     setUserAddress(suggestion.properties.formatted);
     setSuggestions([]);
-    setStatusMessage("Địa chỉ đã được chọn!");
+    setStatusMessage("Address has been selected!");
 
     const coords = await fetchCoordinates(suggestion.properties.formatted);
     setUserPosition([coords.lat, coords.lon]); // Cập nhật vị trí của người dùng
     fetchDistance(suggestion.properties.formatted); // Tính toán khoảng cách sau khi chọn
   };
 
+  /**
+   *
+   * @param {*} location
+   * @returns
+   */
   const fetchCoordinates = async (location) => {
     const apiKey = "f89b01272ab747dcb9eb87889236e016";
-    const url = `geocode/search?text=${encodeURIComponent(location)}&apiKey=${apiKey}`;
+    const url = `geocode/search?text=${encodeURIComponent(
+      location
+    )}&apiKey=${apiKey}`;
 
     try {
       const response = await geoapifyApi.get(url);
@@ -123,7 +162,7 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
           lon: data.features[0].properties.lon,
         };
       } else {
-        throw new Error("Không tìm thấy tọa độ cho địa điểm này");
+        throw new Error("No coordinates were found for this location");
       }
     } catch (error) {
       console.error("Error fetching coordinates:", error);
@@ -132,55 +171,105 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
   };
 
   // Routing API
+  /**
+   *
+   * @param {*} address
+   */
   const fetchDistance = async (address) => {
-    setStatusMessage("Đang tính toán khoảng cách...");
+    setStatusMessage("Calculating distance...");
     try {
       const userCoords = await fetchCoordinates(address);
-      const endCoords = await fetchCoordinates("Long Thanh My Ward, Thủ Đức, Vietnam"); // service.address
+      const endCoords = await fetchCoordinates(
+        "Long Thanh My Ward, Thủ Đức, Vietnam"
+      ); // service.address
 
       const waypoints = `${userCoords.lat},${userCoords.lon}|${endCoords.lat},${endCoords.lon}`;
       const routingApiKey = "23da6a407e30403b98425c7841641268";
       const url = `routing?waypoints=${waypoints}&mode=drive&apiKey=${routingApiKey}`;
 
       const response = await geoapifyApi.get(url);
-
       const data = response.data;
+
       if (data.features && data.features.length > 0) {
         const km = data.features[0].properties.distance / 1000;
-        setDistance(km.toFixed(2));
+
+        if (km > 30) {
+          setDistance(km.toFixed(2)); // Optionally clear the distance
+          setDistanceError(true);
+          setStatusMessage(
+            "Distance exceeds 30 km. Service cannot be supported."
+          );
+        } else {
+          setDistance(km.toFixed(2));
+          setDistanceError(false);
+          setStatusMessage("Calculate distance successfully!");
+        }
 
         const coordinates = data.features[0].geometry.coordinates; // Get route coordinates
         const latLngs = coordinates.map((coord) => [coord[1], coord[0]]); // Swap lat/lon order
         setRouteCoords(latLngs); // Set route coordinates
-
-        setStatusMessage("Tính toán khoảng cách thành công!");
       } else {
-        setStatusMessage("Không thể tính toán khoảng cách");
+        setStatusMessage("Cannot calculate distance");
+        setDistance(null); // Clear distance if unable to calculate
       }
     } catch (error) {
-      setStatusMessage("Lỗi: " + error.message);
+      setStatusMessage("Error: " + error.message);
+      setDistance(null); // Clear distance in case of error
     }
   };
 
-  const navigate = useNavigate();
+  /**
+   *
+   * @param {*} e
+   */
+  const handleAddressChange = (e) => {
+    const input = e.target.value;
+    setUserAddress(input);
+    setAddressError(false);
+    fetchAddressSuggestions(input);
+  };
 
+  console.log(distance);
+
+  console.log(distanceError);
+
+  //function handle to Submit all info
+  /**
+   *
+   * @param {*} event
+   * @returns
+   */
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    if (!userAddress.trim()) {
+      setAddressError(true); // Set error if address is empty
+      return;
+    }
+
+    if (distance > 30.0) {
+      setDistanceError(true); // Set distance error if it exceeds 30 km
+      return;
+    }
+
+    // Prevent submission if there's any error
+    if (addressError || distanceError) {
+      return;
+    }
+
     const bookingData = {
-      veterianEmail: veterinarian && veterinarian.email ? veterinarian.email : null, // Kiểm tra veterinarian có null không
+      veterianEmail:
+        veterinarian && veterinarian.email ? veterinarian.email : null, // Kiểm tra veterinarian có null không
       serviceId: service.id,
       additionalInformation: additionalInfo || "",
       koiQuantity: quantity || 0,
-      pondSize: selectedPondSize|| "",
+      pondSize: selectedPondSize || "",
       distanceMeters: distance || 0,
       userAddress: userAddress || "",
       meetingMethod: service.meetingMethod,
       startAt: selectedDateTime,
     };
 
-
-    // Chuyển hướng người dùng sang trang xác nhận
     navigate("/confirm-booking", {
       state: {
         createBookingDTO: bookingData,
@@ -196,81 +285,82 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
         <Typography variant="h6" gutterBottom>
           Selected Date and Time
         </Typography>
+
+        {/* Select Date and Time Field  */}
         <TextField
-          // label={dateTime ? dateTime.format('YYYY-MM-DD HH:mm') : ""}
-          // value={dayjs(selectedDateTime).format("DD/MM/YYYY HH:mm")}
-          value={displayedDateTime.format("DD/MM/YYYY HH:mm:ss")}
+          value={displayedDateTime.format("DD/MM/YYYY HH:mm")}
           disabled
           fullWidth
           sx={{
-            // width: '600px',
-            '& .MuiOutlinedInput-root': {
-              borderRadius: '15px',
+            "& .MuiOutlinedInput-root": {
+              borderRadius: "15px",
               borderColor: BLUE_COLOR,
-              height: '60px',
-              marginTop: '15px',
-              '&.Mui-focused fieldset': {
-                borderColor: BLUE_COLOR
-              }
+              height: "60px",
+              marginTop: "15px",
+              "&.Mui-focused fieldset": {
+                borderColor: BLUE_COLOR,
+              },
             },
-            '& input': {
+            "& input": {
               backgroundColor: INPUT_FIELD_COLOR,
-              padding: '20px 15px',
-              fontSize: '16px',
-              borderRadius: '15px'
-            }
+              padding: "20px 15px",
+              fontSize: "16px",
+              borderRadius: "15px",
+            },
           }}
         />
       </div>
 
+      {/* Select Pond Size Field (If this is Pond Quality Service)  */}
       {service.name !== "Koi Treatment at home" &&
-              service.name !== "Koi Treatment at center" &&
-              service.name !== "Online Consultant" && (
-                
-      <FormControl 
-      fullWidth 
-      sx={{
-        mt: 2, // Thêm margin-top
-        borderRadius: '15px', // Bo tròn các góc
-        '& .MuiOutlinedInput-root': {
-          borderRadius: '15px', // Bo tròn các góc cho input bên trong FormControl
-        },
-        '& .MuiInputLabel-root': {
-          fontSize: '16px', // Kích thước chữ của label
-        },
-      }}>
-        <Typography variant="h6" gutterBottom>
-          Select Pond Size:
-        </Typography>
-      <Select
-        value={selectedPondSize}
-        onChange={handlePondSizeChange}
-        sx={{
-          '& .MuiOutlinedInput-root': {
-            borderRadius: '15px',
-            borderColor: BLUE_COLOR,
-            height: '60px',
-          },
-          '& .MuiSelect-select': {
-            backgroundColor: INPUT_FIELD_COLOR,
-            padding: '20px 15px',
-            fontSize: '16px',
-            borderRadius: '15px'
-          }
-        }}
-      >
-        {pondSizes.map((pond) => (
-          <MenuItem key={pond.value} value={pond.value}>
-            {pond.label}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
-  )}
+        service.name !== "Koi Treatment at center" &&
+        service.name !== "Online Consultant" && (
+          <FormControl
+            fullWidth
+            sx={{
+              mt: 2,
+              borderRadius: "15px",
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "15px",
+              },
+              "& .MuiInputLabel-root": {
+                fontSize: "16px",
+              },
+            }}
+          >
+            <Typography variant="h6" gutterBottom>
+              Select Pond Size:
+            </Typography>
+            <Select
+              value={selectedPondSize}
+              onChange={handlePondSizeChange}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "15px",
+                  borderColor: BLUE_COLOR,
+                  height: "60px",
+                },
+                "& .MuiSelect-select": {
+                  backgroundColor: INPUT_FIELD_COLOR,
+                  padding: "20px 15px",
+                  fontSize: "16px",
+                  borderRadius: "15px",
+                },
+              }}
+            >
+              {pondSizes.map((pond) => (
+                <MenuItem key={pond.value} value={pond.value}>
+                  {pond.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        )}
 
-      {/* Hiển thị ô nhập số lượng khi là "Koi Treatment at home" hoặc "Koi Treatment at center" */}
-      {(service.name === "Koi Treatment at home" || service.name === "Koi Treatment at center") && (
-        <FormControl fullWidth sx={{ mt: 2}}>
+      {/* Display quantity if service name is "Koi Treatment at home" or "Koi Treatment at center" */}
+      {(service.name === "Koi Treatment at home" ||
+        service.name === "Koi Treatment at center") && (
+        <FormControl fullWidth sx={{ mt: 2 }}>
           <Typography variant="h6">Quantity:</Typography>
           <TextField
             type="number"
@@ -280,25 +370,26 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
             variant="outlined"
             fullWidth
             inputProps={{
-              min: 1, 
+              min: 1,
             }}
             sx={{
-              '& .MuiOutlinedInput-root': {
-                borderRadius: '15px',
-                borderColor: BLUE_COLOR, 
-                height: '60px',
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "15px",
+                borderColor: BLUE_COLOR,
+                height: "60px",
               },
-              '& input': {
-                backgroundColor: INPUT_FIELD_COLOR, 
-                padding: '20px 15px',
-                fontSize: '16px',
-                borderRadius: '15px'
-              }
+              "& input": {
+                backgroundColor: INPUT_FIELD_COLOR,
+                padding: "20px 15px",
+                fontSize: "16px",
+                borderRadius: "15px",
+              },
             }}
           />
         </FormControl>
       )}
 
+      {/* Address Field (if this is OFFLINE_HOME service)  */}
       {service.meetingMethod !== "ONLINE" &&
         service.meetingMethod !== "OFFLINE_CENTER" && (
           <div>
@@ -309,23 +400,25 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
               fullWidth
               value={userAddress}
               onChange={handleAddressChange}
+              error={addressError} // Error state applied to TextField
+              helperText={addressError ? "Address is required." : ""}
               sx={{
                 // width: '600px',
-                '& .MuiOutlinedInput-root': {
-                  borderRadius: '15px',
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "15px",
                   borderColor: BLUE_COLOR,
-                  height: '60px',
-                  marginTop: '15px',
-                  '&.Mui-focused fieldset': {
-                    borderColor: BLUE_COLOR
-                  }
+                  height: "60px",
+                  marginTop: "15px",
+                  "&.Mui-focused fieldset": {
+                    borderColor: BLUE_COLOR,
+                  },
                 },
-                '& input': {
+                "& input": {
                   backgroundColor: INPUT_FIELD_COLOR,
-                  padding: '20px 15px',
-                  fontSize: '16px',
-                  borderRadius: '15px'
-                }
+                  padding: "20px 15px",
+                  fontSize: "16px",
+                  borderRadius: "15px",
+                },
               }}
             />
             {suggestions.length > 0 && (
@@ -344,11 +437,17 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
           </div>
         )}
 
+      {/* The service range must equal or less than 30km  */}
       {service.meetingMethod !== "ONLINE" &&
         service.meetingMethod !== "OFFLINE_CENTER" && (
-          <Typography variant="h6">
-            Distance: {distance} km
-          </Typography>
+          <>
+            <Typography variant="h6">Distance: {distance} km</Typography>
+            {distance >= 30 && (
+              <Typography variant="h6" color="error">
+                The service only supports distances of 30 km or less
+              </Typography>
+            )}
+          </>
         )}
 
       <div>
@@ -357,27 +456,28 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
         </Typography>
         <TextField
           sx={{
-            // width: '600px',
-            '& .MuiOutlinedInput-root': {
-              borderRadius: '15px',
+            "& .MuiOutlinedInput-root": {
+              borderRadius: "15px",
               borderColor: BLUE_COLOR,
-              height: '250px',
-              marginTop: '15px',
-              '&.Mui-focused fieldset': {
-                borderColor: BLUE_COLOR
-              }
+              height: "250px",
+              marginTop: "15px",
+              "&.Mui-focused fieldset": {
+                borderColor: BLUE_COLOR,
+              },
             },
-            '& input': {
+            "& input": {
               backgroundColor: INPUT_FIELD_COLOR,
-              // padding: '20px 15px',
-              height: '220px',
-              fontSize: '16px',
-              borderRadius: '15px'
-            }
+              height: "220px",
+              fontSize: "16px",
+              borderRadius: "15px",
+            },
           }}
           placeholder="Additional Information"
           variant="outlined"
           fullWidth
+          multiline
+          rows={5}
+          maxRows={7} 
           value={additionalInfo}
           onChange={(e) => setAdditionalInfo(e.target.value)}
         />
@@ -387,11 +487,12 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
         mt={3}
         mb={3}
         sx={{
-          height: "400px", // Chiều cao bản đồ cố định
+          height: "400px",
         }}
       >
+        {/* Display map  */}
         <MapContainer
-          center={[10.8231, 106.6297]} // Trung tâm bản đồ
+          center={[10.8231, 106.6297]}
           zoom={13}
           style={{ height: "100%", width: "100%" }}
         >
@@ -401,48 +502,63 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
           />
           {userPosition && (
             <Marker position={userPosition}>
-              <Popup>Vị trí của bạn</Popup>
+              <Popup>Your position</Popup>
             </Marker>
           )}
           {vetPosition && (
             <Marker position={vetPosition}>
-              <Popup>Vị trí bác sĩ thú y</Popup>
+              <Popup>Koi Clinic Center Position</Popup>
             </Marker>
           )}
-          {routeCoords && (
-            <Polyline positions={routeCoords} color="blue" />
-          )}
+          {routeCoords && <Polyline positions={routeCoords} color="blue" />}
         </MapContainer>
       </Box>
 
-      <Box variant="contained" onClick={handleSubmit} sx={{
-        display: 'flex',
-        width: '100%',
-        height: '60px',
-        backgroundColor: BLUE_COLOR,
-        borderRadius: '40px',
-        justifyContent: 'center',
-        alignItems: 'center',
-        border: 'none',
-        mb: 10,
-        cursor: 'pointer'
-      }}>
-        <Typography sx={{ textAlign: 'center', color: "white" }}>
+      <Box
+        variant="contained"
+        onClick={handleSubmit}
+        sx={{
+          display: "flex",
+          width: "100%",
+          height: "60px",
+          backgroundColor: BLUE_COLOR,
+          borderRadius: "40px",
+          justifyContent: "center",
+          alignItems: "center",
+          border: "none",
+          mb: 10,
+          cursor: "pointer",
+        }}
+      >
+        <Typography sx={{ textAlign: "center", color: "white" }}>
           Submit Booking
         </Typography>
       </Box>
 
-      <Snackbar open={!!successMessage} autoHideDuration={6000} onClose={() => setSuccessMessage("")}>
+      <Snackbar
+        open={!!successMessage}
+        autoHideDuration={6000}
+        onClose={() => setSuccessMessage("")}
+      >
         <Alert onClose={() => setSuccessMessage("")} severity="success">
           {successMessage}
-        </Alert>Snack
+        </Alert>
+        Snack
       </Snackbar>
-      <Snackbar open={!!errorMessage} autoHideDuration={6000} onClose={() => setErrorMessage("")}>
+      <Snackbar
+        open={!!errorMessage}
+        autoHideDuration={6000}
+        onClose={() => setErrorMessage("")}
+      >
         <Alert onClose={() => setErrorMessage("")} severity="error">
           {errorMessage}
         </Alert>
       </Snackbar>
-      <Snackbar open={!!statusMessage} autoHideDuration={6000} onClose={() => setStatusMessage("")}>
+      <Snackbar
+        open={!!statusMessage}
+        autoHideDuration={6000}
+        onClose={() => setStatusMessage("")}
+      >
         <Alert onClose={() => setStatusMessage("")} severity="info">
           {statusMessage}
         </Alert>

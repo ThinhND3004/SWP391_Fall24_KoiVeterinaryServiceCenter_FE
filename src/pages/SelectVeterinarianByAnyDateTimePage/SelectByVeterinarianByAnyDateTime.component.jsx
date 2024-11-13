@@ -145,7 +145,7 @@ const SelectVeterinarianByAnyDateTimeComponent = () => {
                   <TextField {...params} fullWidth error={false} />
                 )}
                 minDate={dayjs().add(1, "day")} // Chặn chọn ngày hôm nay
-                maxDate={dayjs().endOf("week").add(1, "day")} // Giới hạn ngày kết thúc vào Chủ Nhật
+                maxDate={dayjs().endOf("day").add(7, "day")} // Giới hạn ngày kết thúc vào Chủ Nhật
                 minTime={dayjs().set("hour", 9).set("minute", 0)} // Giới hạn bắt đầu từ 7:00
                 maxTime={dayjs().set("hour", 15).set("minute", 0)} // Giới hạn kết thúc vào 15:00
                 format=""
@@ -259,7 +259,7 @@ const SelectVeterinarianByAnyDateTimeComponent = () => {
                       </Box>
                     </Grid>
                     <Grid item xs={4} display="flex" justifyContent="space-evenly">
-                      <Button
+                      {/* <Button
                         variant="contained"
                         color="secondary"
                         style={{
@@ -281,7 +281,7 @@ const SelectVeterinarianByAnyDateTimeComponent = () => {
                         }}
                       >
                         View More
-                      </Button>
+                      </Button> */}
                       <Button style={{
                         height: "50px",
                         width: "150px",

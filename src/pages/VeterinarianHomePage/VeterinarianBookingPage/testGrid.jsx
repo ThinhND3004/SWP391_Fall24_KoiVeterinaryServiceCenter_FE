@@ -77,22 +77,29 @@ const DynamicDataGrid = ({ rowData, pageSize = 5 }) => {
       const booking = params.row.details;
       const navigate = useNavigate();
       if (booking.statusEnum === 'CONFIRMED') {
-        const handleClickOpen = () => {
-          navigate("/veterian/create-report", { state: { booking } }); // Truyền state qua route
-        };
-        return (
-          <Button variant="contained" onClick={handleClickOpen}
-            sx={{
-              margin: '5px 0px',
-              border: '1px solid',
-              borderColor: ORANGE_COLOR,
-              color: ORANGE_COLOR,
-              borderRadius: '10px',
-              boxShadow: 'none'
-            }}>
-            Create
-          </Button>
-        )
+        
+        let startedAt = new Date(booking.startedAt);
+
+        if(startedAt <= new Date()){
+          const handleClickOpen = () => {
+            navigate("/veterian/create-report", { state: { booking } }); // Truyền state qua route
+          };
+          return (
+            <Button variant="contained" onClick={handleClickOpen}
+              sx={{
+                margin: '5px 0px',
+                border: '1px solid',
+                borderColor: ORANGE_COLOR,
+                color: ORANGE_COLOR,
+                borderRadius: '10px',
+                boxShadow: 'none'
+              }}>
+              Create
+            </Button>
+          )
+        }
+        else return (<span> Not yet...</span>)
+        
       }
       return <ReportDialog bookingId={booking.id} />
 
