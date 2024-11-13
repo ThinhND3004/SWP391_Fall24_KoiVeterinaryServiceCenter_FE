@@ -198,7 +198,7 @@ function Profile() {
 
       {/* Input */}
       <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-around', gap: 10 }}>
-        <Box>
+        {/* <Box>
           <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Profile name</Typography>
           <TextField
             id="outlined-basic"
@@ -223,7 +223,7 @@ function Profile() {
               }
             }}
           />
-        </Box>
+        </Box> */}
         <Box>
           <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Email</Typography>
           <TextField
@@ -233,7 +233,7 @@ function Profile() {
             value={accInfo.email}
             disabled
             sx={{
-              width: '500px',
+              width: '1090px',
               '& .MuiOutlinedInput-root': {
                 borderRadius: '15px',
                 borderColor: BLUE_COLOR,
@@ -481,7 +481,7 @@ function Profile() {
           marginTop: '40px'
         }}
       >
-        <Box
+        {/* <Box
           sx={{
             display: 'flex',
             width: '200px',
@@ -509,7 +509,7 @@ function Profile() {
           >
             Save changes
           </Button>
-        </Box>
+        </Box> */}
       </Box>
     </div>
   )
