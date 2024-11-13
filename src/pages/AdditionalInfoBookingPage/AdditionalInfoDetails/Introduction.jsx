@@ -12,20 +12,24 @@ import {
 } from "~/theme";
 
 function Introduction({ service, serviceAddress, veterinarian }) {
-
   const formatEstimatedTime = (timeString) => {
     if (!timeString) return "N/A";
 
+    // Tách giờ và phút từ chuỗi timeString
     const [hours, minutes] = timeString.split(":").map(Number);
 
-    if (hours > 0) {
-      return `${hours} hour${hours > 1 ? "s" : ""}`;
+    // Trừ đi 1 giờ nếu giờ lớn hơn 0
+    const adjustedHours = hours > 0 ? hours - 1 : 0; // Trừ đi 1 giờ nếu có giờ
+
+    if (adjustedHours > 0) {
+      return `${adjustedHours} hour${adjustedHours > 1 ? "s" : ""}`;
     } else if (minutes > 0) {
       return `${minutes} minute${minutes > 1 ? "s" : ""}`;
     }
 
-    return "N/A"; // In case of 00:00:00
+    return "N/A"; // Trường hợp không có giờ và phút (00:00:00)
   };
+
   return (
     <Box>
       {/* <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: '45px', color: BLUE_COLOR, mb: 1 }}>Booking Information</Typography> */}
@@ -72,7 +76,9 @@ function Introduction({ service, serviceAddress, veterinarian }) {
           </Typography>
 
           {/* Displaying Price, Estimated Time, and Address using Box for better structure */}
-          <Box sx={{ marginTop: 2, display: "flex", alignItems: "center", mb: 1 }}>
+          <Box
+            sx={{ marginTop: 2, display: "flex", alignItems: "center", mb: 1 }}
+          >
             <Typography sx={{ fontWeight: 700 }}>Estimated Time:</Typography>
             <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
               {formatEstimatedTime(service.estimatedTime)}
@@ -121,7 +127,7 @@ function Introduction({ service, serviceAddress, veterinarian }) {
                       color: BLUE_COLOR,
                     }}
                   >
-                    Pond Size Price: 
+                    Pond Size Price:
                   </Typography>
                 </Box>
               )}
@@ -143,9 +149,7 @@ function Introduction({ service, serviceAddress, veterinarian }) {
               service.name !== "Koi Treatment at center" &&
               service.name !== "Online Consultant" && (
                 <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-                  <Typography sx={{ fontWeight: 700 }}>
-                    Medium Pond: 
-                  </Typography>
+                  <Typography sx={{ fontWeight: 700 }}>Medium Pond:</Typography>
                   <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
                     {new Intl.NumberFormat("vi-VN", {
                       minimumFractionDigits: 0,
@@ -170,6 +174,23 @@ function Introduction({ service, serviceAddress, veterinarian }) {
                   </Typography>
                 </Box>
               )}
+
+            {service.meetingMethod === "OFFLINE_HOME" && (
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  mb: 1,
+                  marginTop: "20px",
+                }}
+              >
+                <Typography sx={{ fontWeight: 700 }}>* Note: </Typography>
+                <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
+                  This service is only available for locations within 30 km or
+                  less.
+                </Typography>
+              </Box>
+            )}
           </Box>
         </Box>
         {/* </Box> */}
@@ -182,8 +203,8 @@ function Introduction({ service, serviceAddress, veterinarian }) {
             width: "500px",
             borderRadius: "26px",
             marginLeft: 2, // Margin left for spacing
-            position: 'relative',
-            top: '70px'
+            position: "relative",
+            top: "70px",
           }}
         />
       </Box>

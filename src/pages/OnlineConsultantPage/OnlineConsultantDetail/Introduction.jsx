@@ -7,15 +7,19 @@ function Introduction({ service, serviceAddress }) {
   const formatEstimatedTime = (timeString) => {
     if (!timeString) return "N/A";
 
+    // Tách giờ và phút từ chuỗi timeString
     const [hours, minutes] = timeString.split(":").map(Number);
 
-    if (hours > 0) {
-      return `${hours} hour${hours > 1 ? "s" : ""}`;
+    // Trừ đi 1 giờ nếu giờ lớn hơn 0
+    const adjustedHours = hours > 0 ? hours - 1 : 0; // Trừ đi 1 giờ nếu có giờ
+
+    if (adjustedHours > 0) {
+      return `${adjustedHours} hour${adjustedHours > 1 ? "s" : ""}`;
     } else if (minutes > 0) {
       return `${minutes} minute${minutes > 1 ? "s" : ""}`;
     }
 
-    return "N/A"; // In case of 00:00:00
+    return "N/A"; // Trường hợp không có giờ và phút (00:00:00)
   };
 
   return (
@@ -53,7 +57,9 @@ function Introduction({ service, serviceAddress }) {
             {service.overview}
           </Typography>
 
-          <Box sx={{ marginTop: 2, display: "flex", alignItems: "center", mb: 1 }}>
+          <Box
+            sx={{ marginTop: 2, display: "flex", alignItems: "center", mb: 1 }}
+          >
             <Typography sx={{ fontWeight: 700 }}>Estimated Time:</Typography>
             <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
               {formatEstimatedTime(service.estimatedTime)}
@@ -102,7 +108,7 @@ function Introduction({ service, serviceAddress }) {
                       color: BLUE_COLOR,
                     }}
                   >
-                    Pond Size Price: 
+                    Pond Size Price:
                   </Typography>
                 </Box>
               )}
@@ -116,7 +122,7 @@ function Introduction({ service, serviceAddress }) {
                     {new Intl.NumberFormat("vi-VN", {
                       minimumFractionDigits: 0,
                     }).format(service.smallPondPrice)}{" "}
-                    VND
+                    VND (Less than 5m3)
                   </Typography>
                 </Box>
               )}
@@ -124,14 +130,12 @@ function Introduction({ service, serviceAddress }) {
               service.name !== "Koi Treatment at center" &&
               service.name !== "Online Consultant" && (
                 <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-                  <Typography sx={{ fontWeight: 700 }}>
-                    Medium Pond: 
-                  </Typography>
+                  <Typography sx={{ fontWeight: 700 }}>Medium Pond:</Typography>
                   <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
                     {new Intl.NumberFormat("vi-VN", {
                       minimumFractionDigits: 0,
                     }).format(service.mediumPondPrice)}{" "}
-                    VND
+                    VND (5m3 - 15m3)
                   </Typography>
                 </Box>
               )}
@@ -147,10 +151,27 @@ function Introduction({ service, serviceAddress }) {
                     {new Intl.NumberFormat("vi-VN", {
                       minimumFractionDigits: 0,
                     }).format(service.largePondPrice)}{" "}
-                    VND
+                    VND (More than 15m3)
                   </Typography>
                 </Box>
               )}
+
+            {service.meetingMethod === "OFFLINE_HOME" && (
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  mb: 1,
+                  marginTop: "20px",
+                }}
+              >
+                <Typography sx={{ fontWeight: 700 }}>* Note: </Typography>
+                <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
+                  This service is only available for locations within 30 km or
+                  less.
+                </Typography>
+              </Box>
+            )}
           </Box>
         </Box>
 
