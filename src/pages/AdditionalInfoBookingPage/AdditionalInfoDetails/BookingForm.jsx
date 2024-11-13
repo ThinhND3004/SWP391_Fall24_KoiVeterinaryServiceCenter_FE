@@ -357,27 +357,27 @@ export default function BookingForm({ service, selectedDateTime, veterinarian })
         </Typography>
         <TextField
           sx={{
-            // width: '600px',
             '& .MuiOutlinedInput-root': {
               borderRadius: '15px',
-              borderColor: BLUE_COLOR,
-              height: '250px',
+              backgroundColor: INPUT_FIELD_COLOR, // Apply background color to the entire field
               marginTop: '15px',
+              '&:hover fieldset': {
+                borderColor: BLUE_COLOR, // Optional: Change border color on hover
+              },
               '&.Mui-focused fieldset': {
-                borderColor: BLUE_COLOR
-              }
+                borderColor: BLUE_COLOR, // Change border color when focused
+              },
             },
-            '& input': {
-              backgroundColor: INPUT_FIELD_COLOR,
-              // padding: '20px 15px',
-              height: '220px',
-              fontSize: '16px',
-              borderRadius: '15px'
-            }
+            '& .MuiOutlinedInput-root textarea': {
+              fontSize: '16px', // Style for textarea content
+            },
           }}
           placeholder="Additional Information"
           variant="outlined"
           fullWidth
+          multiline
+          rows={5}
+          maxRows={7} 
           value={additionalInfo}
           onChange={(e) => setAdditionalInfo(e.target.value)}
         />

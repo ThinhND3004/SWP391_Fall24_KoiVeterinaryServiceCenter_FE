@@ -166,7 +166,7 @@ function CreatePondDialog({ setPond, edit }) {
                         <Box display="flex" alignItems="center" sx={{ width: '100%', gap: 5 }}>
                             {/* <Label label={'pH Level'} /> */}
                             <Typography sx={{ fontWeight: 500, fontSize: 20 }}>pH Level</Typography>
-                            <NumberInput label={'pH Level'} value={pHLevel} setValue={setPHLevel} />
+                            <NumberInput label={'pH Level'} value={pHLevel} setValue={setPHLevel} maxRange={15} />
                         </Box>
                         {error.pHLevel && <span style={{ color: 'red' }}>{error.pHLevel}</span>}
 
