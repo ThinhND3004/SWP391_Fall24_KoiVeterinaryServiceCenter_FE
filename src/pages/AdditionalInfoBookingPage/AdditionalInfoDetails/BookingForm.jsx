@@ -241,20 +241,21 @@ export default function BookingForm({
    */
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (service.meetingMethod === "OFFLINE_HOME") {
+      if (!userAddress.trim()) {
+        setAddressError(true); // Set error if address is empty
+        return;
+      }
 
-    if (!userAddress.trim()) {
-      setAddressError(true); // Set error if address is empty
-      return;
-    }
+      if (distance > 30.0) {
+        setDistanceError(true); // Set distance error if it exceeds 30 km
+        return;
+      }
 
-    if (distance > 30.0) {
-      setDistanceError(true); // Set distance error if it exceeds 30 km
-      return;
-    }
-
-    // Prevent submission if there's any error
-    if (addressError || distanceError) {
-      return;
+      // Prevent submission if there's any error
+      if (addressError || distanceError) {
+        return;
+      }
     }
 
     const bookingData = {
