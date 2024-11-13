@@ -28,6 +28,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import api from "~/config/axios";
 import FeedbackDialog from "./FeedbackDialog";
+import ManagementApi from "~/api/ManagementApi";
 
 export default function BookingListDetails() {
   const [appointments, setAppointments] = useState([]);
@@ -47,12 +48,12 @@ export default function BookingListDetails() {
       let bookingList = [];
       if (token) {
         try {
-          const response = await api.get("/bookings?page=1&unitPerPage=10");
+          const response = await ManagementApi.getCustomerBookings({});
 
           if (!response) throw new Error("Failed to fetch appointments");
 
-          bookingList = await response.data;
-          setAppointments(bookingList.data);
+          bookingList = response;
+          setAppointments(bookingList);
         } catch (error) {
           console.error("Failed to fetch appointments:", error);
         }

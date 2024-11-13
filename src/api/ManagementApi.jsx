@@ -140,6 +140,19 @@ export default class ManagementApi {
     return [];
   }
 
+  static async getCustomerBookings({ status, page, unitPerPage }) {
+    try {
+      const response = await api.get('/bookings/by-customer', {
+        params: { page, unitPerPage, status }
+      });
+      if (response.data.data) return response.data.data;
+    }
+    catch (err) {
+      console.error('Cannot get veterian booking: ' + err.message)
+    }
+    return [];
+  }
+
   static async assignVeterianToBooking({ bookingId, veterianEmail }) {
     try {
       const response = await api.post(`/bookings/assign-veterian/${bookingId}/${veterianEmail}`);
