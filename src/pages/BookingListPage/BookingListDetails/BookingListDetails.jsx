@@ -67,15 +67,36 @@ export default function BookingListDetails() {
     fetchAppointments();
   }, [navigate]);
 
+  const [filterByStatus, setFilterByStatus] = useState("all");
+  const [filterByTime, setFilterByTime] = useState("today"); // Trạng thái thời gian
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Lấy ngày hôm nay
+
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+  tomorrow.setHours(0, 0, 0, 0); // Đặt thời gian về 00:00 để chỉ so sánh ngày
+
   const sortedAppointments = [...appointments]
     .filter(
-      (appointment) => sortBy === "all" || appointment.serviceName === sortBy
+      (appointment) =>
+        (sortBy === "all" || appointment.serviceName === sortBy) &&
+        (filterByStatus === "all" ||
+          appointment.statusEnum === filterByStatus) &&
+        (filterByTime === "all" ||
+          (filterByTime === "upcoming" &&
+            new Date(appointment.startedAt) >= tomorrow) ||
+          (filterByTime === "today" &&
+            new Date(appointment.startedAt).setHours(0, 0, 0, 0) ===
+              today.getTime()) ||
+          (filterByTime === "past" && new Date(appointment.startedAt) < today))
     )
     .sort((a, b) => {
-      if (sortBy === "startedAt") {
-        return new Date(a.startedAt) - new Date(b.startedAt);
-      }
-      return a.serviceName.localeCompare(b.serviceName);
+      // Chuyển đổi ngày thành Date object và đặt thời gian về 0 (so sánh ngày)
+      const appointmentADate = new Date(a.startedAt);
+      const appointmentBDate = new Date(b.startedAt);
+
+      // Sắp xếp các cuộc hẹn theo ngày, với các cuộc hẹn trong tương lai lên trước
+      return appointmentADate - appointmentBDate;
     });
 
   const handleClose = () => {
@@ -202,20 +223,18 @@ export default function BookingListDetails() {
           marginBottom: 8,
         }}
       >
-        - If you need to cancel your booking, please contact us {" "}
+        - If you need to cancel your booking, please contact us{" "}
         <Box component="span" sx={{ fontWeight: 700 }}>
-         at least 24 hours 
-        </Box>
-        {" "}
-        in advance for processing and refund assistance. If cancellation
-        occurs 
-        {" "}
+          at least 24 hours
+        </Box>{" "}
+        in advance for processing and refund assistance. If cancellation occurs{" "}
         <Box component="span" sx={{ fontWeight: 700 }}>
-        after 24 hours
-        </Box>
-        {" "}
+          after 24 hours
+        </Box>{" "}
         , a refund will not be issued.
       </Typography>
+
+      <Typography sx={{ fontSize: 16, fontWeight: 500 }}>Sort by:</Typography>
 
       <div
         style={{
@@ -226,7 +245,6 @@ export default function BookingListDetails() {
           gap: 10,
         }}
       >
-        <Typography sx={{ fontSize: 16, fontWeight: 500 }}>Sort by:</Typography>
         <select
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
@@ -245,6 +263,46 @@ export default function BookingListDetails() {
           <option value="Koi Treatment at center">
             Koi Treatment At Center
           </option>
+        </select>
+
+        <select
+          value={filterByStatus}
+          onChange={(e) => setFilterByStatus(e.target.value)}
+          style={{
+            width: "400px",
+            height: "40px",
+            borderRadius: "14px",
+            padding: "5px",
+            backgroundColor: INPUT_FIELD_COLOR,
+            border: "1px solid #bdbdbd",
+            marginLeft: "10px", // Để tách biệt 2 dropdown
+          }}
+        >
+          <option value="all">All Statuses</option>
+          <option value="PENDING">PENDING</option>
+          <option value="CONFIRMED">CONFIRMED</option>
+          <option value="COMPLETED">COMPLETED</option>
+          <option value="CANCELED">CANCELED</option>
+        </select>
+
+        {/* Dropdown lọc theo trạng thái thời gian */}
+        <select
+          value={filterByTime}
+          onChange={(e) => setFilterByTime(e.target.value)}
+          style={{
+            width: "400px",
+            height: "40px",
+            borderRadius: "14px",
+            padding: "5px",
+            backgroundColor: INPUT_FIELD_COLOR,
+            border: "1px solid #bdbdbd",
+            marginLeft: "10px",
+          }}
+        >
+          <option value="all">All Times</option>
+          <option value="upcoming">Upcoming</option>
+          <option value="today">Today</option>
+          <option value="past">Past</option>
         </select>
       </div>
 
