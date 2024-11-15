@@ -10,6 +10,8 @@ import {
   ONLINE_BUTTON,
   ORANGE_COLOR,
 } from "~/theme";
+import MeetingMethodTagHolder from "~/pages/ServicePage/ServicePageDetails/MethodMeetingTag";
+
 
 function Introduction({ service, serviceAddress, veterinarian }) {
   const formatEstimatedTime = (timeString) => {
@@ -52,22 +54,10 @@ function Introduction({ service, serviceAddress, veterinarian }) {
             {service.name}
           </Typography>
 
-          <Typography
-            sx={{
-              textAlign: "center",
-              backgroundColor: ONLINE_BUTTON,
-              color: "white",
-              width: 150,
-              borderRadius: "10px",
-              height: "30px",
-              marginBottom: 2, // Margin bottom for spacing
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            {service.meetingMethod}
-          </Typography>
+          <MeetingMethodTagHolder
+            meetingMethod={service.meetingMethod}
+            serviceType={service.type}
+          />
 
           <Typography
             sx={{ fontWeight: 400, fontSize: 16, lineHeight: 2, marginTop: 2 }}
@@ -200,11 +190,9 @@ function Introduction({ service, serviceAddress, veterinarian }) {
           src={service.serImageId}
           sx={{
             objectFit: "contain",
-            width: "500px",
+            width: "600px",
             borderRadius: "26px",
-            marginLeft: 2, // Margin left for spacing
-            position: "relative",
-            top: "70px",
+            ml: 2, // margin left
           }}
         />
       </Box>
