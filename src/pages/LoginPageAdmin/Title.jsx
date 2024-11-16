@@ -94,8 +94,8 @@ function Title() {
   return (
     <div>
       <Box display={'flex'} flexDirection={'column'} gap={'100px'} px={'30px'} >
-        <Box sx={{ display: 'flex', justifyContent: 'space-around', marginBottom: '50px', marginTop: '10px' }}>
-          {/* <img src='src\assets\images\management.png' style={{ objectFit: 'contain', width: '400px', borderRadius: '26px' }} /> */}
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: '50px', marginTop: '10px', gap: 10 }}>
+          <img src='src\assets\images\management.png' style={{ objectFit: 'contain', width: '500px', borderRadius: '26px' }} />
           <Box sx={{ display: 'flex', flexDirection: 'column', mt: '0px', width: 600 }}>
             <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 40, textAlign: 'center', color: BLUE_COLOR }}>
               Welcome To Koi Care Clinic <span style={{ color: ORANGE_COLOR }}>Management System</span>

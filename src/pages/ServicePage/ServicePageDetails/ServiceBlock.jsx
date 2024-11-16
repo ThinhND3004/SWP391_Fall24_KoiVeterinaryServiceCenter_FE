@@ -53,7 +53,7 @@ function ServiceBlock({ service }) {
           </Button>
 
         </Box>
-        <img src={service.serImageId} style={{ objectFit: 'contain', width: '500px', borderRadius: '26px' }} />
+        <img src={service.serImageId} style={{ objectFit: 'contain', width: '700px', borderRadius: '26px' }} />
 
       </Box>
     </div>

@@ -39,8 +39,6 @@ const ServiceChooseConPageComponent = () => {
             <Box alignItems={'center'} display={'flex'} flexDirection={'column'} gap={'10px'} px={'30px'}>
                 {/* Introduction */}
                 <Introduction />
-
-
                 {veterians.length > 0 ? (
                     veterians.map((veterian) => (
                         <SerivceChooseCon key={veterian.email} veterian={veterian} />
@@ -51,7 +49,6 @@ const ServiceChooseConPageComponent = () => {
                         No veterinarians available
                     </Typography>
                 )}
-
             </Box>
         </div>
     )

@@ -66,12 +66,12 @@ const ServiceChooseCon = ({ veterian }) => {
     // Chuyển đổi endTime thành đối tượng Date, giả sử format là HH:mm
     const timeParts = endTime.split(":");
     const adjustedTime = new Date();
-    
+
     adjustedTime.setHours(timeParts[0], timeParts[1], 0);  // Set giờ và phút từ endTime
-  
+
     // Trừ đi 1 giờ
     adjustedTime.setHours(adjustedTime.getHours() - 1);
-  
+
     // Chuyển lại thành định dạng HH:mm
     return adjustedTime.toTimeString().slice(0, 5); // Chỉ lấy phần HH:mm
   };
@@ -80,9 +80,9 @@ const ServiceChooseCon = ({ veterian }) => {
     // Chuyển đổi endTime thành đối tượng Date, giả sử format là HH:mm
     const timeParts = endTime.split(":");
     const adjustedTime = new Date();
-    
+
     adjustedTime.setHours(timeParts[0], timeParts[1], 0);  // Set giờ và phút từ endTime
-  
+
     // Chuyển lại thành định dạng HH:mm
     return adjustedTime.toTimeString().slice(0, 5); // Chỉ lấy phần HH:mm
   };
@@ -98,69 +98,64 @@ const ServiceChooseCon = ({ veterian }) => {
           gap: 10,
         }}
       >
-          {/* Vet info column */}
-  <Box
-    sx={{
-      display: "flex",
-      flexDirection: "column",
-      flexGrow: 1, // Đảm bảo cột này chiếm không gian còn lại
-      maxWidth: "45%", // Giới hạn độ rộng tối đa của cột thông tin Vet
-    }}
-  >
-        {/* avt-btn */}
+        {/* Vet info column */}
         <Box
-          display={"flex"}
-          flexDirection={"row"}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            flexGrow: 1, // Đảm bảo cột này chiếm không gian còn lại
+            maxWidth: "45%", // Giới hạn độ rộng tối đa của cột thông tin Vet
+          }}
+        >
+          {/* avt-btn */}
+          <Box
+            display={"flex"}
+            flexDirection={"row"}
           // justifyContent={"center"}
           // alignItems={"center"}
-        >
-          {/* avatar img in the left */}
-          <img
-            style={{
-              width: "150px",
-              height: "150px",
-              borderRadius: "55%", 
-              marginRight: "20px",
-            }}
-            src="https://img.freepik.com/premium-photo/beautiful-painting-three-colorful-koi-fish-are-swimming-pet-generative-ai-illustration_132416-8965.jpg"
-            alt="Account image"
-          />
+          >
+            {/* avatar img in the left */}
+            <img
+              style={{
+                width: "150px",
+                height: "150px",
+                borderRadius: "55%",
+                marginRight: "20px",
+              }}
+              src="https://img.freepik.com/premium-photo/beautiful-painting-three-colorful-koi-fish-are-swimming-pet-generative-ai-illustration_132416-8965.jpg"
+              alt="Account image"
+            />
 
-          {/* Vet info in the right */}
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography sx={{ fontWeight: 700, fontSize: 25 }}>
-              {veterian.fullName}
-            </Typography>
-            <Typography>
-              {veterian.email}
-            </Typography>
-            <Typography>
-              Certification: {veterian.profileDto.certification}
-            </Typography>
-            <Typography>Education: {veterian.profileDto.education}</Typography>
-            <Typography>
-              Years of Experience: {veterian.profileDto.yearOfExperience}
-            </Typography>
+            {/* Vet info in the right */}
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Typography sx={{ fontWeight: 700, fontSize: 25 }}>
+                {veterian.fullName}
+              </Typography>
+              <Typography>
+                {veterian.email}
+              </Typography>
+              <Typography>
+                Certification: {veterian.profileDto.certification}
+              </Typography>
+              <Typography>Education: {veterian.profileDto.education}</Typography>
+              <Typography>
+                Years of Experience: {veterian.profileDto.yearOfExperience}
+              </Typography>
+            </Box>
           </Box>
-
-        </Box>
         </Box>
 
         {/* schedule */}
 
-  {/* Schedule column */}
-  <Box
-    sx={{
-      display: "flex",
-      flexDirection: "column",
-      flexGrow: 1, // Đảm bảo cột này chiếm không gian còn lại
-      maxWidth: "50%", // Giới hạn độ rộng tối đa của bảng thời gian
-    }}
-  >
-          {/* <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Typography sx={{ fontWeight: 700, fontSize: 25 }}>{veterian.fullName}</Typography>
-            <Typography sx={{ fontWeight: 400, fontSize: 20, mt: 1 }}>{veterian.email}</Typography>
-          </Box> */}
+        {/* Schedule column */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            flexGrow: 1, // Đảm bảo cột này chiếm không gian còn lại
+            maxWidth: "50%", // Giới hạn độ rộng tối đa của bảng thời gian
+          }}
+        >
           <FormControl
             sx={{
               marginTop: "15px",
@@ -219,7 +214,7 @@ const ServiceChooseCon = ({ veterian }) => {
                           fullWidth
                           onClick={() => handleClickTimeSlot(slotEntity)}
                         >
-                          {adjustStartTime(slotEntity.startTime)} - {adjustEndTime(slotEntity.endTime)} 
+                          {adjustStartTime(slotEntity.startTime)} - {adjustEndTime(slotEntity.endTime)}
                         </Button>
                       ))}
                     </Grid>
