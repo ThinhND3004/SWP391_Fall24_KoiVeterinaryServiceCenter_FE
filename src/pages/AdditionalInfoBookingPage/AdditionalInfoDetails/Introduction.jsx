@@ -21,7 +21,7 @@ function Introduction({ service, serviceAddress, veterinarian }) {
     const [hours, minutes] = timeString.split(":").map(Number);
 
     // Trừ đi 1 giờ nếu giờ lớn hơn 0
-    const adjustedHours = hours > 0 ? hours - 1 : 0; // Trừ đi 1 giờ nếu có giờ
+    const adjustedHours = hours > 0 ? hours : 0; // Trừ đi 1 giờ nếu có giờ
 
     if (adjustedHours > 0) {
       return `${adjustedHours} hour${adjustedHours > 1 ? "s" : ""}`;
