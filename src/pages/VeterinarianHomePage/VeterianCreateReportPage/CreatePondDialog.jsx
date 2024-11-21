@@ -36,7 +36,13 @@ function CreatePondDialog({ setPond, edit }) {
         if (!depth || depth <= 0) newError.depth = 'Depth must be greater than 0!';
         if (!waterType) newError.waterType = 'Water type is required!';
         if (!temperature && temperature != 0) newError.temperature = 'Temperature is required!';
-        if (!pHLevel && pHLevel != 0) newError.pHLevel = 'pH level is required!';
+        if ((!pHLevel && pHLevel != 0) || pHLevel > 15) {
+            if (!pHLevel && pHLevel != 0) {
+                newError.pHLevel = 'pH level is required!';
+            } else if (pHLevel > 14) {
+                newError.pHLevel = 'pH level cannot be greater than 14!';
+            }
+        }
         if (!lastMaintenanceDate) newError.lastMaintenanceDate = 'Last Maintenance is required!';
 
         setError(newError);
@@ -175,12 +181,12 @@ function CreatePondDialog({ setPond, edit }) {
                                     value={pHLevel}
                                     setValue={setPHLevel}
                                 />
-                                {error.pHLevel && <span style={{ color: 'red', fontSize: '14px' }}>{error.pHLevel}</span>}
+                                {error.pHLevel && <span style={{ color: 'red', fontSize: '12px' }}>{error.pHLevel}</span>}
                             </Box>
 
-                            <Box alignItems="center" gap={2}>
+                            <Box alignItems="center" gap={2} width={'300px'}>
                                 <Typography sx={{ fontWeight: 500, fontSize: 16 }}>
-                                    Temperature (°C)
+                                    Temperature
                                 </Typography>
                                 <NumberInput
                                     label={'Temperature (°C)'}
