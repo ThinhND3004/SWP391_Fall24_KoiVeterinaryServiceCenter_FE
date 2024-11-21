@@ -75,7 +75,7 @@ export default function ReportDialog({ bookingId }) {
                                         <Typography variant="body1" sx={{ fontSize: 16 }}>Depth (m): {report.pondDto.depthMeters}</Typography>
                                         <Typography variant="body1" sx={{ fontSize: 16 }}>Water Type: {report.pondDto.waterType}</Typography>
                                         <Typography variant="body1" sx={{ fontSize: 16 }}>Temperature (°C): {report.pondDto.temperatureCelsius}</Typography>
-                                        <Typography variant="body1" sx={{ fontSize: 16 }}>pH Level: {report.pondDto.pHLevel}</Typography>
+                                        <Typography variant="body1" sx={{ fontSize: 16 }}>pH Level: {report.pondDto.phlevel}</Typography>
                                         <Typography variant="body1" sx={{ fontSize: 16 }}>Last Maintenance: {report.pondDto.lastMaintenanceDate}</Typography>
                                     </Box>
                                 ) : <Typography>No Pond Data</Typography>}

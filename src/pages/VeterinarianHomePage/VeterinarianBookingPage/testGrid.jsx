@@ -101,6 +101,7 @@ const DynamicDataGrid = ({ rowData, pageSize = 5 }) => {
         else return (<span> Not yet...</span>)
         
       }
+      else if (booking.statusEnum === 'COMPLETED')
       return <ReportDialog bookingId={booking.id} />
 
     }
