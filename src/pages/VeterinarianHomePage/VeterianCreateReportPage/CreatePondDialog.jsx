@@ -21,7 +21,7 @@ function CreatePondDialog({ setPond, edit }) {
     const [depth, setDepth] = useState(0);
     const [waterType, setWaterType] = useState('');
     const [temperature, setTemperature] = useState(0);
-    const [pHLevel, setPHLevel] = useState(0);
+    const [pHLevel, setPHLevel] = useState(1);
     const [lastMaintenanceDate, setLastMaintenanceDate] = useState(null);
 
     const [error, setError] = useState({});
