@@ -180,6 +180,7 @@ function CreatePondDialog({ setPond, edit }) {
                                     label={'pH Level'}
                                     value={pHLevel}
                                     setValue={setPHLevel}
+                                    maxRange={14}
                                 />
                                 {error.pHLevel && <span style={{ color: 'red', fontSize: '12px' }}>{error.pHLevel}</span>}
                             </Box>
