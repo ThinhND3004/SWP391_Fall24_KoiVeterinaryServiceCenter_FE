@@ -11,15 +11,17 @@ function Introduction({ service, serviceAddress }) {
     const [hours, minutes] = timeString.split(":").map(Number);
 
     // Trừ đi 1 giờ nếu giờ lớn hơn 0
-    const adjustedHours = hours > 0 ? hours - 1 : 0; // Trừ đi 1 giờ nếu có giờ
+    const adjustedHours = hours > 0 ? hours : 0; // Trừ đi 1 giờ nếu có giờ
 
+    let timeReturn = '';
     if (adjustedHours > 0) {
-      return `${adjustedHours} hour${adjustedHours > 1 ? "s" : ""}`;
-    } else if (minutes > 0) {
-      return `${minutes} minute${minutes > 1 ? "s" : ""}`;
+      timeReturn += `${adjustedHours} hour${adjustedHours > 1 ? "s" : ""} `;
+    } 
+    if (minutes > 0) {
+      timeReturn += `${minutes} minute${minutes > 1 ? "s" : ""}`;
     }
 
-    return "N/A"; // Trường hợp không có giờ và phút (00:00:00)
+    return timeReturn ? timeReturn : 'N/A'; // Trường hợp không có giờ và phút (00:00:00)
   };
 
   return (

@@ -70,7 +70,7 @@ const ServiceChooseCon = ({ veterian }) => {
     adjustedTime.setHours(timeParts[0], timeParts[1], 0);  // Set giờ và phút từ endTime
 
     // Trừ đi 1 giờ
-    adjustedTime.setHours(adjustedTime.getHours() - 1);
+    adjustedTime.setHours(adjustedTime.getHours());
 
     // Chuyển lại thành định dạng HH:mm
     return adjustedTime.toTimeString().slice(0, 5); // Chỉ lấy phần HH:mm
