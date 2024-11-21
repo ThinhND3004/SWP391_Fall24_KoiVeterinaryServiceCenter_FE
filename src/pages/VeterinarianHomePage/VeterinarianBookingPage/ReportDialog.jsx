@@ -83,7 +83,6 @@ export default function ReportDialog({ bookingId }) {
                                 <Typography><strong>Prescriptions:</strong></Typography>
                                 {report.prescriptionDto ? (
                                     <Box>
-                                        <Typography><strong>Koi Species:</strong></Typography>
                                         <Typography>
                                             {report.prescriptionDto.prescriptionMedicineDto.map((pm, index) => (
                                                 <span key={index}>{pm.medicineName} : {pm.amount}<br /></span>
