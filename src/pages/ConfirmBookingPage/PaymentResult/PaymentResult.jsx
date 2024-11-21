@@ -59,7 +59,6 @@ const PaymentResult = () => {
       setBookingDTO(bookingResult.data);
     } catch (error) {
       console.error('Error creating booking: ', error);
-      alert(`Error creating booking: ${error.message}`);
     }
   };
 
