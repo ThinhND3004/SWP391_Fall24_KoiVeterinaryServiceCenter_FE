@@ -96,6 +96,7 @@ const ServiceChooseCon = ({ veterian }) => {
           display: "flex",
           justifyContent: "space-between",
           gap: 10,
+          width: '1200px'
         }}
       >
         {/* Vet info column */}
@@ -104,15 +105,13 @@ const ServiceChooseCon = ({ veterian }) => {
             display: "flex",
             flexDirection: "column",
             flexGrow: 1, // Đảm bảo cột này chiếm không gian còn lại
-            maxWidth: "45%", // Giới hạn độ rộng tối đa của cột thông tin Vet
+            maxWidth: "50%", // Giới hạn độ rộng tối đa của cột thông tin Vet
           }}
         >
           {/* avt-btn */}
           <Box
             display={"flex"}
             flexDirection={"row"}
-          // justifyContent={"center"}
-          // alignItems={"center"}
           >
             {/* avatar img in the left */}
             <img
@@ -120,7 +119,7 @@ const ServiceChooseCon = ({ veterian }) => {
                 width: "150px",
                 height: "150px",
                 borderRadius: "55%",
-                marginRight: "20px",
+                marginRight: "50px",
               }}
               src="https://img.freepik.com/premium-photo/beautiful-painting-three-colorful-koi-fish-are-swimming-pet-generative-ai-illustration_132416-8965.jpg"
               alt="Account image"
