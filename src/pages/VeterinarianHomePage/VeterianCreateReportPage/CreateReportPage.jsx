@@ -16,8 +16,6 @@ import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import BackdropComponent from '~/components/Backdrop.component';
 
-const baseUrl = import.meta.env.VITE_API_URL;
-
 
 function CreateReportPage({ booking }) {
     const [addKoiSpecies, setAddKoiSpecies] = useState([]);
