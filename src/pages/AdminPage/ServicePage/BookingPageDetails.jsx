@@ -78,7 +78,7 @@ const BookingPageDetails = () => {
   const [openDialog, setOpenDialog] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
   const [serviceDatas, setServiceDatas] = useState([])
-  const { data, loading, error } = useFetchOnce('services/getAllService')
+  const { data, loading, error } = useFetchOnce('services')
   const isMenuOpen = Boolean(anchorEl)
 
   const handleDialogOpen = () => setOpenDialog(true)
