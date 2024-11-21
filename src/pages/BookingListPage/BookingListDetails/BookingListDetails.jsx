@@ -24,8 +24,8 @@ import {
   // RED_COLOR
 } from "~/theme";
 import GradeIcon from "@mui/icons-material/Grade";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 
 import api from "~/config/axios";
 import FeedbackDialog from "./FeedbackDialog";
@@ -182,87 +182,62 @@ export default function BookingListDetails() {
     toast.error("View payment info feature is under development");
 
   const [openCancelBookingDialogs, setOpenCancelBookingDialogs] = useState({});
-const [cancelReason, setCancelReason] = useState("");
+  const [cancelReason, setCancelReason] = useState("");
 
-const handleOpenCancelBookingDialog = (appointmentId) => {
-  setOpenCancelBookingDialogs((prev) => ({
+  const handleOpenCancelBookingDialog = (appointmentId) => {
+    setOpenCancelBookingDialogs((prev) => ({
       ...prev,
       [appointmentId]: true,
-  }));
-};
-
-const handleCloseCancelBookingDialog = (appointmentId) => {
-  setOpenCancelBookingDialogs((prev) => ({
-      ...prev,
-      [appointmentId]: false,
-  }));
-  setCancelReason(""); // Reset lý do hủy khi đóng dialog
-};
-
-
-
-const handleSendCancelBookingRequest = async (appointmentId) => {
-  if (!cancelReason.trim()) {
-    toast.warn("Please enter a reason before sending the request.", {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-    return;
-  }
-
-  const updateBookingDTO = {
-    additionalInformation: cancelReason,
-    statusEnum: "CANCELED",
+    }));
   };
 
-  try {
-    // Gửi yêu cầu cập nhật trạng thái refund
-    const response = await api.put(`/bookings/refund/${appointmentId}`, 
-      updateBookingDTO);
+  const handleCloseCancelBookingDialog = (appointmentId) => {
+    setOpenCancelBookingDialogs((prev) => ({
+      ...prev,
+      [appointmentId]: false,
+    }));
+    setCancelReason(""); // Reset lý do hủy khi đóng dialog
+  };
 
-    // Kiểm tra phản hồi từ API
-    if (!response || response.status !== 200) {
-      throw new Error("Failed to refund booking!");
+  const handleSendCancelBookingRequest = async (appointmentId) => {
+    if (!cancelReason.trim()) {
+      toast.error("Please enter a reason before sending the request.");
+      return;
     }
 
-    // Hiển thị thông báo thành công
-    toast.success("Refund request has been sent successfully.", {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      onClose: () => {
-        // Reload lại trang sau khi toast đóng
+    const updateBookingDTO = {
+      additionalInformation: cancelReason,
+      statusEnum: "CANCELED",
+    };
+
+    try {
+      // Gửi yêu cầu cập nhật trạng thái refund
+      const response = await api.put(
+        `/bookings/refund/${appointmentId}`,
+        updateBookingDTO
+      );
+
+      // Kiểm tra phản hồi từ API
+      if (!response || response.status !== 200) {
+        throw new Error("Failed to refund booking!");
+      }
+
+      // Hiển thị thông báo thành công
+      toast.success("Refund request has been sent successfully.");
+
+      setTimeout(() => {
         window.location.reload();
-      },
-    });
+      }, 2000);
 
-    // Reset trạng thái và đóng dialog
-    setCancelReason(""); // Xóa lý do hủy sau khi gửi thành công
-    handleCloseCancelBookingDialog(appointmentId);
-  } catch (error) {
-    // Hiển thị thông báo lỗi
-    toast.error("An error occurred while sending the refund request. Please try again.", {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  }
-};
-
-
+      // Reset trạng thái và đóng dialog
+      setCancelReason(""); // Xóa lý do hủy sau khi gửi thành công
+      handleCloseCancelBookingDialog(appointmentId);
+    } catch (error) {
+      // Hiển thị thông báo lỗi
+      toast.error(
+        "An error occurred while sending the refund request. Please try again.");
+    }
+  };
 
   return (
     <div>
@@ -309,13 +284,13 @@ const handleSendCancelBookingRequest = async (appointmentId) => {
           marginBottom: 8,
         }}
       >
-        - If you need to cancel your booking, please contact us{" "}
+        - If have any question, please contact us{" "}
         <Box component="span" sx={{ fontWeight: 700 }}>
-          at least 24 hours
+          at least 12 hours
         </Box>{" "}
         in advance for processing and refund assistance. If cancellation occurs{" "}
         <Box component="span" sx={{ fontWeight: 700 }}>
-          after 24 hours
+          after 12 hours
         </Box>{" "}
         , a refund will not be issued.
       </Typography>
@@ -465,118 +440,123 @@ const handleSendCancelBookingRequest = async (appointmentId) => {
               }}
             >
               {/* Cancel Booking Button */}
-              {(appointment.statusEnum === "PENDING" || 
-  appointment.statusEnum === "CONFIRMED") &&
-  new Date(appointment.startedAt).getTime() - new Date().getTime() > 12 * 60 * 60 * 1000 && (
-  <Box>
-    <button
-      style={{
-        width: "200px",
-        height: "60px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        color: "#fff",
-        fontFamily: "Poppins",
-        backgroundColor: BLUE_COLOR,
-        borderRadius: "30px",
-        cursor: "pointer",
-      }}
-      onClick={() => handleOpenCancelBookingDialog(appointment.id)}
-    >
-      Cancel Booking
-    </button>
-  </Box>
-)}
+              {(appointment.statusEnum === "PENDING" ||
+                appointment.statusEnum === "CONFIRMED") &&
+                new Date(appointment.startedAt).getTime() -
+                  new Date().getTime() >
+                  12 * 60 * 60 * 1000 && (
+                  <Box>
+                    <button
+                      style={{
+                        width: "200px",
+                        height: "60px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: "#fff",
+                        fontFamily: "Poppins",
+                        backgroundColor: ORANGE_COLOR,
+                        borderRadius: "30px",
+                        cursor: "pointer",
+                      }}
+                      onClick={() =>
+                        handleOpenCancelBookingDialog(appointment.id)
+                      }
+                    >
+                      Cancel Booking
+                    </button>
+                  </Box>
+                )}
 
-
-
-{/* Dialog for Cancel Booking */}
-<Dialog
-    open={openCancelBookingDialogs[appointment.id] || false} // Kiểm tra trạng thái của dialog
-    onClose={() => handleCloseCancelBookingDialog(appointment.id)} // Đóng dialog
-    PaperProps={{
-        sx: {
-            width: "600px",
-            maxWidth: "90%",
-            bgcolor: INPUT_FIELD_COLOR,
-            borderRadius: "30px",
-        },
-    }}
->
-    <DialogTitle sx={{ marginTop: 4 }}>
-        <Typography
-            sx={{
-                fontWeight: 600,
-                fontSize: 20,
-                textAlign: "center",
-            }}
-        >
-            Cancel Booking
-        </Typography>
-    </DialogTitle>
-    <DialogContent>
-        <DialogContentText
-            sx={{
-                fontWeight: 600,
-                fontSize: 14,
-                textAlign: "center",
-                mb: 2,
-            }}
-        >
-            Please provide a reason for cancelling this booking.
-        </DialogContentText>
-        {/* Textarea for Reason */}
-        <textarea
-            value={cancelReason} // Giá trị được ràng buộc với state
-            onChange={(e) => setCancelReason(e.target.value)} // Cập nhật giá trị state
-            placeholder="Enter your reason here..."
-            style={{
-                width: "100%",
-                height: "100px",
-                borderRadius: "10px",
-                padding: "10px",
-                border: "1px solid #ccc",
-                fontSize: "14px",
-                resize: "none",
-                boxSizing: "border-box",
-                marginBottom: "16px",
-            }}
-        />
-    </DialogContent>
-    <DialogActions>
-        {/* Send Request Button */}
-        <Button
-            onClick={() => handleSendCancelBookingRequest(appointment.id)} // Gửi yêu cầu hủy
-            sx={{
-                bgcolor: ORANGE_COLOR, // Màu đỏ cho nút Send Request
-                borderRadius: "14px",
-                color: "white",
-                width: "150px",
-                height: "40px",
-                mr: 2,
-                mb: 3,
-            }}
-        >
-            Submit
-        </Button>
-        {/* Close Button */}
-        <Button
-            onClick={() => handleCloseCancelBookingDialog(appointment.id)} // Đóng dialog
-            sx={{
-                bgcolor: BLUE_COLOR,
-                borderRadius: "14px",
-                color: "white",
-                width: "100px",
-                height: "40px",
-                mb: 3,
-            }}
-        >
-            Close
-        </Button>
-    </DialogActions>
-</Dialog>
-
+              {/* Dialog for Cancel Booking */}
+              <Dialog
+                open={openCancelBookingDialogs[appointment.id] || false} // Kiểm tra trạng thái của dialog
+                onClose={() => handleCloseCancelBookingDialog(appointment.id)} // Đóng dialog
+                PaperProps={{
+                  sx: {
+                    width: "600px",
+                    maxWidth: "90%",
+                    bgcolor: INPUT_FIELD_COLOR,
+                    borderRadius: "30px",
+                  },
+                }}
+              >
+                <DialogTitle sx={{ marginTop: 4 }}>
+                  <Typography
+                    sx={{
+                      fontWeight: 600,
+                      fontSize: 20,
+                      textAlign: "center",
+                    }}
+                  >
+                    Cancel Booking
+                  </Typography>
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText
+                    sx={{
+                      fontWeight: 600,
+                      fontSize: 14,
+                      textAlign: "center",
+                      mb: 2,
+                    }}
+                  >
+                    Please provide a reason for cancelling this booking.
+                  </DialogContentText>
+                  {/* Textarea for Reason */}
+                  <textarea
+                    value={cancelReason} // Giá trị được ràng buộc với state
+                    onChange={(e) => setCancelReason(e.target.value)} // Cập nhật giá trị state
+                    placeholder="Enter your reason here..."
+                    style={{
+                      width: "100%",
+                      height: "100px",
+                      borderRadius: "10px",
+                      padding: "10px",
+                      border: "1px solid #ccc",
+                      fontSize: "14px",
+                      resize: "none",
+                      boxSizing: "border-box",
+                      marginBottom: "16px",
+                    }}
+                  />
+                </DialogContent>
+                <DialogActions>
+                  {/* Send Request Button */}
+                  <Button
+                    onClick={() =>
+                      handleSendCancelBookingRequest(appointment.id)
+                    } // Gửi yêu cầu hủy
+                    sx={{
+                      bgcolor: ORANGE_COLOR, // Màu đỏ cho nút Send Request
+                      borderRadius: "14px",
+                      color: "white",
+                      width: "150px",
+                      height: "40px",
+                      mr: 2,
+                      mb: 3,
+                    }}
+                  >
+                    Submit
+                  </Button>
+                  {/* Close Button */}
+                  <Button
+                    onClick={() =>
+                      handleCloseCancelBookingDialog(appointment.id)
+                    } // Đóng dialog
+                    sx={{
+                      bgcolor: BLUE_COLOR,
+                      borderRadius: "14px",
+                      color: "white",
+                      width: "100px",
+                      height: "40px",
+                      mb: 3,
+                    }}
+                  >
+                    Close
+                  </Button>
+                </DialogActions>
+              </Dialog>
 
               <Box>
                 <button
@@ -679,8 +659,11 @@ const handleSendCancelBookingRequest = async (appointmentId) => {
                         )}
 
                       <Typography variant="body1">
-                        Start At: 
-                        {format(new Date(appointment.startedAt), "dd/MM/yyyy HH:mm")}
+                        Start At:
+                        {format(
+                          new Date(appointment.startedAt),
+                          "dd/MM/yyyy HH:mm"
+                        )}
                       </Typography>
                       <Typography variant="body1">
                         Status: {appointment.statusEnum}
@@ -735,8 +718,11 @@ const handleSendCancelBookingRequest = async (appointmentId) => {
                       </Typography>
 
                       <Typography variant="body1">
-                        Created At: 
-                        {format(new Date(appointment.createdAt), "dd/MM/yyyy HH:mm")}
+                        Created At:
+                        {format(
+                          new Date(appointment.createdAt),
+                          "dd/MM/yyyy HH:mm"
+                        )}
                       </Typography>
                     </Box>
                   </DialogContent>
@@ -803,7 +789,7 @@ const handleSendCancelBookingRequest = async (appointmentId) => {
                   </DialogActions>
                 </Dialog> */}
 
-                <ToastContainer />
+                {/* <ToastContainer /> */}
               </Box>
               {appointment.statusEnum === "COMPLETED" ? (
                 <FeedbackDialog bookingId={appointment.id} />
