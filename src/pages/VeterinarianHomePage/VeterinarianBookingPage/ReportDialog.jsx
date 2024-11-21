@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button, Typography, Box } from '@mui/material';
 import { useState } from "react";
 import ManagementApi from '~/api/ManagementApi';
@@ -115,6 +116,8 @@ export default function ReportDialog({ bookingId }) {
                     </DialogActions>
                 </Dialog>
             </Box>
+        // eslint-disable-next-line indent
         </Box>
+        // eslint-disable-next-line indent
     );
 }

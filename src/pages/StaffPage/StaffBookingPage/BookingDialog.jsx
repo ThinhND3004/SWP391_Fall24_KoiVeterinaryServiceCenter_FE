@@ -1,5 +1,6 @@
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button, Typography, Box } from '@mui/material';
 import { useState } from "react";
+import { BLUE_COLOR, INPUT_FIELD_COLOR } from '~/theme';
 import TimeUtils from '~/utils/TimeUtils';
 
 
@@ -16,21 +17,36 @@ export default function BookingDialog({ booking }) {
 
   return (
     <Box>
-      <Button variant="contained" color="primary" onClick={handleClickOpen}
+      <Button variant="contained" onClick={handleClickOpen}
         sx={{
-          margin: '5px 0px',
-          borderRadius: '10px'
+          borderRadius: '14px',
+          bgcolor: BLUE_COLOR,
+          color: '#fff',
+          boxShadow: 'none'
         }}>
         View Details
       </Button>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="booking-dialog-title">
+
+      <Dialog open={open} onClose={handleClose} aria-labelledby="booking-dialog-title" PaperProps={{
+        sx: {
+          bgcolor: INPUT_FIELD_COLOR,
+          borderRadius: '20px',
+          padding: 2,
+          minHeight: '50vh', // Adjust height as needed
+          minWidth: '50vw', // Adjust width as needed
+        }
+      }}>
         <DialogTitle sx={{
-          marginBottom: '5px',
+          marginTop: 4,
+          mb: 2,
+          bgcolor: INPUT_FIELD_COLOR
         }}>
-          Booking Information
+          <Typography sx={{ fontFamily: 'SVN-Konga Pro', color: BLUE_COLOR, fontSize: 30 }}>
+            Booking Information
+          </Typography>
         </DialogTitle>
 
-        <DialogContent >
+        <DialogContent sx={{ bgcolor: INPUT_FIELD_COLOR }}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             {/* Display booking details */}
             <Typography variant="body1"><strong>Booking ID:</strong> {booking.id}</Typography>
@@ -54,7 +70,7 @@ export default function BookingDialog({ booking }) {
 
 
         <DialogActions>
-          <Button onClick={handleClose} sx={{ color: 'red' }}>
+          <Button onClick={handleClose} sx={{ bgcolor: BLUE_COLOR, borderRadius: '30px', width: '120px', height: '40px' }}>
             Close
           </Button>
         </DialogActions>

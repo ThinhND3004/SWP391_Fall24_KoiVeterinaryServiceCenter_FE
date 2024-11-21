@@ -1,6 +1,8 @@
+/* eslint-disable indent */
+/* eslint-disable semi */
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button, Typography, Box, styled, InputBase, alpha } from '@mui/material';
-import { useEffect, useState } from "react";
-import { GRAY_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme';
+import { useEffect, useState } from 'react';
+import { BLUE_COLOR, GRAY_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme';
 import SearchIcon from '@mui/icons-material/Search'
 import ManagementApi from '~/api/ManagementApi';
 import { sendNotificationOnEmail } from '~/utils/WebSocketUtils';
@@ -35,7 +37,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     width: '100%',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+        paddingLeft: `calc(1em + ${theme.spacing(4)})`
     }
 }))
 
@@ -66,7 +68,7 @@ function VeterianChooseDialog({ bookingId, serviceName, serviceId, serviceMethod
                 message: 'You received an invitation!',
                 notiType: 'success'
             })
-            
+
             // Send Email
             const sendEmailResp = await ManagementApi.sendInvitationEmail({
                 to: veterian.email,
@@ -82,7 +84,7 @@ function VeterianChooseDialog({ bookingId, serviceName, serviceId, serviceMethod
             })
 
             if (sendEmailResp) {
-                console.log("SEND EMAIL SUCCESSFUL")
+                console.log('SEND EMAIL SUCCESSFUL')
             }
 
             setOpen(false)
@@ -103,63 +105,61 @@ function VeterianChooseDialog({ bookingId, serviceName, serviceId, serviceMethod
         return (
             <Box
                 sx={{
-                    border: '1px solid #ccc',
-                    borderRadius: '8px',
                     padding: '16px',
                     display: 'flex',
                     alignItems: 'center',
-                    maxWidth: '600px',
-                    margin: '0 auto',
+                    width: '100%',
+                    bgcolor: INPUT_FIELD_COLOR
                 }}
                 key={veterian.email}
             >
                 {/* Picture on the left */}
                 <Box
                     component="img"
-                    src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+                    src="src\assets\images\vetAcc.png"
                     alt="Profile Picture"
                     sx={{
                         width: '150px',
                         height: '150px',
-                        borderRadius: '8px',
+                        borderRadius: '14px',
                         objectFit: 'cover',
-                        marginRight: '16px'
+                        marginRight: '30px'
                     }}
                 />
 
                 {/* Name and Info on the right */}
                 <Box>
-                    <Typography variant="h5" component="h2">
+                    <Typography sx={{ fontWeight: 500, fontSize: 20 }}>
                         {veterian.fullName}
                     </Typography>
-                    <Typography variant="h5" component="h2">
+                    <Typography sx={{ fontWeight: 500, fontSize: 18 }}>
                         {veterian.email}
                     </Typography>
-                    <Typography variant="body1" color="textSecondary">Certification: {veterian.certification || 'Empty certification'}</Typography>
-                    <Typography variant="body1" color="textSecondary">Year Of Experience: {veterian.yearOfExperience || 'Empty Year Of Experience'}</Typography>
-                    <Typography variant="body1" color="textSecondary">Education: {veterian.education || 'Empty education  '}</Typography>
+                    <Typography sx={{ fontWeight: 400, fontSize: 14 }}>Certification: {veterian.certification || 'Empty certification'}</Typography>
+                    <Typography sx={{ fontWeight: 400, fontSize: 14 }}>Year Of Experience: {veterian.yearOfExperience || 'Empty Year Of Experience'}</Typography>
+                    <Typography sx={{ fontWeight: 400, fontSize: 14 }}>Education: {veterian.education || 'Empty education  '}</Typography>
 
                     {isSent === true ?
                         <Button variant="contained"
                             sx={{
-                                margin: '5px 0px',
-                                border: '1px solid',
-                                backgroundColor: 'white',
-                                borderColor: ORANGE_COLOR,
-                                color: ORANGE_COLOR,
-                                borderRadius: '10px',
+                                backgroundColor: BLUE_COLOR,
+                                color: 'whitesmoke',
+                                borderRadius: '14px',
                                 boxShadow: 'none',
+                                width: '150px'
                             }}>
-                            Is Sent
+                            Sent
                         </Button>
                         :
                         <Button variant="contained"
                             onClick={() => handleSend()}
                             sx={{
-                                margin: '5px 0px',
                                 backgroundColor: ORANGE_COLOR,
                                 color: 'whitesmoke',
-                                borderRadius: '10px'
+                                borderRadius: '14px',
+                                mt: 1,
+                                boxShadow: 'none',
+                                width: '150px'
                             }}>
                             Send invitation
                         </Button>
@@ -175,7 +175,7 @@ function VeterianChooseDialog({ bookingId, serviceName, serviceId, serviceMethod
     const [open, setOpen] = useState(false);
     const [idleVeterian, setIdleVeterian] = useState([]);
     const [tempVeterian, setTempVeterian] = useState([]);
-    const [searchValue, setSearchValue] = useState("");
+    const [searchValue, setSearchValue] = useState('');
 
     const handleClickOpen = async () => {
         const veterianData = await ManagementApi.getIdleAccounts({ serviceId: serviceId, startDateTime: startedAt });
@@ -188,10 +188,10 @@ function VeterianChooseDialog({ bookingId, serviceName, serviceId, serviceMethod
         setOpen(false);
     };
     const handleSearching = async (event) => {
-        const searchValue = event.target.value || "";
+        const searchValue = event.target.value || '';
 
         let returnData;
-        if (searchValue === "") returnData = idleVeterian;
+        if (searchValue === '') returnData = idleVeterian;
         else {
             returnData = idleVeterian.filter((data) => {
                 return data.fullName.toLowerCase().includes(searchValue.toLowerCase());
@@ -209,7 +209,8 @@ function VeterianChooseDialog({ bookingId, serviceName, serviceId, serviceMethod
                     margin: '5px 0px',
                     backgroundColor: ORANGE_COLOR,
                     color: 'whitesmoke',
-                    borderRadius: '10px'
+                    borderRadius: '10px',
+                    boxShadow: 'none'
                 }}>
                 Find Veterian
             </Button>
@@ -217,15 +218,21 @@ function VeterianChooseDialog({ bookingId, serviceName, serviceId, serviceMethod
                 PaperProps={{
                     sx: {
                         width: '50%',
+                        bgcolor: INPUT_FIELD_COLOR,
+                        borderRadius: '30px'
                     }
                 }}
             >
                 <DialogTitle sx={{
-                    marginBottom: '5px',
+                    // marginBottom: '5px'
                 }}>
+                    <Typography sx={{ fontFamily: 'SVN-Konga Pro', fontSize: 30, textAlign: 'center', margin: '10px', mb: 2, color: BLUE_COLOR }}>
+                        Assign Veterinarian
+                    </Typography>
                     <Search sx={{
                         borderRadius: '10px',
-                        bgcolor: INPUT_FIELD_COLOR
+                        bgcolor: INPUT_FIELD_COLOR,
+                        border: `1px solid ${BLUE_COLOR}`
                     }}>
                         <SearchIconWrapper>
                             <SearchIcon sx={{ color: GRAY_COLOR, fontSize: '14px' }} />
@@ -250,12 +257,13 @@ function VeterianChooseDialog({ bookingId, serviceName, serviceId, serviceMethod
                 </DialogContent>
 
                 <DialogActions>
-                    <Button onClick={handleClose} sx={{ color: 'red' }}>
+                    <Button onClick={handleClose} sx={{ bgcolor: BLUE_COLOR, borderRadius: '14px', color: 'white', width: '100px', height: '40px', mr: 6, mb: 3 }}>
                         Close
                     </Button>
                 </DialogActions>
             </Dialog >
         </Box >
+        // eslint-disable-next-line indent
     )
 }
 
