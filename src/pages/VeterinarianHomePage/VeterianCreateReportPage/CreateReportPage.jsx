@@ -98,7 +98,7 @@ function CreateReportPage({ booking }) {
                     // SEND EMAIL
                     await ManagementApi.sendReportEmail({
                         bookingId: booking.id,
-                        companyWebsite: baseUrl + 'booking-list',
+                        companyWebsite: 'http://localhost:5173/booking-list',
                         companyName: 'Koi Veterinary Service Center'
                     })
                     navigate(-1);
