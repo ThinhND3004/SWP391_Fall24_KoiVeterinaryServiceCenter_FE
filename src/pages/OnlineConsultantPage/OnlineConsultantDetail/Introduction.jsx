@@ -17,7 +17,7 @@ function Introduction({ service, serviceAddress }) {
     if (adjustedHours > 0) {
       timeReturn += `${adjustedHours} hour${adjustedHours > 1 ? "s" : ""} `;
     } 
-     if (minutes > 0) {
+    if (minutes > 0) {
       timeReturn += `${minutes} minute${minutes > 1 ? "s" : ""}`;
     }
 
