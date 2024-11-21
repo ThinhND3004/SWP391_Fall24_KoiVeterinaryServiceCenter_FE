@@ -36,7 +36,7 @@ function CreatePondDialog({ setPond, edit }) {
         if (!depth || depth <= 0) newError.depth = 'Depth must be greater than 0!';
         if (!waterType) newError.waterType = 'Water type is required!';
         if (!temperature && temperature != 0) newError.temperature = 'Temperature is required!';
-        if ((!pHLevel && pHLevel != 0) || pHLevel > 15) {
+        if ((!pHLevel && pHLevel != 0) || pHLevel > 14) {
             if (!pHLevel && pHLevel != 0) {
                 newError.pHLevel = 'pH level is required!';
             } else if (pHLevel > 14) {
