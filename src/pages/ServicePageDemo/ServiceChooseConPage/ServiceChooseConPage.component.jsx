@@ -7,11 +7,14 @@ import { useEffect, useState } from 'react';
 import api from '~/config/axios';
 import { set } from 'date-fns';
 import { ORANGE_COLOR } from '~/theme';
+import BackdropComponent from '~/components/Backdrop.component';
 
 const ServiceChooseConPageComponent = () => {
     const [veterians, setVeterians] = useState([]);
+    const [loading, setLoading] = useState([false]);
 
     const handleGetVet = async () => {
+        setLoading(true);
         const serviceId = localStorage.getItem('serviceId');
         try {
             const response = await api.get(`/accounts/veterian-with-time-slot/${serviceId}`);
@@ -23,6 +26,7 @@ const ServiceChooseConPageComponent = () => {
         } catch (err) {
             console.log('ERROR GET VET: ', err);
         }
+        setLoading(false)
     };
     // Optional: useEffect to log the updated state
     useEffect(() => {
@@ -36,6 +40,7 @@ const ServiceChooseConPageComponent = () => {
 
     return (
         <div>
+            <BackdropComponent open={loading} />
             <Box alignItems={'center'} display={'flex'} flexDirection={'column'} gap={'10px'} px={'30px'}>
                 {/* Introduction */}
                 <Introduction />
