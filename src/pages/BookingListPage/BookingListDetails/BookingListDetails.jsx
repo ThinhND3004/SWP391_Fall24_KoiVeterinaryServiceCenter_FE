@@ -21,6 +21,7 @@ import {
   GRAY_COLOR,
   INPUT_FIELD_COLOR,
   ORANGE_COLOR,
+  // RED_COLOR
 } from "~/theme";
 import GradeIcon from "@mui/icons-material/Grade";
 import { ToastContainer, toast } from "react-toastify";
@@ -68,7 +69,7 @@ export default function BookingListDetails() {
   }, [navigate]);
 
   const [filterByStatus, setFilterByStatus] = useState("all");
-  const [filterByTime, setFilterByTime] = useState("today"); // Trạng thái thời gian
+  const [filterByTime, setFilterByTime] = useState("all"); // Trạng thái thời gian
   const today = new Date();
   today.setHours(0, 0, 0, 0); // Lấy ngày hôm nay
 
@@ -126,6 +127,7 @@ export default function BookingListDetails() {
       postComment();
     }
   };
+
   const handleClickOpen = (id) => {
     setCurrAppId(id);
     setOpen(true);
@@ -173,10 +175,94 @@ export default function BookingListDetails() {
       [id]: false,
     }));
   };
+
   const [value, setValue] = React.useState(2);
   const [hover, setHover] = React.useState(-1);
   const notify = () =>
     toast.error("View payment info feature is under development");
+
+  const [openCancelBookingDialogs, setOpenCancelBookingDialogs] = useState({});
+const [cancelReason, setCancelReason] = useState("");
+
+const handleOpenCancelBookingDialog = (appointmentId) => {
+  setOpenCancelBookingDialogs((prev) => ({
+      ...prev,
+      [appointmentId]: true,
+  }));
+};
+
+const handleCloseCancelBookingDialog = (appointmentId) => {
+  setOpenCancelBookingDialogs((prev) => ({
+      ...prev,
+      [appointmentId]: false,
+  }));
+  setCancelReason(""); // Reset lý do hủy khi đóng dialog
+};
+
+
+
+const handleSendCancelBookingRequest = async (appointmentId) => {
+  if (!cancelReason.trim()) {
+    toast.warn("Please enter a reason before sending the request.", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    return;
+  }
+
+  const updateBookingDTO = {
+    additionalInformation: cancelReason,
+    statusEnum: "CANCELED",
+  };
+
+  try {
+    // Gửi yêu cầu cập nhật trạng thái refund
+    const response = await api.put(`/bookings/refund/${appointmentId}`, 
+      updateBookingDTO);
+
+    // Kiểm tra phản hồi từ API
+    if (!response || response.status !== 200) {
+      throw new Error("Failed to refund booking!");
+    }
+
+    // Hiển thị thông báo thành công
+    toast.success("Refund request has been sent successfully.", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      onClose: () => {
+        // Reload lại trang sau khi toast đóng
+        window.location.reload();
+      },
+    });
+
+    // Reset trạng thái và đóng dialog
+    setCancelReason(""); // Xóa lý do hủy sau khi gửi thành công
+    handleCloseCancelBookingDialog(appointmentId);
+  } catch (error) {
+    // Hiển thị thông báo lỗi
+    toast.error("An error occurred while sending the refund request. Please try again.", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  }
+};
+
+
 
   return (
     <div>
@@ -378,6 +464,120 @@ export default function BookingListDetails() {
                 paddingTop: "15px",
               }}
             >
+              {/* Cancel Booking Button */}
+              {(appointment.statusEnum === "PENDING" || 
+  appointment.statusEnum === "CONFIRMED") &&
+  new Date(appointment.startedAt).getTime() - new Date().getTime() > 12 * 60 * 60 * 1000 && (
+  <Box>
+    <button
+      style={{
+        width: "200px",
+        height: "60px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: "#fff",
+        fontFamily: "Poppins",
+        backgroundColor: BLUE_COLOR,
+        borderRadius: "30px",
+        cursor: "pointer",
+      }}
+      onClick={() => handleOpenCancelBookingDialog(appointment.id)}
+    >
+      Cancel Booking
+    </button>
+  </Box>
+)}
+
+
+
+{/* Dialog for Cancel Booking */}
+<Dialog
+    open={openCancelBookingDialogs[appointment.id] || false} // Kiểm tra trạng thái của dialog
+    onClose={() => handleCloseCancelBookingDialog(appointment.id)} // Đóng dialog
+    PaperProps={{
+        sx: {
+            width: "600px",
+            maxWidth: "90%",
+            bgcolor: INPUT_FIELD_COLOR,
+            borderRadius: "30px",
+        },
+    }}
+>
+    <DialogTitle sx={{ marginTop: 4 }}>
+        <Typography
+            sx={{
+                fontWeight: 600,
+                fontSize: 20,
+                textAlign: "center",
+            }}
+        >
+            Cancel Booking
+        </Typography>
+    </DialogTitle>
+    <DialogContent>
+        <DialogContentText
+            sx={{
+                fontWeight: 600,
+                fontSize: 14,
+                textAlign: "center",
+                mb: 2,
+            }}
+        >
+            Please provide a reason for cancelling this booking.
+        </DialogContentText>
+        {/* Textarea for Reason */}
+        <textarea
+            value={cancelReason} // Giá trị được ràng buộc với state
+            onChange={(e) => setCancelReason(e.target.value)} // Cập nhật giá trị state
+            placeholder="Enter your reason here..."
+            style={{
+                width: "100%",
+                height: "100px",
+                borderRadius: "10px",
+                padding: "10px",
+                border: "1px solid #ccc",
+                fontSize: "14px",
+                resize: "none",
+                boxSizing: "border-box",
+                marginBottom: "16px",
+            }}
+        />
+    </DialogContent>
+    <DialogActions>
+        {/* Send Request Button */}
+        <Button
+            onClick={() => handleSendCancelBookingRequest(appointment.id)} // Gửi yêu cầu hủy
+            sx={{
+                bgcolor: ORANGE_COLOR, // Màu đỏ cho nút Send Request
+                borderRadius: "14px",
+                color: "white",
+                width: "150px",
+                height: "40px",
+                mr: 2,
+                mb: 3,
+            }}
+        >
+            Submit
+        </Button>
+        {/* Close Button */}
+        <Button
+            onClick={() => handleCloseCancelBookingDialog(appointment.id)} // Đóng dialog
+            sx={{
+                bgcolor: BLUE_COLOR,
+                borderRadius: "14px",
+                color: "white",
+                width: "100px",
+                height: "40px",
+                mb: 3,
+            }}
+        >
+            Close
+        </Button>
+    </DialogActions>
+</Dialog>
+
+
               <Box>
                 <button
                   style={{
@@ -396,7 +596,7 @@ export default function BookingListDetails() {
                   // onClick={notify}
                   onClick={() => handleDialogOpen(appointment.id)}
                 >
-                  Payment Info
+                  View Details
                 </button>
 
                 <Dialog
@@ -479,7 +679,8 @@ export default function BookingListDetails() {
                         )}
 
                       <Typography variant="body1">
-                        Start At: {appointment.startedAt}
+                        Start At: 
+                        {format(new Date(appointment.startedAt), "dd/MM/yyyy HH:mm")}
                       </Typography>
                       <Typography variant="body1">
                         Status: {appointment.statusEnum}
@@ -534,7 +735,8 @@ export default function BookingListDetails() {
                       </Typography>
 
                       <Typography variant="body1">
-                        Created At: {appointment.createdAt}
+                        Created At: 
+                        {format(new Date(appointment.createdAt), "dd/MM/yyyy HH:mm")}
                       </Typography>
                     </Box>
                   </DialogContent>
@@ -555,6 +757,51 @@ export default function BookingListDetails() {
                     </Button>
                   </DialogActions>
                 </Dialog>
+
+                {/* <Dialog
+                  open={openDialogs[appointment.id] || false} // Kiểm tra trạng thái của dialog
+                  onClose={() => handleDialogClose(appointment.id)} // Đóng dialog
+                  PaperProps={{
+                    sx: {
+                      width: "600px",
+                      maxWidth: "90%",
+                      bgcolor: INPUT_FIELD_COLOR,
+                      borderRadius: "30px",
+                    },
+                  }}
+                >
+                  <DialogTitle sx={{ marginTop: 4 }}>
+                    <Typography
+                      sx={{
+                        fontWeight: 600,
+                        fontSize: 20,
+                        textAlign: "center",
+                      }}
+                    >
+                      Cancel 
+                    </Typography>
+                  </DialogTitle>
+
+                  <DialogContent>
+                      
+                  </DialogContent>
+                  <DialogActions>
+                    <Button
+                      onClick={() => handleDialogClose(appointment.id)} // Đóng dialog
+                      sx={{
+                        bgcolor: BLUE_COLOR,
+                        borderRadius: "14px",
+                        color: "white",
+                        width: "100px",
+                        height: "40px",
+                        mr: 6,
+                        mb: 3,
+                      }}
+                    >
+                      Close
+                    </Button>
+                  </DialogActions>
+                </Dialog> */}
 
                 <ToastContainer />
               </Box>

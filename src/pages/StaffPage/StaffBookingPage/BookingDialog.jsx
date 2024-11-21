@@ -38,7 +38,7 @@ export default function BookingDialog({ booking }) {
             <Typography variant="body1"><strong>Veterian:</strong> {booking.veterinarianFullName}</Typography>
             <Typography variant="body1"><strong>Service:</strong> {booking.serviceName}</Typography>
 
-            <Typography variant="body1"><strong>Description:</strong> {booking.description}</Typography>
+            <Typography variant="body1"><strong>Additional Information:</strong> {booking.additionalInformation}</Typography>
             <Typography variant="body1"><strong>Total Price:</strong> {booking.totalPrice}</Typography>
             <Typography variant="body1"><strong>Distance (m):</strong> {booking.distance_meters}</Typography>
             <Typography variant="body1"><strong>User Address:</strong> {booking.userAddress}</Typography>
