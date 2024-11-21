@@ -1,8 +1,6 @@
 import { BrowserRouter } from "react-router-dom"
 import RouteComponent from "./routes"
 import { GoogleOAuthProvider } from "@react-oauth/google"
-import NotificationHandler from "./components/NotificationHandler"
-import { SnackbarProvider } from "notistack"
 
 function App() {
 
