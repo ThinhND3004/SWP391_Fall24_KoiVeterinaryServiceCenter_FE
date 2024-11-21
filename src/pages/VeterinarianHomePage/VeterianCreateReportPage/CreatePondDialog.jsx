@@ -21,7 +21,7 @@ function CreatePondDialog({ setPond, edit }) {
     const [depth, setDepth] = useState(0);
     const [waterType, setWaterType] = useState('');
     const [temperature, setTemperature] = useState(0);
-    const [pHLevel, setPHLevel] = useState(0);
+    const [pHLevel, setPHLevel] = useState(1);
     const [lastMaintenanceDate, setLastMaintenanceDate] = useState(null);
 
     const [error, setError] = useState({});
@@ -36,8 +36,8 @@ function CreatePondDialog({ setPond, edit }) {
         if (!depth || depth <= 0) newError.depth = 'Depth must be greater than 0!';
         if (!waterType) newError.waterType = 'Water type is required!';
         if (!temperature && temperature != 0) newError.temperature = 'Temperature is required!';
-        if ((!pHLevel && pHLevel != 0) || pHLevel > 14) {
-            if (!pHLevel && pHLevel != 0) {
+        if ((!pHLevel && pHLevel != 1) || pHLevel > 14) {
+            if (!pHLevel && pHLevel != 1) {
                 newError.pHLevel = 'pH level is required!';
             } else if (pHLevel > 14) {
                 newError.pHLevel = 'pH level cannot be greater than 14!';
@@ -180,6 +180,7 @@ function CreatePondDialog({ setPond, edit }) {
                                     label={'pH Level'}
                                     value={pHLevel}
                                     setValue={setPHLevel}
+                                    minRange={1}
                                     maxRange={14}
                                 />
                                 {error.pHLevel && <span style={{ color: 'red', fontSize: '12px' }}>{error.pHLevel}</span>}
