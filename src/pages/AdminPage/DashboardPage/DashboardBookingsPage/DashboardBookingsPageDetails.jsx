@@ -60,19 +60,16 @@ function DashboardPageDetails() {
       <Box sx={{ display: 'flex', gap: 2, mt: 2, alignItems: 'center' }}>
         {/* Chart */}
         <Box sx={{ bgcolor: INPUT_FIELD_COLOR, borderRadius: '20px', height: '320px', mt: 2 }}>
-          <Typography sx={{ fontWeight: 600, fontSize: '16px' }}>
+          <Typography sx={{ fontWeight: 600, fontSize: '16px', textAlign: 'center' }}>
             Start Time Daily
           </Typography>
           <LineChart
             xAxis={[
               {
                 data: data.startTimeDaily ? Object.keys(data.startTimeDaily).map((v) => {
-
                   const [hours, minutes] = v.split('_').map(num => num.padStart(2, '0'));
-
-                   return `${hours}:${minutes}`;
-
-                  }) : [],
+                  return `${hours}:${minutes}`;
+                }) : [],
                 scaleType: 'band'
               }
             ]}
@@ -88,7 +85,7 @@ function DashboardPageDetails() {
           />
         </Box>
         <Box sx={{ bgcolor: INPUT_FIELD_COLOR, borderRadius: '20px', height: '320px', mt: 2 }}>
-          <Typography sx={{ fontWeight: 600, fontSize: '16px' }}>
+          <Typography sx={{ fontWeight: 600, fontSize: '16px', textAlign: 'center' }}>
             Start Time Weekly
           </Typography>
           <LineChart
@@ -105,14 +102,15 @@ function DashboardPageDetails() {
                 baseline: 'min',
               },
             ]}
-            width={500}
+            width={610}
             height={300}
           />
         </Box >
       </Box>
 
-      <Box sx={{ display: 'flex', gap: 2, mb: 5 }}>
-        {/* Chart */}
+
+      {/* Chart */}
+      {/* <Box sx={{ display: 'flex', gap: 2, mb: 5 }}>
         <Box sx={{ bgcolor: INPUT_FIELD_COLOR, borderRadius: '20px', height: '320px', mt: 2 }}>
           <BarChartPro
             sx={{ mt: 3 }}
@@ -133,31 +131,44 @@ function DashboardPageDetails() {
             ]}
           />
         </Box>
-      </Box>
+      </Box> */}
 
       {/* Lower section */}
-      <Box sx={{ display: 'flex', gap: 2, mb: 5 }}>
-        <Box sx={{ bgcolor: INPUT_FIELD_COLOR, borderRadius: '20px', height: '320px', mt: 2 }}>
-          <BarChartPro
-            sx={{ mt: 3 }}
-            width={600}
-            height={300}
-            xAxis={[
-              {
-                scaleType: 'band',
-                data: data.services ? Object.keys(data.services).map((v) => data.services[v].name) : [],
-                zoom: true
-              }
-            ]}
-            series={[
-              {
-                label: 'Chosen services',
-                data: data.services ? Object.keys(data.services).map((v) => data.services[v].count) : []
-              }
-            ]}
-          />
-        </Box>
 
+      {/* <Box sx={{ display: 'flex', gap: 2, mb: 5 }}> */}
+      <Box
+        sx={{
+          bgcolor: INPUT_FIELD_COLOR,
+          borderRadius: '20px',
+          height: '400px',
+          mt: 2,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
+        <BarChartPro
+          sx={{ mt: 3 }}
+          width={800}
+          height={350}
+          xAxis={[
+            {
+              scaleType: 'band',
+              data: data.services ? Object.keys(data.services).map((v) => data.services[v].name) : [],
+              zoom: true
+            }
+          ]}
+          series={[
+            {
+              label: 'Chosen services',
+              data: data.services ? Object.keys(data.services).map((v) => data.services[v].count) : []
+            }
+          ]}
+        />
+      </Box>
+
+
+      <Box sx={{ display: 'flex', gap: 2, mb: 5 }}>
         <Box
           sx={{
             bgcolor: INPUT_FIELD_COLOR,
@@ -188,7 +199,33 @@ function DashboardPageDetails() {
             height={200}
           />
         </Box>
-      </Box >
+
+        <Box sx={{ display: 'flex', gap: 2, mb: 5 }}>
+          <Box sx={{ bgcolor: INPUT_FIELD_COLOR, borderRadius: '20px', height: '320px', mt: 2 }}>
+            <BarChartPro
+              sx={{ mt: 3 }}
+              width={600}
+              height={300}
+              xAxis={[
+                {
+                  scaleType: 'band',
+                  data: data.revenue ? Object.keys(data.revenue) : [],
+                  zoom: true
+                }
+              ]}
+              series={[
+                {
+                  label: 'Revenue',
+                  data: data.revenue ? Object.values(data.revenue) : []
+                }
+              ]}
+            />
+          </Box>
+        </Box>
+      </Box>
+
+
+
     </div >
   )
 }

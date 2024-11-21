@@ -40,7 +40,7 @@ function DashboardVeterinarianDetails() {
       </Breadcrumbs>
 
       <Box sx={{ display: 'flex', mt: 2, gap: 2 }}>
-        <Box sx={{ bgcolor: INPUT_FIELD_COLOR, width: '500px', height: '200px', borderRadius: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+        <Box sx={{ bgcolor: INPUT_FIELD_COLOR, width: '100%', height: '200px', borderRadius: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
           <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
             Total Working Time
           </Typography>
