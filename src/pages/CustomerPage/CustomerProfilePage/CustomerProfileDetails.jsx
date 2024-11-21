@@ -11,6 +11,7 @@ import axios from 'axios'
 import ManagementApi from '~/api/ManagementApi'
 import { toast } from 'react-toastify'
 import api from '~/config/axios'
+import { set } from 'lodash'
 
 function handleClick(event) {
   event.preventDefault()
@@ -21,52 +22,43 @@ function handleClick(event) {
 function Profile() {
   const [userInfo, setUserInfo] = useState({})
   const [avt, setAvt] = useState()
+  const [nameHeader, setNameHeader] = useState({
+    lastName: "",
+    firstName: ""
+  })
 
   const [accInfo, setAccInfo] = useState({})
 
   useEffect(() => {
     const getAccount = async () => {
       const res = await ManagementApi.getCurrentAccount()
+      setAvt(await ManagementApi.getImage(res.imageId))
       if (res)
+      {
         setAccInfo(res)
+        setNameHeader((prev) => ({
+          ...prev,
+          lastName: res.lastName,
+          firstName: res.firstName
+        }))
+      }
+        
     };
 
     getAccount()
 
   }, []);
 
-  useEffect(() => {
-
-    const getAvt = async () => {
-      const res = await ManagementApi.getImage(accInfo.imageId)
-      if (res) {
-        setAvt(res)
-        // console.log(res);
-
-      }
-    }
-
-    getAvt()
-
-  }, [accInfo])
 
 
 
   const handleChangeInfo = (field, value) => {
-    setUserInfo(previuos => ({
+    setAccInfo((previuos) => ({
       ...previuos,
       [field]: value
     }))
   }
 
-  // useEffect(() => {
-  //   if (userInfo.dob) {
-  //     setDob(pre => ({
-  //       ...pre,
-  //       [dob]: dob.format("YYYY-MM-DD")
-  //     }));
-  //   }
-  // }, [])
 
   const handleSetImg = async (event) => {
     const file = event.target.files[0]
@@ -99,59 +91,75 @@ function Profile() {
 
 
   const handleClickSaveChange = async () => {
-    const accInfo = JSON.parse(localStorage.getItem('accountInfo'))
     // console.log("UPDATE DATA: ", userInfo)
     try {
-      // const response = await api.put(`accounts/${accInfo.id}`, {
-      //   firstName: userInfo.firstName,
-      //   lastName: userInfo.lastName,
-      //   dob: userInfo.dob,
-      //   phone: userInfo.phone,
-      //   address: userInfo.add
-      // });
 
-      const response = await api.put(`/accounts/${accInfo.id}`, userInfo)
+      console.log("UPDATE ACC: ", {
+        lastName: accInfo.lastName,
+        firstName: accInfo.firstName,
+        phone: accInfo.phone,
+        dob: accInfo.dob,
+        address: accInfo.address
+      })
+      const response = await api.put(`/accounts/${accInfo.id}`, {
+        lastName: accInfo.lastName,
+        firstName: accInfo.firstName,
+        phone: accInfo.phone,
+        dob: accInfo.dob,
+        address: accInfo.address
+      })
 
-      // console.log("UPDATE RESULT: ", response.data)
+      console.log("UPDATE RESULT: ", response.data)
+      if (response.data.status === 200)
+      {
+        toast.success(response.data.message);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500); 
+      }
+        
+      else
+        toast.error(response.data.message)
+
     } catch {
       console.error("ERROR UPDATE OCCUR!!!")
     }
   }
 
-  const handleGetUserInfo = () => {
-    const accInfo = localStorage.getItem('accountInfo')
-    // console.log('ACCOUNT: ', JSON.parse(accInfo))
-    if (accInfo) {
-      const info = JSON.parse(accInfo)
+  // const handleGetUserInfo = () => {
+  //   const accInfo = localStorage.getItem('accountInfo')
+  //   // console.log('ACCOUNT: ', JSON.parse(accInfo))
+  //   if (accInfo) {
+  //     const info = JSON.parse(accInfo)
 
-      const firstName = info.firstName
-      const lastName = info.lastName
-      const email = info.email
-      const phone = info.phone
-      const dob = info.dob
-      const address = info.address
+  //     const firstName = info.firstName
+  //     const lastName = info.lastName
+  //     const email = info.email
+  //     const phone = info.phone
+  //     const dob = info.dob
+  //     const address = info.address
 
 
-      setUserInfo({
-        firstName,
-        lastName,
-        email,
-        dob,
-        address,
-        phone
-      })
-    }
-  }
+  //     setUserInfo({
+  //       firstName,
+  //       lastName,
+  //       email,
+  //       dob,
+  //       address,
+  //       phone
+  //     })
+  //   }
+  // }
 
-  useEffect(() => {
-    handleGetUserInfo()
-  }, [])
+  // useEffect(() => {
+  //   handleGetUserInfo()
+  // }, [])
 
   return (
     <div style={{ position: 'relative' }}>
       <Breadcrumbs aria-label="breadcrumb">
         <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-          {accInfo.firstName} {accInfo.lastName}
+          {nameHeader.firstName} {nameHeader.lastName}
         </Typography>
         <Typography sx={{
           fontWeight: 600, fontSize: '20px'
@@ -184,7 +192,7 @@ function Profile() {
                 borderRadius: '10px',
                 height: '40px',
               }}
-              onClick={handleClickChangeImgBtn}
+              onClick={() => handleClickChangeImgBtn()}
             >
               Upload new picture
             </Button>
@@ -198,59 +206,37 @@ function Profile() {
 
       {/* Input */}
       <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-around', gap: 10 }}>
-        {/* <Box>
-          <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Profile name</Typography>
-          <TextField
-            id="outlined-basic"
-            placeholder='Enter your first name'
-            variant="outlined"
-            sx={{
-              width: '500px',
-              '& .MuiOutlinedInput-root': {
-                borderRadius: '15px',
-                borderColor: BLUE_COLOR,
-                height: '60px',
-                marginTop: '15px',
-                '&.Mui-focused fieldset': {
-                  borderColor: BLUE_COLOR
-                }
-              },
-              '& input': {
-                backgroundColor: INPUT_FIELD_COLOR,
-                padding: '20px 15px',
-                fontSize: '16px',
-                borderRadius: '15px'
-              }
-            }}
-          />
-        </Box> */}
+
         <Box>
           <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Email</Typography>
-          <TextField
-            id="outlined-basic"
-            placeholder='Enter your first name'
-            variant="outlined"
-            value={accInfo.email}
-            disabled
+          <Typography
             sx={{
-              width: '1090px',
-              '& .MuiOutlinedInput-root': {
-                borderRadius: '15px',
-                borderColor: BLUE_COLOR,
-                height: '60px',
-                marginTop: '15px',
-                '&.Mui-focused fieldset': {
-                  borderColor: BLUE_COLOR
-                }
-              },
-              '& input': {
-                backgroundColor: INPUT_FIELD_COLOR,
-                padding: '20px 15px',
-                fontSize: '16px',
-                borderRadius: '15px'
-              }
+              width: '500px',
+              borderRadius: '15px',
+              height: '60px',
+              marginTop: '15px',
+              padding: '20px 0px',
+              fontSize: '16px'
             }}
-          />
+          >
+            {accInfo ? accInfo.email : 'Loading...'}
+          </Typography>
+        </Box>
+
+        <Box>
+          <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Role</Typography>
+          <Typography
+            sx={{
+              width: '500px',
+              borderRadius: '15px',
+              height: '60px',
+              marginTop: '15px',
+              padding: '20px 0px',
+              fontSize: '16px',
+            }}
+          >
+            {accInfo ? accInfo.role : 'Loading...'}
+          </Typography>
         </Box>
       </Box>
       <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-around', gap: 10 }}>
@@ -259,9 +245,9 @@ function Profile() {
           <TextField
             id="outlined-basic"
             placeholder='Enter your first name'
+            value={accInfo ? accInfo.firstName : 'Loading...'}
+            onChange={(e) => handleChangeInfo('firstName', e.target.value)}
             variant="outlined"
-            value={accInfo.firstName}
-            onChange={(e) => { handleChangeInfo('firstName', e.target.value) }}
             sx={{
               width: '500px',
               '& .MuiOutlinedInput-root': {
@@ -287,9 +273,9 @@ function Profile() {
           <TextField
             id="outlined-basic"
             placeholder='Enter your last name'
+            value={accInfo ? accInfo.lastName : 'Loading...'}
+            onChange={(e) => handleChangeInfo('lastName', e.target.value)}
             variant="outlined"
-            value={accInfo.lastName}
-            onChange={(e) => { handleChangeInfo('lastName', e.target.value) }}
             sx={{
               width: '500px',
               '& .MuiOutlinedInput-root': {
@@ -308,7 +294,7 @@ function Profile() {
                 borderRadius: '15px'
               }
             }}
-          />
+          ></TextField>
         </Box>
       </Box>
       <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-around', gap: 10 }}>
@@ -317,9 +303,9 @@ function Profile() {
           <TextField
             id="outlined-basic"
             placeholder='Enter your phone number'
+            value={accInfo ? accInfo.phone : 'Loading...'}
+            onChange={(e) => handleChangeInfo('phone', e.target.value)}
             variant="outlined"
-            value={accInfo.phone}
-            onChange={(e) => { handleChangeInfo('phone', e.target.value) }}
             sx={{
               width: '500px',
               '& .MuiOutlinedInput-root': {
@@ -347,7 +333,6 @@ function Profile() {
             <DemoContainer
               components={['DatePicker']}
               variant='outlined'
-
               sx={{
                 overflow: 'hidden',
                 width: '500px',
@@ -369,8 +354,8 @@ function Profile() {
               <DatePicker
                 placeholder="Select your date"
                 label=''
-                value={dayjs(accInfo.dob)}
-                onChange={(e) => { handleChangeInfo('dob', e.target.value) }}
+                value={accInfo ? dayjs(accInfo.dob) : null}
+                onChange={(date) => handleChangeInfo('dob', dayjs(date).format('YYYY-MM-DD'))}
                 sx={{
                   backgroundColor: INPUT_FIELD_COLOR,
                   width: '600px',
@@ -382,15 +367,15 @@ function Profile() {
         </Box>
       </Box>
 
-      <Box sx={{ mt: 5, mb: '40px' }}>
+      <Box sx={{ mt: 5, mb: '80px' }}>
         <Typography sx={{ fontWeight: 600, fontSize: 16 }}>Address</Typography>
         <TextField
           id="outlined-basic"
           placeholder='Enter your address'
+          value={accInfo ? accInfo.address : 'Loading...'}
+          onChange={(e) => handleChangeInfo('address', e.target.value)}
           variant="outlined"
           type='text'
-          onChange={(e) => { handleChangeInfo('add', e.target.value) }}
-          value={accInfo.address}
           sx={{
             width: '1090px',
             '& .MuiOutlinedInput-root': {
@@ -481,7 +466,7 @@ function Profile() {
           marginTop: '40px'
         }}
       >
-        {/* <Box
+        <Box
           sx={{
             display: 'flex',
             width: '200px',
@@ -505,11 +490,11 @@ function Profile() {
               color: '#fff',
               fontFamily: 'Poppins'
             }}
-            onClick={handleClickSaveChange}
+            onClick={() => handleClickSaveChange()}
           >
             Save changes
           </Button>
-        </Box> */}
+        </Box>
       </Box>
     </div>
   )

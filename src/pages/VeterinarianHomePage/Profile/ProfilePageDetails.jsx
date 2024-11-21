@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button'
-import { Box, TextField, Typography } from '@mui/material'
+import { Avatar, Box, TextField, Typography } from '@mui/material'
 import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from '~/theme'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
@@ -11,24 +11,110 @@ import Timetable from '~/pages/Management/Verterian/Timetable'
 import ManagementApi from '~/api/ManagementApi'
 import dayjs from 'dayjs'
 import VerterianProfile from './VeterianProfile'
+import api from '~/config/axios'
+import { set, update } from 'lodash'
+import { toast } from 'react-toastify'
 
 function ProfilePageDetails() {
-  const [account, setAccount] = useState(null);
+  const [avt, setAvt] = useState();
+  const [account, setAccount] = useState({});
+  const [nameHeader, setNameHeader] = useState({
+    lastName: "",
+    firstName: ""
+  })
 
-  const fetchAccount = async () => {
-    const accountData = await ManagementApi.getCurrentAccount();
-    setAccount(accountData)
+  const fillUpdateAcc = (field, value) => {
+    setAccount((prev) => ({
+      ...prev,
+      [field]: value
+    }));
   }
 
+
+
   useEffect(() => {
+    const fetchAccount = async () => {
+      const accountData = await ManagementApi.getCurrentAccount();
+      setAvt(await ManagementApi.getImage(accountData.imageId))
+      setAccount(accountData)
+      setNameHeader({
+        lastName: accountData.lastName,
+        firstName: accountData.firstName
+      })
+    }
+
+
     fetchAccount();
+
+    console.log("ACCOUNT: ", account)
   }, []);
+
+
+  const handleSetImg = async (event) => {
+    const file = event.target.files[0]
+
+    if (file) {
+      try {
+        const formData = new FormData();
+        formData.append("file", file);  // Ensure "file" matches @RequestParam("file") in the backend
+        console.log("ACC ID SET AVT: ", account)
+        const response = await api.post(`/images/setAvt/${account.id}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        });
+
+        toast.success(response.data.message)
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      } catch (err) {
+        console.error('SET IMG ERR: ', err)
+      }
+    } 
+
+  }
+
+  const handleClickChangeImgBtn = () => {
+    document.getElementById("file-input").click()
+  }
+
+
+
+  const handleUpdateVetAcc = async () => {
+    try {
+      
+      // const updatedAccount = { ...account, disable: false };
+      
+
+      const response = await api.put(`accounts/${account.id}`, { 
+        firstName: account.firstName,
+        lastName: account.lastName,
+        dob: account.dob,
+        phone: account.phone,
+        address: account.address
+      });
+      if (response.data.status === 200)
+        {
+          toast.success(response.data.message);
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500); 
+        }
+          
+        else
+          toast.error(response.data.message)
+    } catch (err) {
+      console.log("UPDATE ERR: ", err);
+    }
+
+  }
 
   return (
     <div style={{ position: 'relative' }}>
       <Breadcrumbs aria-label="breadcrumb">
         <Typography sx={{ fontWeight: 600, fontSize: '20px' }}>
-          Veterinarian
+          {nameHeader.firstName} {nameHeader.lastName}
         </Typography>
         <Typography sx={{
           fontWeight: 600, fontSize: '20px'
@@ -39,13 +125,30 @@ function ProfilePageDetails() {
       </Breadcrumbs>
 
       <Box sx={{ display: 'flex', alignItems: 'center', mt: 3 }}>
-        <img
-          src="https://scontent.fsgn5-6.fna.fbcdn.net/v/t39.30808-6/462711740_18005468618659508_2399165263118220467_n.jpg?_nc_cat=1&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGgpYmZozIN8KHUTZoNLzjGU-vZdd6xRrVT69l13rFGtantx4zkHnpDZHBJOis87DDVjUIpZvcdv5zvbhPL48IS&_nc_ohc=uqKFgbi2lTEQ7kNvgEQtt6i&_nc_ht=scontent.fsgn5-6.fna&_nc_gid=ABnDpDsis1fk5uA5uWyXpqV&oh=00_AYDLmxD5gdEYkVp0AOoNzOs0kQZ41mHFTEBBGrLbFeJKvQ&oe=670F28A5"
+        <Avatar
+          src={avt}
           style={{ width: '90px', height: '90px', borderRadius: '50%', marginRight: '20px' }}
         />
         <Box>
           <Box sx={{ display: 'flex', width: '400px', height: '30px', gap: 2 }}>
-            <Button variant="contained" sx={{ boxShadow: 'none', fontSize: '16px', bgcolor: INPUT_FIELD_COLOR, borderRadius: '10px', height: '40px' }}>
+            <input
+              id="file-input"
+              type="file"
+              accept="image/*"
+              style={{ display: 'none' }}
+              onChange={handleSetImg}
+            />
+            <Button
+              variant="contained"
+              sx={{
+                boxShadow: 'none',
+                fontSize: '16px',
+                bgcolor: '#D6EAE8',
+                borderRadius: '10px',
+                height: '40px',
+              }}
+              onClick={() => handleClickChangeImgBtn()}
+            >
               Upload new picture
             </Button>
 
@@ -98,6 +201,7 @@ function ProfilePageDetails() {
             id="outlined-basic"
             placeholder='Enter your first name'
             value={account ? account.firstName : 'Loading...'}
+            onChange={(e) => fillUpdateAcc('firstName', e.target.value)}
             variant="outlined"
             sx={{
               width: '500px',
@@ -125,6 +229,7 @@ function ProfilePageDetails() {
             id="outlined-basic"
             placeholder='Enter your last name'
             value={account ? account.lastName : 'Loading...'}
+            onChange={(e) => fillUpdateAcc('lastName', e.target.value)}
             variant="outlined"
             sx={{
               width: '500px',
@@ -154,6 +259,7 @@ function ProfilePageDetails() {
             id="outlined-basic"
             placeholder='Enter your phone number'
             value={account ? account.phone : 'Loading...'}
+            onChange={(e) => fillUpdateAcc('phone', e.target.value)}
             variant="outlined"
             sx={{
               width: '500px',
@@ -204,6 +310,7 @@ function ProfilePageDetails() {
                 placeholder="Select your date"
                 label=''
                 value={account ? dayjs(account.dob) : null}
+                onChange={(date) => fillUpdateAcc('dob', dayjs(date).format('YYYY-MM-DD'))}
                 sx={{
                   backgroundColor: INPUT_FIELD_COLOR,
                   width: '600px',
@@ -221,6 +328,7 @@ function ProfilePageDetails() {
           id="outlined-basic"
           placeholder='Enter your address'
           value={account ? account.address : 'Loading...'}
+          onChange={(e) => fillUpdateAcc('address', e.target.value)}
           variant="outlined"
           type='text'
           sx={{
@@ -265,7 +373,7 @@ function ProfilePageDetails() {
             cursor: 'pointer'
           }}
         >
-          <Box
+          <Button
             sx={{
               width: 'calc(250px - 45px)',
               height: '60px',
@@ -275,9 +383,10 @@ function ProfilePageDetails() {
               color: '#fff',
               fontFamily: 'Poppins'
             }}
+            onClick={() => handleUpdateVetAcc()}
           >
             Save changes
-          </Box>
+          </Button>
         </Box>
 
       </Box>
