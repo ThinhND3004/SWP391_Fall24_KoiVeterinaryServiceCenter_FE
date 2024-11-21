@@ -37,9 +37,9 @@ function CreateReportPage({ booking }) {
             return;
         }
         setOpenAlert(false);
-    
+
         setTimeout(() => {
-            navigate(-1); 
+            navigate(-1);
         }, 500);
     };
 
@@ -98,7 +98,7 @@ function CreateReportPage({ booking }) {
                     // SEND EMAIL
                     await ManagementApi.sendReportEmail({
                         bookingId: booking.id,
-                        companyWebsite: baseUrl+'booking-list',
+                        companyWebsite: baseUrl + 'booking-list',
                         companyName: 'Koi Veterinary Service Center'
                     })
                     navigate(-1);
@@ -144,14 +144,14 @@ function CreateReportPage({ booking }) {
                 <Alert onClose={handleCloseAlert} severity="success" sx={{ width: '100%' }}>
                     Create report successfully!
                 </Alert>
-                
+
             </Snackbar>
 
             <Snackbar open={errorAlert} autoHideDuration={6000} onClose={handleCloseAlert}>
-                <Alert onClose={() => {setErrorAlert(false)}} severity="error" sx={{ width: '100%' }}>
+                <Alert onClose={() => { setErrorAlert(false) }} severity="error" sx={{ width: '100%' }}>
                     Create failed!
                 </Alert>
-                
+
             </Snackbar>
 
 

@@ -7,7 +7,7 @@ export default function NumberInput({ value, setValue, minRange, maxRange }) {
         const value = event.target.value;
         if (!minRange) minRange = 0;
         if (value >= minRange) {
-            if( !maxRange || value <= maxRange){
+            if (!maxRange || value <= maxRange) {
                 setValue(value);
             }
         }
@@ -26,7 +26,8 @@ export default function NumberInput({ value, setValue, minRange, maxRange }) {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                width: 120,
+                // width: '400px',
+                width: '120px',
                 '& .MuiOutlinedInput-root': {
                     borderRadius: '15px',
                     borderColor: BLUE_COLOR,

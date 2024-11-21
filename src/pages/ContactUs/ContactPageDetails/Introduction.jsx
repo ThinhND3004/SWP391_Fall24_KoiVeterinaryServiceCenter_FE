@@ -18,9 +18,19 @@ function Introduction() {
         </Box>
         <Box>
 
-          <Box sx={{ display: 'flex', marginTop: '40px', justifyContent: 'space-between' }}>
+          <Box sx={{
+            display: 'flex',
+            marginTop: '40px',
+            justifyContent: 'space-between'
+          }}>
             <Box>
-              <Typography sx={{ fontWeight: 600, fontSize: 18 }}>First name</Typography>
+              <Typography
+                sx={{
+                  fontWeight: 600,
+                  fontSize: 18
+                }}>
+                First name
+              </Typography>
               <TextField
                 id="outlined-basic"
                 placeholder='Enter your first name'

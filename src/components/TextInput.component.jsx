@@ -14,7 +14,8 @@ export default function TextInput({ value, setValue, width }) {
       value={value}
       onChange={handleChange}
       sx={{
-        width: width,
+        // width: width,
+        width: '570px',
         '& .MuiOutlinedInput-root': {
           borderRadius: '15px',
           borderColor: BLUE_COLOR,
