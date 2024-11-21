@@ -11,6 +11,8 @@ import { useLocation } from "react-router-dom";
 import dayjs from "dayjs";
 import { BLUE_COLOR, INPUT_FIELD_COLOR, ORANGE_COLOR } from "~/theme";
 import api from "~/config/axios";
+import { toast } from "react-toastify";
+
 // import { cwd } from "process";
 
 import utc from "dayjs/plugin/utc";
@@ -29,17 +31,20 @@ const ConfirmBookingDetails = () => {
 
   let pondPrice = 0;
 
-  if (createBookingDTO.pondSize === 'SMALL_POND') {
+  if (createBookingDTO.pondSize === "SMALL_POND") {
     pondPrice = serviceEntity.smallPondPrice;
-  } else if (createBookingDTO.pondSize === 'MEDIUM_POND') {
+  } else if (createBookingDTO.pondSize === "MEDIUM_POND") {
     pondPrice = serviceEntity.mediumPondPrice;
   } else {
     pondPrice = serviceEntity.largePondPrice;
   }
 
-  console.log(createBookingDTO);
+  console.log("createBookingDTO:", JSON.stringify(createBookingDTO, null, 2));
+  console.log(
+    "veterinarianEntity:",
+    JSON.stringify(veterinarianEntity, null, 2)
+  );
   console.log(createBookingDTO.startAt);
-  console.log(veterinarianEntity);
 
   const totalPrice =
     serviceEntity.price + //Service Price
@@ -47,52 +52,91 @@ const ConfirmBookingDetails = () => {
     serviceEntity.pricePerKoi * createBookingDTO.koiQuantity +
     pondPrice;
 
-  /**
-   *
-   * @param {*} orderId
-   */
-  const handlePayment = async (createBookingDTO) => {
-    try {
-      console.log(createBookingDTO.veterianEmail);
+    const [bookingDTO, setBookingDTO] = useState(null);
 
-      // Lưu createBookingDTO vào localStorage
-      localStorage.setItem(
-        "createBookingDTO",
-        JSON.stringify(createBookingDTO)
-      );
 
-      const token = localStorage.getItem("token"); // get token from localStorage
-
-      //transaction.paymentMethod
-      const paymentType = "BOOKING"; // Thay đổi theo giá trị của enum bạn đang sử dụng
-
-      const response = await api.post(
-        `/vnpay/create-payment`,
-        {
-          payment: paymentType, // Loại thanh toán
-          totalPrice: totalPrice, // Giả sử bạn đã tính toán totalPrice ở đâu đó trong mã
+    /**
+     * 
+     * @param {*} createBookingDTO 
+     * @returns 
+     */
+    const createBooking = async (createBookingDTO) => {
+      try {
+        const response = await api.post('/bookings', createBookingDTO);
+    
+        if (!response || !response.data) {
+          throw new Error('Failed to create booking');
         }
-      );
-
-      const result = response.data;
-      if (!response) {
-
-        throw new Error(result.message || "Failed to create payment");
+    
+        const bookingResult = response.data; // BookingDTO trả về từ backend
+        console.log("Booking created:", bookingResult);
+    
+        // Lưu bookingResult vào localStorage để sử dụng sau  //cần đc sửa lại
+        localStorage.setItem("BookingDTO", JSON.stringify(bookingResult.data));
+    
+        return bookingResult; // Trả về BookingDTO
+      } catch (error) {
+        console.error('Error creating booking:', error);
+        throw new Error(`Error creating booking: ${error.message}`);
       }
+    };
+    
 
-      console.log(result);
-
-      // Redirect người dùng tới URL thanh toán VNPay
-      if (result.data) {
-        window.location.href = result.data; // result.data sẽ là URL thanh toán VNPay trả về từ backend
-      } else {
-        throw new Error("Payment URL not found in response.");
+    /**
+     * 
+     * @param {*} totalPrice 
+     * @param {*} paymentType 
+     */
+    const makePayment = async (totalPrice, paymentType) => {
+      try {
+        const response = await api.post('/vnpay/create-payment', {
+          payment: paymentType,
+          totalPrice: totalPrice,
+        });
+    
+        const result = response.data;
+        if (!response || !result || !result.data) {
+          throw new Error(result.message || "Failed to create payment");
+        }
+    
+        console.log("Payment URL:", result.data);
+    
+        // Redirect người dùng tới URL thanh toán
+        window.location.href = result.data; // URL thanh toán VNPay
+      } catch (error) {
+        console.error("Error creating payment:", error);
+        throw new Error(`Error creating payment: ${error.message}`);
       }
-    } catch (error) {
-      console.error("Error creating payment: ", error);
-      alert(`Error creating payment: ${error.message}`);
-    }
-  };
+    };
+
+    /**
+     * 
+     * @param {*} createBookingDTO 
+     */
+    const handlePayment = async (createBookingDTO) => {
+      try {
+        // 1. Tạo booking
+        const bookingResult = await createBooking(createBookingDTO);
+
+        if (bookingResult.status === 200){
+        // Hiển thị thông tin booking trả về
+        console.log("Total Price:", bookingResult.data.totalPrice);
+        console.log("Status Enum:", bookingResult.data.statusEnum);
+        console.log("Veterinarian Full Name:", bookingResult.data.veterinarianFullName);
+    
+        // 2. Tiến hành thanh toán dựa trên bookingResult
+        await makePayment(bookingResult.data.totalPrice, "BOOKING");
+        } else {
+          // alert(bookingResult.err)
+          toast.error("Error: " + bookingResult.err);
+          // window.location.href = "/online-consultant";
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    
+    
 
   return (
     <Box
@@ -260,7 +304,7 @@ const ConfirmBookingDetails = () => {
               )}
 
             {serviceEntity.name === "Pond Quality" && (
-                <Box sx={{ mb: 3 }}>
+              <Box sx={{ mb: 3 }}>
                 <Typography
                   sx={{ marginRight: "8px", fontWeight: 500, fontSize: 16 }}
                 >
@@ -495,7 +539,7 @@ const ConfirmBookingDetails = () => {
               </Typography>
             </Box>
 
-          {/* {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
+            {/* {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
             createBookingDTO.meetingMethod !== "ONLINE" && (
               <Box display="flex" alignItems="center">
                 <Typography sx={{ marginRight: "8px", fontWeight: 500, fontSize: 16 }}>
@@ -505,23 +549,24 @@ const ConfirmBookingDetails = () => {
               </Box>
             )} */}
 
-          {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
-            createBookingDTO.meetingMethod !== "ONLINE" && (
-            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Typography
-                sx={{ marginRight: "8px", fontWeight: 500, fontSize: 16 }}
-              >
-                Travel Price:
-              </Typography>
+            {createBookingDTO.meetingMethod !== "OFFLINE_CENTER" &&
+              createBookingDTO.meetingMethod !== "ONLINE" && (
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                  <Typography
+                    sx={{ marginRight: "8px", fontWeight: 500, fontSize: 16 }}
+                  >
+                    Travel Price:
+                  </Typography>
 
-              <Typography>
-                {new Intl.NumberFormat("vi-VN").format(
-                  serviceEntity.travelPricePerMeter *
-                    createBookingDTO.distanceMeters
-                )}{" "}
-                VND
-              </Typography>
-            </Box>)}
+                  <Typography>
+                    {new Intl.NumberFormat("vi-VN").format(
+                      serviceEntity.travelPricePerMeter *
+                        createBookingDTO.distanceMeters
+                    )}{" "}
+                    VND
+                  </Typography>
+                </Box>
+              )}
 
             {serviceEntity.name !== "Pond Quality" &&
               serviceEntity.name !== "Online Consultant" && (
@@ -550,15 +595,10 @@ const ConfirmBookingDetails = () => {
                 </Typography>
 
                 <Typography>
-                  {new Intl.NumberFormat("vi-VN").format(
-                    pondPrice
-                  )}{" "}
-                  VND
+                  {new Intl.NumberFormat("vi-VN").format(pondPrice)} VND
                 </Typography>
-
               </Box>
-            )
-          }
+            )}
 
             <Box
               display="flex"

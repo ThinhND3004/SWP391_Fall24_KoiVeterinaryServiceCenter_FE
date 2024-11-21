@@ -14,8 +14,6 @@ const PaymentResult = () => {
 
   const successMessage =
     vnp_ResponseCode === '00' ? 'Payment Successful!' : 'Payment Unsuccessful!';
-
-  // const [createBookingDTO, setCreateBookingDTO] = useState(null);
   const [bookingDTO, setBookingDTO] = useState(null);
   const [isBookingCreated, setIsBookingCreated] = useState(false);
 
@@ -23,51 +21,42 @@ const PaymentResult = () => {
   const bookingAttempted = useRef(false);
 
   useEffect(() => {
-    const savedBooking = localStorage.getItem('createBookingDTO');
+    const BookingDTO = localStorage.getItem("BookingDTO");
 
-    // Lấy thông tin booking từ localStorage
+    console.log(BookingDTO);
     if (
-      savedBooking &&
-      vnp_ResponseCode === '00' &&
-      !isBookingCreated &&
-      !bookingAttempted.current
+      // BookingDTO !== null &&
+      vnp_ResponseCode === '00' //&&
     ) {
-      const bookingData = JSON.parse(savedBooking);
-      // setCreateBookingDTO(bookingData);
-      createBooking(bookingData);
-      bookingAttempted.current = true; // Đánh dấu là đã thử tạo booking
+      const bookingData = JSON.parse(BookingDTO);
+      updateStatus(bookingData);
     }
 
     console.log('Response Code:', vnp_ResponseCode);
     console.log('Order ID:', orderId);
     console.log('Amount:', amount);
-    // console.log("Created At:", createAt);
 
     // Xóa createBookingDTO khỏi localStorage
-    localStorage.removeItem('createBookingDTO');
+    localStorage.removeItem('BookingDTO');
   }, [vnp_ResponseCode, isBookingCreated]);
 
-  const createBooking = async (bookingData) => {
-    try {
-      const token = localStorage.getItem('token');
 
-      const response = await api.post('/bookings', 
-          bookingData
-      );
+  const updateStatus = async (bookingDTO) => {
+    console.log(bookingDTO);
+
+    try {
+
+      const response = await api.put(`/bookings/change-status/${bookingDTO.id}`);
 
       if (!response) {
-        throw new Error('Failed to create booking');
+        throw new Error('Failed to change status');
       }
 
       const bookingResult = await response.data;
 
-      console.log('Booking Data from localStorage:', bookingData);
-      console.log('VET ID:', bookingData.veterinarianId);
-
       console.log(bookingResult);
 
       setBookingDTO(bookingResult.data);
-      setIsBookingCreated(true); // Đánh dấu booking đã được tạo
     } catch (error) {
       console.error('Error creating booking: ', error);
       alert(`Error creating booking: ${error.message}`);
@@ -89,7 +78,7 @@ const PaymentResult = () => {
         {successMessage}
       </Typography>
       <Typography sx={{ fontWeight: 500, fontSize: 18, mt: 2 }}>Order Code: {orderId}</Typography>
-      <Typography sx={{ fontWeight: 700, fontSize: 18, color: ORANGE_COLOR, mt: 2 }}>Total Price: {amount / 100} VND</Typography>
+      <Typography sx={{ fontWeight: 700, fontSize: 18, color: ORANGE_COLOR, mt: 2 }}>Total Price: {new Intl.NumberFormat("vi-VN").format(amount/100)} VND</Typography>
       {/* <Typography variant="body1">Created At: {createAt}</Typography> */}
 
 

@@ -52,10 +52,16 @@ export default function BookingDialog({ booking }) {
               <Typography><strong>Veterian:</strong> {booking.veterinarianFullName}</Typography>
               <Typography><strong>Service:</strong> {booking.serviceName}</Typography>
 
-              <Typography><strong>Description:</strong> {booking.description}</Typography>
-              <Typography><strong>Total Price:</strong> {booking.totalPrice}</Typography>
-              <Typography><strong>Distance (m):</strong> {booking.distance_meters}</Typography>
-              <Typography><strong>User Address:</strong> {booking.userAddress}</Typography>
+              <Typography><strong>Additional Information:</strong> {booking.additionalInformation}</Typography>
+              <Typography><strong>Total Price:</strong> {booking.totalPrice} VND </Typography>
+              {booking.meetingMethod !== "ONLINE" && (
+                <Typography><strong>Distance (m):</strong> {booking.distance_meters} km</Typography>
+              )}
+
+              {booking.meetingMethod !== "ONLINE" && (
+                <Typography><strong>User Address:</strong> {booking.userAddress}</Typography>
+              )}
+
               <Typography><strong>Status:</strong> {booking.statusEnum}</Typography>
 
               <Typography><strong>Created At:</strong> {TimeUtils.formatDateTime(booking.createdAt)}</Typography>
