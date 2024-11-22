@@ -270,7 +270,7 @@ export default function BookingListDetails() {
           marginTop: 2,
         }}
       >
-        - If you need to cancel or change your booking details, please contact
+        - If you have any question, please contact
         us at{" "}
         <Box component="span" sx={{ fontWeight: 700 }}>
           0829207487
@@ -284,7 +284,7 @@ export default function BookingListDetails() {
           marginBottom: 8,
         }}
       >
-        - If have any question, please contact us{" "}
+        - If want to cancel booking, please cancel {" "}
         <Box component="span" sx={{ fontWeight: 700 }}>
           at least 12 hours
         </Box>{" "}
